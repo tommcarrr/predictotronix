@@ -67,10 +67,11 @@ export default async function AdminDashboardPage() {
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {[
           { href: '/admin/leagues', label: 'Leagues & Invite Links', desc: 'Manage leagues, generate invites' },
-          { href: '/admin/seasons', label: 'Seasons', desc: 'Create and manage seasons' },
+          { href: '/admin/seasons', label: 'Seasons', desc: 'Create and manage seasons, enrol participants' },
           { href: '/admin/participants', label: 'Participants', desc: 'Manage players, approve requests, add offline participants' },
           { href: '/admin/fixtures', label: 'Fixtures & Results', desc: 'Sync fixtures, correct results' },
           { href: '/admin/exports', label: 'Exports & Clipboard', desc: 'Copy leaderboards, fixture lists, reports' },
+          { href: '/admin/test-tools', label: 'Test Season Tools', desc: 'Inject results, fast-forward gameweeks (test/demo seasons only)' },
         ].map((link) => (
           <a
             key={link.href}
