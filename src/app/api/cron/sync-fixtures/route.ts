@@ -1,0 +1,53 @@
+import { NextResponse, type NextRequest } from 'next/server';
+import { createServiceClient } from '@/lib/supabase/server';
+import { ApiFootballProvider } from '@/lib/api-football/client';
+import { syncFixtures } from '@/lib/sync/fixtures';
+
+function validateCronSecret(request: NextRequest): boolean {
+  const secret = request.headers.get('x-cron-secret');
+  return !!process.env.CRON_SECRET && secret === process.env.CRON_SECRET;
+}
+
+export async function POST(request: NextRequest) {
+  if (!validateCronSecret(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const supabase = await createServiceClient();
+    const provider = new ApiFootballProvider();
+
+    const { data: seasons, error } = await supabase
+      .from('seasons')
+      .select('id, api_football_league_id, api_football_season')
+      .eq('status', 'active')
+      .eq('season_type', 'production')
+      .not('api_football_league_id', 'is', null);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const results = [];
+
+    for (const season of seasons ?? []) {
+      const result = await syncFixtures(
+        supabase,
+        provider,
+        season.id,
+        season.api_football_league_id!,
+        season.api_football_season!
+      );
+      results.push({ seasonId: season.id, ...result });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      timestamp: new Date().toISOString(),
+      results,
+    });
+  } catch (err) {
+    console.error('[cron/sync-fixtures]', err);
+    return NextResponse.json({ error: String(err) }, { status: 500 });
+  }
+}

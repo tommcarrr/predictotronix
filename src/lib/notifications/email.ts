@@ -1,0 +1,57 @@
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export interface ReminderEmailParams {
+  to: string;
+  displayName: string;
+  gameweekLabel: string;
+  firstKickoff: Date;
+  predictionsUrl: string;
+  isDryRun?: boolean;
+}
+
+export interface EmailResult {
+  success: boolean;
+  messageId?: string;
+  error?: string;
+  dryRun?: boolean;
+}
+
+export async function sendReminderEmail(params: ReminderEmailParams): Promise<EmailResult> {
+  const { to, displayName, gameweekLabel, firstKickoff, predictionsUrl, isDryRun } = params;
+
+  if (isDryRun) {
+    console.log('[DRY RUN] Would send reminder email to:', to, { gameweekLabel });
+    return { success: true, dryRun: true };
+  }
+
+  const kickoffStr = firstKickoff.toLocaleString('en-GB', {
+    timeZone: 'Europe/London',
+    dateStyle: 'full',
+    timeStyle: 'short',
+  });
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'Predictotronix <no-reply@predictotronix.app>',
+      to,
+      subject: `⚽ ${gameweekLabel} predictions reminder`,
+      html: `
+        <p>Hi ${displayName},</p>
+        <p>Don't forget to submit your predictions for <strong>${gameweekLabel}</strong>!</p>
+        <p>First kickoff: <strong>${kickoffStr}</strong></p>
+        <p><a href="${predictionsUrl}">Submit predictions →</a></p>
+        <p>Good luck!</p>
+      `,
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, messageId: data?.id };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
