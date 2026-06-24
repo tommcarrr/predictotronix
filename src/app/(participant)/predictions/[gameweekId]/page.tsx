@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server';
 import { isKickoffLocked } from '@/lib/scoring';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: Promise<{ gameweekId: string }>;
 }

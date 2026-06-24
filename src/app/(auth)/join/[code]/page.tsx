@@ -3,6 +3,8 @@ import { getUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { submitJoinRequest } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: Promise<{ code: string }>;
 }
