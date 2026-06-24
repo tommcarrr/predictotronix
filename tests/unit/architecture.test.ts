@@ -9,6 +9,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, relative } from 'path';
+import ts from 'typescript';
 
 const ROOT = join(__dirname, '../../src');
 
@@ -94,4 +95,62 @@ describe('Third-party API clients must not be instantiated at module level', () 
       expect(violations, `${rule.label} module-level instantiation in:\n  ${paths.join('\n  ')}`).toHaveLength(0);
     });
   }
+});
+
+// ---------------------------------------------------------------------------
+// Rule 3: Every source file must be syntactically valid
+//
+// A malformed edit (e.g. `export const dynamic = 'force-dynamic';() {`) is a
+// pure syntax error that `tsc --noEmit` and the production build both reject,
+// but which the text-based rules above do not catch.  We run every source file
+// through the TypeScript parser (transpile-only, no type checking — fast) and
+// assert there are zero syntactic diagnostics.  This is the cheapest possible
+// guard against a parse error reaching deploy.
+// ---------------------------------------------------------------------------
+describe('Every source file is syntactically valid', () => {
+  const allFiles = collectFiles(ROOT);
+
+  it('has no files with syntax errors', () => {
+    const failures: string[] = [];
+
+    for (const file of allFiles) {
+      const src = readFileSync(file, 'utf8');
+      const { diagnostics } = ts.transpileModule(src, {
+        fileName: file,
+        reportDiagnostics: true,
+        compilerOptions: { jsx: ts.JsxEmit.Preserve, target: ts.ScriptTarget.ESNext },
+      });
+
+      const syntaxErrors = (diagnostics ?? []).filter((d) => d.category === ts.DiagnosticCategory.Error);
+      if (syntaxErrors.length > 0) {
+        const messages = syntaxErrors
+          .map((d) => ts.flattenDiagnosticMessageText(d.messageText, '\n'))
+          .join('; ');
+        failures.push(`${relative(ROOT, file)}: ${messages}`);
+      }
+    }
+
+    expect(failures, `Syntax errors found in:\n  ${failures.join('\n  ')}`).toHaveLength(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Rule 4: Every page.tsx must have a default export
+//
+// Next.js requires each route segment's page file to default-export a React
+// component.  A botched edit can destroy the `export default` (as happened to
+// the leaderboard page), which only surfaces as a build failure.  This rule
+// catches a missing default export at test time.
+// ---------------------------------------------------------------------------
+describe('Every page.tsx exports a default component', () => {
+  const appDir = join(ROOT, 'app');
+  const pageFiles = collectFiles(appDir).filter((f) => f.endsWith('page.tsx') || f.endsWith('page.ts'));
+
+  const DEFAULT_EXPORT_RE = /export\s+default\b/;
+
+  it('has no page files missing a default export', () => {
+    const violations = pageFiles.filter((file) => !DEFAULT_EXPORT_RE.test(readFileSync(file, 'utf8')));
+    const paths = violations.map((f) => relative(ROOT, f));
+    expect(violations, `Missing default export in:\n  ${paths.join('\n  ')}`).toHaveLength(0);
+  });
 });

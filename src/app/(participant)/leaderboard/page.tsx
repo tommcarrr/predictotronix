@@ -2,7 +2,9 @@ import { redirect } from 'next/navigation';
 import { getParticipant, requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic';() {
+export const dynamic = 'force-dynamic';
+
+export default async function LeaderboardPage() {
   const user = await requireUser().catch(() => null);
   if (!user) redirect('/login');
 
