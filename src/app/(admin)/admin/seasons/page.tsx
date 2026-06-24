@@ -3,6 +3,8 @@ import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { createSeason, updateSeasonStatus, addSeasonParticipant, removeSeasonParticipant } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   searchParams: Promise<{ league?: string; new?: string }>;
 }

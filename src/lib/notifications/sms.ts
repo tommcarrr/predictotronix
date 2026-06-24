@@ -1,10 +1,5 @@
 import twilio from 'twilio';
 
-const client = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
-
 export interface ReminderSmsParams {
   to: string; // E.164 format, e.g. "+447700900000"
   displayName: string;
@@ -37,6 +32,10 @@ export async function sendReminderSms(params: ReminderSmsParams): Promise<SmsRes
   const body = `⚽ ${gameweekLabel} starts at ${kickoffStr}. Don't forget your predictions! — Predictotronix`;
 
   try {
+    const client = twilio(
+      process.env.TWILIO_ACCOUNT_SID,
+      process.env.TWILIO_AUTH_TOKEN
+    );
     const message = await client.messages.create({
       body,
       from: process.env.TWILIO_FROM_NUMBER,

@@ -3,6 +3,8 @@ import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { triggerFixtureSync, triggerResultSync } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function FixturesAdminPage() {
   const user = await getUser();
   if (!user) redirect('/login');

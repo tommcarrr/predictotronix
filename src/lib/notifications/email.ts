@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const RESEND_FROM = process.env.RESEND_FROM ?? 'Predictotronix <no-reply@predictotronix.app>';
 
 export interface ReminderEmailParams {
   to: string;
@@ -33,8 +33,9 @@ export async function sendReminderEmail(params: ReminderEmailParams): Promise<Em
   });
 
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
-      from: 'Predictotronix <no-reply@predictotronix.app>',
+      from: RESEND_FROM,
       to,
       subject: `⚽ ${gameweekLabel} predictions reminder`,
       html: `

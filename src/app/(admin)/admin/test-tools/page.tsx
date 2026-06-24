@@ -3,6 +3,8 @@ import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { injectResult, markFixturePostponed, fastForwardGameweek } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function TestToolsPage() {
   const user = await getUser();
   if (!user) redirect('/login');

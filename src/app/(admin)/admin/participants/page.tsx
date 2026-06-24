@@ -3,6 +3,8 @@ import { isSuperAdmin, isLeagueAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { approveJoinRequest, rejectJoinRequest, createOfflineParticipant } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ParticipantsAdminPage() {
   const user = await getUser();
   if (!user) redirect('/login');

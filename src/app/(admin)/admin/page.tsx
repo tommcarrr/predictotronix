@@ -3,6 +3,8 @@ import { requireSuperAdmin, isSuperAdmin } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { getUser } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
   const user = await getUser();
   if (!user) redirect('/login');

@@ -3,6 +3,8 @@ import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { ExportPanel } from '@/components/admin/ExportPanel';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ExportsAdminPage() {
   const user = await getUser();
   if (!user) redirect('/login');

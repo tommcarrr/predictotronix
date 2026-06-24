@@ -3,6 +3,8 @@ import { createServiceClient } from '@/lib/supabase/server';
 import { sendReminderEmail } from '@/lib/notifications/email';
 import { sendReminderSms } from '@/lib/notifications/sms';
 
+export const dynamic = 'force-dynamic';
+
 function validateCronSecret(request: NextRequest): boolean {
   const secret = request.headers.get('x-cron-secret');
   return !!process.env.CRON_SECRET && secret === process.env.CRON_SECRET;
