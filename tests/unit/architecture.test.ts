@@ -135,30 +135,46 @@ describe('Every source file is syntactically valid', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Rule 4: app/global-error.tsx must exist and be a Client Component
+// Rule 4: app/global-error.tsx must exist, be a Client Component, and use the
+//         correct Next.js 16 API (unstable_retry, not reset).
 //
 // Next.js App Router generates a /_global-error route at build time.  Without
-// a custom global-error.tsx, it tries to statically render the root layout,
-// which calls useContext (via next/font/google) and throws at prerender time.
-// The file must also have 'use client' so it is treated as a client boundary
-// and Next.js skips the server-side useContext call.
+// a custom global-error.tsx it tries to statically render the root layout,
+// which calls useContext (via next/font/google) and throws at prerender time on
+// Linux (Render / CI).  The file must have 'use client' so it is a client
+// boundary, and must use the unstable_retry prop — not the old reset prop —
+// which is the documented API in Next.js 16.
+//
+// NOTE: npm run build passes on Windows even without this file because the
+// platform-specific prerender failure only occurs on Linux.  These tests are
+// the authoritative local guard; GitHub Actions CI (ubuntu-latest) is the
+// authoritative build-level guard.
 // ---------------------------------------------------------------------------
-describe('app/global-error.tsx must exist and be a Client Component', () => {
+describe('app/global-error.tsx must exist and be a correct Client Component', () => {
   const globalErrorPath = join(ROOT, 'app', 'global-error.tsx');
 
   it('src/app/global-error.tsx exists', () => {
     expect(
       existsSync(globalErrorPath),
-      'src/app/global-error.tsx is missing — Next.js will fail to prerender /_global-error at build time',
+      'src/app/global-error.tsx is missing — Next.js will fail to prerender /_global-error on Linux',
     ).toBe(true);
   });
 
   it('src/app/global-error.tsx starts with "use client"', () => {
-    if (!existsSync(globalErrorPath)) return; // covered by the previous test
+    if (!existsSync(globalErrorPath)) return;
     const src = readFileSync(globalErrorPath, 'utf8').trimStart();
     expect(
       src.startsWith("'use client'") || src.startsWith('"use client"'),
       'src/app/global-error.tsx must have "use client" as its first directive',
+    ).toBe(true);
+  });
+
+  it('src/app/global-error.tsx uses unstable_retry (Next.js 16 API), not the old reset prop', () => {
+    if (!existsSync(globalErrorPath)) return;
+    const src = readFileSync(globalErrorPath, 'utf8');
+    expect(
+      src.includes('unstable_retry'),
+      'src/app/global-error.tsx must use unstable_retry — the reset prop was renamed in Next.js 16',
     ).toBe(true);
   });
 });
