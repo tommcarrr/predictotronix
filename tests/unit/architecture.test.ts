@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
 import { join, relative } from 'path';
 import ts from 'typescript';
 
@@ -39,7 +39,7 @@ describe('Auth-gated pages must export dynamic = "force-dynamic"', () => {
   const appDir = join(ROOT, 'app');
   const pageFiles = collectFiles(appDir).filter((f) => f.endsWith('page.tsx') || f.endsWith('page.ts'));
 
-  const AUTH_IMPORT_RE = /from ['"]@\/lib\/auth['"]/;
+  const AUTH_IMPORT_RE = /from ['"]@\/lib\/auth(\/[^'"]*)?['"]/;
   const FORCE_DYNAMIC_RE = /export\s+const\s+dynamic\s*=\s*['"]force-dynamic['"]/;
 
   const violations = pageFiles.filter((file) => {
@@ -135,7 +135,36 @@ describe('Every source file is syntactically valid', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Rule 4: Every page.tsx must have a default export
+// Rule 4: app/global-error.tsx must exist and be a Client Component
+//
+// Next.js App Router generates a /_global-error route at build time.  Without
+// a custom global-error.tsx, it tries to statically render the root layout,
+// which calls useContext (via next/font/google) and throws at prerender time.
+// The file must also have 'use client' so it is treated as a client boundary
+// and Next.js skips the server-side useContext call.
+// ---------------------------------------------------------------------------
+describe('app/global-error.tsx must exist and be a Client Component', () => {
+  const globalErrorPath = join(ROOT, 'app', 'global-error.tsx');
+
+  it('src/app/global-error.tsx exists', () => {
+    expect(
+      existsSync(globalErrorPath),
+      'src/app/global-error.tsx is missing — Next.js will fail to prerender /_global-error at build time',
+    ).toBe(true);
+  });
+
+  it('src/app/global-error.tsx starts with "use client"', () => {
+    if (!existsSync(globalErrorPath)) return; // covered by the previous test
+    const src = readFileSync(globalErrorPath, 'utf8').trimStart();
+    expect(
+      src.startsWith("'use client'") || src.startsWith('"use client"'),
+      'src/app/global-error.tsx must have "use client" as its first directive',
+    ).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Rule 5: Every page.tsx must have a default export
 //
 // Next.js requires each route segment's page file to default-export a React
 // component.  A botched edit can destroy the `export default` (as happened to
