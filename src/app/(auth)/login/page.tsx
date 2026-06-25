@@ -1,5 +1,7 @@
 import { signIn } from '@/lib/auth/actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function LoginPage({
   searchParams,
 }: {
