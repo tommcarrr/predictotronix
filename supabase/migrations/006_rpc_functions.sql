@@ -103,7 +103,7 @@ $$;
 -- ============================================================
 create or replace function public.get_season_leaderboard(p_season_id uuid)
 returns table (
-  position       integer,
+  "position"     integer,
   participant_id uuid,
   display_name   text,
   total_points   bigint,
@@ -129,7 +129,7 @@ returns table (
     select
       rank() over (
         order by total_points desc, exact_count desc
-      )::integer                                                       as position,
+      )::integer                                                       as "position",
       participant_id,
       display_name,
       total_points,
@@ -138,7 +138,7 @@ returns table (
     from scored
   )
   select * from ranked
-  order by position, display_name;
+  order by "position", display_name;
 $$;
 
 -- ============================================================
@@ -147,7 +147,7 @@ $$;
 -- ============================================================
 create or replace function public.get_gameweek_leaderboard(p_gameweek_id uuid)
 returns table (
-  position       integer,
+  "position"     integer,
   participant_id uuid,
   display_name   text,
   total_points   bigint,
@@ -184,7 +184,7 @@ returns table (
     select
       rank() over (
         order by total_points desc, exact_count desc
-      )::integer                                                       as position,
+      )::integer                                                       as "position",
       participant_id,
       display_name,
       total_points,
@@ -194,5 +194,5 @@ returns table (
     from scored
   )
   select * from ranked
-  order by position, display_name;
+  order by "position", display_name;
 $$;
