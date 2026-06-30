@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getParticipant, requireUser } from '@/lib/auth';
+import { getParticipant, requireUser, isSuperAdmin } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/lib/auth/actions';
 
@@ -9,7 +9,7 @@ export default async function DashboardPage() {
   const user = await requireUser().catch(() => null);
   if (!user) redirect('/login');
 
-  const participant = await getParticipant();
+  const [participant, isAdmin] = await Promise.all([getParticipant(), isSuperAdmin()]);
   const supabase = await createClient();
 
   // Get the active season for the first league the participant belongs to
@@ -129,6 +129,11 @@ export default async function DashboardPage() {
         <a href="/settings" className="block text-[--color-info] hover:underline">
           [NOTIFICATION SETTINGS]
         </a>
+        {isAdmin && (
+          <a href="/admin" className="block text-[--color-warning] hover:underline font-bold">
+            [ADMIN PANEL]
+          </a>
+        )}
       </nav>
 
       {/* Sign out */}
