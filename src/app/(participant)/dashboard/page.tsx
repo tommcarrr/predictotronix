@@ -12,6 +12,13 @@ export default async function DashboardPage() {
   const [participant, isAdmin] = await Promise.all([getParticipant(), isSuperAdmin()]);
   const supabase = await createClient();
 
+  // Get pending join requests for this user
+  const { data: pendingJoinRequests } = await supabase
+    .from('join_requests')
+    .select('id, created_at, leagues(name)')
+    .eq('user_id', user.id)
+    .eq('status', 'pending');
+
   // Get the active season for the first league the participant belongs to
   const { data: activeSeasons } = await supabase
     .from('season_participants')
@@ -114,10 +121,21 @@ export default async function DashboardPage() {
           )}
         </section>
       ) : (
-        <section className="border border-[--color-warning] p-3">
+        <section className="border border-[--color-warning] p-3 space-y-2">
           <p className="text-[--color-warning]">
-            You are not enrolled in any active season. Contact your league admin.
+            You are not enrolled in any active season.
           </p>
+          {pendingJoinRequests && pendingJoinRequests.length > 0 ? (
+            <div className="space-y-1">
+              {pendingJoinRequests.map((req: any) => (
+                <p key={req.id} className="text-[--color-text-secondary] text-sm">
+                  ⧗ Join request for <span className="text-[--color-warning]">{req.leagues?.name ?? 'a league'}</span> is pending approval.
+                </p>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[--color-text-secondary] text-sm">Contact your league admin for an invite.</p>
+          )}
         </section>
       )}
 

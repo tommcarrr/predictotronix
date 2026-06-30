@@ -35,8 +35,7 @@ export default async function ParticipantsAdminPage() {
       .select(`
         id, status, created_at,
         user_id,
-        leagues!inner(id, name),
-        profiles(display_name, email)
+        leagues!inner(id, name)
       `)
       .eq('status', 'pending')
       .in('league_id', effectiveLeagueIds)
@@ -44,12 +43,18 @@ export default async function ParticipantsAdminPage() {
     supabase
       .from('participants')
       .select(`
-        id, display_name, email, is_offline, created_at,
-        profiles:user_id(display_name, email)
+        id, display_name, email, is_offline, created_at
       `)
       .order('display_name', { ascending: true })
       .limit(100),
   ]);
+
+  // Fetch profiles for pending request users (no direct FK between join_requests and profiles)
+  const requestUserIds = (pendingRequests ?? []).map((r: any) => r.user_id);
+  const { data: requestProfiles } = requestUserIds.length
+    ? await supabase.from('profiles').select('id, display_name, email').in('id', requestUserIds)
+    : { data: [] };
+  const profileMap = Object.fromEntries((requestProfiles ?? []).map((p: any) => [p.id, p]));
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-8">
@@ -81,7 +86,7 @@ export default async function ParticipantsAdminPage() {
               >
                 <div>
                   <p className="font-medium">
-                    {req.profiles?.display_name ?? req.profiles?.email ?? req.user_id}
+                    {profileMap[req.user_id]?.display_name ?? profileMap[req.user_id]?.email ?? req.user_id}
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {req.leagues?.name} — requested{' '}
