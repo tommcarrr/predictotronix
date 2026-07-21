@@ -2,7 +2,6 @@
 
 import { createServiceClient } from '@/lib/supabase/server';
 import { getUser, isSuperAdmin } from '@/lib/auth';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function approveJoinRequest(requestId: string, userId: string, leagueId: string) {
@@ -12,10 +11,18 @@ export async function approveJoinRequest(requestId: string, userId: string, leag
   const supabase = await createServiceClient();
 
   // Approve the request
-  await supabase
+  const { data: updatedRows, error: updateError } = await supabase
     .from('join_requests')
     .update({ status: 'approved', reviewed_by: user.id, reviewed_at: new Date().toISOString() })
-    .eq('id', requestId);
+    .eq('id', requestId)
+    .select('id');
+
+  if (updateError) throw new Error(`Failed to approve request: ${updateError.message}`);
+  if (!updatedRows || updatedRows.length === 0) {
+    throw new Error(
+      'Join request not found or could not be updated — check that SUPABASE_SERVICE_ROLE_KEY is set correctly on Render.',
+    );
+  }
 
   // Create a participant record if one doesn't exist
   const { data: existingParticipant } = await supabase
@@ -32,9 +39,9 @@ export async function approveJoinRequest(requestId: string, userId: string, leag
       .from('profiles')
       .select('display_name, email')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
-    const { data: newParticipant } = await supabase
+    const { data: newParticipant, error: insertError } = await supabase
       .from('participants')
       .insert({
         display_name: profile?.display_name ?? profile?.email ?? 'Unknown',
@@ -45,6 +52,7 @@ export async function approveJoinRequest(requestId: string, userId: string, leag
       .select('id')
       .single();
 
+    if (insertError) throw new Error(`Failed to create participant: ${insertError.message}`);
     participantId = newParticipant?.id;
   }
 
@@ -69,7 +77,7 @@ export async function approveJoinRequest(requestId: string, userId: string, leag
       .upsert({ participant_id: participantId }, { onConflict: 'participant_id' });
   }
 
-  revalidatePath('/admin/participants');
+  redirect('/admin/participants');
 }
 
 export async function rejectJoinRequest(requestId: string) {
@@ -77,12 +85,14 @@ export async function rejectJoinRequest(requestId: string) {
   if (!user || !(await isSuperAdmin())) redirect('/dashboard');
 
   const supabase = await createServiceClient();
-  await supabase
+  const { error } = await supabase
     .from('join_requests')
     .update({ status: 'rejected', reviewed_by: user.id, reviewed_at: new Date().toISOString() })
     .eq('id', requestId);
 
-  revalidatePath('/admin/participants');
+  if (error) throw new Error(`Failed to reject request: ${error.message}`);
+
+  redirect('/admin/participants');
 }
 
 export async function createOfflineParticipant(formData: FormData) {
@@ -93,11 +103,13 @@ export async function createOfflineParticipant(formData: FormData) {
   const displayName = formData.get('display_name') as string;
   const email = (formData.get('email') as string | null) || null;
 
-  const { data: participant } = await supabase
+  const { data: participant, error } = await supabase
     .from('participants')
     .insert({ display_name: displayName, email, is_offline: true })
     .select('id')
     .single();
+
+  if (error) throw new Error(`Failed to create participant: ${error.message}`);
 
   if (participant) {
     await supabase
@@ -105,5 +117,6 @@ export async function createOfflineParticipant(formData: FormData) {
       .insert({ participant_id: participant.id, email_enabled: false });
   }
 
-  revalidatePath('/admin/participants');
+  redirect('/admin/participants');
 }
+
