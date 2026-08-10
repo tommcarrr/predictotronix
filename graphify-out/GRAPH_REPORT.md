@@ -1,21 +1,21 @@
 # Graph Report - predictotronix  (2026-08-10)
 
 ## Corpus Check
-- 109 files · ~42,514 words
+- 109 files · ~42,839 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 530 nodes · 914 edges · 37 communities (28 shown, 9 thin omitted)
+- 532 nodes · 924 edges · 37 communities (28 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b32619f2`
+- Built from commit: `1197ac05`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- auth/index.ts
+- server.ts
 - createServiceClient
 - fixtures/actions.ts
 - devDependencies
@@ -27,7 +27,7 @@
 - Predictotronix
 - Staging environment runbook
 - environment.ts
-- exports/page.tsx
+- getAdminContext
 - Verify Before Completion
 - app/layout.tsx
 - button.tsx
@@ -79,17 +79,17 @@
 
 ## Communities (37 total, 9 thin omitted)
 
-### Community 0 - "auth/index.ts"
+### Community 0 - "server.ts"
 Cohesion: 0.08
-Nodes (45): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+37 more)
+Nodes (47): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+39 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.07
-Nodes (58): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive() (+50 more)
+Cohesion: 0.11
+Nodes (41): correctResult(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic, LeaguesAdminPage(), metadata, approveJoinRequest() (+33 more)
 
 ### Community 2 - "fixtures/actions.ts"
-Cohesion: 0.10
-Nodes (23): assertExternalFixtureSyncEnabled(), getProductionSeason(), triggerFixtureSync(), triggerResultSync(), dynamic, metadata, POST(), validateCronSecret() (+15 more)
+Cohesion: 0.09
+Nodes (24): assertExternalFixtureSyncEnabled(), getProductionSeason(), triggerFixtureSync(), triggerResultSync(), dynamic, FixturesAdminPage(), metadata, POST() (+16 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
@@ -127,9 +127,9 @@ Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected Gi
 Cohesion: 0.10
 Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
 
-### Community 12 - "exports/page.tsx"
-Cohesion: 0.22
-Nodes (7): dynamic, ExportsAdminPage(), metadata, ExportPanel(), Format, LeaderboardRow, Props
+### Community 12 - "getAdminContext"
+Cohesion: 0.10
+Nodes (23): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, ExportsAdminPage(), metadata, AdminDashboardPage(), dynamic (+15 more)
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -160,24 +160,24 @@ Cohesion: 0.50
 Nodes (3): cookies, createServerClient, createSupabaseClient
 
 ## Knowledge Gaps
-- **215 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+210 more)
+- **217 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+212 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `auth/index.ts`, `fixtures/actions.ts`, `environment.ts`?**
-  _High betweenness centrality (0.053) - this node is a cross-community bridge._
-- **Why does `createClient()` connect `auth/index.ts` to `createServiceClient`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`, `getAdminContext`?**
+  _High betweenness centrality (0.051) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _215 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `auth/index.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.07720782654680064 - nodes in this community are weakly interconnected._
+  _217 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `server.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.0763888888888889 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.0730593607305936 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10745098039215686 - nodes in this community are weakly interconnected._
 - **Should `fixtures/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09830866807610994 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09494949494949495 - nodes in this community are weakly interconnected._

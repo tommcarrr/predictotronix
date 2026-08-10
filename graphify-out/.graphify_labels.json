@@ -1,5 +1,5 @@
 {
-  "0": "auth/index.ts",
+  "0": "server.ts",
   "1": "createServiceClient",
   "2": "fixtures/actions.ts",
   "3": "devDependencies",
@@ -11,7 +11,7 @@
   "9": "Predictotronix",
   "10": "Staging environment runbook",
   "11": "environment.ts",
-  "12": "exports/page.tsx",
+  "12": "getAdminContext",
   "13": "Verify Before Completion",
   "14": "app/layout.tsx",
   "15": "button.tsx",

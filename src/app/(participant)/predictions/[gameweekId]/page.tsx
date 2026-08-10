@@ -33,9 +33,11 @@ export default async function PredictionsPage({ params }: Props) {
   if (!gameweek) redirect('/dashboard');
 
   // Load fixtures for this gameweek
-  const { data: fixtures } = await supabase
+  const { data: fixtures, error: fixturesError } = await supabase
     .from('fixtures')
-    .select('id, home_team_name, away_team_name, kickoff, status, home_score, away_score, result_confirmed')
+    .select(
+      'id, home_team_name, away_team_name, kickoff, status, home_score, away_score, result_confirmed'
+    )
     .eq('gameweek_id', gameweekId)
     .order('kickoff', { ascending: true });
 
@@ -46,9 +48,7 @@ export default async function PredictionsPage({ params }: Props) {
     .eq('participant_id', participant.id)
     .in('fixture_id', fixtures?.map((f) => f.id) ?? []);
 
-  const predictionMap = new Map(
-    (existingPredictions ?? []).map((p) => [p.fixture_id, p])
-  );
+  const predictionMap = new Map((existingPredictions ?? []).map((p) => [p.fixture_id, p]));
   const seasonNow = await getSeasonNow(supabase, gameweek.season_id);
 
   const enrichedFixtures = (fixtures ?? []).map((f) => ({
@@ -68,7 +68,21 @@ export default async function PredictionsPage({ params }: Props) {
         </h1>
       </header>
 
-      <PredictionsForm fixtures={enrichedFixtures} participantId={participant.id} />
+      {fixturesError ? (
+        <section className="border border-[--color-error] bg-[--color-error]/10 p-4 text-sm">
+          <p className="font-bold text-[--color-error]">Fixtures could not be loaded</p>
+          <p className="mt-1 text-[--color-text-secondary]">
+            Return to the dashboard and try again. If this keeps happening, contact your league
+            admin.
+          </p>
+        </section>
+      ) : enrichedFixtures.length === 0 ? (
+        <section className="border border-[--color-warning] p-4 text-sm text-[--color-text-secondary]">
+          No fixtures have been added to this gameweek yet.
+        </section>
+      ) : (
+        <PredictionsForm fixtures={enrichedFixtures} />
+      )}
     </div>
   );
 }

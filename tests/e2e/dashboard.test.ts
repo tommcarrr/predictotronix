@@ -8,14 +8,14 @@ test.describe('Dashboard — admin user', () => {
 
   /**
    * Regression: the admin panel link was missing from the dashboard entirely.
-   * A super_admin must see [ADMIN PANEL] in the nav.
+   * A super_admin must see the Admin panel button in the nav.
    */
-  test('shows [ADMIN PANEL] link for super admins', async ({ page }) => {
-    await expect(page.getByRole('link', { name: '[ADMIN PANEL]' })).toBeVisible();
+  test('shows Admin panel link for super admins', async ({ page }) => {
+    await expect(page.getByRole('link', { name: 'Admin panel' })).toBeVisible();
   });
 
-  test('[ADMIN PANEL] link navigates to /admin', async ({ page }) => {
-    await page.getByRole('link', { name: '[ADMIN PANEL]' }).click();
+  test('Admin panel link navigates to /admin', async ({ page }) => {
+    await page.getByRole('link', { name: 'Admin panel' }).click();
     await expect(page).toHaveURL(/\/admin$/);
     await expect(page.getByRole('heading', { name: 'Admin Dashboard' })).toBeVisible();
   });
