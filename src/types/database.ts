@@ -121,6 +121,26 @@ export type Database = {
         };
         Relationships: [{ foreignKeyName: 'seasons_league_id_fkey'; columns: ['league_id']; referencedRelation: 'leagues'; referencedColumns: ['id'] }];
       };
+      season_runtime_settings: {
+        Row: {
+          season_id: string;
+          simulated_now: string | null;
+          updated_by: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          season_id: string;
+          simulated_now?: string | null;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          simulated_now?: string | null;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [{ foreignKeyName: 'season_runtime_settings_season_id_fkey'; columns: ['season_id']; referencedRelation: 'seasons'; referencedColumns: ['id'] }];
+      };
       season_participants: {
         Row: { id: string; season_id: string; participant_id: string; joined_at: string };
         Insert: { id?: string; season_id: string; participant_id: string; joined_at?: string };
@@ -393,6 +413,7 @@ export type Database = {
       score_predictions: { Args: { p_fixture_id: string }; Returns: number };
       recalculate_fixture_scores: { Args: { p_fixture_id: string }; Returns: number };
       check_kickoff_lock: { Args: { p_fixture_id: string }; Returns: boolean };
+      get_season_time: { Args: { p_season_id: string }; Returns: string };
       get_season_leaderboard: {
         Args: { p_season_id: string };
         Returns: {

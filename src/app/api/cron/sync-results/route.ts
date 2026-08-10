@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/server';
 import { ApiFootballProvider } from '@/lib/api-football/client';
 import { syncResults } from '@/lib/sync/fixtures';
+import { getEnvironmentPolicy } from '@/lib/environment';
 
 function validateCronSecret(request: NextRequest): boolean {
   const secret = request.headers.get('x-cron-secret');
@@ -11,6 +12,13 @@ function validateCronSecret(request: NextRequest): boolean {
 export async function POST(request: NextRequest) {
   if (!validateCronSecret(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  if (!getEnvironmentPolicy().externalFixtureSyncEnabled) {
+    return NextResponse.json(
+      { error: 'External result synchronization is disabled in this environment.' },
+      { status: 409 },
+    );
   }
 
   try {

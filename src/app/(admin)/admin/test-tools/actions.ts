@@ -2,6 +2,8 @@
 
 import { createServiceClient } from '@/lib/supabase/server';
 import { getUser, isSuperAdmin } from '@/lib/auth';
+import { clockTimeForGameweek, type SeasonClockPosition } from '@/lib/clock';
+import { assertSafeStagingTarget } from '@/lib/environment';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -13,6 +15,94 @@ async function guardTestSeason(seasonId: string): Promise<boolean> {
     .eq('id', seasonId)
     .single();
   return data?.season_type === 'test' || data?.season_type === 'demo';
+}
+
+async function requireStagingSuperAdmin() {
+  const user = await getUser();
+  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+
+  try {
+    assertSafeStagingTarget();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unsafe staging target';
+    redirect(`/admin/test-tools?error=${encodeURIComponent(message)}`);
+  }
+
+  return user;
+}
+
+/** Move a test/demo season clock to a useful point around a selected gameweek. */
+export async function setSeasonClock(formData: FormData) {
+  const user = await requireStagingSuperAdmin();
+  const seasonId = String(formData.get('season_id') ?? '');
+  const gameweekId = String(formData.get('gameweek_id') ?? '');
+  const position = String(formData.get('position') ?? '') as SeasonClockPosition;
+
+  if (!['before', 'in_progress', 'after'].includes(position)) {
+    redirect('/admin/test-tools?error=Invalid+clock+position');
+  }
+  if (!(await guardTestSeason(seasonId))) {
+    redirect('/admin/test-tools?error=Not+a+test+season');
+  }
+
+  const supabase = await createServiceClient();
+  const { data: fixtures } = await supabase
+    .from('fixtures')
+    .select('kickoff')
+    .eq('season_id', seasonId)
+    .eq('gameweek_id', gameweekId)
+    .order('kickoff', { ascending: true });
+
+  if (!fixtures?.length) {
+    redirect(`/admin/test-tools?season=${seasonId}&error=Gameweek+has+no+fixtures`);
+  }
+
+  const simulatedNow = clockTimeForGameweek(
+    new Date(fixtures[0].kickoff),
+    new Date(fixtures[fixtures.length - 1].kickoff),
+    position,
+  );
+
+  const { error } = await supabase.from('season_runtime_settings').upsert({
+    season_id: seasonId,
+    simulated_now: simulatedNow.toISOString(),
+    updated_by: user.id,
+    updated_at: new Date().toISOString(),
+  });
+
+  if (error) {
+    redirect(`/admin/test-tools?season=${seasonId}&error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath('/admin/test-tools');
+  revalidatePath('/dashboard');
+  revalidatePath('/predictions');
+  redirect(`/admin/test-tools?season=${seasonId}&clock=updated`);
+}
+
+/** Return a test/demo season to real time. */
+export async function clearSeasonClock(formData: FormData) {
+  await requireStagingSuperAdmin();
+  const seasonId = String(formData.get('season_id') ?? '');
+
+  if (!(await guardTestSeason(seasonId))) {
+    redirect('/admin/test-tools?error=Not+a+test+season');
+  }
+
+  const supabase = await createServiceClient();
+  const { error } = await supabase
+    .from('season_runtime_settings')
+    .delete()
+    .eq('season_id', seasonId);
+
+  if (error) {
+    redirect(`/admin/test-tools?season=${seasonId}&error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath('/admin/test-tools');
+  revalidatePath('/dashboard');
+  revalidatePath('/predictions');
+  redirect(`/admin/test-tools?season=${seasonId}&clock=cleared`);
 }
 
 /** Inject a result for a fixture and auto-score predictions. Test seasons only. */
