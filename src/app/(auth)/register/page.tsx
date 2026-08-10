@@ -1,5 +1,10 @@
 import { signUp } from '@/lib/auth/actions';
 
+export const metadata = {
+  title: 'Create an account',
+  description: 'Create a Predictotronix account and join a predictor league.',
+};
+
 export const dynamic = 'force-dynamic';
 
 export default function RegisterPage() {

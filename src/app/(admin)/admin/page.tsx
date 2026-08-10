@@ -1,35 +1,44 @@
-import { redirect } from 'next/navigation';
-import { requireSuperAdmin, isSuperAdmin } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
-import { getUser } from '@/lib/auth';
+import { getAdminContext } from '@/lib/admin/context';
+import { redirect } from 'next/navigation';
+
+export const metadata = { title: 'Admin' };
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  const user = await getUser();
-  if (!user) redirect('/login');
-
-  const isAdmin = await isSuperAdmin();
-  if (!isAdmin) redirect('/dashboard');
-
+  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
 
-  // Overview stats
+  if (!selectedLeague) {
+    return (
+      <main className="mx-auto max-w-6xl p-6">
+        <h1 className="text-2xl font-bold">Overview</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Create a league to start managing seasons, participants and fixtures.
+        </p>
+        <a href="/admin/leagues" className="mt-4 inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+          Create a league
+        </a>
+      </main>
+    );
+  }
+
   const [
-    { count: leagueCount },
+    { count: seasonCount },
     { count: participantCount },
     { count: pendingRequests },
     { data: recentSync },
   ] = await Promise.all([
-    supabase.from('leagues').select('id', { count: 'exact', head: true }),
-    supabase.from('participants').select('id', { count: 'exact', head: true }),
-    supabase.from('join_requests').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-    supabase
-      .from('fixtures')
-      .select('last_synced_at')
-      .not('last_synced_at', 'is', null)
-      .order('last_synced_at', { ascending: false })
-      .limit(1),
+    supabase.from('seasons').select('id', { count: 'exact', head: true }).eq('league_id', selectedLeague.id),
+    selectedSeason
+      ? supabase.from('season_participants').select('participant_id', { count: 'exact', head: true }).eq('season_id', selectedSeason.id)
+      : Promise.resolve({ count: 0 }),
+    supabase.from('join_requests').select('id', { count: 'exact', head: true }).eq('league_id', selectedLeague.id).eq('status', 'pending'),
+    selectedSeason
+      ? supabase.from('fixtures').select('last_synced_at').eq('season_id', selectedSeason.id).not('last_synced_at', 'is', null).order('last_synced_at', { ascending: false }).limit(1)
+      : Promise.resolve({ data: [] }),
   ]);
 
   const lastSync = recentSync?.[0]?.last_synced_at
@@ -41,17 +50,20 @@ export default async function AdminDashboardPage() {
     : 'Never';
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <span className="text-sm text-muted-foreground">{user.email}</span>
+    <main className="mx-auto max-w-6xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold">Overview</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {selectedLeague.name}
+          {selectedSeason ? ` · ${selectedSeason.name}` : ' · No season selected'}
+        </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {[
-          { label: 'Leagues', value: leagueCount ?? 0 },
-          { label: 'Participants', value: participantCount ?? 0 },
+          { label: 'Seasons', value: seasonCount ?? 0 },
+          { label: 'Enrolled', value: participantCount ?? 0 },
           { label: 'Pending requests', value: pendingRequests ?? 0, highlight: (pendingRequests ?? 0) > 0 },
           { label: 'Last sync', value: lastSync, small: true },
         ].map((stat) => (
@@ -65,26 +77,11 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      {/* Nav */}
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        {[
-          { href: '/admin/leagues', label: 'Leagues & Invite Links', desc: 'Manage leagues, generate invites' },
-          { href: '/admin/seasons', label: 'Seasons', desc: 'Create and manage seasons, enrol participants' },
-          { href: '/admin/participants', label: 'Participants', desc: 'Manage players, approve requests, add offline participants' },
-          { href: '/admin/fixtures', label: 'Fixtures & Results', desc: 'Sync fixtures, correct results' },
-          { href: '/admin/exports', label: 'Exports & Clipboard', desc: 'Copy leaderboards, fixture lists, reports' },
-          { href: '/admin/test-tools', label: 'Test Season Tools', desc: 'Inject results, fast-forward gameweeks (test/demo seasons only)' },
-        ].map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="rounded-lg border border-border p-4 hover:bg-accent transition-colors"
-          >
-            <p className="font-medium">{link.label}</p>
-            <p className="text-sm text-muted-foreground mt-0.5">{link.desc}</p>
-          </a>
-        ))}
-      </div>
-    </div>
+      {!selectedSeason && (
+        <div className="rounded-lg border border-dashed border-border p-5 text-sm text-muted-foreground">
+          This league has no seasons yet. <a href="/admin/seasons" className="text-primary hover:underline">Create one on the Seasons page.</a>
+        </div>
+      )}
+    </main>
   );
 }

@@ -54,7 +54,7 @@ export async function setSeasonClock(formData: FormData) {
     .order('kickoff', { ascending: true });
 
   if (!fixtures?.length) {
-    redirect(`/admin/test-tools?season=${seasonId}&error=Gameweek+has+no+fixtures`);
+    redirect('/admin/test-tools?error=Gameweek+has+no+fixtures');
   }
 
   const simulatedNow = clockTimeForGameweek(
@@ -71,13 +71,13 @@ export async function setSeasonClock(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/admin/test-tools?season=${seasonId}&error=${encodeURIComponent(error.message)}`);
+    redirect(`/admin/test-tools?error=${encodeURIComponent(error.message)}`);
   }
 
   revalidatePath('/admin/test-tools');
   revalidatePath('/dashboard');
   revalidatePath('/predictions');
-  redirect(`/admin/test-tools?season=${seasonId}&clock=updated`);
+  redirect('/admin/test-tools?clock=updated');
 }
 
 /** Return a test/demo season to real time. */
@@ -96,13 +96,13 @@ export async function clearSeasonClock(formData: FormData) {
     .eq('season_id', seasonId);
 
   if (error) {
-    redirect(`/admin/test-tools?season=${seasonId}&error=${encodeURIComponent(error.message)}`);
+    redirect(`/admin/test-tools?error=${encodeURIComponent(error.message)}`);
   }
 
   revalidatePath('/admin/test-tools');
   revalidatePath('/dashboard');
   revalidatePath('/predictions');
-  redirect(`/admin/test-tools?season=${seasonId}&clock=cleared`);
+  redirect('/admin/test-tools?clock=cleared');
 }
 
 /** Inject a result for a fixture and auto-score predictions. Test seasons only. */

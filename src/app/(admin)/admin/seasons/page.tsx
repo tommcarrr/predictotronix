@@ -1,45 +1,30 @@
-import { redirect } from 'next/navigation';
-import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { createSeason, updateSeasonStatus, addSeasonParticipant, removeSeasonParticipant } from './actions';
+import { getAdminContext } from '@/lib/admin/context';
+import { redirect } from 'next/navigation';
+
+export const metadata = { title: 'Seasons | Admin' };
 
 export const dynamic = 'force-dynamic';
 
-interface Props {
-  searchParams: Promise<{ league?: string; new?: string }>;
-}
-
-export default async function SeasonsAdminPage({ searchParams }: Props) {
-  const { league: leagueId } = await searchParams;
-  const user = await getUser();
-  if (!user) redirect('/login');
-  if (!(await isSuperAdmin())) redirect('/dashboard');
-
+export default async function SeasonsAdminPage() {
+  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
 
-  const { data: leagues } = await supabase
-    .from('leagues')
-    .select('id, name')
-    .order('name', { ascending: true });
-
-  const selectedLeagueId = leagueId ?? leagues?.[0]?.id;
-
-  const { data: seasons } = selectedLeagueId
+  const { data: seasons } = selectedLeague
     ? await supabase
         .from('seasons')
         .select('id, name, status, season_type, api_football_league_id, api_football_season, created_at')
-        .eq('league_id', selectedLeagueId)
+        .eq('league_id', selectedLeague.id)
         .order('created_at', { ascending: false })
     : { data: [] };
 
-  // For the selected/first active season, show participants
-  const activeSeason = seasons?.find((s) => s.status === 'active') ?? seasons?.[0];
-
-  const { data: seasonParticipants } = activeSeason
+  const { data: seasonParticipants } = selectedSeason
     ? await supabase
         .from('season_participants')
         .select('participant_id, participants!inner(id, display_name, is_offline)')
-        .eq('season_id', activeSeason.id)
+        .eq('season_id', selectedSeason.id)
     : { data: [] };
 
   const { data: allParticipants } = await supabase
@@ -50,30 +35,15 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
   const enrolledIds = new Set((seasonParticipants ?? []).map((sp: any) => sp.participant_id));
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <main className="mx-auto max-w-6xl space-y-8 p-6">
       <div>
-        <a href="/admin" className="text-sm text-muted-foreground hover:underline">← Admin</a>
-        <h1 className="text-2xl font-bold mt-1">Seasons</h1>
+        <h1 className="text-2xl font-bold">Seasons</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {selectedLeague ? `Manage seasons for ${selectedLeague.name}.` : 'Create a league before adding seasons.'}
+        </p>
       </div>
 
-      {/* League selector */}
-      <div className="flex gap-2 flex-wrap">
-        {(leagues ?? []).map((l) => (
-          <a
-            key={l.id}
-            href={`/admin/seasons?league=${l.id}`}
-            className={`rounded-full px-3 py-1 text-sm ${
-              l.id === selectedLeagueId
-                ? 'bg-primary text-primary-foreground'
-                : 'border border-border hover:bg-accent'
-            }`}
-          >
-            {l.name}
-          </a>
-        ))}
-      </div>
-
-      {selectedLeagueId && (
+      {selectedLeague && (
         <>
           {/* Existing seasons */}
           <section className="space-y-3">
@@ -82,7 +52,7 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
               <p className="text-sm text-muted-foreground">No seasons yet for this league.</p>
             )}
             {seasons?.map((season) => (
-              <div key={season.id} className="rounded-lg border border-border p-4 space-y-3">
+              <div key={season.id} className={`rounded-lg border p-4 space-y-3 ${season.id === selectedSeason?.id ? 'border-primary bg-primary/5' : 'border-border'}`}>
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="font-medium">{season.name}</p>
@@ -131,7 +101,7 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
           {/* Create season */}
           <section>
             <h2 className="text-lg font-semibold mb-3">Create New Season</h2>
-            <form action={createSeason.bind(null, selectedLeagueId)} className="space-y-3 max-w-md">
+            <form action={createSeason.bind(null, selectedLeague.id)} className="space-y-3 max-w-md">
               <div className="space-y-1">
                 <label className="text-sm font-medium">Season name</label>
                 <input name="name" type="text" required placeholder="2025/26" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
@@ -161,10 +131,10 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
           </section>
 
           {/* Season participants */}
-          {activeSeason && (
+          {selectedSeason && (
             <section>
               <h2 className="text-lg font-semibold mb-1">
-                Participants — {activeSeason.name}
+                Participants — {selectedSeason.name}
               </h2>
               <p className="text-sm text-muted-foreground mb-3">
                 {enrolledIds.size} enrolled
@@ -179,11 +149,11 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
                         {p.is_offline && <span className="ml-1 text-xs text-muted-foreground">(offline)</span>}
                       </span>
                       {enrolled ? (
-                        <form action={removeSeasonParticipant.bind(null, activeSeason.id, p.id)}>
+                        <form action={removeSeasonParticipant.bind(null, selectedSeason.id, p.id)}>
                           <button type="submit" className="text-xs text-destructive hover:underline">Remove</button>
                         </form>
                       ) : (
-                        <form action={addSeasonParticipant.bind(null, activeSeason.id, p.id)}>
+                        <form action={addSeasonParticipant.bind(null, selectedSeason.id, p.id)}>
                           <button type="submit" className="text-xs text-primary hover:underline">Add</button>
                         </form>
                       )}
@@ -195,6 +165,6 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
           )}
         </>
       )}
-    </div>
+    </main>
   );
 }

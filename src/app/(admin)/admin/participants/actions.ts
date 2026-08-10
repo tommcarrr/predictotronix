@@ -4,7 +4,12 @@ import { createServiceClient } from '@/lib/supabase/server';
 import { getUser, isSuperAdmin } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
-export async function approveJoinRequest(requestId: string, userId: string, leagueId: string) {
+export async function approveJoinRequest(
+  requestId: string,
+  userId: string,
+  leagueId: string,
+  selectedSeasonId: string
+) {
   const user = await getUser();
   if (!user || !(await isSuperAdmin())) redirect('/dashboard');
 
@@ -58,17 +63,21 @@ export async function approveJoinRequest(requestId: string, userId: string, leag
 
   // Add to the active season for this league
   if (participantId) {
-    const { data: activeSeason } = await supabase
+    const selectedSeasonQuery = supabase
       .from('seasons')
       .select('id')
       .eq('league_id', leagueId)
-      .eq('status', 'active')
-      .maybeSingle();
+      .limit(1);
 
-    if (activeSeason) {
+    const { data: selectedSeasons } = selectedSeasonId
+      ? await selectedSeasonQuery.eq('id', selectedSeasonId)
+      : await selectedSeasonQuery.eq('status', 'active');
+    const targetSeason = selectedSeasons?.[0];
+
+    if (targetSeason) {
       await supabase
         .from('season_participants')
-        .upsert({ season_id: activeSeason.id, participant_id: participantId });
+        .upsert({ season_id: targetSeason.id, participant_id: participantId });
     }
 
     // Create default notification preferences
@@ -102,6 +111,7 @@ export async function createOfflineParticipant(formData: FormData) {
   const supabase = await createServiceClient();
   const displayName = formData.get('display_name') as string;
   const email = (formData.get('email') as string | null) || null;
+  const seasonId = (formData.get('season_id') as string | null) || null;
 
   const { data: participant, error } = await supabase
     .from('participants')
@@ -115,6 +125,20 @@ export async function createOfflineParticipant(formData: FormData) {
     await supabase
       .from('notification_preferences')
       .insert({ participant_id: participant.id, email_enabled: false });
+
+    if (seasonId) {
+      const { data: season } = await supabase
+        .from('seasons')
+        .select('id')
+        .eq('id', seasonId)
+        .maybeSingle();
+
+      if (season) {
+        await supabase
+          .from('season_participants')
+          .insert({ participant_id: participant.id, season_id: season.id });
+      }
+    }
   }
 
   redirect('/admin/participants');
