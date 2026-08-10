@@ -3,6 +3,8 @@ import { getParticipant, requireUser, isSuperAdmin } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/lib/auth/actions';
 
+export const metadata = { title: 'Dashboard' };
+
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {

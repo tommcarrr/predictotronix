@@ -1,36 +1,17 @@
-import { redirect } from 'next/navigation';
-import { isSuperAdmin, isLeagueAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { approveJoinRequest, rejectJoinRequest, createOfflineParticipant } from './actions';
+import { getAdminContext } from '@/lib/admin/context';
+
+export const metadata = { title: 'Participants | Admin' };
 
 export const dynamic = 'force-dynamic';
 
 export default async function ParticipantsAdminPage() {
-  const user = await getUser();
-  if (!user) redirect('/login');
-
+  const { selectedLeague, selectedSeason } = await getAdminContext();
   const supabase = await createServiceClient();
 
-  // Get leagues this user admins
-  const { data: adminLeagues } = await supabase
-    .from('league_roles')
-    .select('league_id, leagues(id, name)')
-    .eq('user_id', user.id)
-    .in('role', ['super_admin', 'league_admin']);
-
-  const leagueIds = (adminLeagues ?? [])
-    .map((r: any) => r.leagues?.id)
-    .filter(Boolean) as string[];
-
-  if (leagueIds.length === 0 && !(await isSuperAdmin())) redirect('/dashboard');
-
-  // All leagues for a super admin
-  const effectiveLeagueIds = (await isSuperAdmin())
-    ? ((await supabase.from('leagues').select('id')).data ?? []).map((l: any) => l.id)
-    : leagueIds;
-
-  const [{ data: pendingRequests }, { data: participants }] = await Promise.all([
-    supabase
+  const { data: pendingRequests } = selectedLeague
+    ? await supabase
       .from('join_requests')
       .select(`
         id, status, created_at,
@@ -38,16 +19,24 @@ export default async function ParticipantsAdminPage() {
         leagues!inner(id, name)
       `)
       .eq('status', 'pending')
-      .in('league_id', effectiveLeagueIds)
-      .order('created_at', { ascending: true }),
-    supabase
-      .from('participants')
+      .eq('league_id', selectedLeague.id)
+      .order('created_at', { ascending: true })
+    : { data: [] };
+
+  const { data: seasonParticipants } = selectedSeason
+    ? await supabase
+      .from('season_participants')
       .select(`
-        id, display_name, email, is_offline, created_at
+        participant_id,
+        participants!inner(id, display_name, email, is_offline, created_at)
       `)
-      .order('display_name', { ascending: true })
-      .limit(100),
-  ]);
+      .eq('season_id', selectedSeason.id)
+    : { data: [] };
+
+  const participants = (seasonParticipants ?? [])
+    .map((row: any) => row.participants)
+    .filter(Boolean)
+    .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
 
   // Fetch profiles for pending request users (no direct FK between join_requests and profiles)
   const requestUserIds = (pendingRequests ?? []).map((r: any) => r.user_id);
@@ -57,12 +46,12 @@ export default async function ParticipantsAdminPage() {
   const profileMap = Object.fromEntries((requestProfiles ?? []).map((p: any) => [p.id, p]));
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <main className="mx-auto max-w-6xl space-y-8 p-6">
       <div>
-        <a href="/admin" className="text-sm text-muted-foreground hover:underline">
-          ← Admin
-        </a>
-        <h1 className="text-2xl font-bold mt-1">Participants</h1>
+        <h1 className="text-2xl font-bold">Participants</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Requests for {selectedLeague?.name ?? 'the selected league'}; enrolment for {selectedSeason?.name ?? 'no selected season'}.
+        </p>
       </div>
 
       {/* Pending join requests */}
@@ -94,7 +83,7 @@ export default async function ParticipantsAdminPage() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <form action={approveJoinRequest.bind(null, req.id, req.user_id, req.leagues?.id)}>
+                  <form action={approveJoinRequest.bind(null, req.id, req.user_id, req.leagues?.id, selectedSeason?.id ?? '')}>
                     <button
                       type="submit"
                       className="rounded-md bg-green-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-green-700"
@@ -123,6 +112,9 @@ export default async function ParticipantsAdminPage() {
           <h2 className="text-lg font-semibold">All Participants</h2>
         </div>
         <div className="overflow-x-auto">
+          {!participants.length && (
+            <p className="mb-3 text-sm text-muted-foreground">No participants are enrolled in this season.</p>
+          )}
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border text-xs uppercase text-muted-foreground">
@@ -132,7 +124,7 @@ export default async function ParticipantsAdminPage() {
               </tr>
             </thead>
             <tbody>
-              {(participants ?? []).map((p: any) => (
+              {participants.map((p: any) => (
                 <tr key={p.id} className="border-b border-border/50">
                   <td className="py-2 pr-4 font-medium">{p.display_name}</td>
                   <td className="py-2 pr-4 text-muted-foreground">{p.email ?? '—'}</td>
@@ -157,7 +149,8 @@ export default async function ParticipantsAdminPage() {
       {/* Add offline participant */}
       <section>
         <h2 className="text-lg font-semibold mb-3">Add Offline Participant</h2>
-        <form action={createOfflineParticipant} className="flex gap-3 max-w-md">
+        <form action={createOfflineParticipant} className="flex max-w-2xl flex-wrap gap-3">
+          <input type="hidden" name="season_id" value={selectedSeason?.id ?? ''} />
           <input
             name="display_name"
             type="text"
@@ -173,12 +166,13 @@ export default async function ParticipantsAdminPage() {
           />
           <button
             type="submit"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 whitespace-nowrap"
+            disabled={!selectedSeason}
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 whitespace-nowrap disabled:opacity-50"
           >
             Add
           </button>
         </form>
       </section>
-    </div>
+    </main>
   );
 }

@@ -5,6 +5,8 @@ import { isKickoffLocked } from '@/lib/scoring';
 import { getSeasonNow } from '@/lib/clock';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
 
+export const metadata = { title: 'Predictions' };
+
 export const dynamic = 'force-dynamic';
 
 interface Props {

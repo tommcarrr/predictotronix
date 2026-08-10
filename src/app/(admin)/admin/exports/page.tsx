@@ -1,32 +1,31 @@
-import { redirect } from 'next/navigation';
-import { isSuperAdmin, getUser } from '@/lib/auth';
-import { createServiceClient } from '@/lib/supabase/server';
 import { ExportPanel } from '@/components/admin/ExportPanel';
+import { getAdminContext } from '@/lib/admin/context';
+import { redirect } from 'next/navigation';
+
+export const metadata = { title: 'Exports | Admin' };
 
 export const dynamic = 'force-dynamic';
 
 export default async function ExportsAdminPage() {
-  const user = await getUser();
-  if (!user) redirect('/login');
-  if (!(await isSuperAdmin())) redirect('/dashboard');
-
-  const supabase = await createServiceClient();
-
-  const { data: seasons } = await supabase
-    .from('seasons')
-    .select('id, name, status, league_id, leagues(name)')
-    .order('created_at', { ascending: false });
+  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  if (!superAdmin) redirect('/admin/participants');
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
+    <main className="mx-auto max-w-6xl space-y-6 p-6">
       <div>
-        <a href="/admin" className="text-sm text-muted-foreground hover:underline">
-          ← Admin
-        </a>
-        <h1 className="text-2xl font-bold mt-1">Exports & Clipboard</h1>
+        <h1 className="text-2xl font-bold">Exports & Clipboard</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}
+        </p>
       </div>
 
-      <ExportPanel seasons={seasons ?? []} />
-    </div>
+      {selectedSeason ? (
+        <ExportPanel key={selectedSeason.id} seasonId={selectedSeason.id} />
+      ) : (
+        <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
+          Select or create a season before generating exports.
+        </p>
+      )}
+    </main>
   );
 }

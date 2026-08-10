@@ -2,14 +2,6 @@
 
 import { useState } from 'react';
 
-interface Season {
-  id: string;
-  name: string;
-  status: string;
-  league_id: string;
-  leagues: { name: string } | null;
-}
-
 interface LeaderboardRow {
   position: number;
   display_name: string;
@@ -19,7 +11,7 @@ interface LeaderboardRow {
 }
 
 interface Props {
-  seasons: Season[];
+  seasonId: string;
 }
 
 type Format = 'text' | 'markdown' | 'html' | 'csv';
@@ -63,20 +55,18 @@ function formatLeaderboard(rows: LeaderboardRow[], format: Format): string {
   return lines.join('\n');
 }
 
-export function ExportPanel({ seasons }: Props) {
-  const [selectedSeasonId, setSelectedSeasonId] = useState(seasons[0]?.id ?? '');
+export function ExportPanel({ seasonId }: Props) {
   const [format, setFormat] = useState<Format>('text');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
 
   async function loadLeaderboard() {
-    if (!selectedSeasonId) return;
     setLoading(true);
     setOutput('');
 
     try {
-      const res = await fetch(`/api/admin/exports/leaderboard?seasonId=${selectedSeasonId}&format=${format}`);
+      const res = await fetch(`/api/admin/exports/leaderboard?seasonId=${seasonId}&format=${format}`);
       const text = await res.text();
       setOutput(text);
     } catch {
@@ -97,21 +87,6 @@ export function ExportPanel({ seasons }: Props) {
     <div className="space-y-4">
       {/* Controls */}
       <div className="flex flex-wrap gap-3 items-end">
-        <div className="space-y-1">
-          <label className="text-xs uppercase text-muted-foreground font-medium">Season</label>
-          <select
-            value={selectedSeasonId}
-            onChange={(e) => setSelectedSeasonId(e.target.value)}
-            className="rounded-md border border-border bg-background px-3 py-2 text-sm min-w-48"
-          >
-            {seasons.map((s) => (
-              <option key={s.id} value={s.id}>
-                {(s.leagues as any)?.name} — {s.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
         <div className="space-y-1">
           <label className="text-xs uppercase text-muted-foreground font-medium">Format</label>
           <select

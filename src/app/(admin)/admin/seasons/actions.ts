@@ -25,7 +25,7 @@ export async function createSeason(leagueId: string, formData: FormData) {
   });
 
   if (error) {
-    redirect(`/admin/seasons?league=${leagueId}&error=${encodeURIComponent(error.message)}`);
+    redirect(`/admin/seasons?error=${encodeURIComponent(error.message)}`);
   }
 
   revalidatePath('/admin/seasons');

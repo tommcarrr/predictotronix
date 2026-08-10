@@ -2,6 +2,8 @@ import { redirect } from 'next/navigation';
 import { getParticipant, requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 
+export const metadata = { title: 'Gameweek leaderboard' };
+
 export const dynamic = 'force-dynamic';
 
 interface Props {

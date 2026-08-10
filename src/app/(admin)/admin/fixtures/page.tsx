@@ -1,49 +1,60 @@
-import { redirect } from 'next/navigation';
-import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { triggerFixtureSync, triggerResultSync } from './actions';
+import { getAdminContext } from '@/lib/admin/context';
+import { redirect } from 'next/navigation';
+
+export const metadata = { title: 'Fixtures & Results | Admin' };
 
 export const dynamic = 'force-dynamic';
 
 export default async function FixturesAdminPage() {
-  const user = await getUser();
-  if (!user) redirect('/login');
-  if (!(await isSuperAdmin())) redirect('/dashboard');
-
+  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
 
-  const { data: fixtures } = await supabase
-    .from('fixtures')
-    .select(`
-      id, home_team_name, away_team_name, kickoff, status,
-      home_score, away_score, result_confirmed, last_synced_at,
-      gameweeks(label)
-    `)
-    .order('kickoff', { ascending: false })
-    .limit(50);
+  const { data: fixtures } = selectedSeason
+    ? await supabase
+        .from('fixtures')
+        .select(`
+          id, home_team_name, away_team_name, kickoff, status,
+          home_score, away_score, result_confirmed, last_synced_at,
+          gameweeks(label)
+        `)
+        .eq('season_id', selectedSeason.id)
+        .order('kickoff', { ascending: false })
+    : { data: [] };
+
+  const canSync = Boolean(
+    selectedSeason?.status === 'active' &&
+    selectedSeason.season_type === 'production' &&
+    selectedSeason.api_football_league_id &&
+    selectedSeason.api_football_season
+  );
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
+    <main className="mx-auto max-w-6xl space-y-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <a href="/admin" className="text-sm text-muted-foreground hover:underline">
-            ← Admin
-          </a>
-          <h1 className="text-2xl font-bold mt-1">Fixtures & Results</h1>
+          <h1 className="text-2xl font-bold">Fixtures & Results</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}
+          </p>
         </div>
         <div className="flex gap-2">
-          <form action={triggerFixtureSync}>
+          <form action={selectedSeason ? triggerFixtureSync.bind(null, selectedSeason.id) : undefined}>
             <button
               type="submit"
-              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+              disabled={!canSync}
+              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
             >
               Sync Fixtures
             </button>
           </form>
-          <form action={triggerResultSync}>
+          <form action={selectedSeason ? triggerResultSync.bind(null, selectedSeason.id) : undefined}>
             <button
               type="submit"
-              className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent"
+              disabled={!canSync}
+              className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-50"
             >
               Sync Results
             </button>
@@ -51,7 +62,19 @@ export default async function FixturesAdminPage() {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      {!selectedSeason && (
+        <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
+          Select or create a season to view fixtures.
+        </p>
+      )}
+
+      {selectedSeason && !(fixtures ?? []).length && (
+        <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
+          No fixtures have been added to this season yet.
+        </p>
+      )}
+
+      {(fixtures ?? []).length > 0 && <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-xs uppercase text-muted-foreground">
@@ -111,7 +134,7 @@ export default async function FixturesAdminPage() {
             ))}
           </tbody>
         </table>
-      </div>
-    </div>
+      </div>}
+    </main>
   );
 }

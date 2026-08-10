@@ -1,30 +1,33 @@
-import { redirect } from 'next/navigation';
-import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { createLeague, regenerateInviteCode } from './actions';
+import { getAdminContext } from '@/lib/admin/context';
+import { redirect } from 'next/navigation';
+
+export const metadata = { title: 'Leagues | Admin' };
 
 export const dynamic = 'force-dynamic';
 
 export default async function LeaguesAdminPage() {
-  const user = await getUser();
-  if (!user) redirect('/login');
-  if (!(await isSuperAdmin())) redirect('/dashboard');
-
+  const { selectedLeague, superAdmin } = await getAdminContext();
+  if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
 
-  const { data: leagues } = await supabase
-    .from('leagues')
-    .select(`
-      id, name, slug, invite_code, invite_active, created_at,
-      seasons(id, name, status, season_type)
-    `)
-    .order('created_at', { ascending: false });
+  const { data: leagues } = selectedLeague
+    ? await supabase
+        .from('leagues')
+        .select(`
+          id, name, slug, invite_code, invite_active, created_at,
+          seasons(id, name, status, season_type)
+        `)
+        .eq('id', selectedLeague.id)
+    : { data: [] };
 
   // Pending join requests per league
   const { data: pendingCounts } = await supabase
     .from('join_requests')
     .select('league_id')
-    .eq('status', 'pending');
+    .eq('status', 'pending')
+    .eq('league_id', selectedLeague?.id ?? '');
 
   const pendingByLeague = new Map<string, number>();
   for (const r of pendingCounts ?? []) {
@@ -34,12 +37,12 @@ export default async function LeaguesAdminPage() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <main className="mx-auto max-w-6xl space-y-8 p-6">
       <div>
-        <a href="/admin" className="text-sm text-muted-foreground hover:underline">
-          ← Admin
-        </a>
-        <h1 className="text-2xl font-bold mt-1">Leagues</h1>
+        <h1 className="text-2xl font-bold">League settings</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {selectedLeague ? `Invite links and seasons for ${selectedLeague.name}.` : 'Create your first league.'}
+        </p>
       </div>
 
       {/* Existing leagues */}
@@ -72,7 +75,7 @@ export default async function LeaguesAdminPage() {
                 {((league as any).seasons ?? []).map((s: any) => (
                   <a
                     key={s.id}
-                    href={`/admin/seasons?league=${league.id}`}
+                    href="/admin/seasons"
                     className="rounded px-2 py-0.5 text-xs bg-muted text-muted-foreground hover:bg-accent"
                   >
                     {s.name} · {s.status}
@@ -80,7 +83,7 @@ export default async function LeaguesAdminPage() {
                   </a>
                 ))}
                 <a
-                  href={`/admin/seasons?league=${league.id}&new=1`}
+                  href="/admin/seasons"
                   className="rounded px-2 py-0.5 text-xs border border-dashed border-border text-muted-foreground hover:bg-accent"
                 >
                   + New season
@@ -152,6 +155,6 @@ export default async function LeaguesAdminPage() {
           </button>
         </form>
       </section>
-    </div>
+    </main>
   );
 }

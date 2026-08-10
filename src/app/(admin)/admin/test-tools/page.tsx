@@ -1,8 +1,8 @@
-import { redirect } from 'next/navigation';
-import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { getSeasonNow } from '@/lib/clock';
 import { getEnvironmentPolicy } from '@/lib/environment';
+import { getAdminContext } from '@/lib/admin/context';
+import { redirect } from 'next/navigation';
 import {
   clearSeasonClock,
   fastForwardGameweek,
@@ -11,10 +11,12 @@ import {
   setSeasonClock,
 } from './actions';
 
+export const metadata = { title: 'Test Season Tools | Admin' };
+
 export const dynamic = 'force-dynamic';
 
 interface Props {
-  searchParams: Promise<{ season?: string; error?: string; clock?: string }>;
+  searchParams: Promise<{ error?: string; clock?: string }>;
 }
 
 function formatLondonDate(value: Date | string) {
@@ -27,23 +29,16 @@ function formatLondonDate(value: Date | string) {
 
 export default async function TestToolsPage({ searchParams }: Props) {
   const query = await searchParams;
-  const user = await getUser();
-  if (!user) redirect('/login');
-  if (!(await isSuperAdmin())) redirect('/dashboard');
-
+  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
 
-  // Only show test/demo seasons
-  const { data: testSeasons } = await supabase
-    .from('seasons')
-    .select('id, name, season_type, league_id, leagues(name)')
-    .in('season_type', ['test', 'demo'])
-    .eq('status', 'active')
-    .order('created_at', { ascending: false });
-
-  const selectedSeason =
-    testSeasons?.find((season) => season.id === query.season) ?? testSeasons?.[0];
-  const selectedSeasonId = selectedSeason?.id;
+  const isTestSeason = Boolean(
+    selectedSeason &&
+    ['test', 'demo'].includes(selectedSeason.season_type) &&
+    selectedSeason.status === 'active'
+  );
+  const selectedSeasonId = isTestSeason ? selectedSeason?.id : undefined;
 
   const { data: fixtures } = selectedSeasonId
     ? await supabase
@@ -75,12 +70,11 @@ export default async function TestToolsPage({ searchParams }: Props) {
   const stagingClockEnabled = getEnvironmentPolicy().appEnvironment === 'staging';
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-8">
+    <main className="mx-auto max-w-6xl space-y-8 p-6">
       <div>
-        <a href="/admin" className="text-sm text-muted-foreground hover:underline">← Admin</a>
-        <h1 className="text-2xl font-bold mt-1">Test Season Tools</h1>
+        <h1 className="text-2xl font-bold">Test Season Tools</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Only affects <strong>test</strong> and <strong>demo</strong> seasons. Production data is never modified here.
+          {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}. Only active <strong>test</strong> and <strong>demo</strong> seasons can be modified here.
         </p>
       </div>
 
@@ -95,32 +89,15 @@ export default async function TestToolsPage({ searchParams }: Props) {
         </div>
       )}
 
-      {!testSeasons?.length ? (
+      {!isTestSeason ? (
         <div className="rounded-lg border border-border p-4">
           <p className="text-sm text-muted-foreground">
-            No active test/demo seasons found.{' '}
-            <a href="/admin/seasons" className="text-primary hover:underline">Create one first.</a>
+            Select an active test or demo season in the shared season selector above.{' '}
+            <a href="/admin/seasons" className="text-primary hover:underline">Manage seasons.</a>
           </p>
         </div>
       ) : (
         <>
-          <form method="get" className="flex max-w-xl items-end gap-3 rounded-lg border border-border p-4">
-            <div className="flex-1 space-y-1">
-              <label className="text-sm font-medium" htmlFor="season">Season under test</label>
-              <select id="season" name="season" defaultValue={selectedSeasonId}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
-                {(testSeasons ?? []).map((season) => (
-                  <option key={season.id} value={season.id}>
-                    {(season as any).leagues?.name} — {season.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button type="submit" className="rounded-md border border-border px-4 py-2 text-sm font-medium">
-              Load
-            </button>
-          </form>
-
           <div className="rounded-lg border border-yellow-300 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/20 p-4">
             <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
               ⚠️ Test mode active — notifications will be dry-run only (logged, not sent).
@@ -182,7 +159,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
 
           {/* Fixtures table with inject result controls */}
           <section>
-            <h2 className="text-lg font-semibold mb-3">Fixtures — {(selectedSeason as any).leagues?.name} · {selectedSeason?.name}</h2>
+            <h2 className="text-lg font-semibold mb-3">Fixtures — {selectedLeague?.name} · {selectedSeason?.name}</h2>
             <div className="space-y-2">
               {(fixtures ?? []).map((f: any) => (
                 <div key={f.id} className="rounded-lg border border-border p-4 space-y-3">
@@ -247,17 +224,8 @@ export default async function TestToolsPage({ searchParams }: Props) {
             <p className="text-sm text-muted-foreground mb-3">
               Marks all unplayed fixtures in a gameweek as finished with randomised scores and scores all predictions.
             </p>
-            <form action={fastForwardGameweek} className="flex gap-3 items-end max-w-sm">
-              <div className="flex-1 space-y-1">
-                <label className="text-sm font-medium">Season</label>
-                <select name="season_id" defaultValue={selectedSeasonId} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
-                  {(testSeasons ?? []).map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {(s as any).leagues?.name} — {s.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <form action={fastForwardGameweek} className="flex items-end gap-3">
+              <input type="hidden" name="season_id" value={selectedSeasonId} />
               <button type="submit"
                 className="rounded-md border border-destructive px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/10">
                 Fast-forward next GW
@@ -266,6 +234,6 @@ export default async function TestToolsPage({ searchParams }: Props) {
           </section>
         </>
       )}
-    </div>
+    </main>
   );
 }

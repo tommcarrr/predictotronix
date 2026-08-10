@@ -1,16 +1,16 @@
 # Graph Report - predictotronix  (2026-08-10)
 
 ## Corpus Check
-- 101 files · ~41,803 words
+- 109 files · ~42,514 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 498 nodes · 882 edges · 40 communities (33 shown, 7 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.93)
+- 530 nodes · 914 edges · 37 communities (28 shown, 9 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8ad34eee`
+- Built from commit: `b32619f2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -27,37 +27,35 @@
 - Predictotronix
 - Staging environment runbook
 - environment.ts
-- ExportPanel.tsx
+- exports/page.tsx
 - Verify Before Completion
 - app/layout.tsx
 - button.tsx
 - verify.mjs
 - architecture.test.ts
-- File document icon
-- Geographic latitude and longitude grid
-- Next.js wordmark
+- Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI.
+- icon.tsx
+- join/layout.tsx
 - eslint.config.mjs
 - next.config.ts
 - postcss.config.mjs
-- Vercel logo
-- Browser window icon
+- leaderboard/layout.tsx
+- predictions/layout.tsx
 - global.setup.ts
 - scenario.mts
-- scripts
-- scoring/index.ts
 - supabase-server.test.ts
 
 ## God Nodes (most connected - your core abstractions)
-1. `createServiceClient()` - 50 edges
-2. `isSuperAdmin()` - 44 edges
-3. `getUser` - 41 edges
+1. `createServiceClient()` - 51 edges
+2. `isSuperAdmin()` - 31 edges
+3. `getUser` - 28 edges
 4. `createClient()` - 28 edges
 5. `requireUser()` - 21 edges
-6. `compilerOptions` - 17 edges
-7. `getParticipant()` - 16 edges
-8. `Staging environment runbook` - 13 edges
-9. `scripts` - 12 edges
-10. `ApiFixture` - 12 edges
+6. `getAdminContext` - 20 edges
+7. `compilerOptions` - 17 edges
+8. `getParticipant()` - 16 edges
+9. `Staging environment runbook` - 13 edges
+10. `scripts` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify-First Codebase Navigation` --semantically_similar_to--> `Existing Graph Fast Path`  [INFERRED] [semantically similar]
@@ -79,31 +77,31 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (40 total, 7 thin omitted)
+## Communities (37 total, 9 thin omitted)
 
 ### Community 0 - "auth/index.ts"
-Cohesion: 0.09
-Nodes (38): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, dynamic, DashboardPage(), dynamic (+30 more)
+Cohesion: 0.08
+Nodes (45): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+37 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.11
-Nodes (44): dynamic, ExportsAdminPage(), correctResult(), dynamic, FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive() (+36 more)
+Cohesion: 0.07
+Nodes (58): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive() (+50 more)
 
 ### Community 2 - "fixtures/actions.ts"
-Cohesion: 0.11
-Nodes (20): assertExternalFixtureSyncEnabled(), getProductionSeasons(), triggerFixtureSync(), triggerResultSync(), POST(), validateCronSecret(), POST(), validateCronSecret() (+12 more)
+Cohesion: 0.10
+Nodes (23): assertExternalFixtureSyncEnabled(), getProductionSeason(), triggerFixtureSync(), triggerResultSync(), dynamic, metadata, POST(), validateCronSecret() (+15 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
 ### Community 4 - "types/index.ts"
-Cohesion: 0.10
-Nodes (19): clockTimeForGameweek(), SeasonClockPosition, updateSession(), config, proxy(), Database, Enums, Json (+11 more)
+Cohesion: 0.08
+Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
 
 ### Community 5 - "dependencies"
-Cohesion: 0.07
-Nodes (29): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+21 more)
+Cohesion: 0.04
+Nodes (44): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+36 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -129,9 +127,9 @@ Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected Gi
 Cohesion: 0.10
 Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
 
-### Community 12 - "ExportPanel.tsx"
-Cohesion: 0.29
-Nodes (5): ExportPanel(), Format, LeaderboardRow, Props, Season
+### Community 12 - "exports/page.tsx"
+Cohesion: 0.22
+Nodes (7): dynamic, ExportsAdminPage(), metadata, ExportPanel(), Format, LeaderboardRow, Props
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -149,53 +147,37 @@ Nodes (3): Button(), buttonVariants, cn()
 Cohesion: 0.50
 Nodes (3): env, PLACEHOLDER_ENV, steps
 
-### Community 18 - "File document icon"
-Cohesion: 0.67
-Nodes (3): File document icon, Folded document corner, Horizontal text lines
-
-### Community 19 - "Geographic latitude and longitude grid"
-Cohesion: 1.00
-Nodes (3): Geographic latitude and longitude grid, Globe icon, Spherical world
-
-### Community 20 - "Next.js wordmark"
-Cohesion: 0.67
-Nodes (3): Next.js, Next.js wordmark, Black vector path artwork
+### Community 18 - "Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
 ### Community 32 - "scenario.mts"
 Cohesion: 0.14
 Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
-
-### Community 37 - "scripts"
-Cohesion: 0.12
-Nodes (15): name, private, scripts, build, dev, lint, staging:reset, staging:smoke (+7 more)
-
-### Community 38 - "scoring/index.ts"
-Cohesion: 0.27
-Nodes (10): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+2 more)
 
 ### Community 39 - "supabase-server.test.ts"
 Cohesion: 0.50
 Nodes (3): cookies, createServerClient, createSupabaseClient
 
 ## Knowledge Gaps
-- **199 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+194 more)
+- **215 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+210 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **7 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `createServiceClient()` connect `createServiceClient` to `auth/index.ts`, `fixtures/actions.ts`, `environment.ts`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `auth/index.ts`, `fixtures/actions.ts`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `devDependencies` to `scripts`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
+  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+- **Why does `createClient()` connect `auth/index.ts` to `createServiceClient`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _199 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _215 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `auth/index.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.0936026936026936 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07720782654680064 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.10902255639097744 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0730593607305936 - nodes in this community are weakly interconnected._
 - **Should `fixtures/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.11153846153846154 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09830866807610994 - nodes in this community are weakly interconnected._

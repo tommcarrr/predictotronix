@@ -1,5 +1,10 @@
 import { signIn } from '@/lib/auth/actions';
 
+export const metadata = {
+  title: 'Sign in',
+  description: 'Sign in to make predictions and view your Predictotronix leagues.',
+};
+
 export const dynamic = 'force-dynamic';
 
 export default async function LoginPage({

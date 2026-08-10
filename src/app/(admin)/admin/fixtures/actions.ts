@@ -14,55 +14,55 @@ function assertExternalFixtureSyncEnabled() {
   }
 }
 
-async function getProductionSeasons() {
+async function getProductionSeason(seasonId: string) {
   const supabase = await createServiceClient();
   const { data } = await supabase
     .from('seasons')
     .select('id, api_football_league_id, api_football_season')
+    .eq('id', seasonId)
     .eq('status', 'active')
     .eq('season_type', 'production')
-    .not('api_football_league_id', 'is', null);
-  return data ?? [];
+    .not('api_football_league_id', 'is', null)
+    .maybeSingle();
+  return data;
 }
 
-export async function triggerFixtureSync() {
+export async function triggerFixtureSync(seasonId: string) {
   if (!(await isSuperAdmin())) redirect('/dashboard');
   assertExternalFixtureSyncEnabled();
 
   const supabase = await createServiceClient();
   const provider = new ApiFootballProvider();
-  const seasons = await getProductionSeasons();
+  const season = await getProductionSeason(seasonId);
+  if (!season) throw new Error('The selected season is not available for production sync.');
 
-  for (const season of seasons) {
-    await syncFixtures(
-      supabase,
-      provider,
-      season.id,
-      season.api_football_league_id!,
-      season.api_football_season!
-    );
-  }
+  await syncFixtures(
+    supabase,
+    provider,
+    season.id,
+    season.api_football_league_id!,
+    season.api_football_season!
+  );
 
   revalidatePath('/admin/fixtures');
 }
 
-export async function triggerResultSync() {
+export async function triggerResultSync(seasonId: string) {
   if (!(await isSuperAdmin())) redirect('/dashboard');
   assertExternalFixtureSyncEnabled();
 
   const supabase = await createServiceClient();
   const provider = new ApiFootballProvider();
-  const seasons = await getProductionSeasons();
+  const season = await getProductionSeason(seasonId);
+  if (!season) throw new Error('The selected season is not available for production sync.');
 
-  for (const season of seasons) {
-    await syncResults(
-      supabase,
-      provider,
-      season.id,
-      season.api_football_league_id!,
-      season.api_football_season!
-    );
-  }
+  await syncResults(
+    supabase,
+    provider,
+    season.id,
+    season.api_football_league_id!,
+    season.api_football_season!
+  );
 
   revalidatePath('/admin/fixtures');
 }
