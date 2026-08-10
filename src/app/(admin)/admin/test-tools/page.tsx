@@ -1,11 +1,32 @@
 import { redirect } from 'next/navigation';
 import { isSuperAdmin, getUser } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
-import { injectResult, markFixturePostponed, fastForwardGameweek } from './actions';
+import { getSeasonNow } from '@/lib/clock';
+import { getEnvironmentPolicy } from '@/lib/environment';
+import {
+  clearSeasonClock,
+  fastForwardGameweek,
+  injectResult,
+  markFixturePostponed,
+  setSeasonClock,
+} from './actions';
 
 export const dynamic = 'force-dynamic';
 
-export default async function TestToolsPage() {
+interface Props {
+  searchParams: Promise<{ season?: string; error?: string; clock?: string }>;
+}
+
+function formatLondonDate(value: Date | string) {
+  return new Date(value).toLocaleString('en-GB', {
+    timeZone: 'Europe/London',
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
+}
+
+export default async function TestToolsPage({ searchParams }: Props) {
+  const query = await searchParams;
   const user = await getUser();
   if (!user) redirect('/login');
   if (!(await isSuperAdmin())) redirect('/dashboard');
@@ -20,7 +41,9 @@ export default async function TestToolsPage() {
     .eq('status', 'active')
     .order('created_at', { ascending: false });
 
-  const selectedSeasonId = testSeasons?.[0]?.id;
+  const selectedSeason =
+    testSeasons?.find((season) => season.id === query.season) ?? testSeasons?.[0];
+  const selectedSeasonId = selectedSeason?.id;
 
   const { data: fixtures } = selectedSeasonId
     ? await supabase
@@ -29,6 +52,27 @@ export default async function TestToolsPage() {
         .eq('season_id', selectedSeasonId)
         .order('kickoff', { ascending: true })
     : { data: [] };
+
+  const { data: gameweeks } = selectedSeasonId
+    ? await supabase
+        .from('gameweeks')
+        .select('id, gameweek_number, label, status, first_kickoff')
+        .eq('season_id', selectedSeasonId)
+        .order('gameweek_number', { ascending: true })
+    : { data: [] };
+
+  const { data: clockSetting } = selectedSeasonId
+    ? await supabase
+        .from('season_runtime_settings')
+        .select('simulated_now, updated_at')
+        .eq('season_id', selectedSeasonId)
+        .maybeSingle()
+    : { data: null };
+
+  const seasonNow = selectedSeasonId
+    ? await getSeasonNow(supabase, selectedSeasonId)
+    : new Date();
+  const stagingClockEnabled = getEnvironmentPolicy().appEnvironment === 'staging';
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-8">
@@ -40,6 +84,17 @@ export default async function TestToolsPage() {
         </p>
       </div>
 
+      {query.error && (
+        <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+          {query.error}
+        </div>
+      )}
+      {query.clock && (
+        <div className="rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-300">
+          Season clock {query.clock === 'cleared' ? 'returned to real time' : 'updated'}.
+        </div>
+      )}
+
       {!testSeasons?.length ? (
         <div className="rounded-lg border border-border p-4">
           <p className="text-sm text-muted-foreground">
@@ -49,15 +104,85 @@ export default async function TestToolsPage() {
         </div>
       ) : (
         <>
+          <form method="get" className="flex max-w-xl items-end gap-3 rounded-lg border border-border p-4">
+            <div className="flex-1 space-y-1">
+              <label className="text-sm font-medium" htmlFor="season">Season under test</label>
+              <select id="season" name="season" defaultValue={selectedSeasonId}
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
+                {(testSeasons ?? []).map((season) => (
+                  <option key={season.id} value={season.id}>
+                    {(season as any).leagues?.name} — {season.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button type="submit" className="rounded-md border border-border px-4 py-2 text-sm font-medium">
+              Load
+            </button>
+          </form>
+
           <div className="rounded-lg border border-yellow-300 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/20 p-4">
             <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
               ⚠️ Test mode active — notifications will be dry-run only (logged, not sent).
             </p>
           </div>
 
+          <section className="rounded-lg border border-border p-4 space-y-4">
+            <div>
+              <h2 className="text-lg font-semibold">Simulated season clock</h2>
+              <p className="text-sm text-muted-foreground">
+                Current season time: <strong>{formatLondonDate(seasonNow)}</strong>{' '}
+                ({clockSetting?.simulated_now ? 'simulated' : 'real time'}). Prediction locks and reminders use this value.
+              </p>
+              {!stagingClockEnabled && (
+                <p className="mt-2 text-sm text-destructive">
+                  Clock controls are disabled unless APP_ENV is staging and the staging Supabase project guard matches.
+                </p>
+              )}
+            </div>
+
+            <form action={setSeasonClock} className="grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+              <input type="hidden" name="season_id" value={selectedSeasonId} />
+              <div className="space-y-1">
+                <label className="text-sm font-medium" htmlFor="gameweek_id">Gameweek</label>
+                <select id="gameweek_id" name="gameweek_id" required disabled={!stagingClockEnabled}
+                  className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm disabled:opacity-50">
+                  {(gameweeks ?? []).map((gameweek) => (
+                    <option key={gameweek.id} value={gameweek.id}>
+                      {gameweek.label ?? `Gameweek ${gameweek.gameweek_number}`} — {gameweek.status}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium" htmlFor="position">Test moment</label>
+                <select id="position" name="position" defaultValue="in_progress" disabled={!stagingClockEnabled}
+                  className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm disabled:opacity-50">
+                  <option value="before">24 hours before kickoff</option>
+                  <option value="in_progress">1 hour after first kickoff</option>
+                  <option value="after">3 hours after last kickoff</option>
+                </select>
+              </div>
+              <button type="submit" disabled={!stagingClockEnabled || !gameweeks?.length}
+                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50">
+                Set clock
+              </button>
+            </form>
+
+            {clockSetting?.simulated_now && (
+              <form action={clearSeasonClock}>
+                <input type="hidden" name="season_id" value={selectedSeasonId} />
+                <button type="submit" disabled={!stagingClockEnabled}
+                  className="rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50">
+                  Return to real time
+                </button>
+              </form>
+            )}
+          </section>
+
           {/* Fixtures table with inject result controls */}
           <section>
-            <h2 className="text-lg font-semibold mb-3">Fixtures — {(testSeasons[0] as any).leagues?.name} · {testSeasons[0].name}</h2>
+            <h2 className="text-lg font-semibold mb-3">Fixtures — {(selectedSeason as any).leagues?.name} · {selectedSeason?.name}</h2>
             <div className="space-y-2">
               {(fixtures ?? []).map((f: any) => (
                 <div key={f.id} className="rounded-lg border border-border p-4 space-y-3">
@@ -68,11 +193,7 @@ export default async function TestToolsPage() {
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {f.gameweeks?.label} ·{' '}
-                        {new Date(f.kickoff).toLocaleString('en-GB', {
-                          timeZone: 'Europe/London',
-                          dateStyle: 'short',
-                          timeStyle: 'short',
-                        })}
+                        {formatLondonDate(f.kickoff)}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -129,7 +250,7 @@ export default async function TestToolsPage() {
             <form action={fastForwardGameweek} className="flex gap-3 items-end max-w-sm">
               <div className="flex-1 space-y-1">
                 <label className="text-sm font-medium">Season</label>
-                <select name="season_id" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
+                <select name="season_id" defaultValue={selectedSeasonId} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
                   {(testSeasons ?? []).map((s) => (
                     <option key={s.id} value={s.id}>
                       {(s as any).leagues?.name} — {s.name}

@@ -3,6 +3,7 @@
 import { createClient, createServiceClient } from '@/lib/supabase/server';
 import { getParticipant, requireUser } from '@/lib/auth';
 import { isKickoffLocked } from '@/lib/scoring';
+import { getSeasonNow } from '@/lib/clock';
 import { revalidatePath } from 'next/cache';
 
 export interface PredictionInput {
@@ -35,6 +36,7 @@ export async function submitPredictions(
 
   const errors: string[] = [];
   let saved = 0;
+  const seasonTimes = new Map<string, Date>();
 
   for (const input of inputs) {
     // Server-side kickoff lock check (defence in depth — RLS also enforces this)
@@ -49,7 +51,13 @@ export async function submitPredictions(
       continue;
     }
 
-    if (isKickoffLocked(new Date(fixture.kickoff))) {
+    let seasonNow = seasonTimes.get(fixture.season_id);
+    if (!seasonNow) {
+      seasonNow = await getSeasonNow(supabase, fixture.season_id);
+      seasonTimes.set(fixture.season_id, seasonNow);
+    }
+
+    if (isKickoffLocked(new Date(fixture.kickoff), seasonNow)) {
       errors.push(`Fixture ${input.fixtureId}: kickoff has passed — prediction locked`);
       continue;
     }

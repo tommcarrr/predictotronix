@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getParticipant, requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { isKickoffLocked } from '@/lib/scoring';
+import { getSeasonNow } from '@/lib/clock';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
 
 export const dynamic = 'force-dynamic';
@@ -46,10 +47,11 @@ export default async function PredictionsPage({ params }: Props) {
   const predictionMap = new Map(
     (existingPredictions ?? []).map((p) => [p.fixture_id, p])
   );
+  const seasonNow = await getSeasonNow(supabase, gameweek.season_id);
 
   const enrichedFixtures = (fixtures ?? []).map((f) => ({
     ...f,
-    locked: isKickoffLocked(new Date(f.kickoff)),
+    locked: isKickoffLocked(new Date(f.kickoff), seasonNow),
     prediction: predictionMap.get(f.id) ?? null,
   }));
 

@@ -1,0 +1,40 @@
+projects:
+  - name: predictotronix
+    environments:
+      - name: Staging
+        permissions:
+          protection: enabled
+        networking:
+          isolation: disabled
+        services:
+          - type: web
+            name: predictotronix-staging
+            runtime: node
+            plan: free
+            region: frankfurt
+            branch: main
+            autoDeployTrigger: checksPass
+            buildCommand: npm ci && npm run build
+            startCommand: npm start
+            healthCheckPath: /api/health
+            envVars:
+              - key: APP_ENV
+                value: staging
+              - key: NODE_ENV
+                value: production
+              - key: ALLOW_EXTERNAL_FIXTURE_SYNC
+                value: "false"
+              - key: STAGING_EMAIL_DOMAIN
+                value: staging.predictotronix.test
+              - key: STAGING_SUPABASE_PROJECT_REF
+                sync: false
+              - key: NEXT_PUBLIC_SUPABASE_URL
+                sync: false
+              - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+                sync: false
+              - key: SUPABASE_SERVICE_ROLE_KEY
+                sync: false
+              - key: NEXT_PUBLIC_APP_URL
+                sync: false
+              - key: CRON_SECRET
+                sync: false

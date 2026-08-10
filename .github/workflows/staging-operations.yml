@@ -1,0 +1,85 @@
+name: Staging Operations
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Operation to run against the protected staging environment
+        required: true
+        default: smoke
+        type: choice
+        options:
+          - smoke
+          - migrate
+          - reset
+          - migrate-and-reset
+
+permissions:
+  contents: read
+
+concurrency:
+  group: staging-operations
+  cancel-in-progress: false
+
+jobs:
+  staging:
+    name: ${{ inputs.operation }} staging
+    runs-on: ubuntu-latest
+    environment: staging
+    timeout-minutes: 30
+    env:
+      APP_ENV: staging
+      ALLOW_EXTERNAL_FIXTURE_SYNC: "false"
+      STAGING_SUPABASE_PROJECT_REF: ${{ secrets.STAGING_SUPABASE_PROJECT_REF }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.STAGING_SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.STAGING_SUPABASE_SERVICE_ROLE_KEY }}
+      STAGING_DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+      NEXT_PUBLIC_APP_URL: ${{ secrets.STAGING_APP_URL }}
+      CRON_SECRET: ${{ secrets.STAGING_CRON_SECRET }}
+      STAGING_EMAIL_DOMAIN: ${{ vars.STAGING_EMAIL_DOMAIN || 'staging.predictotronix.test' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate staging secrets
+        shell: bash
+        run: |
+          required=(
+            STAGING_SUPABASE_PROJECT_REF
+            NEXT_PUBLIC_SUPABASE_URL
+            NEXT_PUBLIC_SUPABASE_ANON_KEY
+            SUPABASE_SERVICE_ROLE_KEY
+            NEXT_PUBLIC_APP_URL
+            CRON_SECRET
+          )
+          if [[ "${{ inputs.operation }}" == "migrate" || "${{ inputs.operation }}" == "migrate-and-reset" ]]; then
+            required+=(STAGING_DATABASE_URL)
+          fi
+          for name in "${required[@]}"; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "::error::Missing required staging secret: ${name}"
+              exit 1
+            fi
+          done
+
+      - name: Apply staging migrations
+        if: inputs.operation == 'migrate' || inputs.operation == 'migrate-and-reset'
+        run: npx supabase db push --db-url "$STAGING_DATABASE_URL"
+
+      - name: Reset deterministic staging scenario
+        if: inputs.operation == 'reset' || inputs.operation == 'migrate-and-reset'
+        run: npm run staging:reset
+
+      - name: Smoke-test staging deployment
+        if: inputs.operation == 'smoke' || inputs.operation == 'reset' || inputs.operation == 'migrate-and-reset'
+        run: npm run staging:smoke

@@ -6,6 +6,13 @@ import { ApiFootballProvider } from '@/lib/api-football/client';
 import { syncFixtures, syncResults } from '@/lib/sync/fixtures';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { getEnvironmentPolicy } from '@/lib/environment';
+
+function assertExternalFixtureSyncEnabled() {
+  if (!getEnvironmentPolicy().externalFixtureSyncEnabled) {
+    throw new Error('External fixture synchronization is disabled in this environment.');
+  }
+}
 
 async function getProductionSeasons() {
   const supabase = await createServiceClient();
@@ -20,6 +27,7 @@ async function getProductionSeasons() {
 
 export async function triggerFixtureSync() {
   if (!(await isSuperAdmin())) redirect('/dashboard');
+  assertExternalFixtureSyncEnabled();
 
   const supabase = await createServiceClient();
   const provider = new ApiFootballProvider();
@@ -40,6 +48,7 @@ export async function triggerFixtureSync() {
 
 export async function triggerResultSync() {
   if (!(await isSuperAdmin())) redirect('/dashboard');
+  assertExternalFixtureSyncEnabled();
 
   const supabase = await createServiceClient();
   const provider = new ApiFootballProvider();

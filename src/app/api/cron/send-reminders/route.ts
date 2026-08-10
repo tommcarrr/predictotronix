@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/server';
 import { sendReminderEmail } from '@/lib/notifications/email';
 import { sendReminderSms } from '@/lib/notifications/sms';
+import { shouldDryRunNotifications } from '@/lib/environment';
+import { getSeasonNow } from '@/lib/clock';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,7 +19,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const supabase = await createServiceClient();
-    const now = new Date();
+    const processedAt = new Date();
     let sent = 0;
     let suppressed = 0;
     const errors: string[] = [];
@@ -26,11 +28,6 @@ export async function POST(request: NextRequest) {
     // Reminder windows:
     //   1. 10:00am on day of first fixture (within the last 30 min)
     //   2. 2 hours before first fixture kickoff (within the last 30 min)
-    const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
-    const todayAt10 = new Date(ukNow);
-    todayAt10.setHours(10, 0, 0, 0);
-    const twoHoursBefore = new Date(now.getTime() + 2 * 60 * 60 * 1000);
-
     const { data: gameweeks } = await supabase
       .from('gameweeks')
       .select(`
@@ -41,11 +38,16 @@ export async function POST(request: NextRequest) {
       .not('first_kickoff', 'is', null);
 
     for (const gw of gameweeks ?? []) {
+      const now = await getSeasonNow(supabase, gw.season_id);
+      const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
+      const todayAt10 = new Date(ukNow);
+      todayAt10.setHours(10, 0, 0, 0);
       const firstKickoff = new Date(gw.first_kickoff!);
       const season = (gw as any).seasons;
 
-      // Determine if this is a test season (dry-run by default)
-      const isDryRun = season?.season_type !== 'production';
+      // Staging/development environments always dry-run, even if incorrectly
+      // connected to a season marked as production.
+      const isDryRun = shouldDryRunNotifications(season?.season_type);
 
       // Check if a reminder is due (within 30-min window)
       const diffToKickoff = firstKickoff.getTime() - now.getTime();
@@ -177,7 +179,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      timestamp: now.toISOString(),
+      timestamp: processedAt.toISOString(),
       sent,
       suppressed,
       errors,
