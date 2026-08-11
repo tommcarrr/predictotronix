@@ -1,21 +1,21 @@
 # Graph Report - predictotronix  (2026-08-10)
 
 ## Corpus Check
-- 106 files · ~41,818 words
+- 110 files · ~43,172 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 517 nodes · 900 edges · 39 communities (30 shown, 9 thin omitted)
+- 540 nodes · 932 edges · 38 communities (29 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b32619f2`
+- Built from commit: `61892c20`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- auth/index.ts
+- server.ts
 - createServiceClient
 - fixtures/actions.ts
 - devDependencies
@@ -27,7 +27,7 @@
 - Predictotronix
 - Staging environment runbook
 - environment.ts
-- exports/page.tsx
+- getAdminContext
 - Verify Before Completion
 - app/layout.tsx
 - button.tsx
@@ -41,22 +41,22 @@
 - postcss.config.mjs
 - leaderboard/layout.tsx
 - predictions/layout.tsx
+- docker-up.mjs
 - global.setup.ts
 - scenario.mts
-- scripts
 - supabase-server.test.ts
 
 ## God Nodes (most connected - your core abstractions)
-1. `createServiceClient()` - 50 edges
-2. `isSuperAdmin()` - 44 edges
-3. `getUser` - 41 edges
+1. `createServiceClient()` - 51 edges
+2. `isSuperAdmin()` - 31 edges
+3. `getUser` - 28 edges
 4. `createClient()` - 28 edges
 5. `requireUser()` - 21 edges
-6. `compilerOptions` - 17 edges
-7. `getParticipant()` - 16 edges
-8. `Staging environment runbook` - 13 edges
-9. `scripts` - 12 edges
-10. `ApiFixture` - 12 edges
+6. `getAdminContext` - 20 edges
+7. `compilerOptions` - 17 edges
+8. `getParticipant()` - 16 edges
+9. `scripts` - 15 edges
+10. `Staging environment runbook` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify-First Codebase Navigation` --semantically_similar_to--> `Existing Graph Fast Path`  [INFERRED] [semantically similar]
@@ -78,19 +78,19 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (39 total, 9 thin omitted)
+## Communities (38 total, 9 thin omitted)
 
-### Community 0 - "auth/index.ts"
+### Community 0 - "server.ts"
 Cohesion: 0.08
-Nodes (45): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+37 more)
+Nodes (47): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+39 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.10
-Nodes (47): ExportsAdminPage(), correctResult(), FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic, LeaguesAdminPage() (+39 more)
+Cohesion: 0.11
+Nodes (41): correctResult(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic, LeaguesAdminPage(), metadata, approveJoinRequest() (+33 more)
 
 ### Community 2 - "fixtures/actions.ts"
-Cohesion: 0.10
-Nodes (23): assertExternalFixtureSyncEnabled(), getProductionSeasons(), triggerFixtureSync(), triggerResultSync(), dynamic, metadata, POST(), validateCronSecret() (+15 more)
+Cohesion: 0.09
+Nodes (24): assertExternalFixtureSyncEnabled(), getProductionSeason(), triggerFixtureSync(), triggerResultSync(), dynamic, FixturesAdminPage(), metadata, POST() (+16 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
@@ -101,8 +101,8 @@ Cohesion: 0.08
 Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
 
 ### Community 5 - "dependencies"
-Cohesion: 0.07
-Nodes (29): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+21 more)
+Cohesion: 0.04
+Nodes (47): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+39 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -128,9 +128,9 @@ Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected Gi
 Cohesion: 0.10
 Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
 
-### Community 12 - "exports/page.tsx"
-Cohesion: 0.22
-Nodes (7): dynamic, metadata, ExportPanel(), Format, LeaderboardRow, Props, Season
+### Community 12 - "getAdminContext"
+Cohesion: 0.10
+Nodes (23): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, ExportsAdminPage(), metadata, AdminDashboardPage(), dynamic (+15 more)
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -152,37 +152,37 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
+### Community 26 - "docker-up.mjs"
+Cohesion: 0.50
+Nodes (4): apiUrl, local, run(), supabaseStatus()
+
 ### Community 32 - "scenario.mts"
 Cohesion: 0.14
 Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
-
-### Community 37 - "scripts"
-Cohesion: 0.12
-Nodes (15): name, private, scripts, build, dev, lint, staging:reset, staging:smoke (+7 more)
 
 ### Community 39 - "supabase-server.test.ts"
 Cohesion: 0.50
 Nodes (3): cookies, createServerClient, createSupabaseClient
 
 ## Knowledge Gaps
-- **213 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+208 more)
+- **222 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+217 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `auth/index.ts`, `fixtures/actions.ts`, `environment.ts`, `exports/page.tsx`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `auth/index.ts`, `fixtures/actions.ts`, `exports/page.tsx`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `devDependencies` to `scripts`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`, `getAdminContext`?**
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
+- **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _213 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `auth/index.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.07720782654680064 - nodes in this community are weakly interconnected._
+  _222 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `server.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.0763888888888889 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.10223835450695705 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10745098039215686 - nodes in this community are weakly interconnected._
 - **Should `fixtures/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09830866807610994 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09494949494949495 - nodes in this community are weakly interconnected._

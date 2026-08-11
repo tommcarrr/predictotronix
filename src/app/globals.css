@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -127,4 +127,15 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Prevent fallback-font text from flashing before next/font is ready. */
+body {
+  visibility: hidden;
+  opacity: 0;
+}
+
+html.fonts-loaded body {
+  visibility: visible;
+  opacity: 1;
 }

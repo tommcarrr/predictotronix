@@ -93,7 +93,7 @@ export default async function SettingsPage() {
           type="submit"
           className="w-full py-2 bg-[--color-primary] text-white font-bold text-sm hover:opacity-90"
         >
-          [SAVE SETTINGS]
+          Save settings
         </button>
       </form>
     </div>

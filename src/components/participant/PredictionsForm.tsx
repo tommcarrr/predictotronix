@@ -24,13 +24,10 @@ interface Fixture {
 
 interface Props {
   fixtures: Fixture[];
-  participantId: string;
 }
 
-export function PredictionsForm({ fixtures, participantId }: Props) {
-  const [inputs, setInputs] = useState<
-    Record<string, { home: string; away: string }>
-  >(
+export function PredictionsForm({ fixtures }: Props) {
+  const [inputs, setInputs] = useState<Record<string, { home: string; away: string }>>(
     Object.fromEntries(
       fixtures.map((f) => [
         f.id,
@@ -75,9 +72,7 @@ export function PredictionsForm({ fixtures, participantId }: Props) {
       if (result.success) {
         setMessage(`✓ Saved ${result.saved} prediction(s).`);
       } else {
-        setMessage(
-          `Saved ${result.saved}. Errors: ${result.errors.join('; ')}`
-        );
+        setMessage(`Saved ${result.saved}. Errors: ${result.errors.join('; ')}`);
       }
     });
   }
@@ -106,9 +101,7 @@ export function PredictionsForm({ fixtures, participantId }: Props) {
                     minute: '2-digit',
                   })}
                 </span>
-                {f.locked && (
-                  <span className="text-[--color-error] font-bold text-xs">LOCKED</span>
-                )}
+                {f.locked && <span className="text-[--color-error] font-bold text-xs">LOCKED</span>}
                 {pred?.is_admin_entered && !f.locked && (
                   <span className="text-[--color-warning] text-xs">ADMIN-ENTERED</span>
                 )}
@@ -153,8 +146,8 @@ export function PredictionsForm({ fixtures, participantId }: Props) {
                         pred!.points_awarded === 3
                           ? 'text-[--color-success]'
                           : pred!.points_awarded === 1
-                          ? 'text-[--color-warning]'
-                          : 'text-[--color-error]'
+                            ? 'text-[--color-warning]'
+                            : 'text-[--color-error]'
                       }`}
                     >
                       {pred!.points_awarded}pts ({pred!.points_reason})
@@ -173,7 +166,7 @@ export function PredictionsForm({ fixtures, participantId }: Props) {
           disabled={isPending}
           className="w-full py-2 bg-[--color-primary] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50"
         >
-          {isPending ? 'SAVING…' : '[SAVE PREDICTIONS]'}
+          {isPending ? 'Saving…' : 'Save predictions'}
         </button>
       )}
 

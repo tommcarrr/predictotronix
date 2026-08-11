@@ -1,11 +1,27 @@
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { getParticipant, requireUser, isSuperAdmin } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/lib/auth/actions';
+import { getSeasonNow } from '@/lib/clock';
+import { isKickoffLocked } from '@/lib/scoring';
+import { PredictionsForm } from '@/components/participant/PredictionsForm';
 
 export const metadata = { title: 'Dashboard' };
 
 export const dynamic = 'force-dynamic';
+
+interface ActiveSeason {
+  id: string;
+  name: string;
+  league_id: string;
+  leagues: { name: string } | null;
+}
+
+interface PendingJoinRequest {
+  id: string;
+  leagues: { name: string } | null;
+}
 
 export default async function DashboardPage() {
   const user = await requireUser().catch(() => null);
@@ -24,17 +40,19 @@ export default async function DashboardPage() {
   // Get the active season for the first league the participant belongs to
   const { data: activeSeasons } = await supabase
     .from('season_participants')
-    .select(`
+    .select(
+      `
       season_id,
       seasons!inner(id, name, status, league_id,
         leagues(name)
       )
-    `)
+    `
+    )
     .eq('participant_id', participant?.id ?? '')
     .eq('seasons.status', 'active')
     .limit(1);
 
-  const activeSeason = (activeSeasons?.[0] as any)?.seasons;
+  const activeSeason = activeSeasons?.[0]?.seasons as unknown as ActiveSeason | undefined;
 
   // Get the upcoming gameweek
   const { data: nextGameweek } = activeSeason
@@ -49,26 +67,43 @@ export default async function DashboardPage() {
 
   const gw = nextGameweek?.[0];
 
-  // Count predictions for the upcoming gameweek
-  const { count: predCount } = gw
-    ? await supabase
-        .from('predictions')
-        .select('id', { count: 'exact', head: true })
-        .eq('participant_id', participant?.id ?? '')
-        .in(
-          'fixture_id',
-          (await supabase.from('fixtures').select('id').eq('gameweek_id', gw.id)).data?.map(
-            (f: any) => f.id
-          ) ?? []
-        )
-    : { count: 0 };
-
-  const { count: fixtureCount } = gw
+  // Load the upcoming fixtures once so the dashboard can be used to predict,
+  // rather than only showing a count and sending the participant elsewhere.
+  const { data: fixtures, error: fixturesError } = gw
     ? await supabase
         .from('fixtures')
-        .select('id', { count: 'exact', head: true })
+        .select(
+          'id, home_team_name, away_team_name, kickoff, status, home_score, away_score, result_confirmed'
+        )
         .eq('gameweek_id', gw.id)
-    : { count: 0 };
+        .order('kickoff', { ascending: true })
+    : { data: [], error: null };
+
+  const { data: existingPredictions } =
+    gw && fixtures?.length
+      ? await supabase
+          .from('predictions')
+          .select(
+            'fixture_id, home_score, away_score, points_awarded, points_reason, is_admin_entered'
+          )
+          .eq('participant_id', participant?.id ?? '')
+          .in(
+            'fixture_id',
+            fixtures.map((fixture) => fixture.id)
+          )
+      : { data: [] };
+
+  const predictionMap = new Map(
+    (existingPredictions ?? []).map((prediction) => [prediction.fixture_id, prediction])
+  );
+  const seasonNow = activeSeason ? await getSeasonNow(supabase, activeSeason.id) : new Date();
+  const enrichedFixtures = (fixtures ?? []).map((fixture) => ({
+    ...fixture,
+    locked: isKickoffLocked(new Date(fixture.kickoff), seasonNow),
+    prediction: predictionMap.get(fixture.id) ?? null,
+  }));
+  const fixtureCount = enrichedFixtures.length;
+  const predCount = enrichedFixtures.filter((fixture) => fixture.prediction).length;
 
   return (
     <div className="p-4 max-w-2xl mx-auto space-y-6">
@@ -92,15 +127,16 @@ export default async function DashboardPage() {
           </h2>
 
           {gw ? (
-            <div className="border border-[--color-info] p-3 space-y-2">
-              <p className="text-[--color-info] font-bold">{gw.label}</p>
-              <p className="text-sm">
-                Predictions:{' '}
-                <span className={predCount === fixtureCount ? 'text-[--color-success]' : 'text-[--color-warning]'}>
-                  {predCount}/{fixtureCount}
-                  {predCount === fixtureCount ? ' ✓ COMPLETE' : ' — incomplete'}
-                </span>
-              </p>
+            <div className="border border-[--color-info] p-4 space-y-4">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <p className="text-[--color-info] font-bold text-lg">{gw.label}</p>
+                <p
+                  className={`text-xs font-bold uppercase ${predCount === fixtureCount && fixtureCount > 0 ? 'text-[--color-success]' : 'text-[--color-warning]'}`}
+                >
+                  {predCount}/{fixtureCount} predicted
+                  {predCount === fixtureCount && fixtureCount > 0 ? ' ✓' : ''}
+                </p>
+              </div>
               {gw.first_kickoff && (
                 <p className="text-[--color-text-secondary] text-xs">
                   First kickoff:{' '}
@@ -111,12 +147,23 @@ export default async function DashboardPage() {
                   })}
                 </p>
               )}
-              <a
+              {fixturesError ? (
+                <p className="border border-[--color-error] p-3 text-sm text-[--color-error]">
+                  Fixtures could not be loaded. Refresh the page or contact your league admin.
+                </p>
+              ) : enrichedFixtures.length === 0 ? (
+                <p className="border border-[--color-warning] p-3 text-sm text-[--color-text-secondary]">
+                  No fixtures have been added to this gameweek yet.
+                </p>
+              ) : (
+                <PredictionsForm fixtures={enrichedFixtures} />
+              )}
+              <Link
                 href={`/predictions/${gw.id}`}
-                className="inline-block mt-2 px-3 py-1 bg-[--color-primary] text-white text-sm font-bold hover:opacity-90"
+                className="inline-flex min-h-10 items-center justify-center border border-[--color-info] px-4 py-2 text-sm font-bold text-[--color-info] hover:bg-[--color-info] hover:text-white"
               >
-                [SUBMIT PREDICTIONS]
-              </a>
+                Open gameweek
+              </Link>
             </div>
           ) : (
             <p className="text-[--color-text-secondary] text-sm">No upcoming gameweek.</p>
@@ -124,42 +171,56 @@ export default async function DashboardPage() {
         </section>
       ) : (
         <section className="border border-[--color-warning] p-3 space-y-2">
-          <p className="text-[--color-warning]">
-            You are not enrolled in any active season.
-          </p>
+          <p className="text-[--color-warning]">You are not enrolled in any active season.</p>
           {pendingJoinRequests && pendingJoinRequests.length > 0 ? (
             <div className="space-y-1">
-              {pendingJoinRequests.map((req: any) => (
+              {(pendingJoinRequests as unknown as PendingJoinRequest[]).map((req) => (
                 <p key={req.id} className="text-[--color-text-secondary] text-sm">
-                  ⧗ Join request for <span className="text-[--color-warning]">{req.leagues?.name ?? 'a league'}</span> is pending approval.
+                  ⧗ Join request for{' '}
+                  <span className="text-[--color-warning]">{req.leagues?.name ?? 'a league'}</span>{' '}
+                  is pending approval.
                 </p>
               ))}
             </div>
           ) : (
-            <p className="text-[--color-text-secondary] text-sm">Contact your league admin for an invite.</p>
+            <p className="text-[--color-text-secondary] text-sm">
+              Contact your league admin for an invite.
+            </p>
           )}
         </section>
       )}
 
       {/* Nav links */}
-      <nav className="space-y-1 text-sm">
-        <a href="/leaderboard" className="block text-[--color-info] hover:underline">
-          [LEADERBOARD]
-        </a>
-        <a href="/settings" className="block text-[--color-info] hover:underline">
-          [NOTIFICATION SETTINGS]
-        </a>
+      <nav className="grid gap-2 text-sm sm:grid-cols-2">
+        <Link
+          href="/leaderboard"
+          className="inline-flex min-h-10 items-center justify-center bg-[--color-primary] px-4 py-2 font-bold text-white hover:opacity-90"
+        >
+          Leaderboard
+        </Link>
+        <Link
+          href="/settings"
+          className="inline-flex min-h-10 items-center justify-center bg-[--color-primary] px-4 py-2 font-bold text-white hover:opacity-90"
+        >
+          Notification settings
+        </Link>
         {isAdmin && (
-          <a href="/admin" className="block text-[--color-warning] hover:underline font-bold">
-            [ADMIN PANEL]
-          </a>
+          <Link
+            href="/admin"
+            className="inline-flex min-h-10 items-center justify-center border border-[--color-warning] px-4 py-2 font-bold text-[--color-warning] hover:bg-[--color-warning] hover:text-black"
+          >
+            Admin panel
+          </Link>
         )}
       </nav>
 
       {/* Sign out */}
       <form action={signOut} className="pt-2">
-        <button type="submit" className="text-[--color-error] text-sm hover:underline">
-          [SIGN OUT]
+        <button
+          type="submit"
+          className="min-h-10 border border-[--color-error] px-4 py-2 text-sm font-bold text-[--color-error] hover:bg-[--color-error] hover:text-white"
+        >
+          Sign out
         </button>
       </form>
     </div>
