@@ -1,11 +1,11 @@
 # Graph Report - predictotronix  (2026-08-11)
 
 ## Corpus Check
-- 113 files · ~43,413 words
+- 117 files · ~44,628 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 545 nodes · 943 edges · 39 communities (30 shown, 9 thin omitted)
+- 571 nodes · 977 edges · 42 communities (33 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
@@ -19,7 +19,7 @@
 - createServiceClient
 - fixtures/actions.ts
 - devDependencies
-- types/index.ts
+- scoring/index.ts
 - dependencies
 - compilerOptions
 - components.json
@@ -27,7 +27,7 @@
 - Predictotronix
 - Staging environment runbook
 - environment.ts
-- exports/page.tsx
+- getAdminContext
 - Verify Before Completion
 - app/layout.tsx
 - button.tsx
@@ -45,7 +45,10 @@
 - global.setup.ts
 - scenario.mts
 - local-dev.mjs
+- Q: Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?
 - supabase-server.test.ts
+- Q: Why are they locked at all?
+- Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?
 
 ## God Nodes (most connected - your core abstractions)
 1. `createServiceClient()` - 51 edges
@@ -79,27 +82,27 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (39 total, 9 thin omitted)
+## Communities (42 total, 9 thin omitted)
 
 ### Community 0 - "server.ts"
 Cohesion: 0.07
 Nodes (50): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+42 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.07
-Nodes (58): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive() (+50 more)
+Cohesion: 0.10
+Nodes (43): correctResult(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic, LeaguesAdminPage(), metadata, approveJoinRequest() (+35 more)
 
 ### Community 2 - "fixtures/actions.ts"
-Cohesion: 0.10
-Nodes (20): assertExternalFixtureSyncEnabled(), getProductionSeason(), triggerFixtureSync(), triggerResultSync(), dynamic, metadata, POST(), validateCronSecret() (+12 more)
+Cohesion: 0.08
+Nodes (29): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), initialSyncActionState, SyncActionState, triggerFixtureSync(), triggerResultSync() (+21 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
-### Community 4 - "types/index.ts"
-Cohesion: 0.08
-Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
+### Community 4 - "scoring/index.ts"
+Cohesion: 0.09
+Nodes (26): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+18 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.07
@@ -127,11 +130,11 @@ Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected Gi
 
 ### Community 11 - "environment.ts"
 Cohesion: 0.09
-Nodes (28): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), POST(), validateCronSecret(), dynamic (+20 more)
+Nodes (26): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+18 more)
 
-### Community 12 - "exports/page.tsx"
-Cohesion: 0.22
-Nodes (7): dynamic, ExportsAdminPage(), metadata, ExportPanel(), Format, LeaderboardRow, Props
+### Community 12 - "getAdminContext"
+Cohesion: 0.09
+Nodes (26): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, ExportsAdminPage(), metadata, dynamic, FixturesAdminPage() (+18 more)
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -165,29 +168,47 @@ Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), require
 Cohesion: 0.50
 Nodes (4): local, next, status(), supabase()
 
+### Community 38 - "Q: Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?, Source Nodes
+
 ### Community 39 - "supabase-server.test.ts"
 Cohesion: 0.50
 Nodes (3): cookies, createServerClient, createSupabaseClient
 
+### Community 40 - "Q: Why are they locked at all?"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: Why are they locked at all?, Source Nodes
+
+### Community 41 - "Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?, Source Nodes
+
 ## Knowledge Gaps
-- **223 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+218 more)
+- **234 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+229 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+
+## Work-memory lessons
+
+**Preferred sources** — corroborated by past sessions; start here.
+- `getSeasonNow()` (2× useful, score=1.997989674)
+- `isKickoffLocked()` (2× useful, score=1.997989674)
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`?**
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`, `getAdminContext`?**
   _High betweenness centrality (0.049) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`?**
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
   _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `devDependencies` to `scripts`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _223 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _234 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.06990622335890878 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.0730593607305936 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09831649831649832 - nodes in this community are weakly interconnected._
 - **Should `fixtures/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.10128205128205128 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08235294117647059 - nodes in this community are weakly interconnected._

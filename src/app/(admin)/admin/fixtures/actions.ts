@@ -34,12 +34,6 @@ export interface SyncActionState {
   logs: SyncLogEntry[];
 }
 
-export const initialSyncActionState: SyncActionState = {
-  status: 'idle',
-  message: 'Run a sync to see backend diagnostics.',
-  logs: [],
-};
-
 function actionLogger(logs: SyncLogEntry[]) {
   return (entry: SyncLogEntry) => logs.push(entry);
 }

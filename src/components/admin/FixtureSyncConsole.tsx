@@ -2,27 +2,36 @@
 
 import { useActionState } from 'react';
 import {
-  initialSyncActionState,
   triggerFixtureSync,
   triggerResultSync,
   type SyncActionState,
 } from '@/app/(admin)/admin/fixtures/actions';
 
+const initialSyncActionState: SyncActionState = {
+  status: 'idle',
+  message: 'Run a sync to see backend diagnostics.',
+  logs: [],
+};
+
 function ConsoleOutput({ state }: { state: SyncActionState }) {
+  const logs = state?.logs ?? [];
+  const status = state?.status ?? 'idle';
   const statusColour = {
     idle: 'text-muted-foreground',
     success: 'text-green-400',
     warning: 'text-amber-400',
     error: 'text-red-400',
-  }[state.status];
+  }[status];
 
   return (
     <div className="rounded-lg border border-slate-700 bg-slate-950 p-4 font-mono text-xs text-slate-200">
-      <div className={`mb-3 ${statusColour}`} aria-live="polite">{state.message}</div>
+      <div className={`mb-3 ${statusColour}`} aria-live="polite">
+        {state?.message ?? initialSyncActionState.message}
+      </div>
       <div className="max-h-80 space-y-1 overflow-y-auto" role="log" aria-label="Backend sync log">
-        {state.logs.length === 0 ? (
+        {logs.length === 0 ? (
           <p className="text-slate-500">Waiting for a sync operation…</p>
-        ) : state.logs.map((entry, index) => (
+        ) : logs.map((entry, index) => (
           <div key={`${entry.timestamp}-${index}`} className="break-words">
             <span className="text-slate-500">{new Date(entry.timestamp).toLocaleTimeString('en-GB')}</span>{' '}
             <span className={entry.level === 'error' ? 'text-red-400' : entry.level === 'warning' ? 'text-amber-400' : entry.level === 'success' ? 'text-green-400' : 'text-sky-400'}>
