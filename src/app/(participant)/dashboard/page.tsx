@@ -6,6 +6,7 @@ import { signOut } from '@/lib/auth/actions';
 import { getSeasonNow } from '@/lib/clock';
 import { isKickoffLocked } from '@/lib/scoring';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
+import { selectPredictionGameweek } from '@/lib/predictions/gameweek';
 
 export const metadata = { title: 'Dashboard' };
 
@@ -54,33 +55,35 @@ export default async function DashboardPage() {
 
   const activeSeason = activeSeasons?.[0]?.seasons as unknown as ActiveSeason | undefined;
 
-  // Get the upcoming gameweek
-  const { data: nextGameweek } = activeSeason
+  // Consider every current/future gameweek. An in-progress week may already be
+  // fully locked, so selecting by gameweek number alone can hide an open week.
+  const { data: predictionGameweeks } = activeSeason
     ? await supabase
         .from('gameweeks')
         .select('id, label, first_kickoff, status')
         .eq('season_id', activeSeason.id)
         .in('status', ['upcoming', 'in_progress'])
         .order('gameweek_number', { ascending: true })
-        .limit(1)
     : { data: null };
 
-  const gw = nextGameweek?.[0];
+  const seasonNow = activeSeason ? await getSeasonNow(supabase, activeSeason.id) : new Date();
+  const candidateIds = (predictionGameweeks ?? []).map((gameweek) => gameweek.id);
 
-  // Load the upcoming fixtures once so the dashboard can be used to predict,
-  // rather than only showing a count and sending the participant elsewhere.
-  const { data: fixtures, error: fixturesError } = gw
+  const { data: candidateFixtures, error: fixturesError } = candidateIds.length
     ? await supabase
         .from('fixtures')
         .select(
-          'id, home_team_name, away_team_name, kickoff, status, home_score, away_score, result_confirmed'
+          'id, gameweek_id, home_team_name, away_team_name, kickoff, status, home_score, away_score, result_confirmed'
         )
-        .eq('gameweek_id', gw.id)
+        .in('gameweek_id', candidateIds)
         .order('kickoff', { ascending: true })
     : { data: [], error: null };
 
+  const gw = selectPredictionGameweek(predictionGameweeks ?? [], candidateFixtures ?? [], seasonNow);
+  const fixtures = (candidateFixtures ?? []).filter((fixture) => fixture.gameweek_id === gw?.id);
+
   const { data: existingPredictions } =
-    gw && fixtures?.length
+    gw && fixtures.length
       ? await supabase
           .from('predictions')
           .select(
@@ -96,8 +99,7 @@ export default async function DashboardPage() {
   const predictionMap = new Map(
     (existingPredictions ?? []).map((prediction) => [prediction.fixture_id, prediction])
   );
-  const seasonNow = activeSeason ? await getSeasonNow(supabase, activeSeason.id) : new Date();
-  const enrichedFixtures = (fixtures ?? []).map((fixture) => ({
+  const enrichedFixtures = fixtures.map((fixture) => ({
     ...fixture,
     locked: isKickoffLocked(new Date(fixture.kickoff), seasonNow),
     prediction: predictionMap.get(fixture.id) ?? null,

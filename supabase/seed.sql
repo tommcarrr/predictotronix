@@ -103,8 +103,8 @@ on conflict do nothing;
 -- Offline participants (no user_id)
 insert into public.participants (id, display_name, user_id, email, is_offline)
 values
-  ('00000000-0000-0000-0003-000000000001', 'Alice (offline)', null, 'alice@example.com', true),
-  ('00000000-0000-0000-0003-000000000002', 'Bob (offline)',   null, 'bob@example.com',   true)
+  ('00000000-0000-0000-0003-000000000001', 'Alice', null, 'alice@example.com', true),
+  ('00000000-0000-0000-0003-000000000002', 'Bob',   null, 'bob@example.com',   true)
 on conflict do nothing;
 
 -- Season enrollment for offline participants

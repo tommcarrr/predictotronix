@@ -146,7 +146,6 @@ export default async function SeasonsAdminPage() {
                     <div key={p.id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
                       <span className="text-sm">
                         {p.display_name}
-                        {p.is_offline && <span className="ml-1 text-xs text-muted-foreground">(offline)</span>}
                       </span>
                       {enrolled ? (
                         <form action={removeSeasonParticipant.bind(null, selectedSeason.id, p.id)}>

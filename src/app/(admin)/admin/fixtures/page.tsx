@@ -1,7 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/server';
-import { triggerFixtureSync, triggerResultSync } from './actions';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
+import { FixtureSyncConsole } from '@/components/admin/FixtureSyncConsole';
 
 export const metadata = { title: 'Fixtures & Results | Admin' };
 
@@ -40,27 +40,9 @@ export default async function FixturesAdminPage() {
             {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}
           </p>
         </div>
-        <div className="flex gap-2">
-          <form action={selectedSeason ? triggerFixtureSync.bind(null, selectedSeason.id) : undefined}>
-            <button
-              type="submit"
-              disabled={!canSync}
-              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
-            >
-              Sync Fixtures
-            </button>
-          </form>
-          <form action={selectedSeason ? triggerResultSync.bind(null, selectedSeason.id) : undefined}>
-            <button
-              type="submit"
-              disabled={!canSync}
-              className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-50"
-            >
-              Sync Results
-            </button>
-          </form>
-        </div>
       </div>
+
+      {selectedSeason && <FixtureSyncConsole seasonId={selectedSeason.id} canSync={canSync} />}
 
       {!selectedSeason && (
         <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">

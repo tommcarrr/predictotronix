@@ -11,7 +11,7 @@
   "9": "Predictotronix",
   "10": "Staging environment runbook",
   "11": "environment.ts",
-  "12": "getAdminContext",
+  "12": "exports/page.tsx",
   "13": "Verify Before Completion",
   "14": "app/layout.tsx",
   "15": "button.tsx",

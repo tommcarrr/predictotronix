@@ -3,7 +3,7 @@
 import { isSuperAdmin } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
 import { ApiFootballProvider } from '@/lib/api-football/client';
-import { syncFixtures, syncResults } from '@/lib/sync/fixtures';
+import { syncFixtures, syncResults, type SyncLogEntry } from '@/lib/sync/fixtures';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getEnvironmentPolicy } from '@/lib/environment';
@@ -27,44 +27,101 @@ async function getProductionSeason(seasonId: string) {
   return data;
 }
 
-export async function triggerFixtureSync(seasonId: string) {
-  if (!(await isSuperAdmin())) redirect('/dashboard');
-  assertExternalFixtureSyncEnabled();
-
-  const supabase = await createServiceClient();
-  const provider = new ApiFootballProvider();
-  const season = await getProductionSeason(seasonId);
-  if (!season) throw new Error('The selected season is not available for production sync.');
-
-  await syncFixtures(
-    supabase,
-    provider,
-    season.id,
-    season.api_football_league_id!,
-    season.api_football_season!
-  );
-
-  revalidatePath('/admin/fixtures');
+export interface SyncActionState {
+  status: 'idle' | 'success' | 'warning' | 'error';
+  operation?: 'fixtures' | 'results';
+  message: string;
+  logs: SyncLogEntry[];
 }
 
-export async function triggerResultSync(seasonId: string) {
+export const initialSyncActionState: SyncActionState = {
+  status: 'idle',
+  message: 'Run a sync to see backend diagnostics.',
+  logs: [],
+};
+
+function actionLogger(logs: SyncLogEntry[]) {
+  return (entry: SyncLogEntry) => logs.push(entry);
+}
+
+function failureEntry(message: string): SyncLogEntry {
+  return { timestamp: new Date().toISOString(), level: 'error', message };
+}
+
+export async function triggerFixtureSync(
+  seasonId: string,
+  _previousState: SyncActionState,
+  _formData: FormData
+): Promise<SyncActionState> {
   if (!(await isSuperAdmin())) redirect('/dashboard');
-  assertExternalFixtureSyncEnabled();
+  const logs: SyncLogEntry[] = [];
 
-  const supabase = await createServiceClient();
-  const provider = new ApiFootballProvider();
-  const season = await getProductionSeason(seasonId);
-  if (!season) throw new Error('The selected season is not available for production sync.');
+  try {
+    assertExternalFixtureSyncEnabled();
+    const supabase = await createServiceClient();
+    const provider = new ApiFootballProvider();
+    const season = await getProductionSeason(seasonId);
+    if (!season) throw new Error('The selected season is not available for production sync.');
 
-  await syncResults(
-    supabase,
-    provider,
-    season.id,
-    season.api_football_league_id!,
-    season.api_football_season!
-  );
+    const result = await syncFixtures(
+      supabase,
+      provider,
+      season.id,
+      season.api_football_league_id!,
+      season.api_football_season!,
+      actionLogger(logs)
+    );
+    revalidatePath('/admin/fixtures');
+    return {
+      status: result.errors.length ? 'warning' : 'success',
+      operation: 'fixtures',
+      message: `Fixture sync completed: ${result.upserted} upserted, ${result.errors.length} failed.`,
+      logs,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('[admin/fixture-sync]', error);
+    logs.push(failureEntry(message));
+    return { status: 'error', operation: 'fixtures', message, logs };
+  }
+}
 
-  revalidatePath('/admin/fixtures');
+export async function triggerResultSync(
+  seasonId: string,
+  _previousState: SyncActionState,
+  _formData: FormData
+): Promise<SyncActionState> {
+  if (!(await isSuperAdmin())) redirect('/dashboard');
+  const logs: SyncLogEntry[] = [];
+
+  try {
+    assertExternalFixtureSyncEnabled();
+    const supabase = await createServiceClient();
+    const provider = new ApiFootballProvider();
+    const season = await getProductionSeason(seasonId);
+    if (!season) throw new Error('The selected season is not available for production sync.');
+
+    const result = await syncResults(
+      supabase,
+      provider,
+      season.id,
+      season.api_football_league_id!,
+      season.api_football_season!,
+      actionLogger(logs)
+    );
+    revalidatePath('/admin/fixtures');
+    return {
+      status: result.errors.length ? 'warning' : 'success',
+      operation: 'results',
+      message: `Result sync completed: ${result.scored} scored, ${result.errors.length} failed.`,
+      logs,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('[admin/result-sync]', error);
+    logs.push(failureEntry(message));
+    return { status: 'error', operation: 'results', message, logs };
+  }
 }
 
 export async function correctResult(

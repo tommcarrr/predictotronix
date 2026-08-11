@@ -1,5 +1,144 @@
 {
-  "generated_at": "2026-08-10T11:06:09.869746+00:00",
-  "nodes": {},
+  "generated_at": "2026-08-11T11:53:49.873749+00:00",
+  "nodes": {
+    "src_app_admin_admin_participants_page_participantsadminpage": {
+      "code_fingerprint": "61f3b11193466ecfe5a5648b773881c9954e1dd674603daf69333db571a6eac4",
+      "label": "ParticipantsAdminPage()",
+      "last": "2026-08-10T11:26:17.030897+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-10T11:26:17.030897+00:00",
+          "outcome": "useful",
+          "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
+        }
+      ],
+      "score": 0.976728159,
+      "source_file": "src/app/(admin)/admin/participants/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_auth_join_code_actions_submitjoinrequest": {
+      "code_fingerprint": "227c3b31d96f3eae6d352a74754c10a485f2ba5342c7e34d23d302ca7987fbb9",
+      "label": "submitJoinRequest()",
+      "last": "2026-08-10T11:26:17.030897+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-10T11:26:17.030897+00:00",
+          "outcome": "useful",
+          "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
+        }
+      ],
+      "score": 0.976728159,
+      "source_file": "src/app/(auth)/join/[code]/actions.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_participant_dashboard_page_dashboardpage": {
+      "code_fingerprint": "5023169b86082afb97b3b07c65ccbd116c5960c232a0e64a228ce4a6e498adcd",
+      "label": "DashboardPage()",
+      "last": "2026-08-11T09:54:19.664123+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-11T09:54:19.664123+00:00",
+          "outcome": "useful",
+          "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
+        }
+      ],
+      "score": 0.998084395,
+      "source_file": "src/app/(participant)/dashboard/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_components_participant_predictionsform_predictionsform": {
+      "code_fingerprint": "e3e450117a845a62d44f90e7122fb628c4e070c3ede3e5340cdf3f25d09d1ca7",
+      "label": "PredictionsForm()",
+      "last": "2026-08-11T11:47:55.651711+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-11T11:47:55.651711+00:00",
+          "outcome": "useful",
+          "q": "Why are they locked at all?"
+        }
+      ],
+      "score": 0.999905279,
+      "source_file": "src/components/participant/PredictionsForm.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_lib_clock_getseasonnow": {
+      "code_fingerprint": "984431223275217bc39e3ba5b198125f457319a20c487ac7922b00ea715dcbcc",
+      "label": "getSeasonNow()",
+      "last": "2026-08-11T11:47:55.651711+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-11T11:47:55.651711+00:00",
+          "outcome": "useful",
+          "q": "Why are they locked at all?"
+        },
+        {
+          "date": "2026-08-11T09:54:19.664123+00:00",
+          "outcome": "useful",
+          "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
+        }
+      ],
+      "score": 1.997989674,
+      "source_file": "src/lib/clock.ts",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_lib_predictions_actions_submitpredictions": {
+      "code_fingerprint": "829440d6c7e33da00733da90c54d7e8a2f952f85569b9d211cb859b532cd032d",
+      "label": "submitPredictions()",
+      "last": "2026-08-11T11:47:55.651711+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-11T11:47:55.651711+00:00",
+          "outcome": "useful",
+          "q": "Why are they locked at all?"
+        }
+      ],
+      "score": 0.999905279,
+      "source_file": "src/lib/predictions/actions.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_lib_scoring_index_iskickofflocked": {
+      "code_fingerprint": "c6be4524d1ecc9d1b140df4257f2d9bf2f223d9768e37ad829cf194797f3dc39",
+      "label": "isKickoffLocked()",
+      "last": "2026-08-11T11:47:55.651711+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-11T11:47:55.651711+00:00",
+          "outcome": "useful",
+          "q": "Why are they locked at all?"
+        },
+        {
+          "date": "2026-08-11T09:54:19.664123+00:00",
+          "outcome": "useful",
+          "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
+        }
+      ],
+      "score": 1.997989674,
+      "source_file": "src/lib/scoring/index.ts",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_lib_supabase_server_createserviceclient": {
+      "code_fingerprint": "89e335346c6afebaa5b44fe136f914f26d1ef1194b5f1513f4f1c69c53a51ef5",
+      "label": "createServiceClient()",
+      "last": "2026-08-10T11:26:17.030897+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-10T11:26:17.030897+00:00",
+          "outcome": "useful",
+          "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
+        }
+      ],
+      "score": 0.976728159,
+      "source_file": "src/lib/supabase/server.ts",
+      "status": "tentative",
+      "uses": 1
+    }
+  },
   "version": 1
 }

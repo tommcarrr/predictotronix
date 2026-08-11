@@ -23,6 +23,32 @@ export interface SyncResult {
   errors: string[];
 }
 
+export type SyncLogLevel = 'info' | 'success' | 'warning' | 'error';
+
+export interface SyncLogEntry {
+  timestamp: string;
+  level: SyncLogLevel;
+  message: string;
+  details?: Record<string, string | number | boolean | null>;
+}
+
+export type SyncLogger = (entry: SyncLogEntry) => void;
+
+function log(
+  logger: SyncLogger | undefined,
+  level: SyncLogLevel,
+  message: string,
+  details?: SyncLogEntry['details']
+) {
+  const entry = { timestamp: new Date().toISOString(), level, message, details };
+  logger?.(entry);
+  const detailsSuffix = details ? ` ${JSON.stringify(details)}` : '';
+  const output = `[fixture-sync] ${message}${detailsSuffix}`;
+  if (level === 'error') console.error(output);
+  else if (level === 'warning') console.warn(output);
+  else console.info(output);
+}
+
 /**
  * Sync all fixtures for a season from the provider into the database.
  * Idempotent: safe to run multiple times — uses upsert on api_football_fixture_id.
@@ -32,18 +58,37 @@ export async function syncFixtures(
   provider: FixtureProvider,
   seasonId: string,
   leagueId: number,
-  season: number
+  season: number,
+  logger?: SyncLogger
 ): Promise<SyncResult> {
   const errors: string[] = [];
   let upserted = 0;
 
+  log(logger, 'info', 'Starting fixture sync', { seasonId, leagueId, season });
+  log(logger, 'info', 'Requesting fixtures from API-Football', { leagueId, season });
   const apiFixtures = await provider.getSeasonFixtures(leagueId, season);
+  log(
+    logger,
+    apiFixtures.length ? 'success' : 'warning',
+    apiFixtures.length ? 'API-Football returned fixtures' : 'API-Football returned no fixtures',
+    { fixtureCount: apiFixtures.length }
+  );
 
   // Build a round → gameweek_id map from existing gameweeks
-  const { data: gameweeks } = await supabase
+  const { data: gameweeks, error: gameweeksError } = await supabase
     .from('gameweeks')
     .select('id, api_football_round')
     .eq('season_id', seasonId);
+
+  if (gameweeksError) {
+    const message = `Could not load gameweeks: ${gameweeksError.message}`;
+    log(logger, 'error', message);
+    return { upserted, errors: [message] };
+  }
+
+  log(logger, gameweeks?.length ? 'info' : 'warning', 'Loaded season gameweek mappings', {
+    gameweekCount: gameweeks?.length ?? 0,
+  });
 
   const roundToGameweekId = new Map<string, string>();
   for (const gw of gameweeks ?? []) {
@@ -79,15 +124,34 @@ export async function syncFixtures(
       );
 
       if (error) {
-        errors.push(`Fixture ${fixture.id}: ${error.message}`);
+        const message = `Fixture ${fixture.id}: ${error.message}`;
+        errors.push(message);
+        log(logger, 'error', 'Fixture upsert failed', {
+          fixtureId: fixture.id,
+          round: fixture.league.round,
+          error: error.message,
+        });
       } else {
         upserted++;
       }
     } catch (err) {
-      errors.push(`Fixture ${fixture.id}: ${String(err)}`);
+      const message = `Fixture ${fixture.id}: ${String(err)}`;
+      errors.push(message);
+      log(logger, 'error', 'Unexpected fixture processing error', {
+        fixtureId: fixture.id,
+        error: String(err),
+      });
     }
   }
 
+  log(logger, errors.length ? 'warning' : 'success', 'Fixture sync finished', {
+    received: apiFixtures.length,
+    upserted,
+    failed: errors.length,
+    unmatchedGameweeks: apiFixtures.filter(
+      (fixture) => !roundToGameweekId.has(fixture.league.round)
+    ).length,
+  });
   return { upserted, errors };
 }
 
@@ -100,19 +164,31 @@ export async function syncResults(
   provider: FixtureProvider,
   seasonId: string,
   leagueId: number,
-  season: number
+  season: number,
+  logger?: SyncLogger
 ): Promise<{ scored: number; errors: string[] }> {
   const errors: string[] = [];
   let scored = 0;
 
   // Get unconfirmed fixtures that are not postponed/cancelled/abandoned
-  const { data: pendingFixtures } = await supabase
+  log(logger, 'info', 'Starting result sync', { seasonId, leagueId, season });
+  const { data: pendingFixtures, error: pendingError } = await supabase
     .from('fixtures')
     .select('id, api_football_fixture_id, kickoff')
     .eq('season_id', seasonId)
     .eq('result_confirmed', false)
     .in('status', ['scheduled', 'live', 'finished'])
     .lt('kickoff', new Date().toISOString());
+
+  if (pendingError) {
+    const message = `Could not load pending fixtures: ${pendingError.message}`;
+    log(logger, 'error', message);
+    return { scored, errors: [message] };
+  }
+
+  log(logger, pendingFixtures?.length ? 'info' : 'warning', 'Loaded fixtures awaiting results', {
+    pendingCount: pendingFixtures?.length ?? 0,
+  });
 
   if (!pendingFixtures?.length) return { scored, errors };
 
@@ -142,6 +218,10 @@ export async function syncResults(
 
       if (updateError) {
         errors.push(`Update fixture ${pending.id}: ${updateError.message}`);
+        log(logger, 'error', 'Fixture result update failed', {
+          fixtureId: pending.id,
+          error: updateError.message,
+        });
         continue;
       }
 
@@ -152,13 +232,26 @@ export async function syncResults(
 
       if (scoreError) {
         errors.push(`Score fixture ${pending.id}: ${scoreError.message}`);
+        log(logger, 'error', 'Prediction scoring failed', {
+          fixtureId: pending.id,
+          error: scoreError.message,
+        });
       } else {
         scored++;
       }
     } catch (err) {
       errors.push(`Fixture ${pending.id}: ${String(err)}`);
+      log(logger, 'error', 'Unexpected result processing error', {
+        fixtureId: pending.id,
+        error: String(err),
+      });
     }
   }
 
+  log(logger, errors.length ? 'warning' : 'success', 'Result sync finished', {
+    checked: pendingFixtures.length,
+    scored,
+    failed: errors.length,
+  });
   return { scored, errors };
 }
