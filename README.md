@@ -80,6 +80,23 @@ npm run dev
 
 Visit `http://localhost:3000` — redirects to `/login`.
 
+### Local Docker-backed development loop
+
+On Windows and macOS, Next.js recommends running `next dev` natively because Docker Desktop bind mounts can make HMR extremely slow and can cause Turbopack worker timeouts. The local development command therefore runs Next.js natively while keeping Postgres, Auth, and the Supabase API in Docker.
+
+```bash
+npm run local:dev
+```
+
+The first run downloads the Supabase images and applies the repository migrations and seed. It writes generated local credentials to the ignored `.env.local`, then starts Next.js with Turbopack and fast native filesystem access. The app remains available at the standard Playwright/browser target, `http://localhost:3000`.
+
+```bash
+npm run test:e2e
+npm run local:stop
+```
+
+Stop `local:dev` with Ctrl+C. `npm run local:stop` stops the Docker-backed Supabase services when they are no longer needed.
+
 ---
 
 ## Scripts

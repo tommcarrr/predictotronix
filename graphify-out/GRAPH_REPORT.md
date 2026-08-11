@@ -1,16 +1,16 @@
 # Graph Report - predictotronix  (2026-08-10)
 
 ## Corpus Check
-- 109 files · ~42,839 words
+- 110 files · ~43,126 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 532 nodes · 924 edges · 37 communities (28 shown, 9 thin omitted)
+- 539 nodes · 931 edges · 39 communities (30 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1197ac05`
+- Built from commit: `61892c20`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,8 +41,10 @@
 - postcss.config.mjs
 - leaderboard/layout.tsx
 - predictions/layout.tsx
+- scripts
 - global.setup.ts
 - scenario.mts
+- local-dev.mjs
 - supabase-server.test.ts
 
 ## God Nodes (most connected - your core abstractions)
@@ -54,8 +56,8 @@
 6. `getAdminContext` - 20 edges
 7. `compilerOptions` - 17 edges
 8. `getParticipant()` - 16 edges
-9. `Staging environment runbook` - 13 edges
-10. `scripts` - 12 edges
+9. `scripts` - 14 edges
+10. `Staging environment runbook` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify-First Codebase Navigation` --semantically_similar_to--> `Existing Graph Fast Path`  [INFERRED] [semantically similar]
@@ -77,7 +79,7 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (37 total, 9 thin omitted)
+## Communities (39 total, 9 thin omitted)
 
 ### Community 0 - "server.ts"
 Cohesion: 0.08
@@ -100,8 +102,8 @@ Cohesion: 0.08
 Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
 
 ### Community 5 - "dependencies"
-Cohesion: 0.04
-Nodes (44): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+36 more)
+Cohesion: 0.07
+Nodes (29): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+21 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -151,16 +153,24 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
+### Community 26 - "scripts"
+Cohesion: 0.11
+Nodes (17): name, private, scripts, build, dev, lint, local:dev, local:stop (+9 more)
+
 ### Community 32 - "scenario.mts"
 Cohesion: 0.14
 Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
+
+### Community 37 - "local-dev.mjs"
+Cohesion: 0.50
+Nodes (4): local, next, status(), supabase()
 
 ### Community 39 - "supabase-server.test.ts"
 Cohesion: 0.50
 Nodes (3): cookies, createServerClient, createSupabaseClient
 
 ## Knowledge Gaps
-- **217 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+212 more)
+- **221 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+216 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -168,13 +178,13 @@ Nodes (3): cookies, createServerClient, createSupabaseClient
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`, `getAdminContext`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
+- **Why does `devDependencies` connect `devDependencies` to `scripts`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _217 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _221 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.0763888888888889 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
