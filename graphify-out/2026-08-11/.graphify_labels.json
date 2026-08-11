@@ -25,6 +25,7 @@
   "23": "postcss.config.mjs",
   "24": "leaderboard/layout.tsx",
   "25": "predictions/layout.tsx",
+  "26": "scripts",
   "27": "(auth)/layout.tsx",
   "28": "global-error.tsx",
   "29": "(participant)/layout.tsx",

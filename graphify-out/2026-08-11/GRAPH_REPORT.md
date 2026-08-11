@@ -1,16 +1,16 @@
-# Graph Report - predictotronix  (2026-08-11)
+# Graph Report - predictotronix  (2026-08-10)
 
 ## Corpus Check
-- 110 files · ~43,134 words
+- 110 files · ~43,126 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 540 nodes · 932 edges · 38 communities (29 shown, 9 thin omitted)
+- 539 nodes · 931 edges · 39 communities (30 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4285f0bf`
+- Built from commit: `61892c20`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,6 +41,7 @@
 - postcss.config.mjs
 - leaderboard/layout.tsx
 - predictions/layout.tsx
+- scripts
 - global.setup.ts
 - scenario.mts
 - local-dev.mjs
@@ -78,7 +79,7 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (38 total, 9 thin omitted)
+## Communities (39 total, 9 thin omitted)
 
 ### Community 0 - "server.ts"
 Cohesion: 0.08
@@ -101,8 +102,8 @@ Cohesion: 0.08
 Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
 
 ### Community 5 - "dependencies"
-Cohesion: 0.04
-Nodes (46): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+38 more)
+Cohesion: 0.07
+Nodes (29): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+21 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -125,7 +126,7 @@ Cohesion: 0.14
 Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected GitHub environment, 3. Create the Render staging service, 4. Apply migrations and create realistic data, 5. Create a test season manually, 6. Test different points in the season, 7. Acceptance checklist, Isolation and safety model (+5 more)
 
 ### Community 11 - "environment.ts"
-Cohesion: 0.09
+Cohesion: 0.10
 Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
 
 ### Community 12 - "getAdminContext"
@@ -152,6 +153,10 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
+### Community 26 - "scripts"
+Cohesion: 0.11
+Nodes (17): name, private, scripts, build, dev, lint, local:dev, local:stop (+9 more)
+
 ### Community 32 - "scenario.mts"
 Cohesion: 0.14
 Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
@@ -174,7 +179,7 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`, `getAdminContext`?**
   _High betweenness centrality (0.049) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
+- **Why does `devDependencies` connect `devDependencies` to `scripts`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._

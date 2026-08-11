@@ -340,8 +340,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "package.json"
     },
     {
@@ -351,8 +351,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "name"
     },
     {
@@ -362,8 +362,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_version",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "version"
     },
     {
@@ -373,8 +373,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_private",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "private"
     },
     {
@@ -384,8 +384,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "scripts"
     },
     {
@@ -395,8 +395,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts_dev",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "dev"
     },
     {
@@ -406,8 +406,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_local_dev",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "local:dev"
     },
     {
@@ -417,8 +417,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "package_scripts_local_stop",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "local:stop"
     },
     {
@@ -428,8 +428,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "package_scripts_build",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "build"
     },
     {
@@ -439,8 +439,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "package_scripts_start",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "start"
     },
     {
@@ -450,8 +450,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "package_scripts_lint",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "lint"
     },
     {
@@ -461,8 +461,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "package_scripts_test",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test"
     },
     {
@@ -472,8 +472,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "package_scripts_test_watch",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test:watch"
     },
     {
@@ -483,8 +483,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "package_scripts_staging_reset",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "staging:reset"
     },
     {
@@ -494,8 +494,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "package_scripts_staging_smoke",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "staging:smoke"
     },
     {
@@ -505,8 +505,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "package_scripts_verify",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "verify"
     },
     {
@@ -516,8 +516,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "package_scripts_test_e2e",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test:e2e"
     },
     {
@@ -527,8 +527,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "package_scripts_test_e2e_ui",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test:e2e:ui"
     },
     {
@@ -4899,21 +4899,10 @@
       "norm_label": "deployment-config.test.ts"
     },
     {
-      "label": "normalizeLines()",
-      "file_type": "code",
-      "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "tests_unit_deployment_config_test_normalizelines",
-      "community": 11,
-      "community_name": "environment.ts",
-      "norm_label": "normalizelines()"
-    },
-    {
       "label": "renderBlueprint",
       "file_type": "code",
       "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L7",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_renderblueprint",
       "community": 11,
@@ -4924,7 +4913,7 @@
       "label": "stagingWorkflow",
       "file_type": "code",
       "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L8",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_stagingworkflow",
       "community": 11,
@@ -4935,7 +4924,7 @@
       "label": "seasonClockMigration",
       "file_type": "code",
       "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L12",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_seasonclockmigration",
       "community": 11,
@@ -15837,17 +15826,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "tests_unit_deployment_config_test",
-      "target": "tests_unit_deployment_config_test_normalizelines",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_deployment_config_test",
       "target": "tests_unit_deployment_config_test_renderblueprint",
       "confidence_score": 1.0
     },
@@ -15855,7 +15833,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L12",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "tests_unit_deployment_config_test",
@@ -15866,7 +15844,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/unit/deployment-config.test.ts",
-      "source_location": "L8",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "tests_unit_deployment_config_test",
@@ -16876,5 +16854,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "4285f0bf109a01f89e7ec6d0b48fbd456e652c0c"
+  "built_at_commit": "61892c208065d541aff72b21329c367d4c88f45e"
 }

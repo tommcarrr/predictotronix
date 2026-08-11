@@ -2,15 +2,17 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { GET } from '@/app/api/health/route';
 
-const renderBlueprint = readFileSync('render.yaml', 'utf8');
-const stagingWorkflow = readFileSync(
+const normalizeLines = (value: string) => value.replace(/\r\n/g, '\n');
+
+const renderBlueprint = normalizeLines(readFileSync('render.yaml', 'utf8'));
+const stagingWorkflow = normalizeLines(readFileSync(
   '.github/workflows/staging-operations.yml',
   'utf8',
-);
-const seasonClockMigration = readFileSync(
+));
+const seasonClockMigration = normalizeLines(readFileSync(
   'supabase/migrations/007_season_clock.sql',
   'utf8',
-);
+));
 
 describe('staging deployment configuration', () => {
   it('defines a protected Render staging service with safe defaults', () => {
