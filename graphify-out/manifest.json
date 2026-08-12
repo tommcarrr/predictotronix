@@ -75,8 +75,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/page.tsx": {
-    "mtime": 1786437305.078678,
-    "ast_hash": "053fdcb9cc98b10aaee424119d021516",
+    "mtime": 1786551437.0179365,
+    "ast_hash": "76eea0e8ea146594bf483a23d6ac14f6",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/seasons/actions.ts": {
@@ -115,8 +115,8 @@
     "semantic_hash": "eb8fb021efcb747d208e75c1502cc6ba"
   },
   "src/app/(auth)/layout.tsx": {
-    "mtime": 1786549602.061715,
-    "ast_hash": "c96246134138b6fde10783e99c2c8060",
+    "mtime": 1786550912.3444705,
+    "ast_hash": "fdece84883e352c04f9921469871a3f1",
     "semantic_hash": ""
   },
   "src/app/(auth)/login/page.tsx": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "src/app/(auth)/register/page.tsx": {
-    "mtime": 1786437305.1059215,
-    "ast_hash": "87c6c539bc70a30b20d8ad307d52d25b",
+    "mtime": 1786550916.214199,
+    "ast_hash": "e0d20f83f8e042eee2a6275bfa3c1c43",
     "semantic_hash": ""
   },
   "src/app/(participant)/dashboard/page.tsx": {

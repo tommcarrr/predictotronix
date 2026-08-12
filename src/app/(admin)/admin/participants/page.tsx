@@ -39,11 +39,38 @@ export default async function ParticipantsAdminPage() {
     .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
 
   // Fetch profiles for pending request users (no direct FK between join_requests and profiles)
-  const requestUserIds = (pendingRequests ?? []).map((r: any) => r.user_id);
+  const requestUserIds = [...new Set((pendingRequests ?? []).map((r: any) => r.user_id as string))];
   const { data: requestProfiles } = requestUserIds.length
     ? await supabase.from('profiles').select('id, display_name, email').in('id', requestUserIds)
     : { data: [] };
-  const profileMap = Object.fromEntries((requestProfiles ?? []).map((p: any) => [p.id, p]));
+  const profileMap = Object.fromEntries((requestProfiles ?? []).map((profile: any) => [profile.id, profile]));
+
+  // Legacy/imported auth users may not have a public profile row. Resolve those
+  // identities through the service-role Auth API instead of exposing their UUID.
+  const missingProfileUserIds = requestUserIds.filter((userId) => !profileMap[userId]);
+  const authUsers = await Promise.all(
+    missingProfileUserIds.map(async (userId) => {
+      const { data } = await supabase.auth.admin.getUserById(userId);
+      return [userId, data.user] as const;
+    })
+  );
+  const authUserMap = Object.fromEntries(authUsers);
+  const requestIdentityMap = Object.fromEntries(
+    requestUserIds.map((userId) => {
+      const profile = profileMap[userId];
+      const authUser = authUserMap[userId];
+      const email = profile?.email ?? authUser?.email ?? null;
+      const displayName =
+        profile?.display_name ??
+        (typeof authUser?.user_metadata?.display_name === 'string'
+          ? authUser.user_metadata.display_name
+          : null) ??
+        email?.split('@')[0] ??
+        'Unknown user';
+
+      return [userId, { displayName, email }];
+    })
+  );
 
   return (
     <main className="mx-auto max-w-6xl space-y-8 p-6">
@@ -74,8 +101,9 @@ export default async function ParticipantsAdminPage() {
                 className="flex items-center justify-between rounded-lg border border-border p-4"
               >
                 <div>
-                  <p className="font-medium">
-                    {profileMap[req.user_id]?.display_name ?? profileMap[req.user_id]?.email ?? req.user_id}
+                  <p className="font-medium">{requestIdentityMap[req.user_id].displayName}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {requestIdentityMap[req.user_id].email ?? 'Email unavailable'}
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {req.leagues?.name} — requested{' '}

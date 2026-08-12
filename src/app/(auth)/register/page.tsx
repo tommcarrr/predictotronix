@@ -9,8 +9,9 @@ export const dynamic = 'force-dynamic';
 
 export default function RegisterPage() {
   return (
-    <div className="w-full max-w-md space-y-6 p-8">
+    <div className="login-ceefax w-full max-w-md space-y-6 p-8">
       <div>
+        <p className="login-ceefax__eyebrow text-xs">Predictotronix player registration</p>
         <h1 className="text-2xl font-bold">Create an account</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Register to join a predictor league.
@@ -63,7 +64,7 @@ export default function RegisterPage() {
 
         <button
           type="submit"
-          className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
+          className="login-ceefax__submit w-full px-4 py-2 text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
         >
           Create account
         </button>

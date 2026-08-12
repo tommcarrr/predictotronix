@@ -256,6 +256,10 @@
 }
 
 /* A restrained Ceefax treatment for authentication without the full player UI. */
+.auth-ceefax-background {
+  background: #000;
+}
+
 .login-ceefax {
   border: 2px solid #00ffff;
   background: #050505;
