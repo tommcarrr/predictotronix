@@ -80,3 +80,143 @@
   padding: 0.2em;
   text-transform: inherit;
 }
+
+/* Participant dashboard: mirrors the original site's high-contrast Ceefax UI. */
+.participant-dashboard {
+  min-height: 100vh;
+  background: #000;
+}
+
+.participant-appbar {
+  position: relative;
+  background: var(--color-appbar-background);
+  color: #fff;
+  box-shadow:
+    0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 3px rgb(0 0 0 / 18%);
+}
+
+.participant-appbar__inner {
+  display: flex;
+  min-height: 64px;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.participant-appbar__brand {
+  color: var(--color-success);
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  line-height: 1;
+}
+
+.participant-appbar__welcome {
+  color: #fff;
+  font-size: 0.875rem;
+  text-align: right;
+}
+
+.participant-dashboard__content {
+  width: min(100% - 2rem, 48rem);
+  margin-inline: auto;
+  padding-top: 2rem;
+}
+
+.participant-dashboard__logo {
+  justify-content: center;
+  gap: clamp(0.15rem, 1vw, 0.45rem);
+  overflow: hidden;
+  font-size: clamp(0.7rem, 3vw, 1.15rem);
+}
+
+.participant-section-title,
+.participant-gameweek-title {
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+.participant-section-title {
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.participant-gameweek-title {
+  font-size: 1.25rem;
+}
+
+.participant-panel {
+  border-top: 2px solid var(--color-info);
+  border-bottom: 2px solid var(--color-info);
+  padding-block: 1rem;
+}
+
+.participant-fixtures {
+  display: grid;
+  gap: 0;
+}
+
+.participant-fixture {
+  padding: 0.875rem 0.5rem;
+  border-top: 1px solid #333;
+}
+
+.participant-fixture:last-child {
+  border-bottom: 1px solid #333;
+}
+
+.participant-fixture--locked {
+  color: #aaa;
+}
+
+.participant-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition:
+    filter 120ms ease,
+    color 120ms ease,
+    background-color 120ms ease;
+}
+
+.participant-button--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow:
+    0 3px 1px -2px rgb(0 0 0 / 20%),
+    0 2px 5px rgb(0 0 0 / 18%);
+}
+
+.participant-button--outline {
+  border: 1px solid var(--color-info);
+  color: var(--color-info);
+}
+
+.participant-button:hover {
+  filter: brightness(1.2);
+}
+
+.participant-button:focus-visible,
+.participant-dashboard :is(a, button, input):focus-visible {
+  outline: 2px solid var(--color-success);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .participant-appbar__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .participant-appbar__welcome {
+    text-align: left;
+  }
+}

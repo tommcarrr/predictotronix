@@ -1,23 +1,23 @@
 # Graph Report - predictotronix  (2026-08-12)
 
 ## Corpus Check
-- 125 files · ~49,090 words
+- 125 files · ~49,558 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 626 nodes · 1100 edges · 43 communities (34 shown, 9 thin omitted)
+- 630 nodes · 1104 edges · 43 communities (34 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `851c1502`
+- Built from commit: `3cc6ebb8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - server.ts
 - createServiceClient
-- environment.ts
+- send-reminders/route.ts
 - devDependencies
 - scoring/index.ts
 - dependencies
@@ -27,7 +27,7 @@
 - Predictotronix
 - Staging environment runbook
 - fixtures/actions.ts
-- exports/page.tsx
+- getAdminContext
 - Verify Before Completion
 - app/layout.tsx
 - button.tsx
@@ -89,20 +89,20 @@ Cohesion: 0.06
 Nodes (59): AdminPredictionsPage(), dynamic, metadata, Props, submitJoinRequest(), dynamic, JoinPage(), Props (+51 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.07
-Nodes (62): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), dynamic, FixturesAdminPage(), metadata, assignLeagueAdmin() (+54 more)
+Cohesion: 0.10
+Nodes (45): correctResult(), assignLeagueAdmin(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic, LeaguesAdminPage(), metadata (+37 more)
 
-### Community 2 - "environment.ts"
-Cohesion: 0.09
-Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
+### Community 2 - "send-reminders/route.ts"
+Cohesion: 0.24
+Nodes (9): dynamic, POST(), validateCronSecret(), EmailResult, ReminderEmailParams, sendReminderEmail(), ReminderSmsParams, sendReminderSms() (+1 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
 ### Community 4 - "scoring/index.ts"
-Cohesion: 0.08
-Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
+Cohesion: 0.09
+Nodes (26): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+18 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.04
@@ -129,12 +129,12 @@ Cohesion: 0.14
 Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected GitHub environment, 3. Create the Render staging service, 4. Apply migrations and create realistic data, 5. Create a test season manually, 6. Test different points in the season, 7. Acceptance checklist, Isolation and safety model (+5 more)
 
 ### Community 11 - "fixtures/actions.ts"
-Cohesion: 0.13
-Nodes (25): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), POST() (+17 more)
+Cohesion: 0.08
+Nodes (41): main(), requiredEnvironment(), actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync() (+33 more)
 
-### Community 12 - "exports/page.tsx"
-Cohesion: 0.19
-Nodes (11): dynamic, ExportsAdminPage(), metadata, ExportPanel(), Format, formats, GameweekStandings, getMovementLabel() (+3 more)
+### Community 12 - "getAdminContext"
+Cohesion: 0.07
+Nodes (32): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, ExportsAdminPage(), metadata, dynamic, FixturesAdminPage() (+24 more)
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -185,7 +185,7 @@ Cohesion: 0.07
 Nodes (23): apiFetch(), ApiFootballConfig, ApiFootballEnvelope, ApiFootballProvider, formatApiErrors(), getApiFootballConfig(), getSafeRequestDiagnostics(), RateLimitState (+15 more)
 
 ## Knowledge Gaps
-- **250 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+245 more)
+- **252 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+247 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -198,17 +198,17 @@ Nodes (23): apiFetch(), ApiFootballConfig, ApiFootballEnvelope, ApiFootballProvi
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `environment.ts`, `fixtures/actions.ts`, `exports/page.tsx`?**
-  _High betweenness centrality (0.068) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `send-reminders/route.ts`, `fixtures/actions.ts`, `getAdminContext`?**
+  _High betweenness centrality (0.070) - this node is a cross-community bridge._
 - **Why does `ApiFixture` connect `ApiFixture` to `fixtures/actions.ts`?**
-  _High betweenness centrality (0.021) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`?**
+  _High betweenness centrality (0.020) - this node is a cross-community bridge._
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _250 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _252 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.058544303797468354 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.06793206793206794 - nodes in this community are weakly interconnected._
-- **Should `environment.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09269162210338681 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+- **Should `devDependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._

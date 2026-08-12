@@ -79,7 +79,11 @@ export default async function DashboardPage() {
         .order('kickoff', { ascending: true })
     : { data: [], error: null };
 
-  const gw = selectPredictionGameweek(predictionGameweeks ?? [], candidateFixtures ?? [], seasonNow);
+  const gw = selectPredictionGameweek(
+    predictionGameweeks ?? [],
+    candidateFixtures ?? [],
+    seasonNow
+  );
   const fixtures = (candidateFixtures ?? []).filter((fixture) => fixture.gameweek_id === gw?.id);
 
   const { data: existingPredictions } =
@@ -108,123 +112,127 @@ export default async function DashboardPage() {
   const predCount = enrichedFixtures.filter((fixture) => fixture.prediction).length;
 
   return (
-    <div className="p-4 max-w-2xl mx-auto space-y-6">
+    <div className="participant-dashboard pb-8">
       {/* Header */}
-      <header className="border-b-2 border-[--color-secondary] pb-3">
-        <div className="ceefax-logo text-xl mb-1">
-          {'PREDICTOTRONIX'.split('').map((ch, i) => (
-            <span key={i}>{ch}</span>
-          ))}
+      <header className="participant-appbar">
+        <div className="participant-appbar__inner">
+          <p className="participant-appbar__brand">Predictotronix</p>
+          <p className="participant-appbar__welcome">
+            Welcome, {participant?.display_name ?? user.email}
+          </p>
         </div>
-        <p className="text-[--color-text-secondary] text-sm">
-          Welcome, {participant?.display_name ?? user.email}
-        </p>
       </header>
 
-      {/* Active season */}
-      {activeSeason ? (
-        <section className="space-y-3">
-          <h2 className="text-[--color-warning] font-bold uppercase text-sm">
-            ▶ {activeSeason.leagues?.name} — {activeSeason.name}
-          </h2>
+      <main className="participant-dashboard__content space-y-6">
+        <div className="ceefax-logo participant-dashboard__logo" aria-label="Predictotronix">
+          {'PREDICTOTRONIX'.split('').map((ch, i) => (
+            <span key={i} aria-hidden="true">
+              {ch}
+            </span>
+          ))}
+        </div>
 
-          {gw ? (
-            <div className="border border-[--color-info] p-4 space-y-4">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="text-[--color-info] font-bold text-lg">{gw.label}</p>
-                <p
-                  className={`text-xs font-bold uppercase ${predCount === fixtureCount && fixtureCount > 0 ? 'text-[--color-success]' : 'text-[--color-warning]'}`}
+        {/* Active season */}
+        {activeSeason ? (
+          <section className="space-y-3">
+            <h2 className="participant-section-title">
+              ▶ {activeSeason.leagues?.name} — {activeSeason.name}
+            </h2>
+
+            {gw ? (
+              <div className="participant-panel space-y-4">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <p className="participant-gameweek-title">{gw.label}</p>
+                  <p
+                    className={`text-xs font-bold uppercase ${predCount === fixtureCount && fixtureCount > 0 ? 'text-[--color-success]' : 'text-[--color-warning]'}`}
+                  >
+                    {predCount}/{fixtureCount} predicted
+                    {predCount === fixtureCount && fixtureCount > 0 ? ' ✓' : ''}
+                  </p>
+                </div>
+                {gw.first_kickoff && (
+                  <p className="text-[--color-text-secondary] text-xs">
+                    First kickoff:{' '}
+                    {new Date(gw.first_kickoff).toLocaleString('en-GB', {
+                      timeZone: 'Europe/London',
+                      dateStyle: 'full',
+                      timeStyle: 'short',
+                    })}
+                  </p>
+                )}
+                {fixturesError ? (
+                  <p className="border border-[--color-error] p-3 text-sm text-[--color-error]">
+                    Fixtures could not be loaded. Refresh the page or contact your league admin.
+                  </p>
+                ) : enrichedFixtures.length === 0 ? (
+                  <p className="border border-[--color-warning] p-3 text-sm text-[--color-text-secondary]">
+                    No fixtures have been added to this gameweek yet.
+                  </p>
+                ) : (
+                  <PredictionsForm fixtures={enrichedFixtures} />
+                )}
+                <Link
+                  href={`/predictions/${gw.id}`}
+                  className="participant-button participant-button--outline"
                 >
-                  {predCount}/{fixtureCount} predicted
-                  {predCount === fixtureCount && fixtureCount > 0 ? ' ✓' : ''}
-                </p>
+                  Open gameweek
+                </Link>
               </div>
-              {gw.first_kickoff && (
-                <p className="text-[--color-text-secondary] text-xs">
-                  First kickoff:{' '}
-                  {new Date(gw.first_kickoff).toLocaleString('en-GB', {
-                    timeZone: 'Europe/London',
-                    dateStyle: 'full',
-                    timeStyle: 'short',
-                  })}
-                </p>
-              )}
-              {fixturesError ? (
-                <p className="border border-[--color-error] p-3 text-sm text-[--color-error]">
-                  Fixtures could not be loaded. Refresh the page or contact your league admin.
-                </p>
-              ) : enrichedFixtures.length === 0 ? (
-                <p className="border border-[--color-warning] p-3 text-sm text-[--color-text-secondary]">
-                  No fixtures have been added to this gameweek yet.
-                </p>
-              ) : (
-                <PredictionsForm fixtures={enrichedFixtures} />
-              )}
-              <Link
-                href={`/predictions/${gw.id}`}
-                className="inline-flex min-h-10 items-center justify-center border border-[--color-info] px-4 py-2 text-sm font-bold text-[--color-info] hover:bg-[--color-info] hover:text-white"
-              >
-                Open gameweek
-              </Link>
-            </div>
-          ) : (
-            <p className="text-[--color-text-secondary] text-sm">No upcoming gameweek.</p>
-          )}
-        </section>
-      ) : (
-        <section className="border border-[--color-warning] p-3 space-y-2">
-          <p className="text-[--color-warning]">You are not enrolled in any active season.</p>
-          {pendingJoinRequests && pendingJoinRequests.length > 0 ? (
-            <div className="space-y-1">
-              {(pendingJoinRequests as unknown as PendingJoinRequest[]).map((req) => (
-                <p key={req.id} className="text-[--color-text-secondary] text-sm">
-                  ⧗ Join request for{' '}
-                  <span className="text-[--color-warning]">{req.leagues?.name ?? 'a league'}</span>{' '}
-                  is pending approval.
-                </p>
-              ))}
-            </div>
-          ) : (
-            <p className="text-[--color-text-secondary] text-sm">
-              Contact your league admin for an invite.
-            </p>
-          )}
-        </section>
-      )}
-
-      {/* Nav links */}
-      <nav className="grid gap-2 text-sm sm:grid-cols-2">
-        <Link
-          href="/leaderboard"
-          className="inline-flex min-h-10 items-center justify-center bg-[--color-primary] px-4 py-2 font-bold text-white hover:opacity-90"
-        >
-          Leaderboard
-        </Link>
-        <Link
-          href="/settings"
-          className="inline-flex min-h-10 items-center justify-center bg-[--color-primary] px-4 py-2 font-bold text-white hover:opacity-90"
-        >
-          Notification settings
-        </Link>
-        {isAdmin && (
-          <Link
-            href="/admin"
-            className="inline-flex min-h-10 items-center justify-center border border-[--color-warning] px-4 py-2 font-bold text-[--color-warning] hover:bg-[--color-warning] hover:text-black"
-          >
-            Admin panel
-          </Link>
+            ) : (
+              <p className="text-[--color-text-secondary] text-sm">No upcoming gameweek.</p>
+            )}
+          </section>
+        ) : (
+          <section className="border border-[--color-warning] p-3 space-y-2">
+            <p className="text-[--color-warning]">You are not enrolled in any active season.</p>
+            {pendingJoinRequests && pendingJoinRequests.length > 0 ? (
+              <div className="space-y-1">
+                {(pendingJoinRequests as unknown as PendingJoinRequest[]).map((req) => (
+                  <p key={req.id} className="text-[--color-text-secondary] text-sm">
+                    ⧗ Join request for{' '}
+                    <span className="text-[--color-warning]">
+                      {req.leagues?.name ?? 'a league'}
+                    </span>{' '}
+                    is pending approval.
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="text-[--color-text-secondary] text-sm">
+                Contact your league admin for an invite.
+              </p>
+            )}
+          </section>
         )}
-      </nav>
 
-      {/* Sign out */}
-      <form action={signOut} className="pt-2">
-        <button
-          type="submit"
-          className="min-h-10 border border-[--color-error] px-4 py-2 text-sm font-bold text-[--color-error] hover:bg-[--color-error] hover:text-white"
-        >
-          Sign out
-        </button>
-      </form>
+        {/* Nav links */}
+        <nav className="grid gap-3 text-sm sm:grid-cols-2">
+          <Link href="/leaderboard" className="participant-button participant-button--primary">
+            Leaderboard
+          </Link>
+          <Link href="/settings" className="participant-button participant-button--primary">
+            Notification settings
+          </Link>
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="inline-flex min-h-10 items-center justify-center border border-[--color-warning] px-4 py-2 font-bold text-[--color-warning] hover:bg-[--color-warning] hover:text-black"
+            >
+              Admin panel
+            </Link>
+          )}
+        </nav>
+
+        {/* Sign out */}
+        <form action={signOut} className="pt-2">
+          <button
+            type="submit"
+            className="min-h-10 border border-[--color-error] px-4 py-2 text-sm font-bold text-[--color-error] hover:bg-[--color-error] hover:text-white"
+          >
+            Sign out
+          </button>
+        </form>
+      </main>
     </div>
   );
 }

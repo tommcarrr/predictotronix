@@ -79,7 +79,7 @@ export function PredictionsForm({ fixtures }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
+      <div className="participant-fixtures">
         {fixtures.map((f) => {
           const pred = f.prediction;
           const isScored = pred?.points_awarded !== null && pred?.points_awarded !== undefined;
@@ -87,7 +87,7 @@ export function PredictionsForm({ fixtures }: Props) {
           return (
             <div
               key={f.id}
-              className={`border p-3 ${f.locked ? 'border-[--color-action-disabled] opacity-70' : 'border-[--color-info]'}`}
+              className={`participant-fixture ${f.locked ? 'participant-fixture--locked' : ''}`}
             >
               {/* Fixture header */}
               <div className="flex justify-between items-center text-xs text-[--color-text-secondary] mb-2">
@@ -164,7 +164,7 @@ export function PredictionsForm({ fixtures }: Props) {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full py-2 bg-[--color-primary] text-white font-bold text-sm hover:opacity-90 disabled:opacity-50"
+          className="participant-button participant-button--primary w-full disabled:opacity-50"
         >
           {isPending ? 'Saving…' : 'Save predictions'}
         </button>
