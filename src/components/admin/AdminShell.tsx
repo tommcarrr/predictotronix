@@ -2,6 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState, type ComponentType } from 'react';
+import {
+  ArrowLeft,
+  BarChart3,
+  CalendarDays,
+  ChevronDown,
+  FlaskConical,
+  Gauge,
+  Moon,
+  Settings2,
+  ShieldCheck,
+  Sparkles,
+  Sun,
+  Trophy,
+  Users,
+} from 'lucide-react';
 import { setAdminLeague, setAdminSeason } from '@/app/(admin)/admin/context-actions';
 
 interface Option {
@@ -23,16 +39,83 @@ interface Props {
   superAdmin: boolean;
 }
 
-const navItems = [
-  { href: '/admin', label: 'Overview', superOnly: true },
-  { href: '/admin/leagues', label: 'Leagues', superOnly: true },
-  { href: '/admin/seasons', label: 'Seasons', superOnly: true },
-  { href: '/admin/participants', label: 'Participants' },
-  { href: '/admin/predictions', label: 'Predictions', superOnly: true },
-  { href: '/admin/fixtures', label: 'Fixtures & results', superOnly: true },
-  { href: '/admin/exports', label: 'Standings', superOnly: true },
-  { href: '/admin/test-tools', label: 'Test tools', superOnly: true },
+interface NavItem {
+  href: string;
+  label: string;
+  icon: ComponentType<{ className?: string }>;
+  superOnly?: boolean;
+}
+
+const primaryNav: NavItem[] = [
+  { href: '/admin', label: 'Overview', icon: Gauge, superOnly: true },
+  { href: '/admin/participants', label: 'Participants', icon: Users },
+  { href: '/admin/predictions', label: 'Predictions', icon: BarChart3, superOnly: true },
+  { href: '/admin/fixtures', label: 'Fixtures & results', icon: CalendarDays, superOnly: true },
+  { href: '/admin/exports', label: 'Standings', icon: Trophy, superOnly: true },
 ];
+
+const systemNav: NavItem[] = [
+  { href: '/admin/leagues', label: 'League settings', icon: Settings2, superOnly: true },
+  { href: '/admin/seasons', label: 'Season settings', icon: Sparkles, superOnly: true },
+  { href: '/admin/test-tools', label: 'Test tools', icon: FlaskConical, superOnly: true },
+];
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('predictotronix-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const enabled = saved ? saved === 'dark' : prefersDark;
+    document.documentElement.classList.toggle('dark', enabled);
+    const frame = requestAnimationFrame(() => setDark(enabled));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  function toggleTheme() {
+    const next = !dark;
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('predictotronix-theme', next ? 'dark' : 'light');
+    setDark(next);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="inline-flex size-9 items-center justify-center rounded-xl border border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground transition hover:bg-sidebar-accent"
+      aria-label={dark ? 'Use light theme' : 'Use dark theme'}
+      title={dark ? 'Use light theme' : 'Use dark theme'}
+    >
+      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </button>
+  );
+}
+
+function Navigation({ items, pathname }: { items: NavItem[]; pathname: string }) {
+  return items.map((item) => {
+    const active = item.href === '/admin' ? pathname === item.href : pathname.startsWith(item.href);
+    const Icon = item.icon;
+
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        aria-current={active ? 'page' : undefined}
+        className={`group flex shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+          active
+            ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-sm'
+            : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+        }`}
+      >
+        <Icon
+          className={`size-4 ${active ? '' : 'text-sidebar-foreground/50 group-hover:text-sidebar-foreground'}`}
+        />
+        <span>{item.label}</span>
+      </Link>
+    );
+  });
+}
 
 export function AdminShell({
   children,
@@ -44,90 +127,153 @@ export function AdminShell({
   superAdmin,
 }: Props) {
   const pathname = usePathname();
+  const visiblePrimary = primaryNav.filter((item) => superAdmin || !item.superOnly);
+  const visibleSystem = systemNav.filter((item) => superAdmin || !item.superOnly);
+  const selectedLeague = leagues.find((league) => league.id === selectedLeagueId);
+  const selectedSeason = seasons.find((season) => season.id === selectedSeasonId);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border bg-card">
-        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <Link href="/admin" className="text-lg font-bold tracking-tight">
-                Predictotronix Admin
-              </Link>
-              <p className="text-xs text-muted-foreground">{email}</p>
+    <div className="admin-shell min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+      <aside className="border-b border-sidebar-border bg-sidebar text-sidebar-foreground lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-b-0 lg:border-r">
+        <div className="flex items-center justify-between gap-3 px-4 py-4 lg:px-5 lg:py-5">
+          <Link href="/admin" className="flex min-w-0 items-center gap-3">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-sidebar-primary text-sidebar-primary-foreground shadow-sm">
+              <ShieldCheck className="size-5" />
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate font-bold tracking-tight">Predictotronix</span>
+              <span className="block text-xs text-sidebar-foreground/55">Admin workspace</span>
+            </span>
+          </Link>
+          <ThemeToggle />
+        </div>
+
+        <nav
+          className="flex gap-1 overflow-x-auto px-3 pb-3 lg:block lg:space-y-1 lg:overflow-visible lg:px-4 lg:pb-0"
+          aria-label="Admin navigation"
+        >
+          <Navigation items={visiblePrimary} pathname={pathname} />
+        </nav>
+
+        {visibleSystem.length > 0 && (
+          <div className="hidden lg:mt-auto lg:block lg:px-4 lg:pb-3">
+            <p className="mb-2 px-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/40">
+              Administration
+            </p>
+            <nav className="space-y-1" aria-label="System administration">
+              <Navigation items={visibleSystem} pathname={pathname} />
+            </nav>
+          </div>
+        )}
+
+        <div className="hidden border-t border-sidebar-border p-4 lg:block">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-sidebar-foreground/65 transition hover:bg-sidebar-accent hover:text-sidebar-foreground"
+          >
+            <ArrowLeft className="size-4" />
+            Player dashboard
+          </Link>
+          <p className="mt-2 truncate px-3 text-xs text-sidebar-foreground/40">{email}</p>
+        </div>
+      </aside>
+
+      <div className="min-w-0">
+        <header className="sticky top-0 z-20 border-b border-border/80 bg-background/90 backdrop-blur-xl">
+          <div className="flex min-h-16 items-center gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                Current workspace
+              </p>
+              <p className="truncate text-sm font-medium">
+                {selectedLeague?.name ?? 'No league selected'}
+                <span className="mx-1.5 text-muted-foreground">/</span>
+                <span className="text-muted-foreground">
+                  {selectedSeason?.name ?? 'No season selected'}
+                </span>
+              </p>
             </div>
-            <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground">
-              ← Player dashboard
+
+            <details className="group relative">
+              <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 text-sm font-medium shadow-xs transition hover:bg-accent [&::-webkit-details-marker]:hidden">
+                <Settings2 className="size-4 text-primary" />
+                <span className="hidden sm:inline">Change workspace</span>
+                <ChevronDown className="size-3.5 text-muted-foreground transition group-open:rotate-180" />
+              </summary>
+              <div className="absolute right-0 mt-2 w-[min(24rem,calc(100vw-2rem))] rounded-2xl border border-border bg-popover p-4 text-popover-foreground shadow-xl">
+                <p className="mb-3 text-sm font-semibold">Workspace context</p>
+                <div className="space-y-3">
+                  <form action={setAdminLeague} className="space-y-1.5">
+                    <label
+                      htmlFor="admin-league"
+                      className="text-xs font-medium text-muted-foreground"
+                    >
+                      League
+                    </label>
+                    <select
+                      id="admin-league"
+                      name="league_id"
+                      value={selectedLeagueId ?? ''}
+                      onChange={(event) => event.currentTarget.form?.requestSubmit()}
+                      disabled={!leagues.length}
+                      className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm shadow-xs disabled:opacity-60"
+                    >
+                      {!leagues.length && <option value="">No leagues available</option>}
+                      {leagues.map((league) => (
+                        <option key={league.id} value={league.id}>
+                          {league.name}
+                        </option>
+                      ))}
+                    </select>
+                  </form>
+                  <form action={setAdminSeason} className="space-y-1.5">
+                    <label
+                      htmlFor="admin-season"
+                      className="text-xs font-medium text-muted-foreground"
+                    >
+                      Season
+                    </label>
+                    <select
+                      id="admin-season"
+                      name="season_id"
+                      value={selectedSeasonId ?? ''}
+                      onChange={(event) => event.currentTarget.form?.requestSubmit()}
+                      disabled={!seasons.length}
+                      className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm shadow-xs disabled:opacity-60"
+                    >
+                      {!seasons.length && <option value="">No seasons in this league</option>}
+                      {seasons.map((season) => (
+                        <option key={season.id} value={season.id}>
+                          {season.name} · {season.status}
+                        </option>
+                      ))}
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </details>
+
+            <Link
+              href="/dashboard"
+              className="inline-flex size-10 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground shadow-xs transition hover:bg-accent hover:text-foreground lg:hidden"
+              aria-label="Player dashboard"
+            >
+              <ArrowLeft className="size-4" />
             </Link>
           </div>
 
-          <nav className="mt-4 flex gap-1 overflow-x-auto" aria-label="Admin navigation">
-            {navItems.filter((item) => superAdmin || !item.superOnly).map((item) => {
-              const active =
-                item.href === '/admin' ? pathname === item.href : pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={`whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                    active
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-accent hover:text-foreground'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
+          {visibleSystem.length > 0 && (
+            <nav
+              className="flex gap-1 overflow-x-auto border-t border-border/60 px-3 py-2 lg:hidden"
+              aria-label="System administration"
+            >
+              <Navigation items={visibleSystem} pathname={pathname} />
+            </nav>
+          )}
+        </header>
 
-        <div className="border-t border-border bg-muted/40">
-          <div className="mx-auto grid max-w-6xl gap-3 px-4 py-3 sm:grid-cols-2 sm:px-6">
-            <form action={setAdminLeague} className="space-y-1">
-              <label htmlFor="admin-league" className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Working league
-              </label>
-              <select
-                id="admin-league"
-                name="league_id"
-                value={selectedLeagueId ?? ''}
-                onChange={(event) => event.currentTarget.form?.requestSubmit()}
-                disabled={!leagues.length}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm disabled:opacity-60"
-              >
-                {!leagues.length && <option value="">No leagues available</option>}
-                {leagues.map((league) => (
-                  <option key={league.id} value={league.id}>{league.name}</option>
-                ))}
-              </select>
-            </form>
-
-            <form action={setAdminSeason} className="space-y-1">
-              <label htmlFor="admin-season" className="block text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Working season
-              </label>
-              <select
-                id="admin-season"
-                name="season_id"
-                value={selectedSeasonId ?? ''}
-                onChange={(event) => event.currentTarget.form?.requestSubmit()}
-                disabled={!seasons.length}
-                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm disabled:opacity-60"
-              >
-                {!seasons.length && <option value="">No seasons in this league</option>}
-                {seasons.map((season) => (
-                  <option key={season.id} value={season.id}>
-                    {season.name} · {season.status}
-                  </option>
-                ))}
-              </select>
-            </form>
-          </div>
-        </div>
-      </header>
-      {children}
+        <div className="admin-content">{children}</div>
+      </div>
     </div>
   );
 }

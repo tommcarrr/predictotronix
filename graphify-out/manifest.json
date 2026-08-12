@@ -550,8 +550,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/AdminShell.tsx": {
-    "mtime": 1786539106.434375,
-    "ast_hash": "413b4f82662a15ee7963147707b9ddc2",
+    "mtime": 1786544798.0943134,
+    "ast_hash": "610cd98b42821381b96e089d03c43a04",
     "semantic_hash": ""
   },
   "src/lib/admin/context.ts": {

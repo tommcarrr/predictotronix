@@ -117,6 +117,88 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Admin workspace: a warmer, editorial theme with fluid application layouts. */
+.admin-shell {
+  --background: oklch(0.975 0.012 255);
+  --foreground: oklch(0.25 0.035 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0.035 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0.035 255);
+  --primary: oklch(0.55 0.19 255);
+  --primary-foreground: oklch(0.99 0.005 255);
+  --secondary: oklch(0.93 0.035 255);
+  --secondary-foreground: oklch(0.34 0.09 255);
+  --muted: oklch(0.94 0.018 255);
+  --muted-foreground: oklch(0.51 0.035 255);
+  --accent: oklch(0.92 0.04 250);
+  --accent-foreground: oklch(0.35 0.11 255);
+  --border: oklch(0.88 0.025 255);
+  --input: oklch(0.86 0.03 255);
+  --ring: oklch(0.62 0.17 255);
+  --sidebar: oklch(0.22 0.055 258);
+  --sidebar-foreground: oklch(0.96 0.012 250);
+  --sidebar-primary: oklch(0.66 0.17 248);
+  --sidebar-primary-foreground: oklch(0.99 0.005 250);
+  --sidebar-accent: oklch(0.3 0.06 258);
+  --sidebar-accent-foreground: oklch(0.99 0.005 250);
+  --sidebar-border: oklch(1 0 0 / 10%);
+}
+
+.dark .admin-shell {
+  --background: oklch(0.17 0.025 255);
+  --foreground: oklch(0.94 0.015 250);
+  --card: oklch(0.215 0.03 255);
+  --card-foreground: oklch(0.94 0.015 250);
+  --popover: oklch(0.225 0.032 255);
+  --popover-foreground: oklch(0.94 0.015 250);
+  --primary: oklch(0.7 0.15 248);
+  --primary-foreground: oklch(0.17 0.035 255);
+  --secondary: oklch(0.28 0.04 255);
+  --secondary-foreground: oklch(0.92 0.02 250);
+  --muted: oklch(0.255 0.03 255);
+  --muted-foreground: oklch(0.69 0.03 250);
+  --accent: oklch(0.29 0.05 255);
+  --accent-foreground: oklch(0.96 0.015 250);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.68 0.15 248);
+  --sidebar: oklch(0.135 0.03 258);
+  --sidebar-foreground: oklch(0.93 0.015 250);
+  --sidebar-primary: oklch(0.65 0.17 248);
+  --sidebar-primary-foreground: oklch(0.99 0.005 250);
+  --sidebar-accent: oklch(0.22 0.04 258);
+  --sidebar-accent-foreground: oklch(0.98 0.01 250);
+  --sidebar-border: oklch(1 0 0 / 9%);
+}
+
+.admin-content > main {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding: clamp(1.25rem, 2.5vw, 2.5rem);
+}
+
+.admin-content > main > :is(section, div).rounded-lg,
+.admin-content > main > :is(section, div).rounded-xl {
+  background-color: var(--card);
+  box-shadow: 0 1px 2px oklch(0.2 0.04 255 / 5%);
+}
+
+.admin-content :is(input, select, textarea, button, a) {
+  outline-offset: 2px;
+}
+
+.admin-content :is(input, select, textarea):focus-visible {
+  outline: 2px solid var(--ring);
+  border-color: var(--ring);
+}
+
+.admin-content table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
