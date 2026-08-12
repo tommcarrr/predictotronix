@@ -99,6 +99,10 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
     }
   }
 
+  function downloadSeasonWorkbook() {
+    window.location.assign(`/api/admin/exports/season?seasonId=${encodeURIComponent(seasonId)}`);
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 shadow-sm sm:flex-row sm:items-end sm:justify-between">
@@ -125,6 +129,14 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
         </div>
 
         <div className="relative">
+          <button
+            type="button"
+            onClick={downloadSeasonWorkbook}
+            className="mr-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-3.5 py-2.5 text-sm font-medium text-primary-foreground shadow-xs hover:opacity-90 sm:w-auto"
+          >
+            <Download className="size-4" />
+            Export season (.xlsx)
+          </button>
           <button
             type="button"
             onClick={() => setExportOpen((open) => !open)}
