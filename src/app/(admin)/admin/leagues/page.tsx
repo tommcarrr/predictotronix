@@ -1,5 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server';
-import { createLeague, regenerateInviteCode } from './actions';
+import { assignLeagueAdmin, createLeague, regenerateInviteCode } from './actions';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
 
@@ -7,7 +7,12 @@ export const metadata = { title: 'Leagues | Admin' };
 
 export const dynamic = 'force-dynamic';
 
-export default async function LeaguesAdminPage() {
+type Props = {
+  searchParams: Promise<{ error?: string; adminAssigned?: string }>;
+};
+
+export default async function LeaguesAdminPage({ searchParams }: Props) {
+  const { error, adminAssigned } = await searchParams;
   const { selectedLeague, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -34,6 +39,25 @@ export default async function LeaguesAdminPage() {
     pendingByLeague.set(r.league_id, (pendingByLeague.get(r.league_id) ?? 0) + 1);
   }
 
+  const { data: profiles } = selectedLeague
+    ? await supabase.from('profiles').select('id, display_name, email').order('display_name')
+    : { data: [] };
+
+  const { data: leagueAdmins } = selectedLeague
+    ? await supabase
+        .from('league_roles')
+        .select('user_id')
+        .eq('league_id', selectedLeague.id)
+        .eq('role', 'league_admin')
+    : { data: [] };
+
+  const adminIds = new Set((leagueAdmins ?? []).map((role) => role.user_id));
+  const profileById = new Map((profiles ?? []).map((profile) => [profile.id, profile]));
+  const currentAdmins = [...adminIds]
+    .map((id) => profileById.get(id) ?? { id, display_name: null, email: null })
+    .sort((a, b) => (a.display_name ?? a.email ?? a.id).localeCompare(b.display_name ?? b.email ?? b.id));
+  const adminCandidates = (profiles ?? []).filter((profile) => !adminIds.has(profile.id));
+
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 
   return (
@@ -44,6 +68,17 @@ export default async function LeaguesAdminPage() {
           {selectedLeague ? `Invite links and seasons for ${selectedLeague.name}.` : 'Create your first league.'}
         </p>
       </div>
+
+      {error && (
+        <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+      {adminAssigned === '1' && (
+        <p role="status" className="rounded-md border border-green-600/40 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400">
+          League admin assigned.
+        </p>
+      )}
 
       {/* Existing leagues */}
       <section className="space-y-4">
@@ -115,6 +150,66 @@ export default async function LeaguesAdminPage() {
           );
         })}
       </section>
+
+      {selectedLeague && (
+        <section className="space-y-3">
+          <div>
+            <h2 className="text-lg font-semibold">League admins</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Assign registered users to administer {selectedLeague.name}.
+            </p>
+          </div>
+
+          {currentAdmins.length ? (
+            <ul className="space-y-2">
+              {currentAdmins.map((admin) => (
+                <li key={admin.id} className="rounded-md border border-border px-3 py-2 text-sm">
+                  <span className="font-medium">{admin.display_name ?? admin.email ?? admin.id}</span>
+                  {admin.display_name && admin.email && (
+                    <span className="ml-2 text-muted-foreground">{admin.email}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-muted-foreground">No league admins are assigned.</p>
+          )}
+
+          <form action={assignLeagueAdmin} className="flex max-w-2xl flex-wrap items-end gap-3">
+            <input type="hidden" name="league_id" value={selectedLeague.id} />
+            <div className="min-w-64 flex-1 space-y-1">
+              <label htmlFor="league-admin-user" className="text-sm font-medium">
+                Registered user
+              </label>
+              <select
+                id="league-admin-user"
+                name="user_id"
+                required
+                disabled={!adminCandidates.length}
+                defaultValue=""
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm disabled:opacity-50"
+              >
+                <option value="" disabled>
+                  {adminCandidates.length ? 'Select a user' : 'All registered users are already admins'}
+                </option>
+                {adminCandidates.map((profile) => (
+                  <option key={profile.id} value={profile.id}>
+                    {profile.display_name ?? profile.email ?? profile.id}
+                    {profile.display_name && profile.email ? ` (${profile.email})` : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              type="submit"
+              disabled={!adminCandidates.length}
+              className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
+            >
+              Assign admin
+            </button>
+          </form>
+        </section>
+      )}
 
       {/* Create league */}
       <section>

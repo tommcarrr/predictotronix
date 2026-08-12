@@ -43,6 +43,36 @@ export async function createLeague(formData: FormData) {
   revalidatePath('/admin/leagues');
 }
 
+export async function assignLeagueAdmin(formData: FormData) {
+  const user = await getUser();
+  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+
+  const leagueId = formData.get('league_id');
+  const userId = formData.get('user_id');
+
+  if (typeof leagueId !== 'string' || !leagueId || typeof userId !== 'string' || !userId) {
+    redirect('/admin/leagues?error=Select+a+user+to+assign');
+  }
+
+  const supabase = await createServiceClient();
+  const { error } = await supabase.from('league_roles').upsert(
+    {
+      league_id: leagueId,
+      user_id: userId,
+      role: 'league_admin',
+      granted_by: user.id,
+    },
+    { onConflict: 'league_id,user_id,role' },
+  );
+
+  if (error) {
+    redirect(`/admin/leagues?error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath('/admin/leagues');
+  redirect('/admin/leagues?adminAssigned=1');
+}
+
 export async function regenerateInviteCode(leagueId: string) {
   const user = await getUser();
   if (!user || !(await isSuperAdmin())) redirect('/dashboard');
