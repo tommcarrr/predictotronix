@@ -115,10 +115,13 @@ export default async function DashboardPage() {
       {/* Header */}
       <header className="participant-appbar">
         <div className="participant-appbar__inner">
-          <div className="ceefax-logo participant-appbar__logo" aria-label="Predictotronix">
-            {'PREDICTOTRONIX'.split('').map((ch, i) => (
-              <span key={i} aria-hidden="true">{ch}</span>
-            ))}
+          <div className="participant-appbar__logo" aria-label="Predictotronix">
+            <span className="ceefax-logo participant-appbar__wordmark participant-appbar__wordmark--full" aria-hidden="true">
+              {'PREDICTOTRONIX'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+            </span>
+            <span className="ceefax-logo participant-appbar__wordmark participant-appbar__wordmark--compact" aria-hidden="true">
+              {'PDRCT'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+            </span>
           </div>
           <div className="participant-appbar__menu">
             <p className="participant-appbar__welcome">Welcome, {participant?.display_name ?? user.email}</p>

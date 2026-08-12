@@ -129,7 +129,7 @@ export function PredictionsForm({ fixtures }: Props) {
 
               {/* Team names and score inputs */}
               <div className="flex items-center gap-2 text-sm">
-                <span className="flex-1 text-right font-bold">{f.home_team_name}</span>
+                <span className="participant-team-name flex-1 text-right">{f.home_team_name}</span>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -159,7 +159,7 @@ export function PredictionsForm({ fixtures }: Props) {
                   data-fixture-id={f.id}
                   data-side="away"
                 />
-                <span className="flex-1 font-bold">{f.away_team_name}</span>
+                <span className="participant-team-name flex-1">{f.away_team_name}</span>
               </div>
 
               {/* Result and scoring */}
