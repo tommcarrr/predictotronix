@@ -209,6 +209,54 @@
   html {
     @apply font-sans;
   }
+
+  /*
+   * Give every button the same unmistakable interaction feedback, including
+   * native buttons that do not use the shared Button component.
+   */
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']) {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in oklch, var(--ring) 28%, transparent);
+    transition:
+      transform 100ms ease,
+      filter 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']):focus-visible {
+    outline: 3px solid color-mix(in oklch, var(--ring) 72%, transparent);
+    outline-offset: 3px;
+  }
+
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']):active:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(1px) scale(0.97);
+    filter: brightness(0.9);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 24%, transparent);
+  }
+
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']):is(:disabled, [aria-disabled='true']) {
+    cursor: not-allowed;
+  }
+
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset'])[aria-busy='true'] {
+    cursor: progress;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']):hover:not(:disabled):not([aria-disabled='true']) {
+    filter: brightness(0.96);
+    box-shadow:
+      0 4px 12px color-mix(in oklch, var(--foreground) 14%, transparent),
+      0 0 0 2px color-mix(in oklch, var(--ring) 22%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']) {
+    transition-duration: 0.01ms;
+  }
 }
 
 /* Prevent fallback-font text from flashing before next/font is ready. */
