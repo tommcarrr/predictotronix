@@ -6,6 +6,7 @@ import { signOut } from '@/lib/auth/actions';
 import { getSeasonNow } from '@/lib/clock';
 import { isKickoffLocked } from '@/lib/scoring';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
+import { GameweekCarousel } from '@/components/participant/GameweekCarousel';
 import { selectPredictionGameweek } from '@/lib/predictions/gameweek';
 
 export const metadata = { title: 'Dashboard' };
@@ -55,14 +56,12 @@ export default async function DashboardPage() {
 
   const activeSeason = activeSeasons?.[0]?.seasons as unknown as ActiveSeason | undefined;
 
-  // Consider every current/future gameweek. An in-progress week may already be
-  // fully locked, so selecting by gameweek number alone can hide an open week.
+  // Load every gameweek so players can browse the season in-place.
   const { data: predictionGameweeks } = activeSeason
     ? await supabase
         .from('gameweeks')
         .select('id, label, first_kickoff, status')
         .eq('season_id', activeSeason.id)
-        .in('status', ['upcoming', 'in_progress'])
         .order('gameweek_number', { ascending: true })
     : { data: null };
 
@@ -79,15 +78,8 @@ export default async function DashboardPage() {
         .order('kickoff', { ascending: true })
     : { data: [], error: null };
 
-  const gw = selectPredictionGameweek(
-    predictionGameweeks ?? [],
-    candidateFixtures ?? [],
-    seasonNow
-  );
-  const fixtures = (candidateFixtures ?? []).filter((fixture) => fixture.gameweek_id === gw?.id);
-
   const { data: existingPredictions } =
-    gw && fixtures.length
+    candidateFixtures && candidateFixtures.length
       ? await supabase
           .from('predictions')
           .select(
@@ -96,53 +88,64 @@ export default async function DashboardPage() {
           .eq('participant_id', participant?.id ?? '')
           .in(
             'fixture_id',
-            fixtures.map((fixture) => fixture.id)
+            candidateFixtures.map((fixture) => fixture.id)
           )
       : { data: [] };
 
   const predictionMap = new Map(
     (existingPredictions ?? []).map((prediction) => [prediction.fixture_id, prediction])
   );
-  const enrichedFixtures = fixtures.map((fixture) => ({
+  const enrichedFixtures = (candidateFixtures ?? []).map((fixture) => ({
     ...fixture,
     locked: isKickoffLocked(new Date(fixture.kickoff), seasonNow),
     prediction: predictionMap.get(fixture.id) ?? null,
   }));
-  const fixtureCount = enrichedFixtures.length;
-  const predCount = enrichedFixtures.filter((fixture) => fixture.prediction).length;
+  const selectedGameweek = selectPredictionGameweek(
+    predictionGameweeks ?? [],
+    candidateFixtures ?? [],
+    seasonNow
+  );
+  const initialGameweekIndex = Math.max(
+    0,
+    (predictionGameweeks ?? []).findIndex((gameweek) => gameweek.id === selectedGameweek?.id)
+  );
 
   return (
     <div className="participant-dashboard pb-8">
       {/* Header */}
       <header className="participant-appbar">
         <div className="participant-appbar__inner">
-          <p className="participant-appbar__brand">Predictotronix</p>
-          <p className="participant-appbar__welcome">
-            Welcome, {participant?.display_name ?? user.email}
-          </p>
+          <div className="ceefax-logo participant-appbar__logo" aria-label="Predictotronix">
+            {'PREDICTOTRONIX'.split('').map((ch, i) => (
+              <span key={i} aria-hidden="true">{ch}</span>
+            ))}
+          </div>
+          <div className="participant-appbar__menu">
+            <p className="participant-appbar__welcome">Welcome, {participant?.display_name ?? user.email}</p>
+            <form action={signOut}>
+              <button type="submit" className="participant-appbar__signout">Sign out</button>
+            </form>
+          </div>
         </div>
       </header>
 
       <main className="participant-dashboard__content space-y-6">
-        <div className="ceefax-logo participant-dashboard__logo" aria-label="Predictotronix">
-          {'PREDICTOTRONIX'.split('').map((ch, i) => (
-            <span key={i} aria-hidden="true">
-              {ch}
-            </span>
-          ))}
-        </div>
-
         {/* Active season */}
         {activeSeason ? (
           <section className="space-y-3">
             <h2 className="participant-section-title">
-              ▶ {activeSeason.leagues?.name} — {activeSeason.name}
+              {activeSeason.leagues?.name} — {activeSeason.name}
             </h2>
 
-            {gw ? (
-              <div className="participant-panel space-y-4">
+            {predictionGameweeks?.length ? (
+              <GameweekCarousel initialIndex={initialGameweekIndex}>
+                {predictionGameweeks.map((gameweek) => {
+                  const fixtures = enrichedFixtures.filter((fixture) => fixture.gameweek_id === gameweek.id);
+                  const fixtureCount = fixtures.length;
+                  const predCount = fixtures.filter((fixture) => fixture.prediction).length;
+                  return <article key={gameweek.id} className="participant-panel participant-gameweek-card space-y-4">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="participant-gameweek-title">{gw.label}</p>
+                  <p className="participant-gameweek-title">{gameweek.label}</p>
                   <p
                     className={`text-xs font-bold uppercase ${predCount === fixtureCount && fixtureCount > 0 ? 'text-[--color-success]' : 'text-[--color-warning]'}`}
                   >
@@ -150,10 +153,10 @@ export default async function DashboardPage() {
                     {predCount === fixtureCount && fixtureCount > 0 ? ' ✓' : ''}
                   </p>
                 </div>
-                {gw.first_kickoff && (
+                {gameweek.first_kickoff && (
                   <p className="text-[--color-text-secondary] text-xs">
                     First kickoff:{' '}
-                    {new Date(gw.first_kickoff).toLocaleString('en-GB', {
+                    {new Date(gameweek.first_kickoff).toLocaleString('en-GB', {
                       timeZone: 'Europe/London',
                       dateStyle: 'full',
                       timeStyle: 'short',
@@ -169,15 +172,11 @@ export default async function DashboardPage() {
                     No fixtures have been added to this gameweek yet.
                   </p>
                 ) : (
-                  <PredictionsForm fixtures={enrichedFixtures} />
+                  <PredictionsForm fixtures={fixtures} />
                 )}
-                <Link
-                  href={`/predictions/${gw.id}`}
-                  className="participant-button participant-button--outline"
-                >
-                  Open gameweek
-                </Link>
-              </div>
+                  </article>;
+                })}
+              </GameweekCarousel>
             ) : (
               <p className="text-[--color-text-secondary] text-sm">No upcoming gameweek.</p>
             )}
@@ -206,10 +205,7 @@ export default async function DashboardPage() {
         )}
 
         {/* Nav links */}
-        <nav className="grid gap-3 text-sm sm:grid-cols-2">
-          <Link href="/leaderboard" className="participant-button participant-button--primary">
-            Leaderboard
-          </Link>
+        <nav className="grid gap-3 text-sm">
           <Link href="/settings" className="participant-button participant-button--primary">
             Notification settings
           </Link>
@@ -223,15 +219,6 @@ export default async function DashboardPage() {
           )}
         </nav>
 
-        {/* Sign out */}
-        <form action={signOut} className="pt-2">
-          <button
-            type="submit"
-            className="min-h-10 border border-[--color-error] px-4 py-2 text-sm font-bold text-[--color-error] hover:bg-[--color-error] hover:text-white"
-          >
-            Sign out
-          </button>
-        </form>
       </main>
     </div>
   );

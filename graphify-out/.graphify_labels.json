@@ -1,7 +1,7 @@
 {
   "0": "server.ts",
   "1": "createServiceClient",
-  "2": "send-reminders/route.ts",
+  "2": "environment.ts",
   "3": "devDependencies",
   "4": "scoring/index.ts",
   "5": "dependencies",
@@ -41,5 +41,8 @@
   "39": "supabase-server.test.ts",
   "40": "Q: Why are they locked at all?",
   "41": "Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?",
-  "42": "ApiFixture"
+  "42": "ApiFixture",
+  "43": "leaderboard/[gameweekId]/page.tsx",
+  "44": "predictions/[gameweekId]/page.tsx",
+  "45": "leaderboard/page.tsx"
 }

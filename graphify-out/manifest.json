@@ -115,13 +115,13 @@
     "semantic_hash": "eb8fb021efcb747d208e75c1502cc6ba"
   },
   "src/app/(auth)/layout.tsx": {
-    "mtime": 1781426471.3024673,
-    "ast_hash": "2f5702da695ddf5c5b3b98ab2b1096f9",
-    "semantic_hash": "2f5702da695ddf5c5b3b98ab2b1096f9"
+    "mtime": 1786549602.061715,
+    "ast_hash": "c96246134138b6fde10783e99c2c8060",
+    "semantic_hash": ""
   },
   "src/app/(auth)/login/page.tsx": {
-    "mtime": 1786437305.102906,
-    "ast_hash": "4cbd8e8d825c6a21f84c9a1c77ffd179",
+    "mtime": 1786549498.5361943,
+    "ast_hash": "5713a2098d3ec332d757e0803b4647eb",
     "semantic_hash": ""
   },
   "src/app/(auth)/register/page.tsx": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "src/app/(participant)/dashboard/page.tsx": {
-    "mtime": 1786547548.8440313,
-    "ast_hash": "22f03035dbd56fa03e5c6e3dd833ac15",
+    "mtime": 1786549609.0765958,
+    "ast_hash": "70dc4e4a1e653f138522e887ce94c679",
     "semantic_hash": ""
   },
   "src/app/(participant)/layout.tsx": {
@@ -140,18 +140,18 @@
     "semantic_hash": "13740d4da7c4ebeac1685ac243894576"
   },
   "src/app/(participant)/leaderboard/[gameweekId]/page.tsx": {
-    "mtime": 1786437305.113473,
-    "ast_hash": "5b4076e7827bc8a1f9757f7901c27339",
+    "mtime": 1786549617.0529013,
+    "ast_hash": "a587cd7d21a49643723e657c5b11a58c",
     "semantic_hash": ""
   },
   "src/app/(participant)/leaderboard/page.tsx": {
-    "mtime": 1786437305.1195438,
-    "ast_hash": "c9462b5763a2393830c5dc141c0844a2",
+    "mtime": 1786549613.8279955,
+    "ast_hash": "f88f2c1429fa12a361845a70bb701e1d",
     "semantic_hash": ""
   },
   "src/app/(participant)/predictions/[gameweekId]/page.tsx": {
-    "mtime": 1786437308.1987822,
-    "ast_hash": "c8c00633c20c6248df4c14a6338fcf8e",
+    "mtime": 1786549502.7829049,
+    "ast_hash": "db923cb926806dc2a7e7d9dc4b977cbd",
     "semantic_hash": ""
   },
   "src/app/(participant)/settings/actions.ts": {
@@ -205,8 +205,8 @@
     "semantic_hash": ""
   },
   "src/components/participant/PredictionsForm.tsx": {
-    "mtime": 1786547549.1112638,
-    "ast_hash": "f19d3541acec970f5900489ab1c8c9bf",
+    "mtime": 1786549603.2154338,
+    "ast_hash": "31d6e927ba672757d2508e57704161e1",
     "semantic_hash": ""
   },
   "src/components/ui/button.tsx": {
@@ -637,6 +637,11 @@
   "tests/e2e/admin-leagues.test.ts": {
     "mtime": 1786541238.9835956,
     "ast_hash": "c25ad2d8cf2b6786f88c9c82e84bf041",
+    "semantic_hash": ""
+  },
+  "src/components/participant/GameweekCarousel.tsx": {
+    "mtime": 1786549606.8085241,
+    "ast_hash": "0c8bcf607c92e0bf7669e7a80f4e22eb",
     "semantic_hash": ""
   }
 }

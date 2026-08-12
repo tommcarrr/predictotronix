@@ -14,8 +14,9 @@ export default async function LoginPage({
 }) {
   const { message, error } = await searchParams;
   return (
-    <div className="w-full max-w-md space-y-6 p-8">
+    <div className="login-ceefax w-full max-w-md space-y-6 p-8">
       <div>
+        <p className="login-ceefax__eyebrow text-xs">Predictotronix player access</p>
         <h1 className="text-2xl font-bold">Sign in</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Enter your email and password to continue.
@@ -60,7 +61,7 @@ export default async function LoginPage({
 
         <button
           type="submit"
-          className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
+          className="login-ceefax__submit w-full px-4 py-2 text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
         >
           Sign in
         </button>

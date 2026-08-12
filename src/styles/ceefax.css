@@ -107,10 +107,30 @@
   gap: 1rem;
 }
 
-.participant-appbar__brand {
-  color: var(--color-success);
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  line-height: 1;
+.participant-appbar__logo {
+  flex-shrink: 1;
+  gap: clamp(0.08rem, 0.5vw, 0.3rem);
+  overflow: hidden;
+  font-size: clamp(0.45rem, 1.5vw, 0.8rem);
+}
+
+.participant-appbar__logo span {
+  border-width: 2px;
+}
+
+.participant-appbar__menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.participant-appbar__signout {
+  min-height: 2.25rem;
+  border: 1px solid #fff;
+  padding: 0.35rem 0.75rem;
+  color: #fff;
+  font-size: 0.8rem;
 }
 
 .participant-appbar__welcome {
@@ -125,11 +145,21 @@
   padding-top: 2rem;
 }
 
-.participant-dashboard__logo {
-  justify-content: center;
-  gap: clamp(0.15rem, 1vw, 0.45rem);
-  overflow: hidden;
-  font-size: clamp(0.7rem, 3vw, 1.15rem);
+.participant-gameweeks {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--color-info) #111;
+  padding-bottom: 0.75rem;
+}
+
+.participant-gameweek-card {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .participant-section-title,
@@ -195,6 +225,11 @@
     0 2px 5px rgb(0 0 0 / 18%);
 }
 
+.participant-button--save {
+  background: rgba(0, 255, 0, 1);
+  color: #000;
+}
+
 .participant-button--outline {
   border: 1px solid var(--color-info);
   color: var(--color-info);
@@ -212,11 +247,24 @@
 
 @media (max-width: 480px) {
   .participant-appbar__inner {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
   }
 
   .participant-appbar__welcome {
-    text-align: left;
+    display: none;
   }
 }
+
+/* A restrained Ceefax treatment for authentication without the full player UI. */
+.login-ceefax {
+  border: 2px solid #00ffff;
+  background: #050505;
+  color: #fff;
+  font-family: 'BBC-Ceefax', monospace;
+  box-shadow: 0 0 0 4px #0000ff;
+}
+
+.login-ceefax__eyebrow { color: #00ff00; text-transform: uppercase; }
+.login-ceefax :is(input) { border-radius: 0; background: #111; color: #fff; }
+.login-ceefax :is(input):focus-visible { outline: 2px solid #00ff00; outline-offset: 2px; }
+.login-ceefax__submit { border-radius: 0; background: #0000ff; color: #fff; }

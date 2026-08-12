@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import { submitPredictions } from '@/lib/predictions/actions';
 
 interface Fixture {
@@ -40,6 +40,14 @@ export function PredictionsForm({ fixtures }: Props) {
   );
   const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const focusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(
+    () => () => {
+      if (focusTimer.current) clearTimeout(focusTimer.current);
+    },
+    []
+  );
 
   function handleChange(fixtureId: string, side: 'home' | 'away', value: string) {
     const numeric = value.replace(/[^0-9]/g, '').slice(0, 2);
@@ -47,6 +55,18 @@ export function PredictionsForm({ fixtures }: Props) {
       ...prev,
       [fixtureId]: { ...prev[fixtureId], [side]: numeric },
     }));
+
+    if (focusTimer.current) clearTimeout(focusTimer.current);
+    if (!numeric) return;
+    focusTimer.current = setTimeout(() => {
+      const editableInputs = Array.from(
+        document.querySelectorAll<HTMLInputElement>('[data-prediction-score]:not(:disabled)')
+      );
+      const currentIndex = editableInputs.findIndex(
+        (input) => input.dataset.fixtureId === fixtureId && input.dataset.side === side
+      );
+      editableInputs[currentIndex + 1]?.focus();
+    }, 500);
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -120,6 +140,9 @@ export function PredictionsForm({ fixtures }: Props) {
                   onChange={(e) => handleChange(f.id, 'home', e.target.value)}
                   className="w-10 text-center bg-[--color-action-disabled-bg] border border-[--color-border] text-white p-1 disabled:opacity-50"
                   aria-label={`${f.home_team_name} score`}
+                  data-prediction-score
+                  data-fixture-id={f.id}
+                  data-side="home"
                 />
                 <span className="text-[--color-text-secondary]">-</span>
                 <input
@@ -132,6 +155,9 @@ export function PredictionsForm({ fixtures }: Props) {
                   onChange={(e) => handleChange(f.id, 'away', e.target.value)}
                   className="w-10 text-center bg-[--color-action-disabled-bg] border border-[--color-border] text-white p-1 disabled:opacity-50"
                   aria-label={`${f.away_team_name} score`}
+                  data-prediction-score
+                  data-fixture-id={f.id}
+                  data-side="away"
                 />
                 <span className="flex-1 font-bold">{f.away_team_name}</span>
               </div>
@@ -164,7 +190,7 @@ export function PredictionsForm({ fixtures }: Props) {
         <button
           type="submit"
           disabled={isPending}
-          className="participant-button participant-button--primary w-full disabled:opacity-50"
+          className="participant-button participant-button--save w-full disabled:opacity-50"
         >
           {isPending ? 'Saving…' : 'Save predictions'}
         </button>
