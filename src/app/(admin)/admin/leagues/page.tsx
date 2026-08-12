@@ -53,9 +53,31 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
 
   const adminIds = new Set((leagueAdmins ?? []).map((role) => role.user_id));
   const profileById = new Map((profiles ?? []).map((profile) => [profile.id, profile]));
+  const missingAdminProfileIds = [...adminIds].filter((id) => !profileById.has(id));
+  const missingAdminUsers = await Promise.all(
+    missingAdminProfileIds.map(async (id) => {
+      const { data } = await supabase.auth.admin.getUserById(id);
+      return [id, data.user] as const;
+    }),
+  );
+  const authUserById = new Map(missingAdminUsers);
   const currentAdmins = [...adminIds]
-    .map((id) => profileById.get(id) ?? { id, display_name: null, email: null })
-    .sort((a, b) => (a.display_name ?? a.email ?? a.id).localeCompare(b.display_name ?? b.email ?? b.id));
+    .map((id) => {
+      const profile = profileById.get(id);
+      const authUser = authUserById.get(id);
+      const email = profile?.email ?? authUser?.email ?? null;
+      const metadataDisplayName = authUser?.user_metadata?.display_name;
+      const displayName =
+        profile?.display_name ??
+        (typeof metadataDisplayName === 'string' && metadataDisplayName.trim()
+          ? metadataDisplayName.trim()
+          : null) ??
+        email?.split('@')[0] ??
+        'Unknown user';
+
+      return { id, displayName, email };
+    })
+    .sort((a, b) => a.displayName.localeCompare(b.displayName));
   const adminCandidates = (profiles ?? []).filter((profile) => !adminIds.has(profile.id));
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
@@ -164,8 +186,8 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
             <ul className="space-y-2">
               {currentAdmins.map((admin) => (
                 <li key={admin.id} className="rounded-md border border-border px-3 py-2 text-sm">
-                  <span className="font-medium">{admin.display_name ?? admin.email ?? admin.id}</span>
-                  {admin.display_name && admin.email && (
+                  <span className="font-medium">{admin.displayName}</span>
+                  {admin.email && admin.email !== admin.displayName && (
                     <span className="ml-2 text-muted-foreground">{admin.email}</span>
                   )}
                 </li>
@@ -194,7 +216,7 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
                 </option>
                 {adminCandidates.map((profile) => (
                   <option key={profile.id} value={profile.id}>
-                    {profile.display_name ?? profile.email ?? profile.id}
+                    {profile.display_name ?? profile.email ?? 'Unknown user'}
                     {profile.display_name && profile.email ? ` (${profile.email})` : ''}
                   </option>
                 ))}
