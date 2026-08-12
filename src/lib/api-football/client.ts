@@ -35,7 +35,9 @@ function getSafeRequestDiagnostics(path: string, response: Response, results?: n
       return 'invalid API_FOOTBALL_BASE_URL';
     }
   })();
-  const authMode = process.env.RAPIDAPI_KEY ? 'RapidAPI headers' : 'no RapidAPI key configured';
+  const authMode = process.env.API_FOOTBALL_KEY
+    ? 'API-Sports direct key'
+    : 'no API_FOOTBALL_KEY configured';
   const remaining = response.headers.get('x-ratelimit-remaining');
   const dailyRemaining = response.headers.get('x-ratelimit-requests-remaining');
   return {
@@ -58,8 +60,7 @@ async function apiFetch<T>(path: string): Promise<T> {
 
   const response = await fetch(`${BASE_URL}${path}`, {
     headers: {
-      'x-rapidapi-key': process.env.RAPIDAPI_KEY ?? '',
-      'x-rapidapi-host': 'v3.football.api-sports.io',
+      'x-apisports-key': process.env.API_FOOTBALL_KEY ?? '',
     },
     next: { revalidate: 0 }, // no caching — always fresh from API
   });
@@ -100,7 +101,7 @@ async function apiFetch<T>(path: string): Promise<T> {
   return json.response;
 }
 
-/** Real implementation using API-Football via RapidAPI. */
+/** Real implementation using API-Football directly through API-Sports. */
 export class ApiFootballProvider implements FixtureProvider {
   async getSeasonFixtures(leagueId: number, season: number): Promise<ApiFixture[]> {
     return apiFetch<ApiFixture[]>(`/fixtures?league=${leagueId}&season=${season}`);

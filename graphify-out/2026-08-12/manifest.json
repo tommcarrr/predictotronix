@@ -215,9 +215,9 @@
     "semantic_hash": "da2bd534616e7c8666dca9e08a02ec6d"
   },
   "src/lib/api-football/client.ts": {
-    "mtime": 1781426868.984455,
-    "ast_hash": "6d202a401b18e50ed47a641d671aab2e",
-    "semantic_hash": "6d202a401b18e50ed47a641d671aab2e"
+    "mtime": 1786520853.8288784,
+    "ast_hash": "eecd0f61de99e1ade1ba1d9d5ac7ce3c",
+    "semantic_hash": ""
   },
   "src/lib/api-football/test-provider.ts": {
     "mtime": 1781426868.984455,
@@ -597,6 +597,11 @@
   "graphify-out/memory/query_20260811_115509_should_i_now_be_able_to_use_the_api_sync_to_get_th.md": {
     "mtime": 1786449309.2653997,
     "ast_hash": "b04d30397adc220335d2512dc9a7f3d1",
+    "semantic_hash": ""
+  },
+  "tests/unit/api-football-client.test.ts": {
+    "mtime": 1786520860.4624157,
+    "ast_hash": "a4d97c9485792ee9a91cdc84f91ada8c",
     "semantic_hash": ""
   }
 }

@@ -340,8 +340,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "package",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "package.json"
     },
     {
@@ -351,8 +351,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "package_name",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "name"
     },
     {
@@ -362,8 +362,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "package_version",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "version"
     },
     {
@@ -373,8 +373,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "package_private",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "private"
     },
     {
@@ -384,8 +384,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "package_scripts",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "scripts"
     },
     {
@@ -395,8 +395,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "package_scripts_dev",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "dev"
     },
     {
@@ -406,8 +406,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "package_scripts_local_dev",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "local:dev"
     },
     {
@@ -417,8 +417,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "package_scripts_local_stop",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "local:stop"
     },
     {
@@ -428,8 +428,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "package_scripts_build",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "build"
     },
     {
@@ -439,8 +439,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "package_scripts_start",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "start"
     },
     {
@@ -450,8 +450,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "package_scripts_lint",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "lint"
     },
     {
@@ -461,8 +461,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "package_scripts_test",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test"
     },
     {
@@ -472,8 +472,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "package_scripts_test_watch",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test:watch"
     },
     {
@@ -483,8 +483,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "package_scripts_staging_reset",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "staging:reset"
     },
     {
@@ -494,8 +494,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "package_scripts_staging_smoke",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "staging:smoke"
     },
     {
@@ -505,8 +505,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "package_scripts_verify",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "verify"
     },
     {
@@ -516,8 +516,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "package_scripts_test_e2e",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test:e2e"
     },
     {
@@ -527,8 +527,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "package_scripts_test_e2e_ui",
-      "community": 5,
-      "community_name": "dependencies",
+      "community": 26,
+      "community_name": "scripts",
       "norm_label": "test:e2e:ui"
     },
     {
@@ -1682,8 +1682,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "context-actions.ts"
     },
     {
@@ -1693,8 +1693,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_cookieoptions",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "cookieoptions"
     },
     {
@@ -1704,8 +1704,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_setadminleague",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "setadminleague()"
     },
     {
@@ -1715,8 +1715,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_setadminseason",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "setadminseason()"
     },
     {
@@ -1727,7 +1727,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "exports/page.tsx"
     },
     {
@@ -1738,7 +1738,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page_metadata",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -1749,7 +1749,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page_dynamic",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -1760,7 +1760,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page_exportsadminpage",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "exportsadminpage()"
     },
     {
@@ -1858,8 +1858,8 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_correctresult",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
       "norm_label": "correctresult()"
     },
     {
@@ -1869,8 +1869,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "fixtures/page.tsx"
     },
     {
@@ -1880,8 +1880,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_metadata",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -1891,8 +1891,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_dynamic",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -1902,8 +1902,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_fixturesadminpage",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "fixturesadminpage()"
     },
     {
@@ -2001,8 +2001,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_page",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "admin/page.tsx"
     },
     {
@@ -2012,8 +2012,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_metadata",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -2023,8 +2023,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_dynamic",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2034,8 +2034,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_admindashboardpage",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "admindashboardpage()"
     },
     {
@@ -2386,8 +2386,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_layout",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "(admin)/layout.tsx"
     },
     {
@@ -2397,8 +2397,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_admin_layout_adminlayout",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "adminlayout()"
     },
     {
@@ -3343,8 +3343,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminshell",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "adminshell.tsx"
     },
     {
@@ -3354,8 +3354,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_option",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "option"
     },
     {
@@ -3365,8 +3365,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_seasonoption",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "seasonoption"
     },
     {
@@ -3376,8 +3376,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_props",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "props"
     },
     {
@@ -3387,8 +3387,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_navitems",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "navitems"
     },
     {
@@ -3398,8 +3398,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_adminshell",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "adminshell()"
     },
     {
@@ -3410,7 +3410,7 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "exportpanel.tsx"
     },
     {
@@ -3421,7 +3421,7 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_leaderboardrow",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "leaderboardrow"
     },
     {
@@ -3432,7 +3432,7 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_props",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "props"
     },
     {
@@ -3443,7 +3443,7 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_format",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "format"
     },
     {
@@ -3454,7 +3454,7 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_formatleaderboard",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "formatleaderboard()"
     },
     {
@@ -3465,7 +3465,7 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_exportpanel",
       "community": 12,
-      "community_name": "exports/page.tsx",
+      "community_name": "getAdminContext",
       "norm_label": "exportpanel()"
     },
     {
@@ -3508,8 +3508,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_fixturesyncconsole",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "fixturesyncconsole()"
     },
     {
@@ -3596,8 +3596,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_admin_context",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "context.ts"
     },
     {
@@ -3607,8 +3607,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_league_cookie",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "admin_league_cookie"
     },
     {
@@ -3618,8 +3618,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_season_cookie",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "admin_season_cookie"
     },
     {
@@ -3629,8 +3629,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_lib_admin_context_getadmincontext",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "getadmincontext"
     },
     {
@@ -3640,8 +3640,8 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "src_lib_admin_context_admincontext",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 12,
+      "community_name": "getAdminContext",
       "norm_label": "admincontext"
     },
     {
@@ -3656,10 +3656,21 @@
       "norm_label": "api-football/client.ts"
     },
     {
-      "label": "RateLimitState",
+      "label": "ApiFootballEnvelope",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
       "source_location": "L5",
+      "_origin": "ast",
+      "id": "src_lib_api_football_client_apifootballenvelope",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
+      "norm_label": "apifootballenvelope"
+    },
+    {
+      "label": "RateLimitState",
+      "file_type": "code",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "src_lib_api_football_client_ratelimitstate",
       "community": 2,
@@ -3667,10 +3678,32 @@
       "norm_label": "ratelimitstate"
     },
     {
+      "label": "formatApiErrors()",
+      "file_type": "code",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "src_lib_api_football_client_formatapierrors",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
+      "norm_label": "formatapierrors()"
+    },
+    {
+      "label": "getSafeRequestDiagnostics()",
+      "file_type": "code",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "src_lib_api_football_client_getsaferequestdiagnostics",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
+      "norm_label": "getsaferequestdiagnostics()"
+    },
+    {
       "label": "apiFetch()",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L12",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifetch",
       "community": 2,
@@ -3681,7 +3714,7 @@
       "label": "ApiFootballProvider",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L42",
+      "source_location": "L104",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider",
       "community": 2,
@@ -3692,7 +3725,7 @@
       "label": ".getSeasonFixtures()",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L43",
+      "source_location": "L105",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getseasonfixtures",
       "community": 2,
@@ -3703,7 +3736,7 @@
       "label": ".getRoundFixtures()",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L47",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getroundfixtures",
       "community": 2,
@@ -3714,7 +3747,7 @@
       "label": ".getFixture()",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L54",
+      "source_location": "L116",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getfixture",
       "community": 2,
@@ -3725,7 +3758,7 @@
       "label": ".getRounds()",
       "file_type": "code",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L59",
+      "source_location": "L121",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getrounds",
       "community": 2,
@@ -4047,8 +4080,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_clock",
-      "community": 4,
-      "community_name": "scoring/index.ts",
+      "community": 1,
+      "community_name": "createServiceClient",
       "norm_label": "clock.ts"
     },
     {
@@ -4058,8 +4091,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_clock_seasonclockposition",
-      "community": 4,
-      "community_name": "scoring/index.ts",
+      "community": 1,
+      "community_name": "createServiceClient",
       "norm_label": "seasonclockposition"
     },
     {
@@ -4080,8 +4113,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_lib_clock_clocktimeforgameweek",
-      "community": 4,
-      "community_name": "scoring/index.ts",
+      "community": 1,
+      "community_name": "createServiceClient",
       "norm_label": "clocktimeforgameweek()"
     },
     {
@@ -4168,8 +4201,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_environment_getenvironmentpolicy",
-      "community": 11,
-      "community_name": "environment.ts",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
       "norm_label": "getenvironmentpolicy()"
     },
     {
@@ -4998,6 +5031,17 @@
       "norm_label": "setup.ts"
     },
     {
+      "label": "api-football-client.test.ts",
+      "file_type": "code",
+      "source_file": "tests/unit/api-football-client.test.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_unit_api_football_client_test",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
+      "norm_label": "api-football-client.test.ts"
+    },
+    {
       "label": "architecture.test.ts",
       "file_type": "code",
       "source_file": "tests/unit/architecture.test.ts",
@@ -5048,8 +5092,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_clock_test",
-      "community": 4,
-      "community_name": "scoring/index.ts",
+      "community": 1,
+      "community_name": "createServiceClient",
       "norm_label": "clock.test.ts"
     },
     {
@@ -14103,7 +14147,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L12",
+      "source_location": "L52",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client",
@@ -14114,7 +14158,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L42",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_api_football_client",
+      "target": "src_lib_api_football_client_apifootballenvelope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client",
@@ -14125,7 +14180,29 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L10",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_api_football_client",
+      "target": "src_lib_api_football_client_formatapierrors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_api_football_client",
+      "target": "src_lib_api_football_client_getsaferequestdiagnostics",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client",
@@ -14169,11 +14246,47 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/api-football-client.test.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_api_football_client_test",
+      "target": "src_lib_api_football_client",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L49",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_api_football_client_apifetch",
+      "target": "src_lib_api_football_client_formatapierrors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_api_football_client_apifetch",
+      "target": "src_lib_api_football_client_getsaferequestdiagnostics",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/api-football/client.ts",
+      "source_location": "L111",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider_getroundfixtures",
@@ -14185,7 +14298,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L60",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider_getrounds",
@@ -14197,7 +14310,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L44",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider_getseasonfixtures",
@@ -14208,7 +14321,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L54",
+      "source_location": "L116",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider",
@@ -14219,7 +14332,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L47",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider",
@@ -14230,7 +14343,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L59",
+      "source_location": "L121",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider",
@@ -14241,7 +14354,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L43",
+      "source_location": "L105",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider",
@@ -14253,7 +14366,7 @@
       "context": "type",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L42",
+      "source_location": "L104",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider",
@@ -14261,11 +14374,23 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/api-football-client.test.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_api_football_client_test",
+      "target": "src_lib_api_football_client_apifootballprovider",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L43",
+      "source_location": "L105",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider_getseasonfixtures",
@@ -14277,7 +14402,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L47",
+      "source_location": "L109",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider_getroundfixtures",
@@ -14289,7 +14414,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/api-football/client.ts",
-      "source_location": "L54",
+      "source_location": "L116",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_api_football_client_apifootballprovider_getfixture",
@@ -17720,5 +17845,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "2a702c587d20d55fa22f12f8fb86e3a9c3ff0b0a"
+  "built_at_commit": "13d38ce22fffe17d450bc42b9321d71ddcab815d"
 }

@@ -215,8 +215,8 @@
     "semantic_hash": "da2bd534616e7c8666dca9e08a02ec6d"
   },
   "src/lib/api-football/client.ts": {
-    "mtime": 1786520853.8288784,
-    "ast_hash": "eecd0f61de99e1ade1ba1d9d5ac7ce3c",
+    "mtime": 1786527070.799436,
+    "ast_hash": "eac5f67b5a179b3e3c2c3912ff351412",
     "semantic_hash": ""
   },
   "src/lib/api-football/test-provider.ts": {
@@ -435,14 +435,14 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1786437308.1214354,
-    "ast_hash": "b5382276fc93de3007dd301fe97ca190",
+    "mtime": 1786527090.28061,
+    "ast_hash": "27c65b15a221364ae59ce1c9a468110a",
     "semantic_hash": ""
   },
   "SETUP.md": {
-    "mtime": 1782321722.384956,
-    "ast_hash": "898f04257c964f30b8cdc7b0359b37e5",
-    "semantic_hash": "898f04257c964f30b8cdc7b0359b37e5"
+    "mtime": 1786527098.0780945,
+    "ast_hash": "bf6db7f6bde7be463261dca09fac15b7",
+    "semantic_hash": ""
   },
   "src/lib/environment.ts": {
     "mtime": 1786437305.1595128,
@@ -600,8 +600,8 @@
     "semantic_hash": ""
   },
   "tests/unit/api-football-client.test.ts": {
-    "mtime": 1786520860.4624157,
-    "ast_hash": "a4d97c9485792ee9a91cdc84f91ada8c",
+    "mtime": 1786527079.8541713,
+    "ast_hash": "48fb84343322337d7db3f402f037d37d",
     "semantic_hash": ""
   }
 }
