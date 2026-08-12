@@ -23,6 +23,13 @@ export interface SyncResult {
   errors: string[];
 }
 
+export function gameweekNumberFromRound(round: string): number | null {
+  const match = round.match(/(?:Regular Season|Gameweek|Matchweek)\s*-?\s*(\d+)$/i);
+  if (!match) return null;
+  const gameweekNumber = Number.parseInt(match[1], 10);
+  return Number.isSafeInteger(gameweekNumber) && gameweekNumber > 0 ? gameweekNumber : null;
+}
+
 export type SyncLogLevel = 'info' | 'success' | 'warning' | 'error';
 
 export interface SyncLogEntry {
@@ -74,10 +81,38 @@ export async function syncFixtures(
     { provider: provider.name, fixtureCount: apiFixtures.length }
   );
 
-  // Build a round → gameweek_id map from existing gameweeks
+  const providerRounds = new Map<number, string>();
+  for (const fixture of apiFixtures) {
+    const gameweekNumber = gameweekNumberFromRound(fixture.league.round);
+    if (gameweekNumber !== null) providerRounds.set(gameweekNumber, fixture.league.round);
+  }
+
+  if (providerRounds.size > 0) {
+    const { error: gameweekUpsertError } = await supabase.from('gameweeks').upsert(
+      [...providerRounds].map(([gameweekNumber, round]) => ({
+        season_id: seasonId,
+        gameweek_number: gameweekNumber,
+        label: `Gameweek ${gameweekNumber}`,
+        api_football_round: round,
+      })),
+      { onConflict: 'season_id,gameweek_number', ignoreDuplicates: false }
+    );
+
+    if (gameweekUpsertError) {
+      const message = `Could not create or update gameweeks: ${gameweekUpsertError.message}`;
+      log(logger, 'error', message, { discoveredRounds: providerRounds.size });
+      return { upserted, errors: [message] };
+    }
+
+    log(logger, 'success', 'Created or updated provider gameweeks', {
+      gameweekCount: providerRounds.size,
+    });
+  }
+
+  // Build a round → gameweek_id map after ensuring provider rounds exist.
   const { data: gameweeks, error: gameweeksError } = await supabase
     .from('gameweeks')
-    .select('id, api_football_round')
+    .select('id, gameweek_number, api_football_round')
     .eq('season_id', seasonId);
 
   if (gameweeksError) {
@@ -95,6 +130,9 @@ export async function syncFixtures(
     if (gw.api_football_round) {
       roundToGameweekId.set(gw.api_football_round, gw.id);
     }
+    roundToGameweekId.set(`Regular Season - ${gw.gameweek_number}`, gw.id);
+    roundToGameweekId.set(`Gameweek ${gw.gameweek_number}`, gw.id);
+    roundToGameweekId.set(`Matchweek ${gw.gameweek_number}`, gw.id);
   }
 
   for (const fixture of apiFixtures) {

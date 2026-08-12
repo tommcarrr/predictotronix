@@ -275,8 +275,8 @@
     "semantic_hash": ""
   },
   "src/lib/sync/fixtures.ts": {
-    "mtime": 1786529719.5837283,
-    "ast_hash": "18d681a253fde6a3274ac4f1d74143d5",
+    "mtime": 1786531309.3761146,
+    "ast_hash": "a50910f4b7b3d2c88f50931ca87e1223",
     "semantic_hash": ""
   },
   "src/lib/utils.ts": {
@@ -617,6 +617,11 @@
   "tests/unit/fpl-client.test.ts": {
     "mtime": 1786530295.9534457,
     "ast_hash": "ac1ed86043689c82a9fb37d5bf862433",
+    "semantic_hash": ""
+  },
+  "tests/unit/fixture-sync.test.ts": {
+    "mtime": 1786531325.141728,
+    "ast_hash": "9b7e3c749053bf5c8ebd5f4d57735aa7",
     "semantic_hash": ""
   }
 }

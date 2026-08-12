@@ -1902,8 +1902,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_fixturesadminpage",
-      "community": 1,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
       "norm_label": "fixturesadminpage()"
     },
     {
@@ -4103,7 +4103,7 @@
       "_origin": "ast",
       "id": "src_lib_clock",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "clock.ts"
     },
     {
@@ -4114,7 +4114,7 @@
       "_origin": "ast",
       "id": "src_lib_clock_seasonclockposition",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "seasonclockposition"
     },
     {
@@ -4136,7 +4136,7 @@
       "_origin": "ast",
       "id": "src_lib_clock_clocktimeforgameweek",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "clocktimeforgameweek()"
     },
     {
@@ -4223,8 +4223,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_environment_getenvironmentpolicy",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "environment.ts",
       "norm_label": "getenvironmentpolicy()"
     },
     {
@@ -4729,8 +4729,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_scoring_index",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "scoring/index.ts"
     },
     {
@@ -4740,8 +4740,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_scoring_index_scoringresult",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "scoringresult"
     },
     {
@@ -4751,8 +4751,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_scoring_index_score",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "score"
     },
     {
@@ -4762,8 +4762,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_scoring_index_result",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "result"
     },
     {
@@ -4773,8 +4773,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_lib_scoring_index_getresult",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "getresult()"
     },
     {
@@ -4784,8 +4784,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_scoring_index_scoreprediction",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "scoreprediction()"
     },
     {
@@ -4795,8 +4795,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_scoring_index_leaderboardentry",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "leaderboardentry"
     },
     {
@@ -4806,8 +4806,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_lib_scoring_index_rankedentry",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "rankedentry"
     },
     {
@@ -4817,8 +4817,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "src_lib_scoring_index_rankleaderboard",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "rankleaderboard()"
     },
     {
@@ -4839,8 +4839,8 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "src_lib_scoring_index_calculatecompletion",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "calculatecompletion()"
     },
     {
@@ -4851,7 +4851,7 @@
       "_origin": "ast",
       "id": "src_lib_supabase_client",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "supabase/client.ts"
     },
     {
@@ -4862,7 +4862,7 @@
       "_origin": "ast",
       "id": "src_lib_supabase_client_createclient",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "createclient()"
     },
     {
@@ -4873,7 +4873,7 @@
       "_origin": "ast",
       "id": "src_lib_supabase_middleware",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "middleware.ts"
     },
     {
@@ -4884,7 +4884,7 @@
       "_origin": "ast",
       "id": "src_lib_supabase_middleware_updatesession",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "updatesession()"
     },
     {
@@ -4954,10 +4954,21 @@
       "norm_label": "syncresult"
     },
     {
-      "label": "SyncLogLevel",
+      "label": "gameweekNumberFromRound()",
       "file_type": "code",
       "source_file": "src/lib/sync/fixtures.ts",
       "source_location": "L26",
+      "_origin": "ast",
+      "id": "src_lib_sync_fixtures_gameweeknumberfromround",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
+      "norm_label": "gameweeknumberfromround()"
+    },
+    {
+      "label": "SyncLogLevel",
+      "file_type": "code",
+      "source_file": "src/lib/sync/fixtures.ts",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncloglevel",
       "community": 2,
@@ -4968,7 +4979,7 @@
       "label": "SyncLogEntry",
       "file_type": "code",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L28",
+      "source_location": "L35",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogentry",
       "community": 2,
@@ -4979,7 +4990,7 @@
       "label": "SyncLogger",
       "file_type": "code",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L35",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogger",
       "community": 2,
@@ -4990,7 +5001,7 @@
       "label": "log()",
       "file_type": "code",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L37",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_log",
       "community": 2,
@@ -5001,7 +5012,7 @@
       "label": "syncFixtures()",
       "file_type": "code",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L56",
+      "source_location": "L63",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncfixtures",
       "community": 2,
@@ -5012,7 +5023,7 @@
       "label": "syncResults()",
       "file_type": "code",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L162",
+      "source_location": "L200",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresults",
       "community": 2,
@@ -5049,7 +5060,7 @@
       "_origin": "ast",
       "id": "src_proxy",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "proxy.ts"
     },
     {
@@ -5060,7 +5071,7 @@
       "_origin": "ast",
       "id": "src_proxy_proxy",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "proxy()"
     },
     {
@@ -5071,7 +5082,7 @@
       "_origin": "ast",
       "id": "src_proxy_config",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "config"
     },
     {
@@ -5082,7 +5093,7 @@
       "_origin": "ast",
       "id": "src_types_database",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "database.ts"
     },
     {
@@ -5093,7 +5104,7 @@
       "_origin": "ast",
       "id": "src_types_database_json",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "json"
     },
     {
@@ -5104,7 +5115,7 @@
       "_origin": "ast",
       "id": "src_types_database_database",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "database"
     },
     {
@@ -5115,7 +5126,7 @@
       "_origin": "ast",
       "id": "src_types_database_tables",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "tables"
     },
     {
@@ -5126,7 +5137,7 @@
       "_origin": "ast",
       "id": "src_types_database_enums",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "enums"
     },
     {
@@ -5137,7 +5148,7 @@
       "_origin": "ast",
       "id": "src_types_index",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "types/index.ts"
     },
     {
@@ -5148,7 +5159,7 @@
       "_origin": "ast",
       "id": "src_types_index_userrole",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "userrole"
     },
     {
@@ -5159,7 +5170,7 @@
       "_origin": "ast",
       "id": "src_types_index_seasontype",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "seasontype"
     },
     {
@@ -5170,7 +5181,7 @@
       "_origin": "ast",
       "id": "src_types_index_seasonstatus",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "seasonstatus"
     },
     {
@@ -5192,7 +5203,7 @@
       "_origin": "ast",
       "id": "src_types_index_gameweekstatus",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "gameweekstatus"
     },
     {
@@ -5203,7 +5214,7 @@
       "_origin": "ast",
       "id": "src_types_index_joinrequeststatus",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "joinrequeststatus"
     },
     {
@@ -5214,7 +5225,7 @@
       "_origin": "ast",
       "id": "src_types_index_predictionauditaction",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "predictionauditaction"
     },
     {
@@ -5224,8 +5235,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_types_index_pointsreason",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "pointsreason"
     },
     {
@@ -5236,7 +5247,7 @@
       "_origin": "ast",
       "id": "src_types_index_notificationchannel",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "notificationchannel"
     },
     {
@@ -5247,7 +5258,7 @@
       "_origin": "ast",
       "id": "src_types_index_notificationtype",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "notificationtype"
     },
     {
@@ -5258,7 +5269,7 @@
       "_origin": "ast",
       "id": "src_types_index_notificationstatus",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "notificationstatus"
     },
     {
@@ -5390,7 +5401,7 @@
       "_origin": "ast",
       "id": "tests_unit_clock_test",
       "community": 4,
-      "community_name": "types/index.ts",
+      "community_name": "scoring/index.ts",
       "norm_label": "clock.test.ts"
     },
     {
@@ -5460,6 +5471,17 @@
       "norm_label": "environment.test.ts"
     },
     {
+      "label": "fixture-sync.test.ts",
+      "file_type": "code",
+      "source_file": "tests/unit/fixture-sync.test.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_unit_fixture_sync_test",
+      "community": 2,
+      "community_name": "fixtures/actions.ts",
+      "norm_label": "fixture-sync.test.ts"
+    },
+    {
       "label": "fpl-client.test.ts",
       "file_type": "code",
       "source_file": "tests/unit/fpl-client.test.ts",
@@ -5521,8 +5543,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_scoring_test",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "scoring/index.ts",
       "norm_label": "scoring.test.ts"
     },
     {
@@ -15329,7 +15351,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L69",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures_syncfixtures",
@@ -15353,7 +15375,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L199",
+      "source_location": "L237",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures_syncresults",
@@ -17329,7 +17351,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L37",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_sync_fixtures",
+      "target": "src_lib_sync_fixtures_gameweeknumberfromround",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/sync/fixtures.ts",
+      "source_location": "L44",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures",
@@ -17351,7 +17384,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L56",
+      "source_location": "L63",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures",
@@ -17362,7 +17395,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L28",
+      "source_location": "L35",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures",
@@ -17373,7 +17406,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L35",
+      "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures",
@@ -17384,7 +17417,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L26",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures",
@@ -17406,7 +17439,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L162",
+      "source_location": "L200",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures",
@@ -17438,11 +17471,23 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-sync.test.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_sync_test",
+      "target": "src_lib_sync_fixtures",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L103",
+      "source_location": "L141",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures_syncfixtures",
@@ -17454,7 +17499,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L202",
+      "source_location": "L240",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures_syncresults",
@@ -17466,7 +17511,31 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L67",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_sync_fixtures_syncfixtures",
+      "target": "src_lib_sync_fixtures_gameweeknumberfromround",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-sync.test.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_sync_test",
+      "target": "src_lib_sync_fixtures_gameweeknumberfromround",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/sync/fixtures.ts",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures_syncfixtures",
@@ -17478,7 +17547,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/sync/fixtures.ts",
-      "source_location": "L174",
+      "source_location": "L212",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_sync_fixtures_syncresults",
@@ -18998,5 +19067,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "d1a8606d1e9b36f55dbde72d5b4823baac243e84"
+  "built_at_commit": "e4b4bebe96ea46266d32feb3c8c3528fe2a51d7f"
 }

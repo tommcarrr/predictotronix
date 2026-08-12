@@ -3,7 +3,7 @@
   "1": "createServiceClient",
   "2": "fixtures/actions.ts",
   "3": "devDependencies",
-  "4": "types/index.ts",
+  "4": "scoring/index.ts",
   "5": "dependencies",
   "6": "compilerOptions",
   "7": "components.json",

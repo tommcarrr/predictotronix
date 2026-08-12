@@ -45,8 +45,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/fixtures/actions.ts": {
-    "mtime": 1786459889.6973665,
-    "ast_hash": "6591e1b496a99c5dcaad2cccab9a1572",
+    "mtime": 1786529732.6420343,
+    "ast_hash": "78e0863b7667b90d3d7d0b39843094c8",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/fixtures/page.tsx": {
@@ -175,13 +175,13 @@
     "semantic_hash": ""
   },
   "src/app/api/cron/sync-fixtures/route.ts": {
-    "mtime": 1786437305.1350129,
-    "ast_hash": "06006793a8eb3f6a936f0efcadcb5311",
+    "mtime": 1786529744.9877582,
+    "ast_hash": "f69847da86da409585b1069fc9b5896a",
     "semantic_hash": ""
   },
   "src/app/api/cron/sync-results/route.ts": {
-    "mtime": 1786437305.1385727,
-    "ast_hash": "309deb192ca6c00884a08621b3ef277e",
+    "mtime": 1786529754.5988212,
+    "ast_hash": "01735240937973db9de58368421df02c",
     "semantic_hash": ""
   },
   "src/app/global-error.tsx": {
@@ -215,19 +215,19 @@
     "semantic_hash": "da2bd534616e7c8666dca9e08a02ec6d"
   },
   "src/lib/api-football/client.ts": {
-    "mtime": 1786528889.754964,
-    "ast_hash": "08ffbd52249f9028b8ba44a17a323ee4",
+    "mtime": 1786529649.6800473,
+    "ast_hash": "504b9e519ce418707c1f2a4a00801112",
     "semantic_hash": ""
   },
   "src/lib/api-football/test-provider.ts": {
-    "mtime": 1781426868.984455,
-    "ast_hash": "3a3faca0067ec3dadcbc4f7a4298c1db",
-    "semantic_hash": "3a3faca0067ec3dadcbc4f7a4298c1db"
+    "mtime": 1786529663.1831558,
+    "ast_hash": "d72c53845775206c08a3714028d34e10",
+    "semantic_hash": ""
   },
   "src/lib/api-football/types.ts": {
-    "mtime": 1781426868.984455,
-    "ast_hash": "5cf6e58de7e69c3824099b3750e8f85a",
-    "semantic_hash": "5cf6e58de7e69c3824099b3750e8f85a"
+    "mtime": 1786529640.171708,
+    "ast_hash": "faa1e90bb3ad5cb151fb8638d34f6393",
+    "semantic_hash": ""
   },
   "src/lib/auth/actions.ts": {
     "mtime": 1781427764.262115,
@@ -275,8 +275,8 @@
     "semantic_hash": ""
   },
   "src/lib/sync/fixtures.ts": {
-    "mtime": 1786456279.268156,
-    "ast_hash": "70d737607e9ff8b8790520a2983dfbe5",
+    "mtime": 1786529719.5837283,
+    "ast_hash": "18d681a253fde6a3274ac4f1d74143d5",
     "semantic_hash": ""
   },
   "src/lib/utils.ts": {
@@ -435,13 +435,13 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1786528923.9974437,
-    "ast_hash": "1f59babd4ce486c7edc93ab0bd3abfd2",
+    "mtime": 1786529922.4094057,
+    "ast_hash": "97d0391b443da511cc6d3f2b4215ab14",
     "semantic_hash": ""
   },
   "SETUP.md": {
-    "mtime": 1786528935.8529937,
-    "ast_hash": "3dd09acb8ba6275e8d66bd46f4cb829f",
+    "mtime": 1786529936.4394996,
+    "ast_hash": "7850c3d2908321acc43e09d14548eada",
     "semantic_hash": ""
   },
   "src/lib/environment.ts": {
@@ -602,6 +602,21 @@
   "tests/unit/api-football-client.test.ts": {
     "mtime": 1786528909.8300662,
     "ast_hash": "a71cbedf7b4751ab40c28f0c7987bf6b",
+    "semantic_hash": ""
+  },
+  "src/lib/fixtures/provider.ts": {
+    "mtime": 1786529849.977919,
+    "ast_hash": "27e3010bcbf5c864eec67f313f26ab42",
+    "semantic_hash": ""
+  },
+  "src/lib/fpl/client.ts": {
+    "mtime": 1786530016.50865,
+    "ast_hash": "7e57cb9d03d229191dc229984eb3da9c",
+    "semantic_hash": ""
+  },
+  "tests/unit/fpl-client.test.ts": {
+    "mtime": 1786530295.9534457,
+    "ast_hash": "ac1ed86043689c82a9fb37d5bf862433",
     "semantic_hash": ""
   }
 }

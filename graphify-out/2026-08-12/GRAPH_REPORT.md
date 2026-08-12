@@ -1,11 +1,11 @@
 # Graph Report - predictotronix  (2026-08-12)
 
 ## Corpus Check
-- 118 files · ~45,273 words
+- 121 files · ~46,264 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 577 nodes · 986 edges · 44 communities (35 shown, 9 thin omitted)
+- 606 nodes · 1053 edges · 42 communities (33 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
@@ -15,7 +15,7 @@
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- createClient
+- server.ts
 - createServiceClient
 - fixtures/actions.ts
 - devDependencies
@@ -26,7 +26,7 @@
 - Graphify Skill
 - Predictotronix
 - Staging environment runbook
-- send-reminders/route.ts
+- environment.ts
 - exports/page.tsx
 - Verify Before Completion
 - app/layout.tsx
@@ -41,7 +41,6 @@
 - postcss.config.mjs
 - leaderboard/layout.tsx
 - predictions/layout.tsx
-- scripts
 - global.setup.ts
 - scenario.mts
 - local-dev.mjs
@@ -49,8 +48,7 @@
 - supabase-server.test.ts
 - Q: Why are they locked at all?
 - Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?
-- api-football/client.ts
-- AdminShell.tsx
+- ApiFixture
 
 ## God Nodes (most connected - your core abstractions)
 1. `createServiceClient()` - 51 edges
@@ -59,10 +57,10 @@
 4. `createClient()` - 28 edges
 5. `requireUser()` - 21 edges
 6. `getAdminContext` - 20 edges
-7. `compilerOptions` - 17 edges
-8. `getParticipant()` - 16 edges
-9. `scripts` - 14 edges
-10. `Staging environment runbook` - 13 edges
+7. `ApiFixture` - 18 edges
+8. `compilerOptions` - 17 edges
+9. `FixtureProvider` - 16 edges
+10. `getParticipant()` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify-First Codebase Navigation` --semantically_similar_to--> `Existing Graph Fast Path`  [INFERRED] [semantically similar]
@@ -84,19 +82,19 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (44 total, 9 thin omitted)
+## Communities (42 total, 9 thin omitted)
 
-### Community 0 - "createClient"
-Cohesion: 0.05
-Nodes (57): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+49 more)
+### Community 0 - "server.ts"
+Cohesion: 0.06
+Nodes (60): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+52 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.08
-Nodes (57): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), dynamic, FixturesAdminPage(), metadata, createLeague() (+49 more)
+Cohesion: 0.07
+Nodes (58): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive() (+50 more)
 
 ### Community 2 - "fixtures/actions.ts"
-Cohesion: 0.08
-Nodes (38): main(), requiredEnvironment(), actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync() (+30 more)
+Cohesion: 0.13
+Nodes (26): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), dynamic (+18 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
@@ -104,11 +102,11 @@ Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-c
 
 ### Community 4 - "types/index.ts"
 Cohesion: 0.10
-Nodes (19): clockTimeForGameweek(), SeasonClockPosition, updateSession(), config, proxy(), Database, Enums, Json (+11 more)
+Nodes (18): clockTimeForGameweek(), SeasonClockPosition, updateSession(), config, proxy(), Database, Enums, Json (+10 more)
 
 ### Community 5 - "dependencies"
-Cohesion: 0.07
-Nodes (29): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+21 more)
+Cohesion: 0.04
+Nodes (46): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+38 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -130,9 +128,9 @@ Nodes (14): Next.js Breaking Changes Guidance, API-Football Result Synchronizati
 Cohesion: 0.14
 Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected GitHub environment, 3. Create the Render staging service, 4. Apply migrations and create realistic data, 5. Create a test season manually, 6. Test different points in the season, 7. Acceptance checklist, Isolation and safety model (+5 more)
 
-### Community 11 - "send-reminders/route.ts"
-Cohesion: 0.24
-Nodes (9): dynamic, POST(), validateCronSecret(), EmailResult, ReminderEmailParams, sendReminderEmail(), ReminderSmsParams, sendReminderSms() (+1 more)
+### Community 11 - "environment.ts"
+Cohesion: 0.09
+Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
 
 ### Community 12 - "exports/page.tsx"
 Cohesion: 0.22
@@ -158,10 +156,6 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
-### Community 26 - "scripts"
-Cohesion: 0.11
-Nodes (17): name, private, scripts, build, dev, lint, local:dev, local:stop (+9 more)
-
 ### Community 32 - "scenario.mts"
 Cohesion: 0.14
 Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
@@ -186,16 +180,12 @@ Nodes (4): Answer, Outcome, Q: Why are they locked at all?, Source Nodes
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?, Source Nodes
 
-### Community 42 - "api-football/client.ts"
-Cohesion: 0.12
-Nodes (12): apiFetch(), ApiFootballConfig, ApiFootballEnvelope, ApiFootballProvider, formatApiErrors(), getApiFootballConfig(), getSafeRequestDiagnostics(), RateLimitState (+4 more)
-
-### Community 43 - "AdminShell.tsx"
-Cohesion: 0.32
-Nodes (6): AdminLayout(), AdminShell(), navItems, Option, Props, SeasonOption
+### Community 42 - "ApiFixture"
+Cohesion: 0.07
+Nodes (23): apiFetch(), ApiFootballConfig, ApiFootballEnvelope, ApiFootballProvider, formatApiErrors(), getApiFootballConfig(), getSafeRequestDiagnostics(), RateLimitState (+15 more)
 
 ## Knowledge Gaps
-- **237 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+232 more)
+- **243 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+238 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -208,17 +198,17 @@ Nodes (6): AdminLayout(), AdminShell(), navItems, Option, Props, SeasonOption
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `createClient`, `fixtures/actions.ts`, `send-reminders/route.ts`?**
-  _High betweenness centrality (0.050) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `createClient`, `fixtures/actions.ts`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `devDependencies` connect `devDependencies` to `scripts`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `environment.ts`?**
+  _High betweenness centrality (0.054) - this node is a cross-community bridge._
+- **Why does `ApiFixture` connect `ApiFixture` to `fixtures/actions.ts`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`?**
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _237 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `createClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.05473684210526316 - nodes in this community are weakly interconnected._
+  _243 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `server.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.05802469135802469 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.08105022831050228 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0730593607305936 - nodes in this community are weakly interconnected._
 - **Should `fixtures/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.08081632653061224 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12773109243697478 - nodes in this community are weakly interconnected._
