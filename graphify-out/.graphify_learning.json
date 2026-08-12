@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T11:10:46.622358+00:00",
+  "generated_at": "2026-08-12T12:22:59.417274+00:00",
   "nodes": {
     "src_app_admin_admin_fixtures_actions_triggerfixturesync": {
       "code_fingerprint": "f40d3e673bf3568afd2d969c0f31315c6d5ecbdb6cadab1d7aabbea0cd6a037b",
@@ -12,7 +12,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.977855991,
+      "score": 0.976723638,
       "source_file": "src/app/(admin)/admin/fixtures/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 0.955079206,
+      "score": 0.953973228,
       "source_file": "src/app/(admin)/admin/participants/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -44,7 +44,7 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 0.955079206,
+      "score": 0.953973228,
       "source_file": "src/app/(auth)/join/[code]/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -60,7 +60,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 0.975962085,
+      "score": 0.974831925,
       "source_file": "src/app/(participant)/dashboard/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -76,7 +76,7 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 0.97774261,
+      "score": 0.976610388,
       "source_file": "src/components/participant/PredictionsForm.tsx",
       "status": "tentative",
       "uses": 1
@@ -92,7 +92,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.977855991,
+      "score": 0.976723638,
       "source_file": "src/lib/api-football/client.ts",
       "status": "tentative",
       "uses": 1
@@ -113,7 +113,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.953704695,
+      "score": 1.951442313,
       "source_file": "src/lib/clock.ts",
       "status": "preferred",
       "uses": 2
@@ -129,13 +129,13 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.977855991,
+      "score": 0.976723638,
       "source_file": "src/lib/environment.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_predictions_actions_submitpredictions": {
-      "code_fingerprint": "829440d6c7e33da00733da90c54d7e8a2f952f85569b9d211cb859b532cd032d",
+      "code_fingerprint": "c85b7ac1558ea489b1e2b20d6a667fc860676ffbfe0c976af7b7634eb0acc2b6",
       "label": "submitPredictions()",
       "last": "2026-08-11T11:47:55.651711+00:00",
       "provenance": [
@@ -145,7 +145,7 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 0.97774261,
+      "score": 0.976610388,
       "source_file": "src/lib/predictions/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -166,7 +166,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.953704695,
+      "score": 1.951442313,
       "source_file": "src/lib/scoring/index.ts",
       "status": "preferred",
       "uses": 2
@@ -182,7 +182,7 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 0.955079206,
+      "score": 0.953973228,
       "source_file": "src/lib/supabase/server.ts",
       "status": "tentative",
       "uses": 1
@@ -198,7 +198,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.977855991,
+      "score": 0.976723638,
       "source_file": "src/lib/sync/fixtures.ts",
       "status": "tentative",
       "uses": 1

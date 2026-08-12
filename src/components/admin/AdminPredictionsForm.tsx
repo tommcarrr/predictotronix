@@ -9,6 +9,12 @@ interface Option {
   label: string;
 }
 
+interface ParticipantOption extends Option {
+  completed: number;
+  total: number;
+  status: 'awaiting' | 'in_progress' | 'ready';
+}
+
 interface Fixture {
   id: string;
   home_team_name: string;
@@ -23,7 +29,7 @@ interface Fixture {
 }
 
 interface Props {
-  participants: Option[];
+  participants: ParticipantOption[];
   gameweeks: Option[];
   selectedParticipantId: string;
   selectedGameweekId: string;
@@ -38,7 +44,6 @@ export function AdminPredictionsForm({
   fixtures,
 }: Props) {
   const router = useRouter();
-  const [participantId, setParticipantId] = useState(selectedParticipantId);
   const [gameweekId, setGameweekId] = useState(selectedGameweekId);
   const [inputs, setInputs] = useState<Record<string, { home: string; away: string }>>(
     Object.fromEntries(
@@ -83,13 +88,13 @@ export function AdminPredictionsForm({
         Number.isInteger(prediction.homeScore) && Number.isInteger(prediction.awayScore)
       );
 
-    if (!participantId || predictions.length === 0) {
+    if (!selectedParticipantId || predictions.length === 0) {
       setMessage('Enter at least one complete prediction.');
       return;
     }
 
     startTransition(async () => {
-      const result = await adminSubmitPredictions(participantId, predictions);
+      const result = await adminSubmitPredictions(selectedParticipantId, predictions);
       setMessage(
         result.success
           ? `Saved ${result.saved} prediction${result.saved === 1 ? '' : 's'}.`
@@ -101,25 +106,7 @@ export function AdminPredictionsForm({
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 rounded-lg border border-border p-4 sm:grid-cols-2">
-        <label className="space-y-1 text-sm font-medium">
-          <span>Participant</span>
-          <select
-            value={participantId}
-            onChange={(event) => {
-              const value = event.target.value;
-              setParticipantId(value);
-              navigate(value, gameweekId);
-            }}
-            className="w-full rounded-md border border-border bg-background px-3 py-2"
-          >
-            <option value="">Select a participant</option>
-            {participants.map((participant) => (
-              <option key={participant.id} value={participant.id}>{participant.label}</option>
-            ))}
-          </select>
-        </label>
-
+      <div className="rounded-lg border border-border p-4">
         <label className="space-y-1 text-sm font-medium">
           <span>Gameweek</span>
           <select
@@ -127,7 +114,7 @@ export function AdminPredictionsForm({
             onChange={(event) => {
               const value = event.target.value;
               setGameweekId(value);
-              navigate(participantId, value);
+              navigate('', value);
             }}
             className="w-full rounded-md border border-border bg-background px-3 py-2"
           >
@@ -139,12 +126,55 @@ export function AdminPredictionsForm({
         </label>
       </div>
 
-      {participantId && gameweekId && fixtures.length === 0 && (
+      {gameweekId && fixtures.length === 0 && (
         <p className="text-sm text-muted-foreground">This gameweek has no fixtures.</p>
       )}
 
-      {participantId && gameweekId && fixtures.length > 0 && (
+      {gameweekId && fixtures.length > 0 && (
+        <section className="space-y-3">
+          <div>
+            <h2 className="text-lg font-semibold">Participants</h2>
+            <p className="text-sm text-muted-foreground">Select someone to enter or amend their picks.</p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {participants.map((participant) => {
+              const active = participant.id === selectedParticipantId;
+              const status = participant.status === 'ready'
+                ? { label: 'Ready', className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' }
+                : participant.status === 'in_progress'
+                  ? { label: 'In progress', className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' }
+                  : { label: 'Awaiting picks', className: 'bg-muted text-muted-foreground' };
+
+              return (
+                <button
+                  key={participant.id}
+                  type="button"
+                  onClick={() => navigate(participant.id, gameweekId)}
+                  className={`flex items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors ${
+                    active ? 'border-primary bg-primary/5' : 'border-border hover:bg-accent'
+                  }`}
+                >
+                  <span className="font-medium">{participant.label}</span>
+                  <span className="flex items-center gap-2">
+                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.className}`}>
+                      {status.label}
+                    </span>
+                    <span className="text-xs tabular-nums text-muted-foreground">
+                      {participant.completed}/{participant.total}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {selectedParticipantId && gameweekId && fixtures.length > 0 && (
         <form onSubmit={submit} className="space-y-4">
+          <h2 className="border-b border-border pb-2 text-lg font-semibold">
+            {participants.find((participant) => participant.id === selectedParticipantId)?.label}
+          </h2>
           <div className="space-y-2">
             {fixtures.map((fixture) => (
               <div key={fixture.id} className="rounded-lg border border-border p-4">

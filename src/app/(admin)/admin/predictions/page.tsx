@@ -2,6 +2,8 @@ import { redirect } from 'next/navigation';
 import { getAdminContext } from '@/lib/admin/context';
 import { createServiceClient } from '@/lib/supabase/server';
 import { AdminPredictionsForm } from '@/components/admin/AdminPredictionsForm';
+import { selectPredictionGameweek } from '@/lib/predictions/gameweek';
+import { getSeasonNow } from '@/lib/clock';
 
 export const metadata = { title: 'Predictions | Admin' };
 
@@ -18,7 +20,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
   const { participantId = '', gameweekId = '' } = await searchParams;
   const supabase = await createServiceClient();
 
-  const [{ data: participantRows }, { data: gameweeks }] = selectedSeason
+  const [{ data: participantRows }, { data: gameweeks }, { data: seasonFixtures }] = selectedSeason
     ? await Promise.all([
         supabase
           .from('season_participants')
@@ -29,17 +31,25 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
           .select('id, label, gameweek_number')
           .eq('season_id', selectedSeason.id)
           .order('gameweek_number', { ascending: true }),
+        supabase
+          .from('fixtures')
+          .select('id, gameweek_id, kickoff')
+          .eq('season_id', selectedSeason.id)
+          .order('kickoff', { ascending: true }),
       ])
-    : [{ data: [] }, { data: [] }];
+    : [{ data: [] }, { data: [] }, { data: [] }];
 
   const participants = (participantRows ?? [])
     .map((row: any) => row.participants)
     .filter(Boolean)
     .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
+  const seasonNow = selectedSeason ? await getSeasonNow(supabase, selectedSeason.id) : new Date();
+  const defaultGameweek = selectPredictionGameweek(gameweeks ?? [], seasonFixtures ?? [], seasonNow);
+  const selectedGameweek =
+    (gameweeks ?? []).find((gameweek) => gameweek.id === gameweekId) ?? defaultGameweek;
   const selectedParticipant = participants.find((participant: any) => participant.id === participantId);
-  const selectedGameweek = (gameweeks ?? []).find((gameweek) => gameweek.id === gameweekId);
 
-  const { data: fixtures } = selectedParticipant && selectedGameweek
+  const { data: fixtures } = selectedGameweek
     ? await supabase
         .from('fixtures')
         .select('id, home_team_name, away_team_name, kickoff, result_confirmed')
@@ -48,14 +58,45 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
     : { data: [] };
 
   const fixtureIds = (fixtures ?? []).map((fixture) => fixture.id);
-  const { data: predictions } = selectedParticipant && fixtureIds.length
+  const participantIds = participants.map((participant: any) => participant.id);
+  const { data: gameweekPredictions } = fixtureIds.length && participantIds.length
     ? await supabase
         .from('predictions')
-        .select('fixture_id, home_score, away_score, points_awarded')
-        .eq('participant_id', selectedParticipant.id)
+        .select('participant_id, fixture_id, home_score, away_score, points_awarded')
+        .in('participant_id', participantIds)
         .in('fixture_id', fixtureIds)
     : { data: [] };
-  const predictionMap = new Map((predictions ?? []).map((prediction) => [prediction.fixture_id, prediction]));
+  const selectedPredictions = (gameweekPredictions ?? []).filter(
+    (prediction) => prediction.participant_id === selectedParticipant?.id
+  );
+  const predictionMap = new Map(selectedPredictions.map((prediction) => [prediction.fixture_id, prediction]));
+  const predictionCounts = new Map<string, number>();
+  for (const prediction of gameweekPredictions ?? []) {
+    predictionCounts.set(
+      prediction.participant_id,
+      (predictionCounts.get(prediction.participant_id) ?? 0) + 1
+    );
+  }
+
+  const participantStatuses = participants.map((participant: any) => {
+    const completed = predictionCounts.get(participant.id) ?? 0;
+    const total = fixtureIds.length;
+    const status = completed === 0
+      ? 'awaiting'
+      : total > 0 && completed >= total
+        ? 'ready'
+        : 'in_progress';
+
+    return {
+      id: participant.id,
+      label: `${participant.display_name}${participant.is_offline ? ' (offline)' : ''}`,
+      completed,
+      total,
+      status,
+    } as const;
+  });
+
+  const effectiveGameweekId = selectedGameweek?.id ?? '';
 
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-6">
@@ -72,17 +113,14 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
         </p>
       ) : (
         <AdminPredictionsForm
-          key={`${participantId}:${gameweekId}`}
-          participants={participants.map((participant: any) => ({
-            id: participant.id,
-            label: `${participant.display_name}${participant.is_offline ? ' (offline)' : ''}`,
-          }))}
+          key={`${selectedParticipant?.id ?? ''}:${effectiveGameweekId}`}
+          participants={participantStatuses}
           gameweeks={(gameweeks ?? []).map((gameweek) => ({
             id: gameweek.id,
             label: gameweek.label ?? `Gameweek ${gameweek.gameweek_number}`,
           }))}
           selectedParticipantId={selectedParticipant?.id ?? ''}
-          selectedGameweekId={selectedGameweek?.id ?? ''}
+          selectedGameweekId={effectiveGameweekId}
           fixtures={(fixtures ?? []).map((fixture) => ({
             ...fixture,
             prediction: predictionMap.get(fixture.id) ?? null,
