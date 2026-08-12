@@ -30,7 +30,7 @@ const navItems = [
   { href: '/admin/participants', label: 'Participants' },
   { href: '/admin/predictions', label: 'Predictions', superOnly: true },
   { href: '/admin/fixtures', label: 'Fixtures & results', superOnly: true },
-  { href: '/admin/exports', label: 'Exports', superOnly: true },
+  { href: '/admin/exports', label: 'Standings', superOnly: true },
   { href: '/admin/test-tools', label: 'Test tools', superOnly: true },
 ];
 

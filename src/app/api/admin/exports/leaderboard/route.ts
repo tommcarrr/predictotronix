@@ -10,6 +10,7 @@ interface LeaderboardRow {
   total_points: number;
   exact_count: number;
   predictions_submitted: number;
+  fixtures_in_gameweek?: number;
 }
 
 function formatLeaderboard(rows: LeaderboardRow[], format: Format): string {
@@ -64,6 +65,7 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = request.nextUrl;
   const seasonId = searchParams.get('seasonId');
+  const gameweekId = searchParams.get('gameweekId');
   const format = (searchParams.get('format') ?? 'text') as Format;
 
   if (!seasonId) {
@@ -71,9 +73,9 @@ export async function GET(request: NextRequest) {
   }
 
   const supabase = await createServiceClient();
-  const { data, error } = await supabase.rpc('get_season_leaderboard', {
-    p_season_id: seasonId,
-  });
+  const { data, error } = gameweekId
+    ? await supabase.rpc('get_gameweek_leaderboard', { p_gameweek_id: gameweekId })
+    : await supabase.rpc('get_season_leaderboard', { p_season_id: seasonId });
 
   if (error) {
     return new NextResponse(error.message, { status: 500 });

@@ -1,132 +1,263 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { Check, ChevronDown, Copy, Download, Trophy } from 'lucide-react';
 
-interface LeaderboardRow {
+export interface LeaderboardRow {
+  participant_id: string;
   position: number;
   display_name: string;
   total_points: number;
   exact_count: number;
   predictions_submitted: number;
+  fixtures_in_gameweek?: number;
+}
+
+export interface GameweekStandings {
+  id: string;
+  label: string;
+  gameweekNumber: number;
+  status: string;
+  rows: LeaderboardRow[];
 }
 
 interface Props {
   seasonId: string;
+  seasonRows: LeaderboardRow[];
+  gameweeks: GameweekStandings[];
 }
 
 type Format = 'text' | 'markdown' | 'html' | 'csv';
+type View = 'season' | string;
 
-function formatLeaderboard(rows: LeaderboardRow[], format: Format): string {
-  if (!rows.length) return 'No data.';
+const formats: { value: Format; label: string; extension: string }[] = [
+  { value: 'csv', label: 'CSV', extension: 'csv' },
+  { value: 'text', label: 'Plain text', extension: 'txt' },
+  { value: 'markdown', label: 'Markdown', extension: 'md' },
+  { value: 'html', label: 'HTML table', extension: 'html' },
+];
 
-  if (format === 'csv') {
-    const header = 'Position,Player,Points,Exact,Predictions';
-    const body = rows.map(
-      (r) => `${r.position},${r.display_name},${r.total_points},${r.exact_count},${r.predictions_submitted}`
-    );
-    return [header, ...body].join('\n');
-  }
-
-  if (format === 'markdown') {
-    const header = '| Pos | Player | Pts | ★ |\n|-----|--------|-----|---|';
-    const body = rows.map(
-      (r) => `| ${r.position} | ${r.display_name} | ${r.total_points} | ${r.exact_count} |`
-    );
-    return [header, ...body].join('\n');
-  }
-
-  if (format === 'html') {
-    const header =
-      '<table><thead><tr><th>Pos</th><th>Player</th><th>Pts</th><th>Exact</th></tr></thead><tbody>';
-    const body = rows
-      .map(
-        (r) =>
-          `<tr><td>${r.position}</td><td>${r.display_name}</td><td>${r.total_points}</td><td>${r.exact_count}</td></tr>`
-      )
-      .join('');
-    return `${header}${body}</tbody></table>`;
-  }
-
-  // Plain text
-  const lines = rows.map(
-    (r) =>
-      `${String(r.position).padStart(2)}. ${r.display_name.padEnd(25)} ${String(r.total_points).padStart(3)} pts  (${r.exact_count} exact)`
-  );
-  return lines.join('\n');
+function getMovementLabel(position: number) {
+  if (position === 1) return 'Leader';
+  if (position <= 3) return 'Top 3';
+  return null;
 }
 
-export function ExportPanel({ seasonId }: Props) {
-  const [format, setFormat] = useState<Format>('text');
-  const [output, setOutput] = useState('');
-  const [loading, setLoading] = useState(false);
+export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
+  const [view, setView] = useState<View>('season');
+  const [format, setFormat] = useState<Format>('csv');
+  const [exportOpen, setExportOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [busy, setBusy] = useState<'copy' | 'download' | null>(null);
 
-  async function loadLeaderboard() {
-    setLoading(true);
-    setOutput('');
+  const selectedGameweek = gameweeks.find((gameweek) => gameweek.id === view);
+  const rows = selectedGameweek?.rows ?? seasonRows;
+  const title = selectedGameweek?.label ?? 'Overall league table';
+  const completedGameweeks = gameweeks.filter((gameweek) => gameweek.status === 'completed').length;
+  const totalPoints = rows.reduce((sum, row) => sum + row.total_points, 0);
+  const averagePoints = rows.length ? Math.round(totalPoints / rows.length) : 0;
+  const exactScores = rows.reduce((sum, row) => sum + row.exact_count, 0);
 
+  const exportUrl = useMemo(() => {
+    const params = new URLSearchParams({ seasonId, format });
+    if (selectedGameweek) params.set('gameweekId', selectedGameweek.id);
+    return `/api/admin/exports/leaderboard?${params.toString()}`;
+  }, [format, seasonId, selectedGameweek]);
+
+  async function fetchExport() {
+    const response = await fetch(exportUrl);
+    if (!response.ok) throw new Error(await response.text());
+    return response.text();
+  }
+
+  async function copyExport() {
+    setBusy('copy');
     try {
-      const res = await fetch(`/api/admin/exports/leaderboard?seasonId=${seasonId}&format=${format}`);
-      const text = await res.text();
-      setOutput(text);
-    } catch {
-      setOutput('Error loading leaderboard.');
+      await navigator.clipboard.writeText(await fetchExport());
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
     } finally {
-      setLoading(false);
+      setBusy(null);
     }
   }
 
-  async function copyToClipboard() {
-    if (!output) return;
-    await navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  async function downloadExport() {
+    setBusy('download');
+    try {
+      const content = await fetchExport();
+      const selectedFormat = formats.find((item) => item.value === format)!;
+      const filename = selectedGameweek
+        ? `gameweek-${selectedGameweek.gameweekNumber}-standings.${selectedFormat.extension}`
+        : `league-table.${selectedFormat.extension}`;
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    } finally {
+      setBusy(null);
+    }
   }
 
   return (
-    <div className="space-y-4">
-      {/* Controls */}
-      <div className="flex flex-wrap gap-3 items-end">
-        <div className="space-y-1">
-          <label className="text-xs uppercase text-muted-foreground font-medium">Format</label>
-          <select
-            value={format}
-            onChange={(e) => setFormat(e.target.value as Format)}
-            className="rounded-md border border-border bg-background px-3 py-2 text-sm"
-          >
-            <option value="text">Plain text</option>
-            <option value="markdown">Markdown</option>
-            <option value="html">HTML table</option>
-            <option value="csv">CSV</option>
-          </select>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 shadow-sm sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-1.5">
+          <label htmlFor="standings-view" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            View standings
+          </label>
+          <div className="relative">
+            <select
+              id="standings-view"
+              value={view}
+              onChange={(event) => setView(event.target.value)}
+              className="min-w-64 appearance-none rounded-lg border border-border bg-background py-2.5 pl-3 pr-10 text-sm font-medium shadow-xs focus:outline-none focus:ring-2 focus:ring-ring"
+            >
+              <option value="season">Overall league table</option>
+              {gameweeks.map((gameweek) => (
+                <option key={gameweek.id} value={gameweek.id}>
+                  {gameweek.label} · {gameweek.status === 'completed' ? 'Final' : 'In progress'}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-3 size-4 text-muted-foreground" />
+          </div>
         </div>
 
-        <button
-          onClick={loadLeaderboard}
-          disabled={loading}
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
-        >
-          {loading ? 'Loading…' : 'Load Leaderboard'}
-        </button>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setExportOpen((open) => !open)}
+            aria-expanded={exportOpen}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm font-medium shadow-xs hover:bg-accent sm:w-auto"
+          >
+            <Download className="size-4" />
+            Export this view
+            <ChevronDown className="size-3.5 text-muted-foreground" />
+          </button>
+
+          {exportOpen && (
+            <div className="absolute right-0 z-10 mt-2 w-72 rounded-xl border border-border bg-popover p-3 shadow-lg">
+              <label htmlFor="export-format" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Export format
+              </label>
+              <select
+                id="export-format"
+                value={format}
+                onChange={(event) => setFormat(event.target.value as Format)}
+                className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+              >
+                {formats.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+              </select>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={copyExport}
+                  disabled={busy !== null}
+                  className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-medium hover:bg-accent disabled:opacity-50"
+                >
+                  {copied ? <Check className="size-4 text-emerald-600" /> : <Copy className="size-4" />}
+                  {copied ? 'Copied' : 'Copy'}
+                </button>
+                <button
+                  type="button"
+                  onClick={downloadExport}
+                  disabled={busy !== null}
+                  className="inline-flex items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
+                >
+                  <Download className="size-4" />
+                  Download
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Output */}
-      {output && (
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">Output</span>
-            <button
-              onClick={copyToClipboard}
-              className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-accent"
-            >
-              {copied ? '✓ Copied!' : 'Copy to clipboard'}
-            </button>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Stat label={selectedGameweek ? 'Players scored' : 'League players'} value={rows.length} />
+        <Stat label={selectedGameweek ? 'Average points' : 'Gameweeks completed'} value={selectedGameweek ? averagePoints : completedGameweeks} />
+        <Stat label="Exact scores" value={exactScores} />
+      </div>
+
+      <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+        <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-4 sm:px-5">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {selectedGameweek ? 'Gameweek scores' : 'Season standings'}
+            </p>
+            <h2 className="mt-0.5 text-lg font-semibold">{title}</h2>
           </div>
-          <pre className="rounded-lg bg-muted p-4 text-xs overflow-x-auto whitespace-pre-wrap max-h-96">
-            {output}
-          </pre>
+          <span className="hidden text-xs text-muted-foreground sm:block">Updated from confirmed results</span>
         </div>
-      )}
+
+        {rows.length ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[620px] text-sm">
+              <thead>
+                <tr className="border-b border-border bg-muted/50 text-xs uppercase tracking-wider text-muted-foreground">
+                  <th className="w-20 px-4 py-3 text-left font-semibold sm:px-5">Rank</th>
+                  <th className="px-3 py-3 text-left font-semibold">Player</th>
+                  <th className="px-3 py-3 text-right font-semibold">Points</th>
+                  <th className="px-3 py-3 text-right font-semibold">Exact</th>
+                  <th className="px-4 py-3 text-right font-semibold sm:px-5">Scored</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => {
+                  const badge = getMovementLabel(row.position);
+                  return (
+                    <tr key={row.participant_id} className="border-b border-border/70 last:border-0 hover:bg-muted/35">
+                      <td className="px-4 py-3.5 sm:px-5">
+                        <div className="flex items-center gap-2">
+                          {row.position === 1 ? (
+                            <span className="flex size-8 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+                              <Trophy className="size-4" />
+                            </span>
+                          ) : (
+                            <span className="flex size-8 items-center justify-center font-semibold text-muted-foreground">{row.position}</span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3.5">
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-foreground">{row.display_name}</span>
+                          {badge && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">{badge}</span>}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3.5 text-right text-base font-bold tabular-nums">{row.total_points}</td>
+                      <td className="px-3 py-3.5 text-right tabular-nums text-muted-foreground">{row.exact_count}</td>
+                      <td className="px-4 py-3.5 text-right tabular-nums text-muted-foreground sm:px-5">
+                        {selectedGameweek && row.fixtures_in_gameweek
+                          ? `${row.predictions_submitted}/${row.fixtures_in_gameweek}`
+                          : row.predictions_submitted}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="px-5 py-14 text-center">
+            <Trophy className="mx-auto size-8 text-muted-foreground/50" />
+            <p className="mt-3 font-medium">No scores to show yet</p>
+            <p className="mt-1 text-sm text-muted-foreground">Standings will appear after results have been confirmed and scored.</p>
+          </div>
+        )}
+        <div className="border-t border-border bg-muted/30 px-4 py-3 text-xs text-muted-foreground sm:px-5">
+          Points are ranked by total score, then exact predictions. “Scored” shows predictions included in the calculation.
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-xs">
+      <p className="text-xs font-medium text-muted-foreground">{label}</p>
+      <p className="mt-1 text-2xl font-bold tracking-tight tabular-nums">{value}</p>
     </div>
   );
 }
