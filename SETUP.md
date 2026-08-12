@@ -138,7 +138,8 @@ Still on the "Create Web Service" page, scroll to **Environment Variables**. Cli
 | `NEXT_PUBLIC_SUPABASE_URL` | `https://abcdefg.supabase.co` | Supabase Step 1.3 |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGc...` (long string) | Supabase Step 1.3 |
 | `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGc...` (different long string) | Supabase Step 1.3 |
-| `API_FOOTBALL_KEY` | Your direct API-Football key | https://dashboard.api-football.com |
+| `API_FOOTBALL_KEY` | Optional direct API-Football fallback key | https://dashboard.api-football.com |
+| `RAPIDAPI_KEY` | Optional RapidAPI fallback key; configure this or `API_FOOTBALL_KEY`, never both | https://rapidapi.com/api-sports/api/api-football |
 | `RESEND_API_KEY` | `re_...` | https://resend.com → API Keys |
 | `RESEND_FROM` | `Predictotronix <no-reply@yourdomain.com>` | The "from" address shown on outgoing emails. The domain part must be one you've **verified** in Resend → Domains. |
 | `TWILIO_ACCOUNT_SID` | `AC...` | https://console.twilio.com |

@@ -2,7 +2,7 @@
 
 import { isSuperAdmin } from '@/lib/auth';
 import { createServiceClient } from '@/lib/supabase/server';
-import { ApiFootballProvider } from '@/lib/api-football/client';
+import { createProductionFixtureProvider } from '@/lib/fixtures/provider';
 import { syncFixtures, syncResults, type SyncLogEntry } from '@/lib/sync/fixtures';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -53,7 +53,7 @@ export async function triggerFixtureSync(
   try {
     assertExternalFixtureSyncEnabled();
     const supabase = await createServiceClient();
-    const provider = new ApiFootballProvider();
+    const provider = createProductionFixtureProvider();
     const season = await getProductionSeason(seasonId);
     if (!season) throw new Error('The selected season is not available for production sync.');
 
@@ -91,7 +91,7 @@ export async function triggerResultSync(
   try {
     assertExternalFixtureSyncEnabled();
     const supabase = await createServiceClient();
-    const provider = new ApiFootballProvider();
+    const provider = createProductionFixtureProvider();
     const season = await getProductionSeason(seasonId);
     if (!season) throw new Error('The selected season is not available for production sync.');
 

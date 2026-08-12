@@ -3,7 +3,7 @@
   "1": "createServiceClient",
   "2": "fixtures/actions.ts",
   "3": "devDependencies",
-  "4": "scoring/index.ts",
+  "4": "types/index.ts",
   "5": "dependencies",
   "6": "compilerOptions",
   "7": "components.json",
@@ -11,7 +11,7 @@
   "9": "Predictotronix",
   "10": "Staging environment runbook",
   "11": "environment.ts",
-  "12": "getAdminContext",
+  "12": "exports/page.tsx",
   "13": "Verify Before Completion",
   "14": "app/layout.tsx",
   "15": "button.tsx",
@@ -25,7 +25,6 @@
   "23": "postcss.config.mjs",
   "24": "leaderboard/layout.tsx",
   "25": "predictions/layout.tsx",
-  "26": "scripts",
   "27": "(auth)/layout.tsx",
   "28": "global-error.tsx",
   "29": "(participant)/layout.tsx",
@@ -40,5 +39,6 @@
   "38": "Q: Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?",
   "39": "supabase-server.test.ts",
   "40": "Q: Why are they locked at all?",
-  "41": "Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
+  "41": "Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?",
+  "42": "ApiFixture"
 }

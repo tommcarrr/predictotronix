@@ -1,6 +1,48 @@
 import type { ApiFixture, FixtureProvider } from './types';
 
-const BASE_URL = process.env.API_FOOTBALL_BASE_URL ?? 'https://v3.football.api-sports.io';
+const DIRECT_BASE_URL = 'https://v3.football.api-sports.io';
+const RAPIDAPI_BASE_URL = 'https://api-football-v1.p.rapidapi.com/v3';
+const RAPIDAPI_HOST = 'api-football-v1.p.rapidapi.com';
+
+interface ApiFootballConfig {
+  baseUrl: string;
+  authMode: 'API-Sports direct key' | 'RapidAPI key';
+  headers: Record<string, string>;
+}
+
+function getApiFootballConfig(): ApiFootballConfig {
+  const directKey = process.env.API_FOOTBALL_KEY?.trim();
+  const rapidApiKey = process.env.RAPIDAPI_KEY?.trim();
+
+  if (directKey && rapidApiKey) {
+    throw new Error(
+      'API-Football configuration error: both API_FOOTBALL_KEY and RAPIDAPI_KEY are configured. Remove one so the provider is unambiguous.'
+    );
+  }
+
+  if (directKey) {
+    return {
+      baseUrl: process.env.API_FOOTBALL_BASE_URL?.trim() || DIRECT_BASE_URL,
+      authMode: 'API-Sports direct key',
+      headers: { 'x-apisports-key': directKey },
+    };
+  }
+
+  if (rapidApiKey) {
+    return {
+      baseUrl: process.env.API_FOOTBALL_BASE_URL?.trim() || RAPIDAPI_BASE_URL,
+      authMode: 'RapidAPI key',
+      headers: {
+        'x-rapidapi-key': rapidApiKey,
+        'x-rapidapi-host': RAPIDAPI_HOST,
+      },
+    };
+  }
+
+  throw new Error(
+    'API-Football configuration error: configure exactly one of API_FOOTBALL_KEY (direct API-Sports) or RAPIDAPI_KEY (RapidAPI).'
+  );
+}
 
 interface ApiFootballEnvelope<T> {
   response?: T;
@@ -27,23 +69,25 @@ function formatApiErrors(errors: unknown): string[] {
   return [String(errors)];
 }
 
-function getSafeRequestDiagnostics(path: string, response: Response, results?: number) {
+function getSafeRequestDiagnostics(
+  config: ApiFootballConfig,
+  path: string,
+  response: Response,
+  results?: number
+) {
   const baseHost = (() => {
     try {
-      return new URL(BASE_URL).host;
+      return new URL(config.baseUrl).host;
     } catch {
       return 'invalid API_FOOTBALL_BASE_URL';
     }
   })();
-  const authMode = process.env.API_FOOTBALL_KEY
-    ? 'API-Sports direct key'
-    : 'no API_FOOTBALL_KEY configured';
   const remaining = response.headers.get('x-ratelimit-remaining');
   const dailyRemaining = response.headers.get('x-ratelimit-requests-remaining');
   return {
     endpoint: path,
     baseHost,
-    authMode,
+    authMode: config.authMode,
     httpStatus: response.status,
     results: results ?? 'unknown',
     rateLimitRemaining: remaining ?? 'not provided',
@@ -52,16 +96,15 @@ function getSafeRequestDiagnostics(path: string, response: Response, results?: n
 }
 
 async function apiFetch<T>(path: string): Promise<T> {
+  const config = getApiFootballConfig();
   const now = Date.now() / 1000;
   if (rateLimitState.remaining <= 1 && now < rateLimitState.reset) {
     const waitMs = (rateLimitState.reset - now) * 1000 + 500;
     await new Promise((r) => setTimeout(r, waitMs));
   }
 
-  const response = await fetch(`${BASE_URL}${path}`, {
-    headers: {
-      'x-apisports-key': process.env.API_FOOTBALL_KEY ?? '',
-    },
+  const response = await fetch(`${config.baseUrl}${path}`, {
+    headers: config.headers,
     next: { revalidate: 0 }, // no caching — always fresh from API
   });
 
@@ -77,13 +120,13 @@ async function apiFetch<T>(path: string): Promise<T> {
   } catch {
     throw new Error(
       `API-Football returned a non-JSON response. Diagnostics: ${JSON.stringify(
-        getSafeRequestDiagnostics(path, response)
+        getSafeRequestDiagnostics(config, path, response)
       )}`
     );
   }
 
   const apiErrors = formatApiErrors(json.errors);
-  const diagnostics = getSafeRequestDiagnostics(path, response, json.results);
+  const diagnostics = getSafeRequestDiagnostics(config, path, response, json.results);
 
   if (!response.ok || apiErrors.length > 0) {
     const message = apiErrors.length
@@ -101,8 +144,10 @@ async function apiFetch<T>(path: string): Promise<T> {
   return json.response;
 }
 
-/** Real implementation using API-Football directly through API-Sports. */
+/** Real implementation using either direct API-Sports or RapidAPI authentication. */
 export class ApiFootballProvider implements FixtureProvider {
+  readonly name = 'API-Football';
+
   async getSeasonFixtures(leagueId: number, season: number): Promise<ApiFixture[]> {
     return apiFetch<ApiFixture[]>(`/fixtures?league=${leagueId}&season=${season}`);
   }

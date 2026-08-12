@@ -28,6 +28,9 @@ export interface ApiRound {
 }
 
 export interface FixtureProvider {
+  /** Human-readable source name used in diagnostics. */
+  readonly name: string;
+
   /** Fetch all fixtures for a season. */
   getSeasonFixtures(leagueId: number, season: number): Promise<ApiFixture[]>;
 

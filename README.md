@@ -34,7 +34,8 @@ Fill in `.env.local`:
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project → Settings → API → Project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase project → Settings → API → anon public key |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase project → Settings → API → service_role key |
-| `API_FOOTBALL_KEY` | Direct API-Football key from [API-Sports](https://dashboard.api-football.com/) |
+| `API_FOOTBALL_KEY` | Optional API-Football fallback key from [API-Sports](https://dashboard.api-football.com/) |
+| `RAPIDAPI_KEY` | Optional RapidAPI fallback key. Configure this or `API_FOOTBALL_KEY`, never both. |
 | `RESEND_API_KEY` | [Resend](https://resend.com) → API Keys |
 | `TWILIO_ACCOUNT_SID` | [Twilio console](https://console.twilio.com) |
 | `TWILIO_AUTH_TOKEN` | Twilio console |

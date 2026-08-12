@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/server';
-import { ApiFootballProvider } from '@/lib/api-football/client';
+import { createProductionFixtureProvider } from '@/lib/fixtures/provider';
 import { syncFixtures } from '@/lib/sync/fixtures';
 import { getEnvironmentPolicy } from '@/lib/environment';
 
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const supabase = await createServiceClient();
-    const provider = new ApiFootballProvider();
+    const provider = createProductionFixtureProvider();
 
     const { data: seasons, error } = await supabase
       .from('seasons')

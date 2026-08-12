@@ -6,6 +6,8 @@ import type { ApiFixture, FixtureProvider } from './types';
  * and to enable pre-season end-to-end testing.
  */
 export class TestFixtureProvider implements FixtureProvider {
+  readonly name = 'Synthetic test provider';
+
   private fixtures: ApiFixture[];
 
   constructor(fixtures: ApiFixture[] = []) {

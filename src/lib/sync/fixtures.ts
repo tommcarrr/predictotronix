@@ -65,13 +65,13 @@ export async function syncFixtures(
   let upserted = 0;
 
   log(logger, 'info', 'Starting fixture sync', { seasonId, leagueId, season });
-  log(logger, 'info', 'Requesting fixtures from API-Football', { leagueId, season });
+  log(logger, 'info', 'Requesting fixtures from provider', { provider: provider.name, leagueId, season });
   const apiFixtures = await provider.getSeasonFixtures(leagueId, season);
   log(
     logger,
     apiFixtures.length ? 'success' : 'warning',
-    apiFixtures.length ? 'API-Football returned fixtures' : 'API-Football returned no fixtures',
-    { fixtureCount: apiFixtures.length }
+    apiFixtures.length ? 'Fixture provider returned fixtures' : 'Fixture provider returned no fixtures',
+    { provider: provider.name, fixtureCount: apiFixtures.length }
   );
 
   // Build a round → gameweek_id map from existing gameweeks

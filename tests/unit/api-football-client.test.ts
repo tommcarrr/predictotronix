@@ -9,7 +9,6 @@ describe('API-Football client diagnostics', () => {
 
   it('authenticates direct API-Sports requests with API_FOOTBALL_KEY', async () => {
     vi.stubEnv('API_FOOTBALL_KEY', 'direct-api-key');
-    vi.stubEnv('RAPIDAPI_KEY', 'legacy-key-that-must-not-be-used');
     const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
       errors: [],
       results: 0,
@@ -25,7 +24,43 @@ describe('API-Football client diagnostics', () => {
     expect(options.headers).not.toHaveProperty('x-rapidapi-host');
   });
 
+  it('uses the RapidAPI endpoint and headers with RAPIDAPI_KEY', async () => {
+    vi.stubEnv('RAPIDAPI_KEY', 'rapid-api-key');
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      errors: [],
+      results: 0,
+      response: [],
+    }), { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await new ApiFootballProvider().getSeasonFixtures(39, 2025);
+
+    const [url, options] = fetchMock.mock.calls[0];
+    expect(url).toBe('https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2025');
+    expect(options.headers).toEqual({
+      'x-rapidapi-key': 'rapid-api-key',
+      'x-rapidapi-host': 'api-football-v1.p.rapidapi.com',
+    });
+  });
+
+  it('rejects ambiguous or missing provider configuration before making a request', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(new ApiFootballProvider().getSeasonFixtures(39, 2025)).rejects.toThrow(
+      /configure exactly one/
+    );
+
+    vi.stubEnv('API_FOOTBALL_KEY', 'direct-key');
+    vi.stubEnv('RAPIDAPI_KEY', 'rapid-key');
+    await expect(new ApiFootballProvider().getSeasonFixtures(39, 2025)).rejects.toThrow(
+      /both API_FOOTBALL_KEY and RAPIDAPI_KEY/
+    );
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('surfaces API errors returned with HTTP 200', async () => {
+    vi.stubEnv('API_FOOTBALL_KEY', 'direct-key');
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
       errors: { token: 'Invalid or missing application key' },
       results: 0,
@@ -56,6 +91,7 @@ describe('API-Football client diagnostics', () => {
   });
 
   it('returns a valid API response payload', async () => {
+    vi.stubEnv('API_FOOTBALL_KEY', 'direct-key');
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
       errors: [],
       results: 0,
