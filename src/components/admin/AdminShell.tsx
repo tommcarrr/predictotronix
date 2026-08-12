@@ -28,6 +28,7 @@ const navItems = [
   { href: '/admin/leagues', label: 'Leagues', superOnly: true },
   { href: '/admin/seasons', label: 'Seasons', superOnly: true },
   { href: '/admin/participants', label: 'Participants' },
+  { href: '/admin/predictions', label: 'Predictions', superOnly: true },
   { href: '/admin/fixtures', label: 'Fixtures & results', superOnly: true },
   { href: '/admin/exports', label: 'Exports', superOnly: true },
   { href: '/admin/test-tools', label: 'Test tools', superOnly: true },

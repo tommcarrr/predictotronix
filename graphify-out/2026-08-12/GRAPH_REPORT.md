@@ -1,16 +1,16 @@
 # Graph Report - predictotronix  (2026-08-12)
 
 ## Corpus Check
-- 121 files · ~46,264 words
+- 122 files · ~46,477 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 606 nodes · 1053 edges · 42 communities (33 shown, 9 thin omitted)
+- 608 nodes · 1057 edges · 42 communities (33 shown, 9 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d1a8606d`
+- Built from commit: `e4b4bebe`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -19,7 +19,7 @@
 - createServiceClient
 - fixtures/actions.ts
 - devDependencies
-- types/index.ts
+- scoring/index.ts
 - dependencies
 - compilerOptions
 - components.json
@@ -85,24 +85,24 @@
 ## Communities (42 total, 9 thin omitted)
 
 ### Community 0 - "server.ts"
-Cohesion: 0.06
-Nodes (60): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+52 more)
+Cohesion: 0.07
+Nodes (50): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+42 more)
 
 ### Community 1 - "createServiceClient"
 Cohesion: 0.07
-Nodes (58): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), FixturesAdminPage(), createLeague(), regenerateInviteCode(), toggleInviteActive() (+50 more)
+Nodes (57): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic (+49 more)
 
 ### Community 2 - "fixtures/actions.ts"
-Cohesion: 0.13
-Nodes (26): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), dynamic (+18 more)
+Cohesion: 0.11
+Nodes (27): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), dynamic (+19 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
-### Community 4 - "types/index.ts"
-Cohesion: 0.10
-Nodes (18): clockTimeForGameweek(), SeasonClockPosition, updateSession(), config, proxy(), Database, Enums, Json (+10 more)
+### Community 4 - "scoring/index.ts"
+Cohesion: 0.08
+Nodes (28): clockTimeForGameweek(), SeasonClockPosition, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result (+20 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.04
@@ -130,7 +130,7 @@ Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected Gi
 
 ### Community 11 - "environment.ts"
 Cohesion: 0.09
-Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
+Nodes (26): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+18 more)
 
 ### Community 12 - "exports/page.tsx"
 Cohesion: 0.22
@@ -207,8 +207,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
   _243 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.05802469135802469 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06990622335890878 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.0730593607305936 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07433489827856025 - nodes in this community are weakly interconnected._
 - **Should `fixtures/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.12773109243697478 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11261261261261261 - nodes in this community are weakly interconnected._

@@ -199,3 +199,24 @@ describe('Every page.tsx exports a default component', () => {
     expect(violations, `Missing default export in:\n  ${paths.join('\n  ')}`).toHaveLength(0);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Rule 6: Admin-entered predictions must be super-admin-only and unlocked
+//
+// The admin workflow deliberately permits corrections after kickoff, but uses
+// the service-role client. Keep the authorization guard inside the Server
+// Action and do not accidentally share the participant kickoff lock.
+// ---------------------------------------------------------------------------
+describe('Admin prediction entry remains privileged and unlocked', () => {
+  const actionsPath = join(ROOT, 'lib', 'predictions', 'actions.ts');
+  const source = readFileSync(actionsPath, 'utf8');
+  const adminAction = source.slice(source.indexOf('export async function adminSubmitPredictions'));
+
+  it('requires a super admin inside the Server Action', () => {
+    expect(adminAction).toContain('await requireSuperAdmin()');
+  });
+
+  it('does not apply the participant kickoff lock', () => {
+    expect(adminAction).not.toContain('isKickoffLocked(');
+  });
+});

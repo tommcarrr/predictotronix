@@ -1,7 +1,7 @@
 'use server';
 
 import { createClient, createServiceClient } from '@/lib/supabase/server';
-import { getParticipant, requireUser } from '@/lib/auth';
+import { getParticipant, requireSuperAdmin, requireUser } from '@/lib/auth';
 import { isKickoffLocked } from '@/lib/scoring';
 import { getSeasonNow } from '@/lib/clock';
 import { revalidatePath } from 'next/cache';
@@ -122,21 +122,53 @@ export async function adminSubmitPredictions(
   participantId: string,
   inputs: PredictionInput[]
 ): Promise<SubmitPredictionsResult> {
-  const user = await requireUser();
+  const user = await requireSuperAdmin();
   const supabase = await createServiceClient();
 
   const errors: string[] = [];
   let saved = 0;
 
+  if (!participantId) {
+    return { success: false, saved: 0, errors: ['Select a participant'] };
+  }
+
+  if (!inputs.length) {
+    return { success: false, saved: 0, errors: ['No predictions supplied'] };
+  }
+
   for (const input of inputs) {
+    if (
+      !Number.isInteger(input.homeScore) ||
+      !Number.isInteger(input.awayScore) ||
+      input.homeScore < 0 ||
+      input.awayScore < 0 ||
+      input.homeScore > 99 ||
+      input.awayScore > 99
+    ) {
+      errors.push(`Fixture ${input.fixtureId}: scores must be whole numbers from 0 to 99`);
+      continue;
+    }
+
     const { data: fixture } = await supabase
       .from('fixtures')
-      .select('id, kickoff, season_id')
+      .select('id, season_id, result_confirmed')
       .eq('id', input.fixtureId)
       .single();
 
     if (!fixture) {
       errors.push(`Fixture ${input.fixtureId} not found`);
+      continue;
+    }
+
+    const { data: enrolment } = await supabase
+      .from('season_participants')
+      .select('id')
+      .eq('season_id', fixture.season_id)
+      .eq('participant_id', participantId)
+      .maybeSingle();
+
+    if (!enrolment) {
+      errors.push(`Fixture ${input.fixtureId}: participant is not enrolled in this season`);
       continue;
     }
 
@@ -182,10 +214,21 @@ export async function adminSubmitPredictions(
       is_admin_action: true,
     });
 
+    if (fixture.result_confirmed) {
+      const { error: scoringError } = await supabase.rpc('score_predictions', {
+        p_fixture_id: fixture.id,
+      });
+
+      if (scoringError) {
+        errors.push(`Fixture ${input.fixtureId}: saved but could not be scored`);
+      }
+    }
+
     saved++;
   }
 
-  revalidatePath('/admin');
+  revalidatePath('/admin/predictions');
+  revalidatePath('/leaderboard');
 
   return { success: errors.length === 0, saved, errors };
 }
