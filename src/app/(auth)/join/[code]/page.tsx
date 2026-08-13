@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { submitJoinRequest } from './actions';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const dynamic = 'force-dynamic';
 
@@ -68,12 +69,12 @@ export default async function JoinPage({ params }: Props) {
         </div>
       ) : (
         <form action={submitJoinRequest.bind(null, league.id, code)}>
-          <button
-            type="submit"
+          <FormSubmitButton
+            pendingLabel="Sending request…"
             className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             Request to join
-          </button>
+          </FormSubmitButton>
         </form>
       )}
     </div>

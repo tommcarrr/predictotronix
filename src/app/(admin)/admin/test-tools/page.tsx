@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { AdminBadge } from '@/components/admin/AdminBadge';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { AdminTabs } from '@/components/admin/AdminTabs';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import {
   clearSeasonClock,
   fastForwardGameweek,
@@ -157,19 +158,19 @@ export default async function TestToolsPage({ searchParams }: Props) {
                   <option value="after">3 hours after last kickoff</option>
                 </select>
               </div>
-              <button type="submit" disabled={!stagingClockEnabled || !gameweeks?.length}
+              <FormSubmitButton pendingLabel="Setting clock…" disabled={!stagingClockEnabled || !gameweeks?.length}
                 className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50">
                 Set clock
-              </button>
+              </FormSubmitButton>
             </form>
 
             {clockSetting?.simulated_now && (
               <form action={clearSeasonClock}>
                 <input type="hidden" name="season_id" value={selectedSeasonId} />
-                <button type="submit" disabled={!stagingClockEnabled}
+                <FormSubmitButton pendingLabel="Resetting clock…" disabled={!stagingClockEnabled}
                   className="rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50">
                   Return to real time
-                </button>
+                </FormSubmitButton>
               </form>
             )}
           </section>}
@@ -216,17 +217,17 @@ export default async function TestToolsPage({ searchParams }: Props) {
                           <input name="away_score" type="number" min="0" max="20" defaultValue="0"
                             className="w-14 rounded border border-border bg-background px-2 py-1 text-sm text-center" />
                         </div>
-                        <button type="submit"
+                        <FormSubmitButton pendingLabel="Injecting…"
                           className="rounded bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90">
                           Inject result &amp; score
-                        </button>
+                        </FormSubmitButton>
                       </form>
 
                       <form action={markFixturePostponed.bind(null, f.id)}>
-                        <button type="submit"
+                        <FormSubmitButton pendingLabel="Postponing…"
                           className="rounded border border-yellow-400 px-3 py-1.5 text-xs text-yellow-700 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20">
                           Mark postponed
-                        </button>
+                        </FormSubmitButton>
                       </form>
                     </div>
                   )}
@@ -243,10 +244,10 @@ export default async function TestToolsPage({ searchParams }: Props) {
             </p>
             <form action={fastForwardGameweek} className="flex items-end gap-3">
               <input type="hidden" name="season_id" value={selectedSeasonId} />
-              <button type="submit"
+              <FormSubmitButton pendingLabel="Fast-forwarding…"
                 className="rounded-md border border-destructive px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/10">
                 Fast-forward next GW
-              </button>
+              </FormSubmitButton>
             </form>
           </section>}
         </>

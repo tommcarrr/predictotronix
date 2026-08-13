@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState, useTransition } from 'react';
+import { Dices } from 'lucide-react';
 import { submitPredictions } from '@/lib/predictions/actions';
+import { weightedRandomScore } from '@/lib/predictions/random-score';
 
 interface Fixture {
   id: string;
@@ -97,6 +99,39 @@ export function PredictionsForm({ fixtures }: Props) {
     });
   }
 
+  function fillOutstandingScores() {
+    let filled = 0;
+    const nextInputs = { ...inputs };
+
+    for (const fixture of fixtures) {
+      if (fixture.locked) continue;
+
+      const scores = { ...(nextInputs[fixture.id] ?? { home: '', away: '' }) };
+      if (scores.home === '') {
+        scores.home = weightedRandomScore().toString();
+        filled += 1;
+      }
+      if (scores.away === '') {
+        scores.away = weightedRandomScore().toString();
+        filled += 1;
+      }
+      nextInputs[fixture.id] = scores;
+    }
+
+    setInputs(nextInputs);
+    setMessage(
+      filled > 0
+        ? `Filled ${filled} empty score ${filled === 1 ? 'box' : 'boxes'}. Review and save your predictions.`
+        : 'There are no empty score boxes to fill.'
+    );
+  }
+
+  const outstandingScoreCount = fixtures.reduce((count, fixture) => {
+    if (fixture.locked) return count;
+    const scores = inputs[fixture.id];
+    return count + ((scores?.home ?? '') === '' ? 1 : 0) + ((scores?.away ?? '') === '' ? 1 : 0);
+  }, 0);
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="participant-fixtures">
@@ -185,6 +220,18 @@ export function PredictionsForm({ fixtures }: Props) {
           );
         })}
       </div>
+
+      {outstandingScoreCount > 0 && (
+        <button
+          type="button"
+          onClick={fillOutstandingScores}
+          disabled={isPending}
+          className="participant-button participant-button--outline w-full disabled:opacity-50"
+        >
+          <Dices className="size-4" aria-hidden="true" />
+          Fill with random scores
+        </button>
+      )}
 
       {fixtures.some((f) => !f.locked) && (
         <button

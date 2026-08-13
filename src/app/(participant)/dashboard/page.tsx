@@ -3,10 +3,12 @@ import Link from 'next/link';
 import { getParticipant, requireUser, isSuperAdmin } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/lib/auth/actions';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { getSeasonNow } from '@/lib/clock';
 import { isKickoffLocked } from '@/lib/scoring';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
 import { GameweekCarousel } from '@/components/participant/GameweekCarousel';
+import { PlayerAccessibilityToggle } from '@/components/participant/PlayerAccessibilityMode';
 import { selectPredictionGameweek } from '@/lib/predictions/gameweek';
 
 export const metadata = { title: 'Dashboard' };
@@ -125,8 +127,11 @@ export default async function DashboardPage() {
           </div>
           <div className="participant-appbar__menu">
             <p className="participant-appbar__welcome">Welcome, {participant?.display_name ?? user.email}</p>
+            <PlayerAccessibilityToggle />
             <form action={signOut}>
-              <button type="submit" className="participant-appbar__signout">Sign out</button>
+              <FormSubmitButton pendingLabel="Signing out…" className="participant-appbar__signout">
+                Sign out
+              </FormSubmitButton>
             </form>
           </div>
         </div>
@@ -215,7 +220,7 @@ export default async function DashboardPage() {
           {isAdmin && (
             <Link
               href="/admin"
-              className="inline-flex min-h-10 items-center justify-center border border-[--color-warning] px-4 py-2 font-bold text-[--color-warning] hover:bg-[--color-warning] hover:text-black"
+              className="participant-button participant-button--admin"
             >
               Admin panel
             </Link>

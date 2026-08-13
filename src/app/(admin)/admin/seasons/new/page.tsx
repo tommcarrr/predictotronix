@@ -5,6 +5,7 @@ import { getAdminContext } from '@/lib/admin/context';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { createSeason } from '../actions';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const metadata = { title: 'Create season | Admin' };
 
@@ -69,7 +70,7 @@ export default async function NewSeasonPage({ searchParams }: { searchParams: Pr
 
           <div className="flex flex-wrap justify-end gap-2 border-t border-border pt-5">
             <Link href="/admin/seasons" className="rounded-lg border border-border px-4 py-2 text-sm font-semibold hover:bg-accent">Cancel</Link>
-            <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Create in setup</button>
+            <FormSubmitButton pendingLabel="Creating season…" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Create in setup</FormSubmitButton>
           </div>
         </form>
       )}

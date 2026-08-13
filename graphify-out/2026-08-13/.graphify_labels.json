@@ -1,7 +1,7 @@
 {
   "0": "server.ts",
   "1": "createServiceClient",
-  "2": "environment.ts",
+  "2": "send-reminders/route.ts",
   "3": "devDependencies",
   "4": "types/index.ts",
   "5": "dependencies",
@@ -26,12 +26,12 @@
   "24": "leaderboard/layout.tsx",
   "25": "predictions/layout.tsx",
   "26": "admin-leagues.test.ts",
-  "27": "(auth)/layout.tsx",
+  "27": "PlayerAccessibilityMode.tsx",
   "28": "global-error.tsx",
-  "29": "(participant)/layout.tsx",
+  "29": "Q: Can you make the suggested changes?",
   "30": "admin-participants.test.ts",
   "31": "global.setup.ts",
-  "32": "scenario.mts",
+  "32": "environment.ts",
   "33": "playwright.config.ts",
   "34": "dashboard.test.ts",
   "35": "setup.ts",
@@ -50,5 +50,6 @@
   "48": "getAdminContext",
   "49": "[leagueId]/loading.tsx",
   "50": "Q: How do I assign a user to a league from the admin panel?",
-  "51": "[seasonId]/loading.tsx"
+  "51": "[seasonId]/loading.tsx",
+  "52": "Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?"
 }

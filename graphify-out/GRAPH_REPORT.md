@@ -1,16 +1,16 @@
 # Graph Report - predictotronix  (2026-08-13)
 
 ## Corpus Check
-- 145 files · ~54,665 words
+- 150 files · ~55,594 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 707 nodes · 1269 edges · 52 communities (41 shown, 11 thin omitted)
+- 726 nodes · 1319 edges · 54 communities (44 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `af982410`
+- Built from commit: `c1f9f23f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -56,8 +56,10 @@
 - leaderboard/page.tsx
 - season/route.ts
 - Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing.
-- getAdminContext
+- participants/page.tsx
 - Q: How do I assign a user to a league from the admin panel?
+- Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?
+- PredictionsForm.tsx
 
 ## God Nodes (most connected - your core abstractions)
 1. `createServiceClient()` - 65 edges
@@ -68,8 +70,8 @@
 6. `ApiFixture` - 18 edges
 7. `compilerOptions` - 17 edges
 8. `FixtureProvider` - 16 edges
-9. `scripts` - 14 edges
-10. `requireUser()` - 14 edges
+9. `cn()` - 15 edges
+10. `scripts` - 14 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify-First Codebase Navigation` --semantically_similar_to--> `Existing Graph Fast Path`  [INFERRED] [semantically similar]
@@ -91,15 +93,15 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (52 total, 11 thin omitted)
+## Communities (54 total, 10 thin omitted)
 
 ### Community 0 - "server.ts"
-Cohesion: 0.06
-Nodes (52): AdminPredictionsPage(), dynamic, metadata, Props, submitJoinRequest(), dynamic, JoinPage(), Props (+44 more)
+Cohesion: 0.07
+Nodes (47): AdminPredictionsPage(), dynamic, metadata, Props, submitJoinRequest(), dynamic, JoinPage(), Props (+39 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.14
-Nodes (36): correctResult(), assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant() (+28 more)
+Cohesion: 0.12
+Nodes (38): correctResult(), assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant() (+30 more)
 
 ### Community 2 - "environment.ts"
 Cohesion: 0.09
@@ -165,6 +167,10 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
+### Community 27 - "PlayerAccessibilityMode.tsx"
+Cohesion: 0.27
+Nodes (5): AccessibilityContext, AccessibilityContextValue, PlayerAccessibilityMode(), PlayerAccessibilityToggle(), readSavedPreference()
+
 ### Community 29 - "Q: Can you make the suggested changes?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you make the suggested changes?, Source Nodes
@@ -206,34 +212,42 @@ Cohesion: 0.40
 Nodes (3): dynamic, metadata, Props
 
 ### Community 46 - "season/route.ts"
-Cohesion: 0.26
-Nodes (10): dynamic, createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture, WorkbookGameweek (+2 more)
+Cohesion: 0.24
+Nodes (11): dynamic, GET(), createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture (+3 more)
 
 ### Community 47 - "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing., Source Nodes
 
-### Community 48 - "getAdminContext"
+### Community 48 - "participants/page.tsx"
 Cohesion: 0.06
-Nodes (55): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, FixturesAdminPage(), metadata, dynamic, LeagueDetailPage() (+47 more)
+Nodes (57): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, FixturesAdminPage(), metadata, dynamic, LeagueDetailPage() (+49 more)
 
 ### Community 50 - "Q: How do I assign a user to a league from the admin panel?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: How do I assign a user to a league from the admin panel?, Source Nodes
 
+### Community 52 - "Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?, Source Nodes
+
+### Community 53 - "PredictionsForm.tsx"
+Cohesion: 0.24
+Nodes (7): Fixture, PredictionsForm(), Props, SCORE_WEIGHTS, TOTAL_WEIGHT, weightedRandomScore(), fixtures
+
 ## Knowledge Gaps
-- **281 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+276 more)
+- **290 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+285 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `ParticipantsAdminPage()` (5× useful, score=4.904528015)
+- `ParticipantsAdminPage()` (5× useful, score=4.904528015) _(code changed — re-verify)_
 - `SeasonsAdminPage()` (2× useful, score=1.997690088)
-- `AdminShell()` (2× useful, score=1.997690088)
-- `LeaguesAdminPage()` (2× useful, score=1.984844061)
-- `DashboardPage()` (2× useful, score=1.940853557)
+- `AdminShell()` (2× useful, score=1.997690088) _(code changed — re-verify)_
+- `LeaguesAdminPage()` (2× useful, score=1.984844061) _(code changed — re-verify)_
+- `DashboardPage()` (2× useful, score=1.940853557) _(code changed — re-verify)_
 - `submitJoinRequest()` (2× useful, score=1.920420199)
 - `getSeasonNow()` (2× useful, score=1.911649566)
 - `isKickoffLocked()` (2× useful, score=1.911649566)
@@ -241,17 +255,17 @@ Nodes (4): Answer, Outcome, Q: How do I assign a user to a league from the admin
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `environment.ts`, `fixtures/actions.ts`, `exports/page.tsx`, `season/route.ts`, `getAdminContext`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `environment.ts`, `fixtures/actions.ts`, `exports/page.tsx`, `season/route.ts`, `participants/page.tsx`?**
+  _High betweenness centrality (0.076) - this node is a cross-community bridge._
 - **Why does `ApiFixture` connect `fixtures/actions.ts` to `fpl/client.ts`?**
   _High betweenness centrality (0.018) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`, `season/route.ts`?**
-  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `participants/page.tsx`, `season/route.ts`?**
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _281 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _290 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.0593607305936073 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06778846153846153 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.13953488372093023 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12303422756706753 - nodes in this community are weakly interconnected._
 - **Should `environment.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.09269162210338681 - nodes in this community are weakly interconnected._

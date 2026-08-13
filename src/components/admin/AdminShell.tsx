@@ -19,6 +19,7 @@ import {
   Users,
 } from 'lucide-react';
 import { setAdminLeague, setAdminSeason } from '@/app/(admin)/admin/context-actions';
+import { FormPendingStatus } from '@/components/ui/form-submit-button';
 
 interface Option {
   id: string;
@@ -260,6 +261,7 @@ export function AdminShell({
                         </option>
                       ))}
                     </select>
+                    <FormPendingStatus label="Switching league…" />
                   </form>
                   <form action={setAdminSeason} className="space-y-1.5">
                     <label
@@ -283,6 +285,7 @@ export function AdminShell({
                         </option>
                       ))}
                     </select>
+                    <FormPendingStatus label="Switching season…" />
                   </form>
                 </div>
               </div>

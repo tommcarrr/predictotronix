@@ -50,7 +50,6 @@ export function AdminDialog({
         onClick={(event) => {
           if (event.target === dialogRef.current) dialogRef.current?.close();
         }}
-        onSubmitCapture={() => dialogRef.current?.close()}
       >
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
           <div>
