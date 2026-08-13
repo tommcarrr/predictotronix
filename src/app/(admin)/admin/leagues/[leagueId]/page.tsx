@@ -7,6 +7,7 @@ import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
 import { AdminDialog } from '@/components/admin/AdminDialog';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { InviteLinkCopy } from '@/components/admin/InviteLinkCopy';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { AdminTabs } from '@/components/admin/AdminTabs';
 import { assignLeagueAdmin, deleteLeague, regenerateInviteCode, toggleInviteActive } from '../actions';
@@ -142,7 +143,7 @@ export default async function LeagueDetailPage({
             </div>
             <AdminBadge tone={league.invite_active ? 'green' : 'neutral'}>{league.invite_active ? 'Active' : 'Inactive'}</AdminBadge>
           </div>
-          <div className="rounded-xl bg-muted p-3 font-mono text-xs break-all">{inviteUrl}</div>
+          <InviteLinkCopy inviteUrl={inviteUrl} />
           <div className="flex flex-wrap gap-2">
             <Link href={`/join/${league.invite_code}`} target="_blank" className="inline-flex items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-sm font-semibold hover:bg-accent">
               Open join page <ExternalLink className="size-4" />

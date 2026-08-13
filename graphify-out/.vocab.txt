@@ -77,6 +77,8 @@ components
 confidence
 config
 configure
+confirm
+confirmation
 confusing
 console
 constructor
@@ -104,6 +106,7 @@ deleting
 dependencies
 deployment
 depth
+destination
 detail
 deterministic
 dev
@@ -147,6 +150,7 @@ extraction
 facing
 factory
 failure
+fake
 fallback
 fast
 feels
@@ -166,6 +170,7 @@ formats
 forms
 forward
 fpl
+friendly
 from
 gameweek
 geist
@@ -205,6 +210,8 @@ input
 insert
 instructions
 interop
+invitation
+invitations
 invite
 isolated
 isolation
@@ -308,6 +315,7 @@ page
 pages
 pair
 panel
+param
 params
 participant
 participants
@@ -345,6 +353,7 @@ private
 production
 project
 prompt
+proposed
 props
 protected
 provenance
@@ -360,11 +369,14 @@ read
 real
 realistic
 reason
+recover
 ref
 regenerate
 register
 registries
 reject
+remember
+remembered
 reminder
 reminders
 remove
@@ -469,6 +481,7 @@ tabs
 tags
 tailwind
 tailwindcss
+talk
 target
 team
 teams
@@ -504,6 +517,7 @@ typescript
 understand
 upcoming
 update
+url
 use
 user
 users
@@ -531,6 +545,7 @@ why
 windows
 with
 without
+work
 workbook
 workflow
 workflows

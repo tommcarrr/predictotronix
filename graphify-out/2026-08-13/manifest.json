@@ -435,8 +435,8 @@
     "semantic_hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "README.md": {
-    "mtime": 1786529922.4094057,
-    "ast_hash": "97d0391b443da511cc6d3f2b4215ab14",
+    "mtime": 1786630800.6871738,
+    "ast_hash": "2764d238aec84a44de570a67d65fa175",
     "semantic_hash": ""
   },
   "SETUP.md": {
@@ -455,8 +455,8 @@
     "semantic_hash": ""
   },
   "docs/staging.md": {
-    "mtime": 1786437304.7816336,
-    "ast_hash": "e33d3347aa7df141231b38dc9e6031c3",
+    "mtime": 1786630795.0175724,
+    "ast_hash": "2e5f05a52e4f38481e208a46ebd5b23b",
     "semantic_hash": ""
   },
   "scripts/staging/reset.mts": {
