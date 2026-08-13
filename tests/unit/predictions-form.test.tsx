@@ -2,8 +2,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PredictionsForm } from '@/components/participant/PredictionsForm';
 
+const { clearPredictionsMock } = vi.hoisted(() => ({
+  clearPredictionsMock: vi.fn(),
+}));
+
 vi.mock('@/lib/predictions/actions', () => ({
   submitPredictions: vi.fn(),
+  clearPredictions: clearPredictionsMock,
 }));
 
 const fixtures = [
@@ -40,7 +45,10 @@ const fixtures = [
 ];
 
 describe('PredictionsForm random scores', () => {
-  afterEach(() => vi.restoreAllMocks());
+  afterEach(() => {
+    vi.restoreAllMocks();
+    clearPredictionsMock.mockReset();
+  });
 
   it('fills only empty, unlocked score boxes and preserves existing values', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0.1);
@@ -53,5 +61,23 @@ describe('PredictionsForm random scores', () => {
     expect(screen.getByLabelText('Away score')).toHaveValue('1');
     expect(screen.getByLabelText('Locked home score')).toHaveValue('');
     expect(screen.getByText(/Filled 1 empty score box/)).toBeInTheDocument();
+  });
+
+  it('clears saved scores for unlocked fixtures after confirmation', async () => {
+    vi.spyOn(globalThis, 'confirm').mockReturnValue(true);
+    clearPredictionsMock.mockResolvedValue({
+      success: true,
+      cleared: 1,
+      clearedFixtureIds: ['open'],
+      errors: [],
+    });
+    render(<PredictionsForm fixtures={fixtures} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Clear predicted scores' }));
+
+    expect(clearPredictionsMock).toHaveBeenCalledWith(['open']);
+    expect(await screen.findByText('✓ Cleared predicted scores for this gameweek.')).toBeInTheDocument();
+    expect(screen.getByLabelText('Home score')).toHaveValue('');
+    expect(screen.getByLabelText('Away score')).toHaveValue('');
   });
 });

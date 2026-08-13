@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState, useTransition } from 'react';
-import { Dices } from 'lucide-react';
-import { submitPredictions } from '@/lib/predictions/actions';
+import { Dices, Trash2 } from 'lucide-react';
+import { clearPredictions, submitPredictions } from '@/lib/predictions/actions';
 import { weightedRandomScore } from '@/lib/predictions/random-score';
 
 interface Fixture {
@@ -126,11 +126,50 @@ export function PredictionsForm({ fixtures }: Props) {
     );
   }
 
+  function handleClear() {
+    const fixtureIds = fixtures.filter((fixture) => !fixture.locked).map((fixture) => fixture.id);
+    if (fixtureIds.length === 0) return;
+
+    if (!globalThis.confirm('Clear all unlocked predicted scores for this gameweek?')) return;
+
+    setMessage(null);
+    startTransition(async () => {
+      const result = await clearPredictions(fixtureIds);
+      const fixtureIdsToClear = result.success
+        ? new Set(fixtureIds)
+        : new Set(result.clearedFixtureIds);
+
+      if (fixtureIdsToClear.size > 0) {
+        setInputs((previous) =>
+          Object.fromEntries(
+            Object.entries(previous).map(([fixtureId, scores]) => [
+              fixtureId,
+              fixtureIdsToClear.has(fixtureId) ? { home: '', away: '' } : scores,
+            ])
+          )
+        );
+      }
+
+      if (result.success) {
+        setMessage('✓ Cleared predicted scores for this gameweek.');
+      } else {
+        setMessage(
+          `Cleared ${result.cleared}. Errors: ${result.errors.join('; ')}`
+        );
+      }
+    });
+  }
+
   const outstandingScoreCount = fixtures.reduce((count, fixture) => {
     if (fixture.locked) return count;
     const scores = inputs[fixture.id];
     return count + ((scores?.home ?? '') === '' ? 1 : 0) + ((scores?.away ?? '') === '' ? 1 : 0);
   }, 0);
+  const hasClearableScores = fixtures.some((fixture) => {
+    if (fixture.locked) return false;
+    const scores = inputs[fixture.id];
+    return (scores?.home ?? '') !== '' || (scores?.away ?? '') !== '';
+  });
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -230,6 +269,18 @@ export function PredictionsForm({ fixtures }: Props) {
         >
           <Dices className="size-4" aria-hidden="true" />
           Fill with random scores
+        </button>
+      )}
+
+      {hasClearableScores && (
+        <button
+          type="button"
+          onClick={handleClear}
+          disabled={isPending}
+          className="participant-button participant-button--danger w-full disabled:opacity-50"
+        >
+          <Trash2 className="size-4" aria-hidden="true" />
+          {isPending ? 'Clearing…' : 'Clear predicted scores'}
         </button>
       )}
 

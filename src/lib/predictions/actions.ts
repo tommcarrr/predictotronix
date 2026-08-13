@@ -18,6 +18,13 @@ export interface SubmitPredictionsResult {
   errors: string[];
 }
 
+export interface ClearPredictionsResult {
+  success: boolean;
+  cleared: number;
+  clearedFixtureIds: string[];
+  errors: string[];
+}
+
 /**
  * Submit or update predictions for a batch of fixtures.
  * Server-side kickoff lock is validated for every fixture.
@@ -109,9 +116,113 @@ export async function submitPredictions(
     saved++;
   }
 
-  revalidatePath('/predictions');
+  revalidatePath('/dashboard');
 
   return { success: errors.length === 0, saved, errors };
+}
+
+/**
+ * Clear this participant's predictions for unlocked fixtures in a gameweek.
+ * Fixture ownership and kickoff locks are re-checked server-side, with RLS
+ * providing a second ownership and real-kickoff boundary.
+ */
+export async function clearPredictions(
+  fixtureIds: string[]
+): Promise<ClearPredictionsResult> {
+  await requireUser();
+  const supabase = await createClient();
+  const participant = await getParticipant();
+
+  if (!participant) {
+    return {
+      success: false,
+      cleared: 0,
+      clearedFixtureIds: [],
+      errors: ['No participant record found'],
+    };
+  }
+
+  const uniqueFixtureIds = [...new Set(fixtureIds)].filter((id) =>
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)
+  );
+
+  if (uniqueFixtureIds.length === 0 || uniqueFixtureIds.length > 100) {
+    return {
+      success: false,
+      cleared: 0,
+      clearedFixtureIds: [],
+      errors: ['Invalid fixture selection'],
+    };
+  }
+
+  const { data: fixtures, error: fixturesError } = await supabase
+    .from('fixtures')
+    .select('id, kickoff, season_id')
+    .in('id', uniqueFixtureIds);
+
+  if (fixturesError) {
+    return {
+      success: false,
+      cleared: 0,
+      clearedFixtureIds: [],
+      errors: ['Fixtures could not be checked'],
+    };
+  }
+
+  const fixturesById = new Map((fixtures ?? []).map((fixture) => [fixture.id, fixture]));
+  const seasonTimes = new Map<string, Date>();
+  const clearableFixtureIds: string[] = [];
+  const errors: string[] = [];
+
+  for (const fixtureId of uniqueFixtureIds) {
+    const fixture = fixturesById.get(fixtureId);
+    if (!fixture) {
+      errors.push(`Fixture ${fixtureId} not found`);
+      continue;
+    }
+
+    let seasonNow = seasonTimes.get(fixture.season_id);
+    if (!seasonNow) {
+      seasonNow = await getSeasonNow(supabase, fixture.season_id);
+      seasonTimes.set(fixture.season_id, seasonNow);
+    }
+
+    if (isKickoffLocked(new Date(fixture.kickoff), seasonNow)) {
+      errors.push(`Fixture ${fixtureId}: kickoff has passed — prediction locked`);
+      continue;
+    }
+
+    clearableFixtureIds.push(fixtureId);
+  }
+
+  if (clearableFixtureIds.length === 0) {
+    return { success: false, cleared: 0, clearedFixtureIds: [], errors };
+  }
+
+  const { data: clearedPredictions, error: deleteError } = await supabase
+    .from('predictions')
+    .delete()
+    .eq('participant_id', participant.id)
+    .in('fixture_id', clearableFixtureIds)
+    .select('fixture_id');
+
+  if (deleteError) {
+    errors.push('Predictions could not be cleared');
+    return { success: false, cleared: 0, clearedFixtureIds: [], errors };
+  }
+
+  const clearedFixtureIds = (clearedPredictions ?? []).map(
+    (prediction) => prediction.fixture_id
+  );
+
+  revalidatePath('/dashboard');
+
+  return {
+    success: errors.length === 0,
+    cleared: clearedFixtureIds.length,
+    clearedFixtureIds,
+    errors,
+  };
 }
 
 /**

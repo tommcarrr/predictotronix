@@ -293,6 +293,11 @@
   color: var(--color-info);
 }
 
+.participant-button--danger {
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+}
+
 .participant-button--admin {
   border: 2px solid var(--color-warning);
   background: color-mix(in srgb, var(--color-warning) 12%, transparent);
