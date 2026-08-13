@@ -16,7 +16,7 @@ vi.mock('twilio', () => ({
   default: twilioFactory,
 }));
 
-import { sendTestEmail } from '@/lib/notifications/email';
+import { sendReminderEmail, sendTestEmail } from '@/lib/notifications/email';
 import { sendTestSms } from '@/lib/notifications/sms';
 
 describe('test notification providers', () => {
@@ -35,9 +35,35 @@ describe('test notification providers', () => {
 
     expect(emailSend).toHaveBeenCalledWith(expect.objectContaining({
       to: 'player@example.com',
-      subject: 'Predictotronix test notification',
+      subject: '[PREDICTOTRONIX] Test notification',
       html: expect.stringContaining('&lt;Player &amp; Co&gt;'),
+      text: expect.stringContaining('EMAIL STATUS: OPERATIONAL'),
     }));
+
+    const message = emailSend.mock.calls[0][0];
+    expect(message.html).toContain('PREDICTOTRONIX');
+    expect(message.html).toContain('SYSTEM TEST');
+    expect(message.html).toContain('EMAIL STATUS: OPERATIONAL');
+  });
+
+  it('sends a branded reminder with escaped content and a plain-text fallback', async () => {
+    emailSend.mockResolvedValue({ data: { id: 'email-456' }, error: null });
+
+    await expect(sendReminderEmail({
+      to: 'player@example.com',
+      displayName: '<Player & Co>',
+      gameweekLabel: 'Gameweek <12>',
+      firstKickoff: new Date('2026-08-15T14:00:00Z'),
+      predictionsUrl: 'https://example.com/predictions/gameweek-12?from=email&mode=full',
+    })).resolves.toEqual({ success: true, messageId: 'email-456' });
+
+    const message = emailSend.mock.calls[0][0];
+    expect(message.subject).toBe('[PREDICTOTRONIX] Gameweek <12> prediction reminder');
+    expect(message.html).toContain('PREDICTION DEADLINE');
+    expect(message.html).toContain('&lt;Player &amp; Co&gt;');
+    expect(message.html).toContain('Gameweek &lt;12&gt;');
+    expect(message.html).toContain('from=email&amp;mode=full');
+    expect(message.text).toContain('https://example.com/predictions/gameweek-12?from=email&mode=full');
   });
 
   it('sends a clearly labelled test SMS', async () => {

@@ -62,5 +62,6 @@
   "60": "fixtures/actions.ts",
   "61": "FixtureProvider",
   "62": "ApiFixture",
-  "63": "InviteLinkCopy.tsx"
+  "63": "InviteLinkCopy.tsx",
+  "64": "getEnvironmentPolicy"
 }

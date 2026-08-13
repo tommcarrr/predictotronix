@@ -1,16 +1,16 @@
 # Graph Report - predictotronix  (2026-08-13)
 
 ## Corpus Check
-- 173 files · ~66,795 words
+- 173 files · ~67,182 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 866 nodes · 1616 edges · 64 communities (53 shown, 11 thin omitted)
+- 868 nodes · 1623 edges · 65 communities (54 shown, 11 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `bec3a2f6`
+- Built from commit: `266d6197`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -70,6 +70,7 @@
 - FixtureProvider
 - ApiFixture
 - InviteLinkCopy.tsx
+- getEnvironmentPolicy
 
 ## God Nodes (most connected - your core abstractions)
 1. `createServiceClient()` - 70 edges
@@ -103,27 +104,27 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (64 total, 11 thin omitted)
+## Communities (65 total, 11 thin omitted)
 
 ### Community 0 - "server.ts"
 Cohesion: 0.07
-Nodes (47): AdminPredictionsPage(), dynamic, metadata, Props, ActiveSeason, DashboardPage(), dynamic, metadata (+39 more)
+Nodes (46): AdminPredictionsPage(), dynamic, metadata, Props, ActiveSeason, DashboardPage(), dynamic, metadata (+38 more)
 
 ### Community 1 - "season/route.ts"
 Cohesion: 0.26
 Nodes (10): dynamic, createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture, WorkbookGameweek (+2 more)
 
 ### Community 2 - "environment.ts"
-Cohesion: 0.10
-Nodes (24): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+16 more)
+Cohesion: 0.08
+Nodes (32): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+24 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
 ### Community 4 - "auth/actions.ts"
-Cohesion: 0.10
-Nodes (42): GET(), dynamic, ForgotPasswordPage(), metadata, submitJoinRequest(), dynamic, JoinPage(), Props (+34 more)
+Cohesion: 0.09
+Nodes (46): GET(), dynamic, ForgotPasswordPage(), metadata, submitJoinRequest(), dynamic, JoinPage(), Props (+38 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.04
@@ -150,8 +151,8 @@ Cohesion: 0.05
 Nodes (38): 10. Complete, archive and delete safely, 11. Use test-season tools, 12. Routine operating checklists, 1. Always check the current workspace, 2. Create a league, 3. Manage invitations, 4. Assign a league admin, 5. Create and activate a season (+30 more)
 
 ### Community 11 - "fixtures.ts"
-Cohesion: 0.19
-Nodes (15): POST(), validateCronSecret(), POST(), validateCronSecret(), getEnvironmentPolicy(), createProductionFixtureProvider(), gameweekNumberFromRound(), log() (+7 more)
+Cohesion: 0.33
+Nodes (8): gameweekNumberFromRound(), log(), mapFixtureStatus(), syncFixtures(), SyncLogger, SyncLogLevel, SyncResult, syncResults()
 
 ### Community 12 - "exports/page.tsx"
 Cohesion: 0.19
@@ -222,8 +223,8 @@ Cohesion: 0.40
 Nodes (3): dynamic, metadata, Props
 
 ### Community 46 - "createServiceClient"
-Cohesion: 0.08
-Nodes (52): correctResult(), assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant() (+44 more)
+Cohesion: 0.10
+Nodes (46): correctResult(), assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant() (+38 more)
 
 ### Community 47 - "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
 Cohesion: 0.40
@@ -231,7 +232,7 @@ Nodes (4): Answer, Outcome, Q: Can you think about the flow for a new user signi
 
 ### Community 48 - "participants/page.tsx"
 Cohesion: 0.06
-Nodes (62): cookieOptions, setAdminLeague(), setAdminSeason(), stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), dynamic, FixturesAdminPage() (+54 more)
+Nodes (60): cookieOptions, setAdminLeague(), setAdminSeason(), stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), dynamic, FixturesAdminPage() (+52 more)
 
 ### Community 50 - "Q: How do I assign a user to a league from the admin panel?"
 Cohesion: 0.40
@@ -246,7 +247,7 @@ Cohesion: 0.43
 Nodes (4): alt, contentType, scores, size
 
 ### Community 54 - "types/index.ts"
-Cohesion: 0.09
+Cohesion: 0.08
 Nodes (26): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+18 more)
 
 ### Community 55 - "Q: Can you talk me through the proposed changes to the flow to make this work?"
@@ -281,39 +282,43 @@ Nodes (3): TestFixtureProvider, ApiFixture, ApiRound
 Cohesion: 0.40
 Nodes (4): CopyStatus, InviteLinkCopy(), Props, writeText
 
+### Community 64 - "getEnvironmentPolicy"
+Cohesion: 0.47
+Nodes (6): POST(), validateCronSecret(), POST(), validateCronSecret(), getEnvironmentPolicy(), createProductionFixtureProvider()
+
 ## Knowledge Gaps
-- **358 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+353 more)
+- **359 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+354 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `ParticipantsAdminPage()` (6× useful, score=5.877174945) _(code changed — re-verify)_
-- `DashboardPage()` (3× useful, score=2.92913264) _(code changed — re-verify)_
-- `submitJoinRequest()` (3× useful, score=2.908807059) _(code changed — re-verify)_
-- `SeasonsAdminPage()` (2× useful, score=1.987153102) _(code changed — re-verify)_
+- `ParticipantsAdminPage()` (6× useful, score=5.877174945)
+- `DashboardPage()` (3× useful, score=2.92913264)
+- `submitJoinRequest()` (3× useful, score=2.908807059)
+- `SeasonsAdminPage()` (2× useful, score=1.987153102)
 - `AdminShell()` (2× useful, score=1.987153102) _(code changed — re-verify)_
-- `approveJoinRequest()` (2× useful, score=1.979731065) _(code changed — re-verify)_
-- `JoinPage()` (2× useful, score=1.97921594) _(code changed — re-verify)_
+- `approveJoinRequest()` (2× useful, score=1.979731065)
+- `JoinPage()` (2× useful, score=1.97921594)
 - `LoginPage()` (2× useful, score=1.97921594) _(code changed — re-verify)_
-- `RegisterPage()` (2× useful, score=1.97921594) _(code changed — re-verify)_
+- `RegisterPage()` (2× useful, score=1.97921594)
 - `signIn()` (2× useful, score=1.97921594) _(code changed — re-verify)_
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `season/route.ts`, `environment.ts`, `auth/actions.ts`, `fixtures.ts`, `exports/page.tsx`, `participants/page.tsx`, `fixtures/actions.ts`?**
-  _High betweenness centrality (0.074) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `season/route.ts`, `environment.ts`, `getEnvironmentPolicy`, `auth/actions.ts`, `exports/page.tsx`, `participants/page.tsx`, `fixtures/actions.ts`?**
+  _High betweenness centrality (0.075) - this node is a cross-community bridge._
 - **Why does `isSuperAdmin()` connect `createServiceClient` to `participants/page.tsx`, `season/route.ts`, `fixtures/actions.ts`, `server.ts`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `ApiFixture` connect `ApiFixture` to `fixtures.ts`, `fpl/client.ts`, `api-football/client.ts`, `FixtureProvider`?**
+- **Why does `ApiFixture` connect `ApiFixture` to `getEnvironmentPolicy`, `fpl/client.ts`, `fixtures.ts`, `api-football/client.ts`, `FixtureProvider`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _358 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _359 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.06597222222222222 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0670762928827445 - nodes in this community are weakly interconnected._
 - **Should `environment.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09879032258064516 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07897793263646923 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._

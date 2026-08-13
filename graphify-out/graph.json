@@ -3618,8 +3618,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "sync-fixtures/route.ts"
     },
     {
@@ -3629,8 +3629,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_validatecronsecret",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "validatecronsecret()"
     },
     {
@@ -3640,8 +3640,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_post",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "post()"
     },
     {
@@ -3651,8 +3651,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "sync-results/route.ts"
     },
     {
@@ -3662,8 +3662,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_validatecronsecret",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "validatecronsecret()"
     },
     {
@@ -3673,8 +3673,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_post",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "post()"
     },
     {
@@ -4718,8 +4718,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "form-submit-button.tsx"
     },
     {
@@ -4729,8 +4729,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbuttonprops",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "formsubmitbuttonprops"
     },
     {
@@ -4740,8 +4740,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbutton",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "formsubmitbutton()"
     },
     {
@@ -5092,8 +5092,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getseasonfixtures",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -5279,8 +5279,8 @@
       "source_location": "L260",
       "_origin": "ast",
       "id": "src_lib_auth_actions_signout",
-      "community": 0,
-      "community_name": "server.ts",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "signout()"
     },
     {
@@ -5510,8 +5510,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_environment_getenvironmentpolicy",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "getenvironmentpolicy()"
     },
     {
@@ -5664,8 +5664,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "provider.ts"
     },
     {
@@ -5752,8 +5752,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_createproductionfixtureprovider",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "createproductionfixtureprovider()"
     },
     {
@@ -6060,8 +6060,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_notifications_email",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "email.ts"
     },
     {
@@ -6071,8 +6071,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_notifications_email_reminderemailparams",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "reminderemailparams"
     },
     {
@@ -6082,8 +6082,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_lib_notifications_email_emailresult",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "emailresult"
     },
     {
@@ -6093,26 +6093,48 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_lib_notifications_email_testemailparams",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "testemailparams"
+    },
+    {
+      "label": "BrandedEmailParams",
+      "file_type": "code",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "src_lib_notifications_email_brandedemailparams",
+      "community": 2,
+      "community_name": "environment.ts",
+      "norm_label": "brandedemailparams"
     },
     {
       "label": "escapeHtml()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L26",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_notifications_email_escapehtml",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "escapehtml()"
+    },
+    {
+      "label": "renderBrandedEmail()",
+      "file_type": "code",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "src_lib_notifications_email_renderbrandedemail",
+      "community": 2,
+      "community_name": "environment.ts",
+      "norm_label": "renderbrandedemail()"
     },
     {
       "label": "sendReminderEmail()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L36",
+      "source_location": "L103",
       "_origin": "ast",
       "id": "src_lib_notifications_email_sendreminderemail",
       "community": 2,
@@ -6123,11 +6145,11 @@
       "label": "sendTestEmail()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L76",
+      "source_location": "L158",
       "_origin": "ast",
       "id": "src_lib_notifications_email_sendtestemail",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "sendtestemail()"
     },
     {
@@ -6753,8 +6775,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_types_database_database",
-      "community": 54,
-      "community_name": "types/index.ts",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "database"
     },
     {
@@ -6830,8 +6852,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_types_index_fixturestatus",
-      "community": 11,
-      "community_name": "fixtures.ts",
+      "community": 54,
+      "community_name": "types/index.ts",
       "norm_label": "fixturestatus"
     },
     {
@@ -7473,7 +7495,7 @@
       "norm_label": "test-notification-action.test.ts"
     },
     {
-      "label": "{\r\n  createServiceClient,\r\n  getUser,\r\n  isSuperAdmin,\r\n  redirect,\r\n  revalidatePath,\r\n  sendTestEmail,\r\n  sendTestSms,\r\n}",
+      "label": "{\n  createServiceClient,\n  getUser,\n  isSuperAdmin,\n  redirect,\n  revalidatePath,\n  sendTestEmail,\n  sendTestSms,\n}",
       "file_type": "code",
       "source_file": "tests/unit/test-notification-action.test.ts",
       "source_location": "L3",
@@ -7481,7 +7503,7 @@
       "id": "tests_unit_test_notification_action_test_createserviceclient_getuser_issuperadmin_redirect_revalidatepath_sendtestemail_sendtestsms",
       "community": 46,
       "community_name": "createServiceClient",
-      "norm_label": "{\r\n  createserviceclient,\r\n  getuser,\r\n  issuperadmin,\r\n  redirect,\r\n  revalidatepath,\r\n  sendtestemail,\r\n  sendtestsms,\r\n}"
+      "norm_label": "{\n  createserviceclient,\n  getuser,\n  issuperadmin,\n  redirect,\n  revalidatepath,\n  sendtestemail,\n  sendtestsms,\n}"
     },
     {
       "label": "queryReturning()",
@@ -7501,8 +7523,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_test_notifications_test",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "test-notifications.test.ts"
     },
     {
@@ -7512,8 +7534,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "tests_unit_test_notifications_test_emailsend_smscreate_twiliofactory",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "{ emailsend, smscreate, twiliofactory }"
     },
     {
@@ -24784,6 +24806,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_notifications_email",
+      "target": "src_lib_notifications_email_brandedemailparams",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/notifications/email.ts",
       "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
@@ -24795,7 +24828,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L26",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -24817,7 +24850,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L36",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_notifications_email",
+      "target": "src_lib_notifications_email_renderbrandedemail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L103",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -24828,7 +24872,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L76",
+      "source_location": "L158",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -24863,11 +24907,71 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L86",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_notifications_email_renderbrandedemail",
+      "target": "src_lib_notifications_email_escapehtml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_notifications_email_sendreminderemail",
+      "target": "src_lib_notifications_email_escapehtml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L172",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email_sendtestemail",
       "target": "src_lib_notifications_email_escapehtml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L126",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_notifications_email_sendreminderemail",
+      "target": "src_lib_notifications_email_renderbrandedemail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/notifications/email.ts",
+      "source_location": "L167",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_notifications_email_sendtestemail",
+      "target": "src_lib_notifications_email_renderbrandedemail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/test-notifications.test.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_test_notifications_test",
+      "target": "src_lib_notifications_email_sendreminderemail",
       "confidence_score": 1.0
     },
     {
@@ -28403,5 +28507,5 @@
       "source_file": "AGENTS.md"
     }
   ],
-  "built_at_commit": "bec3a2f69eb9fea6e7bb26beb92c74a2c4a5b10a"
+  "built_at_commit": "266d619724ab56de200374e616664b2052fe94da"
 }
