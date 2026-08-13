@@ -2,6 +2,12 @@
 
 A Premier League score predictor league app. Players predict fixture scores, the system imports results from API-Football, scores predictions automatically, and maintains season/gameweek leaderboards.
 
+## User guides
+
+- [Player guide](docs/README-PLAYERS.md)
+- [League admin guide](docs/README-LEAGUE-ADMINS.md)
+- [Superadmin guide](docs/README-SUPERADMINS.md)
+
 **Stack:** Next.js 16 (App Router) · TypeScript · Supabase (Auth + Postgres + RLS) · Tailwind CSS v4 · shadcn/ui · Playwright · Render
 
 ---
