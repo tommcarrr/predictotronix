@@ -4,6 +4,8 @@ import { createServiceClient } from '@/lib/supabase/server';
 import { getUser, isSuperAdmin } from '@/lib/auth';
 import { clockTimeForGameweek, type SeasonClockPosition } from '@/lib/clock';
 import { assertSafeStagingTarget } from '@/lib/environment';
+import { sendTestEmail } from '@/lib/notifications/email';
+import { sendTestSms } from '@/lib/notifications/sms';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -213,4 +215,67 @@ export async function fastForwardGameweek(formData: FormData) {
 
   revalidatePath('/admin/test-tools');
   revalidatePath('/leaderboard');
+}
+
+/** Send one live test notification to a participant in the selected test season. */
+export async function sendTestNotification(formData: FormData) {
+  await requireStagingSuperAdmin();
+  const seasonId = String(formData.get('season_id') ?? '');
+  const participantId = String(formData.get('participant_id') ?? '');
+  const channel = String(formData.get('channel') ?? '');
+
+  if (channel !== 'email' && channel !== 'sms') {
+    redirect('/admin/test-tools?tab=notifications&error=Invalid+notification+channel');
+  }
+  if (!(await guardTestSeason(seasonId))) {
+    redirect('/admin/test-tools?tab=notifications&error=Not+a+test+season');
+  }
+
+  const supabase = await createServiceClient();
+  const { data: participantRow, error: participantError } = await supabase
+    .from('season_participants')
+    .select('participants!inner(id, display_name, email, mobile)')
+    .eq('season_id', seasonId)
+    .eq('participant_id', participantId)
+    .maybeSingle();
+  const participant = (participantRow as any)?.participants;
+
+  if (participantError || !participant) {
+    redirect('/admin/test-tools?tab=notifications&error=Participant+not+found+in+this+season');
+  }
+
+  const destination = channel === 'email' ? participant.email : participant.mobile;
+  if (!destination) {
+    const label = channel === 'email' ? 'email+address' : 'mobile+number';
+    redirect(`/admin/test-tools?tab=notifications&error=Participant+has+no+${label}`);
+  }
+
+  const result = channel === 'email'
+    ? await sendTestEmail({
+        to: destination,
+        displayName: participant.display_name,
+      })
+    : await sendTestSms({ to: destination });
+
+  const { error: logError } = await supabase.from('notification_log').insert({
+    participant_id: participant.id,
+    season_id: seasonId,
+    channel,
+    notification_type: 'test',
+    status: result.success ? 'sent' : 'failed',
+    error_message: result.error,
+    metadata: channel === 'email'
+      ? ('messageId' in result && result.messageId ? { messageId: result.messageId } : null)
+      : ('messageSid' in result && result.messageSid ? { messageSid: result.messageSid } : null),
+  });
+
+  if (!result.success) {
+    redirect(`/admin/test-tools?tab=notifications&error=${encodeURIComponent(result.error ?? 'Notification failed')}`);
+  }
+  if (logError) {
+    redirect(`/admin/test-tools?tab=notifications&error=${encodeURIComponent(`Notification sent, but logging failed: ${logError.message}`)}`);
+  }
+
+  revalidatePath('/admin/test-tools');
+  redirect(`/admin/test-tools?tab=notifications&notification=sent&channel=${channel}`);
 }

@@ -13,6 +13,7 @@ import {
   fastForwardGameweek,
   injectResult,
   markFixturePostponed,
+  sendTestNotification,
   setSeasonClock,
 } from './actions';
 
@@ -21,7 +22,13 @@ export const metadata = { title: 'Test Season Tools | Admin' };
 export const dynamic = 'force-dynamic';
 
 interface Props {
-  searchParams: Promise<{ tab?: string; error?: string; clock?: string }>;
+  searchParams: Promise<{
+    tab?: string;
+    error?: string;
+    clock?: string;
+    notification?: string;
+    channel?: string;
+  }>;
 }
 
 function formatLondonDate(value: Date | string) {
@@ -34,7 +41,9 @@ function formatLondonDate(value: Date | string) {
 
 export default async function TestToolsPage({ searchParams }: Props) {
   const query = await searchParams;
-  const tab = query.tab === 'fixtures' || query.tab === 'gameweek' ? query.tab : 'clock';
+  const tab = ['fixtures', 'gameweek', 'notifications'].includes(query.tab ?? '')
+    ? query.tab
+    : 'clock';
   const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -70,6 +79,17 @@ export default async function TestToolsPage({ searchParams }: Props) {
         .maybeSingle()
     : { data: null };
 
+  const { data: notificationParticipants } = selectedSeasonId
+    ? await supabase
+        .from('season_participants')
+        .select('participant_id, participants!inner(id, display_name, email, mobile)')
+        .eq('season_id', selectedSeasonId)
+    : { data: [] };
+  const notificationTargets = (notificationParticipants ?? [])
+    .map((row: any) => row.participants)
+    .filter((participant: any) => participant?.email || participant?.mobile)
+    .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
+
   const seasonNow = selectedSeasonId
     ? await getSeasonNow(supabase, selectedSeasonId)
     : new Date();
@@ -97,6 +117,11 @@ export default async function TestToolsPage({ searchParams }: Props) {
           Season clock {query.clock === 'cleared' ? 'returned to real time' : 'updated'}.
         </div>
       )}
+      {query.notification === 'sent' && (
+        <div role="status" className="rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/20 dark:text-green-300">
+          Test {query.channel === 'sms' ? 'SMS' : 'email'} sent successfully.
+        </div>
+      )}
 
       {!isTestSeason ? (
         <div className="rounded-lg border border-border p-4">
@@ -109,7 +134,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
         <>
           <div className="flex items-center gap-3 rounded-xl border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-900/20">
             <AdminBadge tone="amber">Test mode</AdminBadge>
-            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Notifications will be dry-run only (logged, not sent).</p>
+            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Automated notifications are dry-run only. Manual test notifications are sent live to the selected person.</p>
           </div>
 
           <AdminTabs
@@ -119,6 +144,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
               { href: '/admin/test-tools', label: 'Clock' },
               { href: '/admin/test-tools?tab=fixtures', label: 'Fixture simulation' },
               { href: '/admin/test-tools?tab=gameweek', label: 'Gameweek' },
+              { href: '/admin/test-tools?tab=notifications', label: 'Notifications' },
             ]}
           />
 
@@ -249,6 +275,43 @@ export default async function TestToolsPage({ searchParams }: Props) {
                 Fast-forward next GW
               </FormSubmitButton>
             </form>
+          </section>}
+
+          {tab === 'notifications' && <section className="space-y-4 rounded-lg border border-border p-4">
+            <div>
+              <h2 className="text-lg font-semibold">Send a test notification</h2>
+              <p className="text-sm text-muted-foreground">
+                Sends one live, clearly labelled message using the configured provider and records the result in the notification log. Participant preferences are ignored for this explicit test.
+              </p>
+            </div>
+
+            {!notificationTargets.length ? (
+              <p className="text-sm text-muted-foreground">No participants in this season have an email address or mobile number.</p>
+            ) : (
+              <form action={sendTestNotification} className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,12rem)_auto] sm:items-end">
+                <input type="hidden" name="season_id" value={selectedSeasonId} />
+                <div className="space-y-1">
+                  <label className="text-sm font-medium" htmlFor="participant_id">Participant</label>
+                  <select id="participant_id" name="participant_id" required className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
+                    {notificationTargets.map((participant: any) => (
+                      <option key={participant.id} value={participant.id}>
+                        {participant.display_name} — {participant.email ?? participant.mobile}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium" htmlFor="channel">Channel</label>
+                  <select id="channel" name="channel" required defaultValue="email" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
+                    <option value="email">Email</option>
+                    <option value="sms">SMS</option>
+                  </select>
+                </div>
+                <FormSubmitButton pendingLabel="Sending…" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50">
+                  Send test
+                </FormSubmitButton>
+              </form>
+            )}
           </section>}
         </>
       )}

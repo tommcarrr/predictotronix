@@ -386,7 +386,7 @@ export type Database = {
           season_id: string | null;
           gameweek_id: string | null;
           channel: 'email' | 'sms';
-          notification_type: 'reminder' | 'results' | 'welcome';
+          notification_type: 'reminder' | 'results' | 'welcome' | 'test';
           status: 'sent' | 'failed' | 'suppressed' | 'dry_run';
           sent_at: string;
           error_message: string | null;
@@ -398,7 +398,7 @@ export type Database = {
           season_id?: string | null;
           gameweek_id?: string | null;
           channel: 'email' | 'sms';
-          notification_type: 'reminder' | 'results' | 'welcome';
+          notification_type: 'reminder' | 'results' | 'welcome' | 'test';
           status: 'sent' | 'failed' | 'suppressed' | 'dry_run';
           sent_at?: string;
           error_message?: string | null;

@@ -15,6 +15,10 @@ export interface SmsResult {
   dryRun?: boolean;
 }
 
+export interface TestSmsParams {
+  to: string;
+}
+
 export async function sendReminderSms(params: ReminderSmsParams): Promise<SmsResult> {
   const { to, displayName, gameweekLabel, firstKickoff, isDryRun } = params;
 
@@ -40,6 +44,25 @@ export async function sendReminderSms(params: ReminderSmsParams): Promise<SmsRes
       body,
       from: process.env.TWILIO_FROM_NUMBER,
       to,
+    });
+
+    return { success: true, messageSid: message.sid };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+/** Send a live, clearly labelled message from the staging test-tools screen. */
+export async function sendTestSms(params: TestSmsParams): Promise<SmsResult> {
+  try {
+    const client = twilio(
+      process.env.TWILIO_ACCOUNT_SID,
+      process.env.TWILIO_AUTH_TOKEN
+    );
+    const message = await client.messages.create({
+      body: 'This is a Predictotronix test notification. If you received it, SMS notifications are wired up correctly.',
+      from: process.env.TWILIO_FROM_NUMBER,
+      to: params.to,
     });
 
     return { success: true, messageSid: message.sid };
