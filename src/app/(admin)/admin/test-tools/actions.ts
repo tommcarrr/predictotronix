@@ -19,9 +19,24 @@ async function guardTestSeason(seasonId: string): Promise<boolean> {
   return data?.season_type === 'test' || data?.season_type === 'demo';
 }
 
-async function requireStagingSuperAdmin() {
+async function guardActiveSeason(seasonId: string): Promise<boolean> {
+  const supabase = await createServiceClient();
+  const { data } = await supabase
+    .from('seasons')
+    .select('status')
+    .eq('id', seasonId)
+    .single();
+  return data?.status === 'active';
+}
+
+async function requireSuperAdmin() {
   const user = await getUser();
   if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  return user;
+}
+
+async function requireStagingSuperAdmin() {
+  const user = await requireSuperAdmin();
 
   try {
     assertSafeStagingTarget();
@@ -217,9 +232,9 @@ export async function fastForwardGameweek(formData: FormData) {
   revalidatePath('/leaderboard');
 }
 
-/** Send one live test notification to a participant in the selected test season. */
+/** Send one live test notification to a participant in any active season. */
 export async function sendTestNotification(formData: FormData) {
-  await requireStagingSuperAdmin();
+  await requireSuperAdmin();
   const seasonId = String(formData.get('season_id') ?? '');
   const participantId = String(formData.get('participant_id') ?? '');
   const channel = String(formData.get('channel') ?? '');
@@ -227,8 +242,8 @@ export async function sendTestNotification(formData: FormData) {
   if (channel !== 'email' && channel !== 'sms') {
     redirect('/admin/test-tools?tab=notifications&error=Invalid+notification+channel');
   }
-  if (!(await guardTestSeason(seasonId))) {
-    redirect('/admin/test-tools?tab=notifications&error=Not+a+test+season');
+  if (!(await guardActiveSeason(seasonId))) {
+    redirect('/admin/test-tools?tab=notifications&error=Season+must+be+active');
   }
 
   const supabase = await createServiceClient();

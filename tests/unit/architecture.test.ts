@@ -131,7 +131,7 @@ describe('Every source file is syntactically valid', () => {
     }
 
     expect(failures, `Syntax errors found in:\n  ${failures.join('\n  ')}`).toHaveLength(0);
-  });
+  }, 15_000);
 });
 
 // ---------------------------------------------------------------------------

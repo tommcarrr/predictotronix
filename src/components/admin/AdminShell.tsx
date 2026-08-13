@@ -6,9 +6,9 @@ import { useEffect, useState, type ComponentType } from 'react';
 import {
   ArrowLeft,
   BarChart3,
+  Bell,
   CalendarDays,
   ChevronDown,
-  FlaskConical,
   Gauge,
   Moon,
   Settings2,
@@ -61,7 +61,7 @@ const configureNav: NavItem[] = [
 ];
 
 const systemNav: NavItem[] = [
-  { href: '/admin/test-tools', label: 'Test tools', icon: FlaskConical, superOnly: true },
+  { href: '/admin/test-tools?tab=notifications', label: 'Notifications', icon: Bell, superOnly: true },
 ];
 
 function ThemeToggle() {
@@ -98,7 +98,8 @@ function ThemeToggle() {
 
 function Navigation({ items, pathname }: { items: NavItem[]; pathname: string }) {
   return items.map((item) => {
-    const active = item.href === '/admin' ? pathname === item.href : pathname.startsWith(item.href);
+    const itemPath = item.href.split('?')[0];
+    const active = itemPath === '/admin' ? pathname === itemPath : pathname.startsWith(itemPath);
     const Icon = item.icon;
 
     return (

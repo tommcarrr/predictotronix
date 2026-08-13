@@ -17,7 +17,7 @@ import {
   setSeasonClock,
 } from './actions';
 
-export const metadata = { title: 'Test Season Tools | Admin' };
+export const metadata = { title: 'System Tools | Admin' };
 
 export const dynamic = 'force-dynamic';
 
@@ -41,9 +41,6 @@ function formatLondonDate(value: Date | string) {
 
 export default async function TestToolsPage({ searchParams }: Props) {
   const query = await searchParams;
-  const tab = ['fixtures', 'gameweek', 'notifications'].includes(query.tab ?? '')
-    ? query.tab
-    : 'clock';
   const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -53,45 +50,55 @@ export default async function TestToolsPage({ searchParams }: Props) {
     ['test', 'demo'].includes(selectedSeason.season_type) &&
     selectedSeason.status === 'active'
   );
-  const selectedSeasonId = isTestSeason ? selectedSeason?.id : undefined;
+  const isActiveSeason = selectedSeason?.status === 'active';
+  const testSeasonId = isTestSeason ? selectedSeason?.id : undefined;
+  const notificationSeasonId = isActiveSeason ? selectedSeason?.id : undefined;
+  const requestedTab = ['clock', 'fixtures', 'gameweek', 'notifications'].includes(query.tab ?? '')
+    ? query.tab
+    : undefined;
+  const tab = requestedTab === 'notifications' || (isTestSeason && requestedTab)
+    ? requestedTab
+    : isTestSeason
+      ? 'clock'
+      : 'notifications';
 
-  const { data: fixtures } = selectedSeasonId
+  const { data: fixtures } = testSeasonId
     ? await supabase
         .from('fixtures')
         .select('id, home_team_name, away_team_name, kickoff, status, home_score, away_score, result_confirmed, gameweeks(label)')
-        .eq('season_id', selectedSeasonId)
+        .eq('season_id', testSeasonId)
         .order('kickoff', { ascending: true })
     : { data: [] };
 
-  const { data: gameweeks } = selectedSeasonId
+  const { data: gameweeks } = testSeasonId
     ? await supabase
         .from('gameweeks')
         .select('id, gameweek_number, label, status, first_kickoff')
-        .eq('season_id', selectedSeasonId)
+        .eq('season_id', testSeasonId)
         .order('gameweek_number', { ascending: true })
     : { data: [] };
 
-  const { data: clockSetting } = selectedSeasonId
+  const { data: clockSetting } = testSeasonId
     ? await supabase
         .from('season_runtime_settings')
         .select('simulated_now, updated_at')
-        .eq('season_id', selectedSeasonId)
+        .eq('season_id', testSeasonId)
         .maybeSingle()
     : { data: null };
 
-  const { data: notificationParticipants } = selectedSeasonId
+  const { data: notificationParticipants } = notificationSeasonId
     ? await supabase
         .from('season_participants')
         .select('participant_id, participants!inner(id, display_name, email, mobile)')
-        .eq('season_id', selectedSeasonId)
+        .eq('season_id', notificationSeasonId)
     : { data: [] };
   const notificationTargets = (notificationParticipants ?? [])
     .map((row: any) => row.participants)
     .filter((participant: any) => participant?.email || participant?.mobile)
     .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
 
-  const seasonNow = selectedSeasonId
-    ? await getSeasonNow(supabase, selectedSeasonId)
+  const seasonNow = testSeasonId
+    ? await getSeasonNow(supabase, testSeasonId)
     : new Date();
   const stagingClockEnabled = getEnvironmentPolicy().appEnvironment === 'staging';
 
@@ -99,10 +106,10 @@ export default async function TestToolsPage({ searchParams }: Props) {
     <main className="mx-auto max-w-6xl space-y-6 p-6 lg:p-8">
       <AdminPageHeader
         eyebrow="System"
-        title="Test season tools"
+        title="System tools"
         description={
           <>
-          {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}. Only active <strong>test</strong> and <strong>demo</strong> seasons can be modified here.
+          {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}. Send a targeted test notification for any active season; simulation controls remain limited to test and demo seasons.
           </>
         }
       />
@@ -123,28 +130,30 @@ export default async function TestToolsPage({ searchParams }: Props) {
         </div>
       )}
 
-      {!isTestSeason ? (
+      {!isActiveSeason ? (
         <div className="rounded-lg border border-border p-4">
           <p className="text-sm text-muted-foreground">
-            Select an active test or demo season in the shared season selector above.{' '}
+            Select an active season in the shared season selector above.{' '}
             <Link href="/admin/seasons" className="text-primary hover:underline">Manage seasons.</Link>
           </p>
         </div>
       ) : (
         <>
           <div className="flex items-center gap-3 rounded-xl border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-900/20">
-            <AdminBadge tone="amber">Test mode</AdminBadge>
-            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Automated notifications are dry-run only. Manual test notifications are sent live to the selected person.</p>
+            <AdminBadge tone="amber">Live send</AdminBadge>
+            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Manual test notifications are sent immediately to the selected person, including for live seasons.</p>
           </div>
 
           <AdminTabs
-            label="Test season tools"
+            label="System tools"
             activeHref={tab === 'clock' ? '/admin/test-tools' : `/admin/test-tools?tab=${tab}`}
             items={[
-              { href: '/admin/test-tools', label: 'Clock' },
-              { href: '/admin/test-tools?tab=fixtures', label: 'Fixture simulation' },
-              { href: '/admin/test-tools?tab=gameweek', label: 'Gameweek' },
               { href: '/admin/test-tools?tab=notifications', label: 'Notifications' },
+              ...(isTestSeason ? [
+                { href: '/admin/test-tools', label: 'Clock' },
+                { href: '/admin/test-tools?tab=fixtures', label: 'Fixture simulation' },
+                { href: '/admin/test-tools?tab=gameweek', label: 'Gameweek' },
+              ] : []),
             ]}
           />
 
@@ -163,7 +172,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
             </div>
 
             <form action={setSeasonClock} className="grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
-              <input type="hidden" name="season_id" value={selectedSeasonId} />
+              <input type="hidden" name="season_id" value={testSeasonId} />
               <div className="space-y-1">
                 <label className="text-sm font-medium" htmlFor="gameweek_id">Gameweek</label>
                 <select id="gameweek_id" name="gameweek_id" required disabled={!stagingClockEnabled}
@@ -192,7 +201,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
 
             {clockSetting?.simulated_now && (
               <form action={clearSeasonClock}>
-                <input type="hidden" name="season_id" value={selectedSeasonId} />
+                <input type="hidden" name="season_id" value={testSeasonId} />
                 <FormSubmitButton pendingLabel="Resetting clock…" disabled={!stagingClockEnabled}
                   className="rounded-md border border-border px-3 py-1.5 text-sm disabled:opacity-50">
                   Return to real time
@@ -269,7 +278,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
               Marks all unplayed fixtures in a gameweek as finished with randomised scores and scores all predictions.
             </p>
             <form action={fastForwardGameweek} className="flex items-end gap-3">
-              <input type="hidden" name="season_id" value={selectedSeasonId} />
+              <input type="hidden" name="season_id" value={testSeasonId} />
               <FormSubmitButton pendingLabel="Fast-forwarding…"
                 className="rounded-md border border-destructive px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/10">
                 Fast-forward next GW
@@ -289,7 +298,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
               <p className="text-sm text-muted-foreground">No participants in this season have an email address or mobile number.</p>
             ) : (
               <form action={sendTestNotification} className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,12rem)_auto] sm:items-end">
-                <input type="hidden" name="season_id" value={selectedSeasonId} />
+                <input type="hidden" name="season_id" value={notificationSeasonId} />
                 <div className="space-y-1">
                   <label className="text-sm font-medium" htmlFor="participant_id">Participant</label>
                   <select id="participant_id" name="participant_id" required className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
