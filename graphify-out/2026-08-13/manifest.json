@@ -675,8 +675,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/leagues/[leagueId]/page.tsx": {
-    "mtime": 1786623918.4869802,
-    "ast_hash": "c1cfd061b7df43628f7c1983d710f876",
+    "mtime": 1786634307.928577,
+    "ast_hash": "eaf0865d3484b890afeb985fd58e10ab",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/seasons/[seasonId]/loading.tsx": {
@@ -807,6 +807,16 @@
   "graphify-out/memory/query_20260813_134404_can_you_talk_me_through_the_proposed_changes_to_th.md": {
     "mtime": 1786628644.6438036,
     "ast_hash": "62d09e29a3ad49e9b0b993ecf1ebe35f",
+    "semantic_hash": ""
+  },
+  "src/components/admin/InviteLinkCopy.tsx": {
+    "mtime": 1786634302.1470335,
+    "ast_hash": "bdf124f2f032865e70679469dd43b969",
+    "semantic_hash": ""
+  },
+  "tests/unit/invite-link-copy.test.tsx": {
+    "mtime": 1786634313.8496969,
+    "ast_hash": "db006382159e48502b16655efaa2627c",
     "semantic_hash": ""
   }
 }

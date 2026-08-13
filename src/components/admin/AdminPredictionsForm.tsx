@@ -58,7 +58,19 @@ export function AdminPredictionsForm({
     )
   );
   const [message, setMessage] = useState<string | null>(null);
+  const [participantName, setParticipantName] = useState('');
+  const [hideReady, setHideReady] = useState(false);
+  const [offlineOnly, setOfflineOnly] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const normalizedParticipantName = participantName.trim().toLocaleLowerCase();
+  const filteredParticipants = participants.filter(
+    (participant) =>
+      (!normalizedParticipantName
+        || participant.label.toLocaleLowerCase().includes(normalizedParticipantName))
+      && (!hideReady || participant.status !== 'ready')
+      && (!offlineOnly || participant.isOffline)
+  );
 
   function navigate(nextParticipantId: string, nextGameweekId: string) {
     const params = new URLSearchParams();
@@ -137,44 +149,82 @@ export function AdminPredictionsForm({
             <h2 className="text-lg font-semibold">Participants</h2>
             <p className="text-sm text-muted-foreground">Select someone to enter or amend their picks.</p>
           </div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            {participants.map((participant) => {
-              const active = participant.id === selectedParticipantId;
-              const status = participant.status === 'ready'
-                ? { label: 'Ready', className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' }
-                : participant.status === 'in_progress'
-                  ? { label: 'In progress', className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' }
-                  : { label: 'Awaiting picks', className: 'bg-muted text-muted-foreground' };
-
-              return (
-                <button
-                  key={participant.id}
-                  type="button"
-                  onClick={() => navigate(participant.id, gameweekId)}
-                  className={`flex items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors ${
-                    active ? 'border-primary bg-primary/5' : 'border-border hover:bg-accent'
-                  }`}
-                >
-                  <span className="flex min-w-0 items-center gap-2">
-                    <span className="truncate font-medium">{participant.label}</span>
-                    {participant.isOffline && (
-                      <span className="rounded-full bg-muted px-2 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
-                        Offline
-                      </span>
-                    )}
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.className}`}>
-                      {status.label}
-                    </span>
-                    <span className="text-xs tabular-nums text-muted-foreground">
-                      {participant.completed}/{participant.total}
-                    </span>
-                  </span>
-                </button>
-              );
-            })}
+          <div className="space-y-3 rounded-lg border border-border p-3">
+            <label className="block space-y-1 text-sm font-medium">
+              <span>Filter by name</span>
+              <input
+                type="search"
+                value={participantName}
+                onChange={(event) => setParticipantName(event.target.value)}
+                placeholder="Search participants"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 font-normal"
+              />
+            </label>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hideReady}
+                  onChange={(event) => setHideReady(event.target.checked)}
+                  className="size-4 rounded border-border accent-primary"
+                />
+                <span>Hide ready</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={offlineOnly}
+                  onChange={(event) => setOfflineOnly(event.target.checked)}
+                  className="size-4 rounded border-border accent-primary"
+                />
+                <span>Offline only</span>
+              </label>
+            </div>
           </div>
+          {filteredParticipants.length > 0 ? (
+            <div className="grid gap-2 sm:grid-cols-2">
+              {filteredParticipants.map((participant) => {
+                const active = participant.id === selectedParticipantId;
+                const status = participant.status === 'ready'
+                  ? { label: 'Ready', className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' }
+                  : participant.status === 'in_progress'
+                    ? { label: 'In progress', className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' }
+                    : { label: 'Awaiting picks', className: 'bg-muted text-muted-foreground' };
+
+                return (
+                  <button
+                    key={participant.id}
+                    type="button"
+                    onClick={() => navigate(participant.id, gameweekId)}
+                    className={`flex items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors ${
+                      active ? 'border-primary bg-primary/5' : 'border-border hover:bg-accent'
+                    }`}
+                  >
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className="truncate font-medium">{participant.label}</span>
+                      {participant.isOffline && (
+                        <span className="rounded-full bg-muted px-2 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
+                          Offline
+                        </span>
+                      )}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.className}`}>
+                        {status.label}
+                      </span>
+                      <span className="text-xs tabular-nums text-muted-foreground">
+                        {participant.completed}/{participant.total}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="rounded-lg border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
+              No participants match these filters.
+            </p>
+          )}
         </section>
       )}
 
