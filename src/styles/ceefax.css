@@ -344,3 +344,264 @@
 .login-ceefax :is(input) { border-radius: 0; background: #111; color: #fff; }
 .login-ceefax :is(input):focus-visible { outline: 2px solid #00ff00; outline-offset: 2px; }
 .login-ceefax__submit { border-radius: 0; background: #0000ff; color: #fff; }
+
+/* Persisted readability controls shared by authentication and participant screens. */
+.player-accessibility {
+  position: relative;
+  min-height: 100vh;
+  background: #000;
+}
+
+.player-accessibility__toolbar {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 1px solid #555;
+  background: #000;
+  padding: 0.5rem max(1rem, calc((100% - 64rem) / 2));
+}
+
+.player-accessibility__toggle {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.625rem;
+  border: 2px solid #00ffff;
+  background: #000;
+  padding: 0.4rem 0.75rem;
+  color: #fff;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.player-accessibility__toggle:hover {
+  background: #111;
+}
+
+.player-accessibility__toggle:focus-visible {
+  outline: 3px solid #00ff00;
+  outline-offset: 3px;
+}
+
+.player-accessibility__icon {
+  font-size: 1.05rem;
+  letter-spacing: -0.08em;
+}
+
+.player-accessibility__state {
+  min-width: 2.5rem;
+  border-left: 1px solid currentColor;
+  padding-left: 0.625rem;
+  color: #00ffff;
+  text-align: center;
+}
+
+.player-accessibility__content {
+  min-height: calc(100vh - 3.5rem);
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] {
+  background: #f4f7fb;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toolbar {
+  border-color: #9ca3af;
+  background: #fff;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle {
+  border-color: #174ea6;
+  border-radius: 0.375rem;
+  background: #fff;
+  color: #111827;
+  font-size: 1rem;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle:hover {
+  background: #e8f0fe;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle:focus-visible {
+  outline-color: #174ea6;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__state {
+  color: #174ea6;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] :is(.ceefax, .login-ceefax) {
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .ceefax {
+  --background: #f4f7fb;
+  --foreground: #111827;
+  --color-surface: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-primary: #174ea6;
+  --color-secondary: #08783e;
+  --color-info: #005ea8;
+  --color-success: #08783e;
+  --color-warning: #7a4d00;
+  --color-error: #b42318;
+  --color-appbar-background: #12315f;
+  --color-appbar-text: #ffffff;
+  --color-action-default: #111827;
+  --color-action-disabled: #6b7280;
+  --color-action-disabled-bg: #e5e7eb;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --primary: #174ea6;
+  --primary-foreground: #ffffff;
+  --secondary: #08783e;
+  --secondary-foreground: #ffffff;
+  --muted: #e5e7eb;
+  --muted-foreground: #374151;
+  --accent: #005ea8;
+  --accent-foreground: #ffffff;
+  --destructive: #b42318;
+  --border: #6b7280;
+  --input: #ffffff;
+  --ring: #174ea6;
+  background: #f4f7fb;
+  color: #111827;
+  font-size: 112.5%;
+  line-height: 1.6;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-dashboard,
+.player-accessibility[data-accessibility-mode='enabled'] .auth-ceefax-background {
+  background: #f4f7fb;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-appbar {
+  box-shadow: none;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .ceefax-logo span {
+  border-color: #12315f;
+  background: #fff;
+  color: #111827;
+  font-family: 'BBC-Ceefax', monospace;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-panel {
+  border: 2px solid #6b7280;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 1.25rem;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-fixture {
+  border-color: #9ca3af;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-fixture--locked {
+  color: #4b5563;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-team-name {
+  color: #004b80;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] [data-prediction-score] {
+  min-width: 3rem;
+  min-height: 3rem;
+  border: 2px solid #6b7280;
+  border-radius: 0.375rem;
+  background: #fff;
+  color: #111827;
+  font-size: 1rem;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-button,
+.player-accessibility[data-accessibility-mode='enabled'] .participant-gameweek-control,
+.player-accessibility[data-accessibility-mode='enabled'] .participant-appbar__signout {
+  min-height: 3rem;
+  border-radius: 0.375rem;
+  font-weight: 700;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-button--save {
+  background: #08783e;
+  color: #fff;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-dashboard :is(a, button, input):focus-visible,
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax :is(a, button, input):focus-visible {
+  outline: 3px solid #174ea6;
+  outline-offset: 3px;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-dashboard :is(a, button, input),
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax :is(a, button, input) {
+  transition: none;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-dashboard a,
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax a {
+  text-decoration-thickness: 0.125em;
+  text-underline-offset: 0.2em;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax {
+  border: 2px solid #374151;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 0 0 4px #dbe7f8;
+  font-size: 112.5%;
+  line-height: 1.6;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax__eyebrow {
+  color: #08783e;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax :is(input) {
+  min-height: 3rem;
+  border: 2px solid #6b7280;
+  border-radius: 0.375rem;
+  background: #fff;
+  color: #111827;
+  font-size: 1rem;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax__submit {
+  min-height: 3rem;
+  border-radius: 0.375rem;
+  background: #174ea6;
+  color: #fff;
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .player-accessibility__toolbar {
+    justify-content: stretch;
+  }
+
+  .player-accessibility__toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .player-accessibility[data-accessibility-mode='enabled'] .participant-panel {
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-accessibility *,
+  .player-accessibility *::before,
+  .player-accessibility *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
