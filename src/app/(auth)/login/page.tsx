@@ -1,4 +1,5 @@
 import { signIn } from '@/lib/auth/actions';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const metadata = {
   title: 'Sign in',
@@ -59,12 +60,12 @@ export default async function LoginPage({
           />
         </div>
 
-        <button
-          type="submit"
+        <FormSubmitButton
+          pendingLabel="Signing in…"
           className="login-ceefax__submit w-full px-4 py-2 text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
         >
           Sign in
-        </button>
+        </FormSubmitButton>
       </form>
 
       <p className="text-center text-sm">

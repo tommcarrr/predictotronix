@@ -1,4 +1,5 @@
 import { signUp } from '@/lib/auth/actions';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const metadata = {
   title: 'Create an account',
@@ -62,12 +63,12 @@ export default function RegisterPage() {
           />
         </div>
 
-        <button
-          type="submit"
+        <FormSubmitButton
+          pendingLabel="Creating account…"
           className="login-ceefax__submit w-full px-4 py-2 text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
         >
           Create account
-        </button>
+        </FormSubmitButton>
       </form>
 
       <p className="text-center text-sm">

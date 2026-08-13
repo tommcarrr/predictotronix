@@ -7,6 +7,7 @@ import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
 import { AdminDialog } from '@/components/admin/AdminDialog';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { AdminTabs } from '@/components/admin/AdminTabs';
 import { assignLeagueAdmin, deleteLeague, regenerateInviteCode, toggleInviteActive } from '../actions';
 
@@ -147,9 +148,9 @@ export default async function LeagueDetailPage({
               Open join page <ExternalLink className="size-4" />
             </Link>
             <form action={toggleInviteActive.bind(null, leagueId, !league.invite_active)}>
-              <button type="submit" className="rounded-lg border border-border px-3.5 py-2 text-sm font-semibold hover:bg-accent">
+              <FormSubmitButton pendingLabel="Updating link…" className="rounded-lg border border-border px-3.5 py-2 text-sm font-semibold hover:bg-accent">
                 {league.invite_active ? 'Deactivate link' : 'Activate link'}
-              </button>
+              </FormSubmitButton>
             </form>
             <AdminDialog
               trigger={<><RefreshCw className="size-4" />Regenerate</>}
@@ -160,7 +161,7 @@ export default async function LeagueDetailPage({
               <form action={regenerateInviteCode.bind(null, leagueId)} className="space-y-4">
                 <p className="text-sm text-muted-foreground">Share the new link with anyone who still needs to join.</p>
                 <div className="flex justify-end">
-                  <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Regenerate link</button>
+                  <FormSubmitButton pendingLabel="Regenerating…" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Regenerate link</FormSubmitButton>
                 </div>
               </form>
             </AdminDialog>
@@ -200,9 +201,9 @@ export default async function LeagueDetailPage({
                 ))}
               </select>
             </div>
-            <button type="submit" disabled={!adminCandidates.length} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">
+            <FormSubmitButton pendingLabel="Assigning…" disabled={!adminCandidates.length} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">
               <ShieldPlus className="size-4" /> Assign admin
-            </button>
+            </FormSubmitButton>
           </form>
         </section>
       )}
@@ -224,7 +225,7 @@ export default async function LeagueDetailPage({
                   <input id="delete-league-confirmation" name="confirmation" required autoComplete="off" className="w-full rounded-lg border border-destructive/50 bg-background px-3 py-2.5 text-sm" />
                 </div>
                 <div className="flex justify-end">
-                  <button type="submit" className="rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground">Delete permanently</button>
+                  <FormSubmitButton pendingLabel="Deleting…" className="rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground">Delete permanently</FormSubmitButton>
                 </div>
               </form>
             </AdminDialog>

@@ -1,8 +1,16 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { Accessibility } from 'lucide-react';
 
 const STORAGE_KEY = 'predictotronix-player-accessibility';
+
+interface AccessibilityContextValue {
+  enabled: boolean;
+  toggle: () => void;
+}
+
+const AccessibilityContext = createContext<AccessibilityContextValue | null>(null);
 
 function readSavedPreference() {
   try {
@@ -12,7 +20,33 @@ function readSavedPreference() {
   }
 }
 
-export function PlayerAccessibilityMode({ children }: { children: ReactNode }) {
+export function PlayerAccessibilityToggle() {
+  const accessibility = useContext(AccessibilityContext);
+  if (!accessibility) return null;
+
+  const { enabled, toggle } = accessibility;
+
+  return (
+    <button
+      type="button"
+      className="player-accessibility__toggle"
+      aria-pressed={enabled}
+      aria-label={`Accessible mode: ${enabled ? 'On' : 'Off'}`}
+      title={`Accessible mode: ${enabled ? 'On' : 'Off'}`}
+      onClick={toggle}
+    >
+      <Accessibility className="player-accessibility__icon" aria-hidden="true" />
+    </button>
+  );
+}
+
+export function PlayerAccessibilityMode({
+  children,
+  showToolbarToggle = true,
+}: {
+  children: ReactNode;
+  showToolbarToggle?: boolean;
+}) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -39,26 +73,19 @@ export function PlayerAccessibilityMode({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div
-      className="player-accessibility"
-      data-accessibility-mode={enabled ? 'enabled' : 'standard'}
-    >
-      <div className="player-accessibility__toolbar">
-        <button
-          type="button"
-          className="player-accessibility__toggle"
-          aria-pressed={enabled}
-          aria-label={`Accessible mode: ${enabled ? 'On' : 'Off'}`}
-          onClick={toggleAccessibilityMode}
-        >
-          <span className="player-accessibility__icon" aria-hidden="true">
-            Aa
-          </span>
-          <span>Accessible mode</span>
-          <span className="player-accessibility__state">{enabled ? 'On' : 'Off'}</span>
-        </button>
+    <AccessibilityContext value={{ enabled, toggle: toggleAccessibilityMode }}>
+      <div
+        className="player-accessibility"
+        data-accessibility-mode={enabled ? 'enabled' : 'standard'}
+        data-has-accessibility-toolbar={showToolbarToggle ? 'true' : 'false'}
+      >
+        {showToolbarToggle && (
+          <div className="player-accessibility__toolbar">
+            <PlayerAccessibilityToggle />
+          </div>
+        )}
+        <div className="player-accessibility__content">{children}</div>
       </div>
-      <div className="player-accessibility__content">{children}</div>
-    </div>
+    </AccessibilityContext>
   );
 }

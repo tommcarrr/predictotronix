@@ -8,6 +8,7 @@ import { AdminBadge } from '@/components/admin/AdminBadge';
 import { AdminDialog } from '@/components/admin/AdminDialog';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const metadata = { title: 'Leagues | Admin' };
 export const dynamic = 'force-dynamic';
@@ -81,9 +82,9 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
                 <p className="text-xs text-muted-foreground">Lowercase letters, numbers and hyphens only.</p>
               </div>
               <div className="flex justify-end pt-2">
-                <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
+                <FormSubmitButton pendingLabel="Creating league…" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
                   Create league
-                </button>
+                </FormSubmitButton>
               </div>
             </form>
           </AdminDialog>

@@ -13,6 +13,7 @@ import { AdminDialog } from '@/components/admin/AdminDialog';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { AdminTabs } from '@/components/admin/AdminTabs';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const metadata = { title: 'People | Admin' };
 export const dynamic = 'force-dynamic';
@@ -120,7 +121,7 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                         <p className="truncate text-sm text-muted-foreground">{participant.email ?? (participant.is_offline ? 'Offline participant' : 'Email unavailable')}</p>
                       </div>
                       <form action={addSeasonParticipant.bind(null, selectedSeason.id, participant.id)}>
-                        <button type="submit" className="rounded-lg border border-border px-3 py-1.5 text-sm font-semibold hover:bg-accent">Add</button>
+                        <FormSubmitButton pendingLabel="Adding…" className="rounded-lg border border-border px-3 py-1.5 text-sm font-semibold hover:bg-accent">Add</FormSubmitButton>
                       </form>
                     </div>
                   ))}
@@ -142,7 +143,7 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                   <label htmlFor="offline-email" className="text-sm font-medium">Email <span className="text-muted-foreground">(optional)</span></label>
                   <input id="offline-email" name="email" type="email" className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm" />
                 </div>
-                <div className="flex justify-end"><button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Add participant</button></div>
+                <div className="flex justify-end"><FormSubmitButton pendingLabel="Adding participant…" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Add participant</FormSubmitButton></div>
               </form>
             </AdminDialog>
           </div>
@@ -180,10 +181,10 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                   </div>
                   <div className="flex gap-2">
                     <form action={approveJoinRequest.bind(null, request.id, request.user_id, request.leagues?.id, selectedSeason?.id ?? '')}>
-                      <button type="submit" className="rounded-lg bg-green-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-green-700">Approve</button>
+                      <FormSubmitButton pendingLabel="Approving…" className="rounded-lg bg-green-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-green-700">Approve</FormSubmitButton>
                     </form>
                     <form action={rejectJoinRequest.bind(null, request.id)}>
-                      <button type="submit" className="rounded-lg border border-destructive/40 px-3.5 py-2 text-sm font-semibold text-destructive hover:bg-destructive/10">Reject</button>
+                      <FormSubmitButton pendingLabel="Rejecting…" className="rounded-lg border border-destructive/40 px-3.5 py-2 text-sm font-semibold text-destructive hover:bg-destructive/10">Reject</FormSubmitButton>
                     </form>
                   </div>
                 </article>
@@ -233,13 +234,13 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                                   <label htmlFor={`display-name-${participant.id}`} className="text-sm font-medium">Display name</label>
                                   <input id={`display-name-${participant.id}`} name="display_name" required minLength={2} maxLength={80} defaultValue={participant.display_name} className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm" />
                                 </div>
-                                <div className="flex justify-end"><button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Save name</button></div>
+                                <div className="flex justify-end"><FormSubmitButton pendingLabel="Saving name…" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Save name</FormSubmitButton></div>
                               </form>
                             </AdminDialog>
                           )}
                           {superAdmin && (
                             <form action={removeSeasonParticipant.bind(null, selectedSeason.id, participant.id)}>
-                              <button type="submit" className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10"><UserRoundMinus className="size-3.5" />Remove</button>
+                              <FormSubmitButton pendingLabel="Removing…" className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10"><UserRoundMinus className="size-3.5" />Remove</FormSubmitButton>
                             </form>
                           )}
                         </div>

@@ -1,6 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { PlayerAccessibilityMode } from '@/components/participant/PlayerAccessibilityMode';
+import {
+  PlayerAccessibilityMode,
+  PlayerAccessibilityToggle,
+} from '@/components/participant/PlayerAccessibilityMode';
 
 const STORAGE_KEY = 'predictotronix-player-accessibility';
 
@@ -49,5 +52,18 @@ describe('PlayerAccessibilityMode', () => {
     await waitFor(() => {
       expect(screen.getByRole('button', { name: 'Accessible mode: On' })).toBeInTheDocument();
     });
+  });
+
+  it('can render the toggle inside page content without a toolbar above it', () => {
+    render(
+      <PlayerAccessibilityMode showToolbarToggle={false}>
+        <header>
+          <PlayerAccessibilityToggle />
+        </header>
+      </PlayerAccessibilityMode>
+    );
+
+    expect(screen.getByRole('button', { name: 'Accessible mode: Off' })).toBeInTheDocument();
+    expect(document.querySelector('.player-accessibility__toolbar')).not.toBeInTheDocument();
   });
 });

@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { getParticipant, requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { saveNotificationPreferences } from './actions';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 
 export const metadata = { title: 'Settings' };
 
@@ -89,12 +90,12 @@ export default async function SettingsPage() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full py-2 bg-[--color-primary] text-white font-bold text-sm hover:opacity-90"
+        <FormSubmitButton
+          pendingLabel="Saving settings…"
+          className="participant-button participant-button--save w-full"
         >
           Save settings
-        </button>
+        </FormSubmitButton>
       </form>
     </div>
   );

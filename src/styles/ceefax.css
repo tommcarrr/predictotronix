@@ -257,6 +257,7 @@
   color: rgba(0, 255, 255, 1);
   font-size: 1.0625rem;
   font-weight: 700;
+  letter-spacing: 0.035em;
   line-height: 1.2;
 }
 
@@ -292,8 +293,22 @@
   color: var(--color-info);
 }
 
+.participant-button--admin {
+  border: 2px solid var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 12%, transparent);
+  color: var(--color-warning);
+  font-weight: 700;
+}
+
 .participant-button:hover {
-  filter: brightness(1.2);
+  filter: brightness(1.15);
+  box-shadow: 0 0 0 2px currentColor;
+}
+
+.participant-button--admin:hover {
+  background: var(--color-warning);
+  color: #111;
+  filter: none;
 }
 
 .participant-button:focus-visible,
@@ -354,26 +369,24 @@
 
 .player-accessibility__toolbar {
   display: flex;
-  min-height: 3.5rem;
+  min-height: 2.75rem;
   align-items: center;
   justify-content: flex-end;
   border-bottom: 1px solid #555;
   background: #000;
-  padding: 0.5rem max(1rem, calc((100% - 64rem) / 2));
+  padding: 0.25rem max(1rem, calc((100% - 64rem) / 2));
 }
 
 .player-accessibility__toggle {
   display: inline-flex;
-  min-height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   align-items: center;
-  gap: 0.625rem;
-  border: 2px solid #00ffff;
+  justify-content: center;
+  border: 1px solid #00ffff;
+  border-radius: 0.75rem;
   background: #000;
-  padding: 0.4rem 0.75rem;
   color: #fff;
-  font-family: var(--font-geist-sans), Arial, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 700;
 }
 
 .player-accessibility__toggle:hover {
@@ -386,20 +399,16 @@
 }
 
 .player-accessibility__icon {
-  font-size: 1.05rem;
-  letter-spacing: -0.08em;
-}
-
-.player-accessibility__state {
-  min-width: 2.5rem;
-  border-left: 1px solid currentColor;
-  padding-left: 0.625rem;
-  color: #00ffff;
-  text-align: center;
+  width: 1rem;
+  height: 1rem;
 }
 
 .player-accessibility__content {
-  min-height: calc(100vh - 3.5rem);
+  min-height: calc(100vh - 2.75rem);
+}
+
+.player-accessibility[data-has-accessibility-toolbar='false'] .player-accessibility__content {
+  min-height: 100vh;
 }
 
 .player-accessibility[data-accessibility-mode='enabled'] {
@@ -413,10 +422,8 @@
 
 .player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle {
   border-color: #174ea6;
-  border-radius: 0.375rem;
   background: #fff;
   color: #111827;
-  font-size: 1rem;
 }
 
 .player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle:hover {
@@ -425,10 +432,6 @@
 
 .player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle:focus-visible {
   outline-color: #174ea6;
-}
-
-.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__state {
-  color: #174ea6;
 }
 
 .player-accessibility[data-accessibility-mode='enabled'] :is(.ceefax, .login-ceefax) {
@@ -581,15 +584,6 @@
 }
 
 @media (max-width: 480px) {
-  .player-accessibility__toolbar {
-    justify-content: stretch;
-  }
-
-  .player-accessibility__toggle {
-    width: 100%;
-    justify-content: center;
-  }
-
   .player-accessibility[data-accessibility-mode='enabled'] .participant-panel {
     padding-inline: 0.75rem;
   }

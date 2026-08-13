@@ -221,7 +221,8 @@
     transition:
       transform 100ms ease,
       filter 150ms ease,
-      box-shadow 150ms ease;
+      box-shadow 150ms ease,
+      opacity 150ms ease;
   }
 
   :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']):focus-visible {
@@ -246,10 +247,11 @@
 
 @media (hover: hover) and (pointer: fine) {
   :where(button, [role='button'], input[type='button'], input[type='submit'], input[type='reset']):hover:not(:disabled):not([aria-disabled='true']) {
-    filter: brightness(0.96);
+    transform: translateY(-1px);
+    filter: brightness(1.1) saturate(1.08);
     box-shadow:
-      0 4px 12px color-mix(in oklch, var(--foreground) 14%, transparent),
-      0 0 0 2px color-mix(in oklch, var(--ring) 22%, transparent);
+      0 6px 16px color-mix(in oklch, var(--foreground) 20%, transparent),
+      0 0 0 2px color-mix(in oklch, var(--ring) 48%, transparent);
   }
 }
 

@@ -3,7 +3,7 @@ import { PlayerAccessibilityMode } from '@/components/participant/PlayerAccessib
 
 export default function ParticipantLayout({ children }: { children: React.ReactNode }) {
   return (
-    <PlayerAccessibilityMode>
+    <PlayerAccessibilityMode showToolbarToggle={false}>
       <div className="ceefax min-h-screen">{children}</div>
     </PlayerAccessibilityMode>
   );

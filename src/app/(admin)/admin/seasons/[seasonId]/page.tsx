@@ -8,6 +8,7 @@ import { AdminDialog } from '@/components/admin/AdminDialog';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { AdminTabs } from '@/components/admin/AdminTabs';
+import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { deleteSeason, updateSeasonStatus } from '../actions';
 
 export const dynamic = 'force-dynamic';
@@ -78,19 +79,19 @@ export default async function SeasonDetailPage({
             <div className="mt-4 space-y-2">
               {season.status === 'setup' && (
                 <form action={updateSeasonStatus.bind(null, seasonId, 'active')}>
-                  <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"><Play className="size-4" /> Activate season</button>
+                  <FormSubmitButton pendingLabel="Activating…" className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700"><Play className="size-4" /> Activate season</FormSubmitButton>
                 </form>
               )}
               {season.status === 'active' && (
                 <form action={updateSeasonStatus.bind(null, seasonId, 'completed')}>
-                  <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-semibold hover:bg-accent"><CheckCircle2 className="size-4" /> Mark completed</button>
+                  <FormSubmitButton pendingLabel="Completing…" className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-semibold hover:bg-accent"><CheckCircle2 className="size-4" /> Mark completed</FormSubmitButton>
                 </form>
               )}
               {(season.status === 'setup' || season.status === 'completed') && (
                 <AdminDialog trigger={<><Archive className="size-4" />Archive season</>} title={`Archive ${season.name}?`} description="Archived seasons can no longer become active." tone="secondary" triggerClassName="w-full">
                   <form action={updateSeasonStatus.bind(null, seasonId, 'archived')} className="space-y-4">
                     <p className="text-sm text-muted-foreground">Standings and historical data remain available.</p>
-                    <div className="flex justify-end"><button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Archive season</button></div>
+                    <div className="flex justify-end"><FormSubmitButton pendingLabel="Archiving…" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Archive season</FormSubmitButton></div>
                   </form>
                 </AdminDialog>
               )}
@@ -111,7 +112,7 @@ export default async function SeasonDetailPage({
                   <label htmlFor="delete-season-confirmation" className="text-sm font-medium">Type <strong>{season.name}</strong> to confirm</label>
                   <input id="delete-season-confirmation" name="confirmation" required autoComplete="off" className="w-full rounded-lg border border-destructive/50 bg-background px-3 py-2.5 text-sm" />
                 </div>
-                <div className="flex justify-end"><button type="submit" className="rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground">Delete permanently</button></div>
+                <div className="flex justify-end"><FormSubmitButton pendingLabel="Deleting…" className="rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground">Delete permanently</FormSubmitButton></div>
               </form>
             </AdminDialog>
           </div>
