@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { Accessibility } from 'lucide-react';
+import { ALargeSmall } from 'lucide-react';
 
 const STORAGE_KEY = 'predictotronix-player-accessibility';
 
@@ -35,7 +35,7 @@ export function PlayerAccessibilityToggle() {
       title={`Accessible mode: ${enabled ? 'On' : 'Off'}`}
       onClick={toggle}
     >
-      <Accessibility className="player-accessibility__icon" aria-hidden="true" />
+      <ALargeSmall className="player-accessibility__icon" aria-hidden="true" />
     </button>
   );
 }
