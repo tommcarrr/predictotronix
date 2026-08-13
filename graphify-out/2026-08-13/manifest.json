@@ -115,8 +115,8 @@
     "semantic_hash": "eb8fb021efcb747d208e75c1502cc6ba"
   },
   "src/app/(auth)/layout.tsx": {
-    "mtime": 1786614693.3435297,
-    "ast_hash": "c82109fe4d1480f0a79957c82192c708",
+    "mtime": 1786550912.3444705,
+    "ast_hash": "fdece84883e352c04f9921469871a3f1",
     "semantic_hash": ""
   },
   "src/app/(auth)/login/page.tsx": {
@@ -135,9 +135,9 @@
     "semantic_hash": ""
   },
   "src/app/(participant)/layout.tsx": {
-    "mtime": 1786614697.841091,
-    "ast_hash": "b0db96b3428e0a71a8b44eda8b1bb2ff",
-    "semantic_hash": ""
+    "mtime": 1781426471.3024673,
+    "ast_hash": "13740d4da7c4ebeac1685ac243894576",
+    "semantic_hash": "13740d4da7c4ebeac1685ac243894576"
   },
   "src/app/(participant)/leaderboard/[gameweekId]/page.tsx": {
     "mtime": 1786549617.0529013,
@@ -722,21 +722,6 @@
   "graphify-out/memory/query_20260813_080851_i_have_some_issues_with_the_admin_ux__it_feels_lik.md": {
     "mtime": 1786608531.4384024,
     "ast_hash": "27f9fbdfda054c6d792d4fa1867c1105",
-    "semantic_hash": ""
-  },
-  "src/components/participant/PlayerAccessibilityMode.tsx": {
-    "mtime": 1786614823.4245143,
-    "ast_hash": "8133e074d096ead63d6d05d93edaa7e4",
-    "semantic_hash": ""
-  },
-  "tests/unit/player-accessibility-mode.test.tsx": {
-    "mtime": 1786614829.9594686,
-    "ast_hash": "34d0904116c3bcc583ca9ebc5a30e73d",
-    "semantic_hash": ""
-  },
-  "graphify-out/memory/query_20260813_090106_can_you_make_the_suggested_changes.md": {
-    "mtime": 1786611666.576159,
-    "ast_hash": "988c183f1b43d047d052879cd711d82e",
     "semantic_hash": ""
   }
 }

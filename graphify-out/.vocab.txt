@@ -8,6 +8,7 @@ actions
 active
 add
 admin
+admins
 agent
 alias
 aliases
@@ -20,6 +21,7 @@ answer
 api
 app
 apply
+approach
 approve
 architecture
 are
@@ -31,6 +33,7 @@ audit
 auth
 authority
 backend
+badge
 base
 batches
 because
@@ -52,8 +55,10 @@ channel
 check
 checklist
 class
+classes
 classification
 clear
+clearer
 client
 clock
 clsx
@@ -69,6 +74,7 @@ components
 confidence
 config
 configure
+confusing
 console
 constructor
 containers
@@ -78,6 +84,7 @@ controls
 cookie
 cookies
 correct
+could
 count
 create
 cron
@@ -90,14 +97,18 @@ date
 days
 defence
 delete
+deleting
 dependencies
 deployment
 depth
+detail
 deterministic
 dev
 diagnostics
+dialog
 different
 display
+doing
 dom
 domain
 dry
@@ -132,6 +143,7 @@ extraction
 failure
 fallback
 fast
+feels
 fetch
 figure
 file
@@ -145,6 +157,7 @@ for
 form
 format
 formats
+forms
 forward
 fpl
 from
@@ -161,6 +174,7 @@ guide
 guided
 handling
 have
+having
 header
 health
 highlighted
@@ -186,6 +200,7 @@ interop
 invite
 isolated
 isolation
+issues
 item
 iterable
 jest
@@ -210,10 +225,13 @@ let
 level
 lib
 library
+lik
+like
 limit
 lines
 link
 lint
+loading
 local
 locked
 locking
@@ -221,9 +239,11 @@ log
 logger
 login
 london
+look
 lucide
 main
 make
+makes
 manually
 map
 mapped
@@ -238,12 +258,14 @@ migration
 migrations
 mjs
 mock
+modals
 model
 module
 modules
 mono
 movement
 mts
+much
 name
 nav
 navigation
@@ -254,12 +276,14 @@ nodes
 normalize
 not
 note
+notice
 notification
 notifications
 now
 npm
 number
 offline
+one
 operations
 optimized
 option
@@ -270,6 +294,7 @@ outcome
 output
 package
 page
+pages
 pair
 panel
 params
@@ -283,6 +308,7 @@ persistent
 persona
 personas
 pipeline
+place
 placeholder
 playwright
 plugin
@@ -302,7 +328,6 @@ prefix
 premier
 prerequisites
 prettier
-primary
 private
 production
 project
@@ -363,6 +388,8 @@ scheduled
 schema
 score
 scoring
+screen
+screens
 scripts
 season
 seasons
@@ -373,10 +400,13 @@ select
 self
 semantic
 send
+sense
+separate
 server
 service
 session
 set
+setting
 settings
 setup
 shadcn
@@ -392,6 +422,7 @@ skill
 skip
 smoke
 sms
+some
 source
 specification
 spun
@@ -413,8 +444,11 @@ super
 sync
 synchronization
 system
+tab
 table
 tables
+tabs
+tags
 tailwind
 tailwindcss
 target
@@ -427,9 +461,12 @@ theme
 they
 think
 this
+through
 time
 title
 toggle
+tone
+too
 tools
 trail
 transcription
@@ -462,6 +499,7 @@ vitest
 want
 watch
 what
+where
 whisper
 why
 windows
