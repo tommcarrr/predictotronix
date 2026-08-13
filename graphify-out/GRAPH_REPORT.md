@@ -1,23 +1,23 @@
 # Graph Report - predictotronix  (2026-08-13)
 
 ## Corpus Check
-- 150 files · ~55,594 words
+- 154 files · ~56,980 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 726 nodes · 1319 edges · 54 communities (44 shown, 10 thin omitted)
+- 742 nodes · 1351 edges · 55 communities (45 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c1f9f23f`
+- Built from commit: `df09234e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- server.ts
+- dashboard/page.tsx
 - createServiceClient
-- environment.ts
+- test-tools/page.tsx
 - devDependencies
 - types/index.ts
 - dependencies
@@ -41,10 +41,10 @@
 - postcss.config.mjs
 - leaderboard/layout.tsx
 - predictions/layout.tsx
-- PlayerAccessibilityMode.tsx
+- auth/actions.ts
 - Q: Can you make the suggested changes?
 - global.setup.ts
-- scenario.mts
+- environment.ts
 - local-dev.mjs
 - Q: Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?
 - supabase-server.test.ts
@@ -54,15 +54,16 @@
 - leaderboard/[gameweekId]/page.tsx
 - predictions/[gameweekId]/page.tsx
 - leaderboard/page.tsx
-- season/route.ts
+- season-workbook.ts
 - Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing.
 - participants/page.tsx
 - Q: How do I assign a user to a league from the admin panel?
 - Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?
+- opengraph-image.tsx
 - PredictionsForm.tsx
 
 ## God Nodes (most connected - your core abstractions)
-1. `createServiceClient()` - 65 edges
+1. `createServiceClient()` - 66 edges
 2. `isSuperAdmin()` - 36 edges
 3. `getUser` - 31 edges
 4. `getAdminContext` - 28 edges
@@ -82,8 +83,8 @@
   SETUP.md → README.md
 - `Next.js Breaking Changes Guidance` --conceptually_related_to--> `Predictotronix`  [INFERRED]
   AGENTS.md → README.md
-- `main()` --calls--> `assertSafeStagingTarget()`  [EXTRACTED]
-  scripts/staging/reset.mts → src/lib/environment.ts
+- `Graphify-First Codebase Navigation` --references--> `Graphify Skill`  [EXTRACTED]
+  AGENTS.md → .codex/skills/graphify/SKILL.md
 
 ## Import Cycles
 - None detected.
@@ -93,27 +94,27 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (54 total, 10 thin omitted)
+## Communities (55 total, 10 thin omitted)
 
-### Community 0 - "server.ts"
-Cohesion: 0.07
-Nodes (47): AdminPredictionsPage(), dynamic, metadata, Props, submitJoinRequest(), dynamic, JoinPage(), Props (+39 more)
+### Community 0 - "dashboard/page.tsx"
+Cohesion: 0.06
+Nodes (35): AdminPredictionsPage(), dynamic, metadata, Props, ActiveSeason, dynamic, metadata, PendingJoinRequest (+27 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.12
-Nodes (38): correctResult(), assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant() (+30 more)
+Cohesion: 0.11
+Nodes (46): correctResult(), assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant() (+38 more)
 
-### Community 2 - "environment.ts"
-Cohesion: 0.09
-Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
+### Community 2 - "test-tools/page.tsx"
+Cohesion: 0.10
+Nodes (31): clearSeasonClock(), fastForwardGameweek(), guardTestSeason(), injectResult(), markFixturePostponed(), requireStagingSuperAdmin(), sendTestNotification(), setSeasonClock() (+23 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
 ### Community 4 - "types/index.ts"
-Cohesion: 0.08
-Nodes (27): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+19 more)
+Cohesion: 0.11
+Nodes (17): updateSession(), config, proxy(), Database, Enums, Json, Tables, FixtureStatus (+9 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.04
@@ -152,7 +153,7 @@ Cohesion: 0.50
 Nodes (5): Verify Before Completion, Agent Instructions Alias, CI Pipeline, Node.js 24 Runtime, Verify Job
 
 ### Community 14 - "app/layout.tsx"
-Cohesion: 0.40
+Cohesion: 0.33
 Nodes (3): geistMono, geistSans, metadata
 
 ### Community 15 - "Q: I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
@@ -167,17 +168,17 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
-### Community 27 - "PlayerAccessibilityMode.tsx"
-Cohesion: 0.27
-Nodes (5): AccessibilityContext, AccessibilityContextValue, PlayerAccessibilityMode(), PlayerAccessibilityToggle(), readSavedPreference()
+### Community 27 - "auth/actions.ts"
+Cohesion: 0.20
+Nodes (7): dynamic, metadata, dynamic, metadata, signIn(), signOut(), signUp()
 
 ### Community 29 - "Q: Can you make the suggested changes?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you make the suggested changes?, Source Nodes
 
-### Community 32 - "scenario.mts"
-Cohesion: 0.14
-Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
+### Community 32 - "environment.ts"
+Cohesion: 0.07
+Nodes (38): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+30 more)
 
 ### Community 37 - "local-dev.mjs"
 Cohesion: 0.50
@@ -211,9 +212,9 @@ Nodes (3): dynamic, metadata, Props
 Cohesion: 0.40
 Nodes (3): dynamic, metadata, Props
 
-### Community 46 - "season/route.ts"
-Cohesion: 0.24
-Nodes (11): dynamic, GET(), createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture (+3 more)
+### Community 46 - "season-workbook.ts"
+Cohesion: 0.27
+Nodes (9): createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture, WorkbookGameweek, WorkbookLeaderboardRow (+1 more)
 
 ### Community 47 - "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
 Cohesion: 0.40
@@ -231,12 +232,16 @@ Nodes (4): Answer, Outcome, Q: How do I assign a user to a league from the admin
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?, Source Nodes
 
-### Community 53 - "PredictionsForm.tsx"
+### Community 53 - "opengraph-image.tsx"
+Cohesion: 0.43
+Nodes (4): alt, contentType, scores, size
+
+### Community 54 - "PredictionsForm.tsx"
 Cohesion: 0.24
 Nodes (7): Fixture, PredictionsForm(), Props, SCORE_WEIGHTS, TOTAL_WEIGHT, weightedRandomScore(), fixtures
 
 ## Knowledge Gaps
-- **290 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+285 more)
+- **294 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+289 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -255,17 +260,17 @@ Nodes (7): Fixture, PredictionsForm(), Props, SCORE_WEIGHTS, TOTAL_WEIGHT, weigh
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `environment.ts`, `fixtures/actions.ts`, `exports/page.tsx`, `season/route.ts`, `participants/page.tsx`?**
+- **Why does `createServiceClient()` connect `createServiceClient` to `dashboard/page.tsx`, `test-tools/page.tsx`, `fixtures/actions.ts`, `exports/page.tsx`, `participants/page.tsx`?**
   _High betweenness centrality (0.076) - this node is a cross-community bridge._
-- **Why does `ApiFixture` connect `fixtures/actions.ts` to `fpl/client.ts`?**
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `dashboard/page.tsx`, `participants/page.tsx`, `fixtures/actions.ts`, `test-tools/page.tsx`?**
   _High betweenness centrality (0.018) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `participants/page.tsx`, `season/route.ts`?**
+- **Why does `ApiFixture` connect `fixtures/actions.ts` to `fpl/client.ts`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _290 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `server.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.06778846153846153 - nodes in this community are weakly interconnected._
+  _294 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `dashboard/page.tsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.06377551020408163 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.12303422756706753 - nodes in this community are weakly interconnected._
-- **Should `environment.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09269162210338681 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10520163646990065 - nodes in this community are weakly interconnected._
+- **Should `test-tools/page.tsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.10121457489878542 - nodes in this community are weakly interconnected._

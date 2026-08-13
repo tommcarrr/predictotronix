@@ -2,6 +2,20 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
+const siteName = 'Predictotronix';
+const description =
+  'Predict Premier League scores, compete with friends, and follow live league standings.';
+
+function getMetadataBase() {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+
+  try {
+    return new URL(appUrl);
+  } catch {
+    return new URL('http://localhost:3000');
+  }
+}
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -15,13 +29,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: getMetadataBase(),
   title: {
-    default: 'Predictotronix',
-    template: '%s | Predictotronix',
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
-  description:
-    'Predict Premier League scores, compete with friends, and follow live league standings.',
-  applicationName: 'Predictotronix',
+  description,
+  applicationName: siteName,
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: '/',
+    siteName,
+    title: siteName,
+    description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteName,
+    description,
+  },
 };
 
 export default function RootLayout({
