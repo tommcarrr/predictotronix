@@ -20,32 +20,45 @@ export function GameweekCarousel({ children, initialIndex }: Props) {
     setCanScrollForward(element.scrollLeft + element.clientWidth < element.scrollWidth - 1);
   }, []);
 
+  const getGameweekOffset = useCallback((gameweek: HTMLElement, firstGameweek: HTMLElement) => {
+    return gameweek.offsetLeft - firstGameweek.offsetLeft;
+  }, []);
+
   useEffect(() => {
     const element = scroller.current;
     const target = element?.children.item(initialIndex) as HTMLElement | null;
-    if (!element || !target) return;
+    const firstGameweek = element?.children.item(0) as HTMLElement | null;
+    if (!element || !target || !firstGameweek) return;
 
-    element.scrollTo({ left: target.offsetLeft });
+    element.scrollTo({ left: getGameweekOffset(target, firstGameweek) });
     updateControls();
 
     const resizeObserver = new ResizeObserver(updateControls);
     resizeObserver.observe(element);
     return () => resizeObserver.disconnect();
-  }, [initialIndex, updateControls]);
+  }, [getGameweekOffset, initialIndex, updateControls]);
 
   function scrollByGameweek(direction: -1 | 1) {
     const element = scroller.current;
     if (!element) return;
 
     const gameweeks = Array.from(element.children) as HTMLElement[];
+    const firstGameweek = gameweeks[0];
+    if (!firstGameweek) return;
+
     const currentIndex = gameweeks.reduce((closestIndex, gameweek, index) => {
-      const closestDistance = Math.abs(gameweeks[closestIndex].offsetLeft - element.scrollLeft);
-      const distance = Math.abs(gameweek.offsetLeft - element.scrollLeft);
+      const closestDistance = Math.abs(
+        getGameweekOffset(gameweeks[closestIndex], firstGameweek) - element.scrollLeft,
+      );
+      const distance = Math.abs(getGameweekOffset(gameweek, firstGameweek) - element.scrollLeft);
       return distance < closestDistance ? index : closestIndex;
     }, 0);
     const targetIndex = Math.min(gameweeks.length - 1, Math.max(0, currentIndex + direction));
 
-    element.scrollTo({ left: gameweeks[targetIndex].offsetLeft, behavior: 'smooth' });
+    element.scrollTo({
+      left: getGameweekOffset(gameweeks[targetIndex], firstGameweek),
+      behavior: 'smooth',
+    });
   }
 
   return (
@@ -60,7 +73,6 @@ export function GameweekCarousel({ children, initialIndex }: Props) {
         >
           <span aria-hidden="true">←</span> Previous
         </button>
-        <span className="participant-gameweek-controls__hint">Swipe to browse</span>
         <button
           type="button"
           className="participant-gameweek-control"
