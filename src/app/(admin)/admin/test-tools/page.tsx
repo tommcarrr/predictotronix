@@ -3,6 +3,10 @@ import { getSeasonNow } from '@/lib/clock';
 import { getEnvironmentPolicy } from '@/lib/environment';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import { AdminBadge } from '@/components/admin/AdminBadge';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminTabs } from '@/components/admin/AdminTabs';
 import {
   clearSeasonClock,
   fastForwardGameweek,
@@ -16,7 +20,7 @@ export const metadata = { title: 'Test Season Tools | Admin' };
 export const dynamic = 'force-dynamic';
 
 interface Props {
-  searchParams: Promise<{ error?: string; clock?: string }>;
+  searchParams: Promise<{ tab?: string; error?: string; clock?: string }>;
 }
 
 function formatLondonDate(value: Date | string) {
@@ -29,6 +33,7 @@ function formatLondonDate(value: Date | string) {
 
 export default async function TestToolsPage({ searchParams }: Props) {
   const query = await searchParams;
+  const tab = query.tab === 'fixtures' || query.tab === 'gameweek' ? query.tab : 'clock';
   const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -70,13 +75,16 @@ export default async function TestToolsPage({ searchParams }: Props) {
   const stagingClockEnabled = getEnvironmentPolicy().appEnvironment === 'staging';
 
   return (
-    <main className="mx-auto max-w-6xl space-y-8 p-6">
-      <div>
-        <h1 className="text-2xl font-bold">Test Season Tools</h1>
-        <p className="text-sm text-muted-foreground mt-1">
+    <main className="mx-auto max-w-6xl space-y-6 p-6 lg:p-8">
+      <AdminPageHeader
+        eyebrow="System"
+        title="Test season tools"
+        description={
+          <>
           {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}. Only active <strong>test</strong> and <strong>demo</strong> seasons can be modified here.
-        </p>
-      </div>
+          </>
+        }
+      />
 
       {query.error && (
         <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
@@ -93,18 +101,27 @@ export default async function TestToolsPage({ searchParams }: Props) {
         <div className="rounded-lg border border-border p-4">
           <p className="text-sm text-muted-foreground">
             Select an active test or demo season in the shared season selector above.{' '}
-            <a href="/admin/seasons" className="text-primary hover:underline">Manage seasons.</a>
+            <Link href="/admin/seasons" className="text-primary hover:underline">Manage seasons.</Link>
           </p>
         </div>
       ) : (
         <>
-          <div className="rounded-lg border border-yellow-300 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/20 p-4">
-            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
-              ⚠️ Test mode active — notifications will be dry-run only (logged, not sent).
-            </p>
+          <div className="flex items-center gap-3 rounded-xl border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-800 dark:bg-yellow-900/20">
+            <AdminBadge tone="amber">Test mode</AdminBadge>
+            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">Notifications will be dry-run only (logged, not sent).</p>
           </div>
 
-          <section className="rounded-lg border border-border p-4 space-y-4">
+          <AdminTabs
+            label="Test season tools"
+            activeHref={tab === 'clock' ? '/admin/test-tools' : `/admin/test-tools?tab=${tab}`}
+            items={[
+              { href: '/admin/test-tools', label: 'Clock' },
+              { href: '/admin/test-tools?tab=fixtures', label: 'Fixture simulation' },
+              { href: '/admin/test-tools?tab=gameweek', label: 'Gameweek' },
+            ]}
+          />
+
+          {tab === 'clock' && <section className="rounded-lg border border-border p-4 space-y-4">
             <div>
               <h2 className="text-lg font-semibold">Simulated season clock</h2>
               <p className="text-sm text-muted-foreground">
@@ -155,10 +172,10 @@ export default async function TestToolsPage({ searchParams }: Props) {
                 </button>
               </form>
             )}
-          </section>
+          </section>}
 
           {/* Fixtures table with inject result controls */}
-          <section>
+          {tab === 'fixtures' && <section>
             <h2 className="text-lg font-semibold mb-3">Fixtures — {selectedLeague?.name} · {selectedSeason?.name}</h2>
             <div className="space-y-2">
               {(fixtures ?? []).map((f: any) => (
@@ -216,10 +233,10 @@ export default async function TestToolsPage({ searchParams }: Props) {
                 </div>
               ))}
             </div>
-          </section>
+          </section>}
 
           {/* Fast-forward a gameweek */}
-          <section>
+          {tab === 'gameweek' && <section>
             <h2 className="text-lg font-semibold mb-3">Fast-forward Gameweek</h2>
             <p className="text-sm text-muted-foreground mb-3">
               Marks all unplayed fixtures in a gameweek as finished with randomised scores and scores all predictions.
@@ -231,7 +248,7 @@ export default async function TestToolsPage({ searchParams }: Props) {
                 Fast-forward next GW
               </button>
             </form>
-          </section>
+          </section>}
         </>
       )}
     </main>

@@ -89,7 +89,8 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
 
     return {
       id: participant.id,
-      label: `${participant.display_name}${participant.is_offline ? ' (offline)' : ''}`,
+      label: participant.display_name,
+      isOffline: participant.is_offline,
       completed,
       total,
       status,

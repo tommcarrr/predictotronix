@@ -1,19 +1,22 @@
+import Link from 'next/link';
+import { ArrowRight, Plus } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
-import { createSeason, updateSeasonStatus, addSeasonParticipant, removeSeasonParticipant, deleteSeason } from './actions';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
+import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
+import { AdminNotice } from '@/components/admin/AdminNotice';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 
 export const metadata = { title: 'Seasons | Admin' };
-
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  searchParams: Promise<{ error?: string; seasonDeleted?: string }>;
+  searchParams: Promise<{ error?: string; seasonCreated?: string; seasonDeleted?: string }>;
 };
 
 export default async function SeasonsAdminPage({ searchParams }: Props) {
-  const { error, seasonDeleted } = await searchParams;
-  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  const { error, seasonCreated, seasonDeleted } = await searchParams;
+  const { selectedLeague, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
 
@@ -24,179 +27,67 @@ export default async function SeasonsAdminPage({ searchParams }: Props) {
         .eq('league_id', selectedLeague.id)
         .order('created_at', { ascending: false })
     : { data: [] };
-
-  const { data: seasonParticipants } = selectedSeason
-    ? await supabase
-        .from('season_participants')
-        .select('participant_id, participants!inner(id, display_name, is_offline)')
-        .eq('season_id', selectedSeason.id)
+  const seasonIds = (seasons ?? []).map((season) => season.id);
+  const { data: participantRows } = seasonIds.length
+    ? await supabase.from('season_participants').select('season_id').in('season_id', seasonIds)
     : { data: [] };
-
-  const { data: allParticipants } = await supabase
-    .from('participants')
-    .select('id, display_name, is_offline')
-    .order('display_name', { ascending: true });
-
-  const enrolledIds = new Set((seasonParticipants ?? []).map((sp: any) => sp.participant_id));
+  const participantCounts = new Map<string, number>();
+  for (const row of participantRows ?? []) {
+    participantCounts.set(row.season_id, (participantCounts.get(row.season_id) ?? 0) + 1);
+  }
 
   return (
-    <main className="mx-auto max-w-6xl space-y-8 p-6">
-      <div>
-        <h1 className="text-2xl font-bold">Seasons</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {selectedLeague ? `Manage seasons for ${selectedLeague.name}.` : 'Create a league before adding seasons.'}
-        </p>
-      </div>
+    <main className="mx-auto max-w-6xl space-y-6 p-6 lg:p-8">
+      <AdminPageHeader
+        eyebrow="Configure"
+        title="Seasons"
+        description={selectedLeague ? `Manage the season lifecycle for ${selectedLeague.name}.` : 'Select or create a league before adding a season.'}
+        actions={selectedLeague && (
+          <Link href="/admin/seasons/new" className="inline-flex items-center gap-2 rounded-lg bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
+            <Plus className="size-4" /> Create season
+          </Link>
+        )}
+      />
 
-      {error && (
-        <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-          {error}
-        </p>
-      )}
-      {seasonDeleted === '1' && (
-        <p role="status" className="rounded-md border border-green-600/40 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400">
-          Season and its associated data deleted.
-        </p>
-      )}
+      {error && <AdminNotice tone="danger" role="alert">{error}</AdminNotice>}
+      {seasonCreated === '1' && <AdminNotice tone="success" role="status">Season created in setup.</AdminNotice>}
+      {seasonDeleted === '1' && <AdminNotice tone="success" role="status">Season and its associated data deleted.</AdminNotice>}
 
-      {selectedLeague && (
-        <>
-          {/* Existing seasons */}
-          <section className="space-y-3">
-            <h2 className="text-lg font-semibold">Seasons</h2>
-            {!seasons?.length && (
-              <p className="text-sm text-muted-foreground">No seasons yet for this league.</p>
-            )}
-            {seasons?.map((season) => (
-              <div key={season.id} className={`rounded-lg border p-4 space-y-3 ${season.id === selectedSeason?.id ? 'border-primary bg-primary/5' : 'border-border'}`}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="font-medium">{season.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {season.season_type !== 'production' && `[${season.season_type}] `}
-                      API-Football: League {season.api_football_league_id ?? '—'} / Season {season.api_football_season ?? '—'}
-                    </p>
+      {!selectedLeague ? (
+        <AdminNotice>Select a league from the workspace menu before creating a season.</AdminNotice>
+      ) : !seasons?.length ? (
+        <section className="rounded-2xl border border-dashed border-border bg-card p-8 text-center">
+          <h2 className="font-semibold">No seasons yet</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Create a season to configure fixtures, participants and predictions.</p>
+          <Link href="/admin/seasons/new" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+            Create the first season <ArrowRight className="size-4" />
+          </Link>
+        </section>
+      ) : (
+        <section className="space-y-3" aria-label="Seasons">
+          {seasons.map((season) => {
+            const participantCount = participantCounts.get(season.id) ?? 0;
+            const sourceConfigured = Boolean(season.api_football_league_id && season.api_football_season);
+            return (
+              <article key={season.id} className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h2 className="text-lg font-semibold">{season.name}</h2>
+                    <AdminBadge tone={statusTone(season.status)}>{season.status}</AdminBadge>
+                    {season.season_type !== 'production' && <AdminBadge tone="purple">{season.season_type}</AdminBadge>}
                   </div>
-                  <span className={`rounded px-2 py-0.5 text-xs font-medium ${
-                    season.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                    season.status === 'setup'   ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
-                    'bg-muted text-muted-foreground'
-                  }`}>
-                    {season.status}
-                  </span>
+                  <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted-foreground">
+                    <span>{participantCount} participant{participantCount === 1 ? '' : 's'}</span>
+                    <span>{sourceConfigured ? 'Fixture source configured' : 'Fixture source incomplete'}</span>
+                  </div>
                 </div>
-
-                {/* Status transitions */}
-                <div className="flex gap-2 flex-wrap">
-                  {season.status === 'setup' && (
-                    <form action={updateSeasonStatus.bind(null, season.id, 'active')}>
-                      <button type="submit" className="rounded bg-green-600 px-3 py-1 text-xs font-medium text-white hover:bg-green-700">
-                        Activate
-                      </button>
-                    </form>
-                  )}
-                  {season.status === 'active' && (
-                    <form action={updateSeasonStatus.bind(null, season.id, 'completed')}>
-                      <button type="submit" className="rounded border border-border px-3 py-1 text-xs hover:bg-accent">
-                        Mark completed
-                      </button>
-                    </form>
-                  )}
-                  {(season.status === 'completed' || season.status === 'setup') && (
-                    <form action={updateSeasonStatus.bind(null, season.id, 'archived')}>
-                      <button type="submit" className="rounded border border-destructive px-3 py-1 text-xs text-destructive hover:bg-destructive/10">
-                        Archive
-                      </button>
-                    </form>
-                  )}
-                  {season.status === 'archived' && (
-                    <form action={deleteSeason.bind(null, season.id)} className="flex flex-wrap items-center gap-2">
-                      <label className="sr-only" htmlFor={`delete-season-${season.id}`}>
-                        Enter {season.name} to confirm deletion
-                      </label>
-                      <input
-                        id={`delete-season-${season.id}`}
-                        name="confirmation"
-                        required
-                        placeholder={`Type ${season.name} to confirm`}
-                        autoComplete="off"
-                        className="rounded border border-destructive/50 bg-background px-2 py-1 text-xs"
-                      />
-                      <button type="submit" className="rounded bg-destructive px-3 py-1 text-xs font-medium text-destructive-foreground hover:opacity-90">
-                        Delete permanently
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </div>
-            ))}
-          </section>
-
-          {/* Create season */}
-          <section>
-            <h2 className="text-lg font-semibold mb-3">Create New Season</h2>
-            <form action={createSeason.bind(null, selectedLeague.id)} className="space-y-3 max-w-md">
-              <div className="space-y-1">
-                <label className="text-sm font-medium">Season name</label>
-                <input name="name" type="text" required placeholder="2025/26" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">API-Football league ID</label>
-                  <input name="api_football_league_id" type="number" placeholder="39" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">Season year</label>
-                  <input name="api_football_season" type="number" placeholder="2025" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
-                </div>
-              </div>
-              <div className="space-y-1">
-                <label className="text-sm font-medium">Season type</label>
-                <select name="season_type" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
-                  <option value="production">Production</option>
-                  <option value="test">Test</option>
-                  <option value="demo">Demo</option>
-                </select>
-              </div>
-              <button type="submit" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
-                Create Season
-              </button>
-            </form>
-          </section>
-
-          {/* Season participants */}
-          {selectedSeason && (
-            <section>
-              <h2 className="text-lg font-semibold mb-1">
-                Participants — {selectedSeason.name}
-              </h2>
-              <p className="text-sm text-muted-foreground mb-3">
-                {enrolledIds.size} enrolled
-              </p>
-              <div className="space-y-1 max-w-md">
-                {(allParticipants ?? []).map((p) => {
-                  const enrolled = enrolledIds.has(p.id);
-                  return (
-                    <div key={p.id} className="flex items-center justify-between rounded-md border border-border px-3 py-2">
-                      <span className="text-sm">
-                        {p.display_name}
-                      </span>
-                      {enrolled ? (
-                        <form action={removeSeasonParticipant.bind(null, selectedSeason.id, p.id)}>
-                          <button type="submit" className="text-xs text-destructive hover:underline">Remove</button>
-                        </form>
-                      ) : (
-                        <form action={addSeasonParticipant.bind(null, selectedSeason.id, p.id)}>
-                          <button type="submit" className="text-xs text-primary hover:underline">Add</button>
-                        </form>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-        </>
+                <Link href={`/admin/seasons/${season.id}`} className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                  Manage season <ArrowRight className="size-4" />
+                </Link>
+              </article>
+            );
+          })}
+        </section>
       )}
     </main>
   );

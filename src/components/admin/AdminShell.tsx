@@ -46,17 +46,20 @@ interface NavItem {
   superOnly?: boolean;
 }
 
-const primaryNav: NavItem[] = [
+const runNav: NavItem[] = [
   { href: '/admin', label: 'Overview', icon: Gauge, superOnly: true },
-  { href: '/admin/participants', label: 'Participants', icon: Users },
+  { href: '/admin/participants', label: 'People', icon: Users },
   { href: '/admin/predictions', label: 'Predictions', icon: BarChart3, superOnly: true },
   { href: '/admin/fixtures', label: 'Fixtures & results', icon: CalendarDays, superOnly: true },
   { href: '/admin/exports', label: 'Standings', icon: Trophy, superOnly: true },
 ];
 
+const configureNav: NavItem[] = [
+  { href: '/admin/seasons', label: 'Seasons', icon: Sparkles, superOnly: true },
+  { href: '/admin/leagues', label: 'Leagues', icon: Settings2, superOnly: true },
+];
+
 const systemNav: NavItem[] = [
-  { href: '/admin/leagues', label: 'League settings', icon: Settings2, superOnly: true },
-  { href: '/admin/seasons', label: 'Season settings', icon: Sparkles, superOnly: true },
   { href: '/admin/test-tools', label: 'Test tools', icon: FlaskConical, superOnly: true },
 ];
 
@@ -127,7 +130,8 @@ export function AdminShell({
   superAdmin,
 }: Props) {
   const pathname = usePathname();
-  const visiblePrimary = primaryNav.filter((item) => superAdmin || !item.superOnly);
+  const visibleRun = runNav.filter((item) => superAdmin || !item.superOnly);
+  const visibleConfigure = configureNav.filter((item) => superAdmin || !item.superOnly);
   const visibleSystem = systemNav.filter((item) => superAdmin || !item.superOnly);
   const selectedLeague = leagues.find((league) => league.id === selectedLeagueId);
   const selectedSeason = seasons.find((season) => season.id === selectedSeasonId);
@@ -150,17 +154,48 @@ export function AdminShell({
 
         <nav
           className="flex gap-1 overflow-x-auto px-3 pb-3 lg:block lg:space-y-1 lg:overflow-visible lg:px-4 lg:pb-0"
-          aria-label="Admin navigation"
+          aria-label="Run the competition"
         >
-          <Navigation items={visiblePrimary} pathname={pathname} />
+          <Navigation items={visibleRun} pathname={pathname} />
         </nav>
+
+        {(visibleConfigure.length > 0 || visibleSystem.length > 0) && (
+          <details className="mx-3 mb-3 rounded-xl border border-sidebar-border lg:hidden">
+            <summary className="cursor-pointer list-none px-3 py-2.5 text-sm font-semibold text-sidebar-foreground [&::-webkit-details-marker]:hidden">
+              Manage workspace
+            </summary>
+            <div className="space-y-4 border-t border-sidebar-border px-2 py-2">
+              {visibleConfigure.length > 0 && (
+                <nav className="space-y-1" aria-label="Configure workspace">
+                  <Navigation items={visibleConfigure} pathname={pathname} />
+                </nav>
+              )}
+              {visibleSystem.length > 0 && (
+                <nav className="space-y-1" aria-label="System tools">
+                  <Navigation items={visibleSystem} pathname={pathname} />
+                </nav>
+              )}
+            </div>
+          </details>
+        )}
+
+        {visibleConfigure.length > 0 && (
+          <div className="hidden lg:mt-6 lg:block lg:px-4">
+            <p className="mb-2 px-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/40">
+              Configure
+            </p>
+            <nav className="space-y-1" aria-label="Configure workspace">
+              <Navigation items={visibleConfigure} pathname={pathname} />
+            </nav>
+          </div>
+        )}
 
         {visibleSystem.length > 0 && (
           <div className="hidden lg:mt-auto lg:block lg:px-4 lg:pb-3">
             <p className="mb-2 px-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/40">
-              Administration
+              System
             </p>
-            <nav className="space-y-1" aria-label="System administration">
+            <nav className="space-y-1" aria-label="System tools">
               <Navigation items={visibleSystem} pathname={pathname} />
             </nav>
           </div>

@@ -2,12 +2,17 @@ import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
 import { FixtureSyncConsole } from '@/components/admin/FixtureSyncConsole';
+import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
+import { AdminNotice } from '@/components/admin/AdminNotice';
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
+import { AdminTabs } from '@/components/admin/AdminTabs';
 
 export const metadata = { title: 'Fixtures & Results | Admin' };
-
 export const dynamic = 'force-dynamic';
 
-export default async function FixturesAdminPage() {
+export default async function FixturesAdminPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
+  const { tab: requestedTab } = await searchParams;
+  const tab = requestedTab === 'sync' ? 'sync' : 'fixtures';
   const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -28,95 +33,62 @@ export default async function FixturesAdminPage() {
     selectedSeason?.status === 'active' &&
     selectedSeason.season_type === 'production' &&
     selectedSeason.api_football_league_id &&
-    selectedSeason.api_football_season
+    selectedSeason.api_football_season,
   );
+  const activeHref = tab === 'sync' ? '/admin/fixtures?tab=sync' : '/admin/fixtures';
 
   return (
-    <main className="mx-auto max-w-6xl space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Fixtures & Results</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {selectedLeague?.name ?? 'No league'} · {selectedSeason?.name ?? 'No season selected'}
-          </p>
+    <main className="mx-auto max-w-6xl space-y-6 p-6 lg:p-8">
+      <AdminPageHeader eyebrow="Run" title="Fixtures & results" description={`${selectedLeague?.name ?? 'No league'} · ${selectedSeason?.name ?? 'No season selected'}`} />
+      <AdminTabs
+        label="Fixtures and synchronisation"
+        activeHref={activeHref}
+        items={[{ href: '/admin/fixtures', label: 'Fixtures & results' }, { href: '/admin/fixtures?tab=sync', label: 'Sync' }]}
+      />
+
+      {!selectedSeason && <AdminNotice>Select or create a season to view fixtures.</AdminNotice>}
+      {selectedSeason && tab === 'sync' && <FixtureSyncConsole seasonId={selectedSeason.id} canSync={canSync} />}
+      {selectedSeason && tab === 'fixtures' && !(fixtures ?? []).length && (
+        <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+          No fixtures have been added to this season yet. Use the Sync tab for a production season.
         </div>
-      </div>
-
-      {selectedSeason && <FixtureSyncConsole seasonId={selectedSeason.id} canSync={canSync} />}
-
-      {!selectedSeason && (
-        <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
-          Select or create a season to view fixtures.
-        </p>
       )}
 
-      {selectedSeason && !(fixtures ?? []).length && (
-        <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
-          No fixtures have been added to this season yet.
-        </p>
-      )}
-
-      {(fixtures ?? []).length > 0 && <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border text-xs uppercase text-muted-foreground">
-              <th className="text-left py-2 pr-4">Gameweek</th>
-              <th className="text-left py-2 pr-4">Match</th>
-              <th className="text-left py-2 pr-4">Kickoff</th>
-              <th className="text-left py-2 pr-4">Status</th>
-              <th className="text-left py-2 pr-4">Result</th>
-              <th className="text-left py-2">Last synced</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(fixtures ?? []).map((f) => (
-              <tr key={f.id} className="border-b border-border/50 hover:bg-accent/50">
-                <td className="py-2 pr-4 text-muted-foreground">
-                  {(f.gameweeks as any)?.label ?? '—'}
-                </td>
-                <td className="py-2 pr-4 font-medium">
-                  {f.home_team_name} vs {f.away_team_name}
-                </td>
-                <td className="py-2 pr-4 text-muted-foreground">
-                  {new Date(f.kickoff).toLocaleString('en-GB', {
-                    timeZone: 'Europe/London',
-                    dateStyle: 'short',
-                    timeStyle: 'short',
-                  })}
-                </td>
-                <td className="py-2 pr-4">
-                  <span
-                    className={`inline-block rounded px-1.5 py-0.5 text-xs font-medium ${
-                      f.status === 'finished'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                        : f.status === 'postponed'
-                        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                        : 'bg-muted text-muted-foreground'
-                    }`}
-                  >
-                    {f.status}
-                  </span>
-                  {f.result_confirmed && (
-                    <span className="ml-1 text-xs text-green-600 dark:text-green-400">✓</span>
-                  )}
-                </td>
-                <td className="py-2 pr-4">
-                  {f.home_score !== null ? `${f.home_score}–${f.away_score}` : '—'}
-                </td>
-                <td className="py-2 text-muted-foreground text-xs">
-                  {f.last_synced_at
-                    ? new Date(f.last_synced_at).toLocaleString('en-GB', {
-                        timeZone: 'Europe/London',
-                        dateStyle: 'short',
-                        timeStyle: 'short',
-                      })
-                    : '—'}
-                </td>
+      {selectedSeason && tab === 'fixtures' && (fixtures ?? []).length > 0 && (
+        <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+          <table className="w-full min-w-[820px] text-sm">
+            <thead>
+              <tr className="border-b border-border bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
+                <th className="px-4 py-3 font-semibold">Gameweek</th>
+                <th className="px-4 py-3 font-semibold">Match</th>
+                <th className="px-4 py-3 font-semibold">Kickoff</th>
+                <th className="px-4 py-3 font-semibold">Status</th>
+                <th className="px-4 py-3 font-semibold">Result</th>
+                <th className="px-4 py-3 font-semibold">Last synced</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>}
+            </thead>
+            <tbody className="divide-y divide-border">
+              {(fixtures ?? []).map((fixture) => (
+                <tr key={fixture.id} className="hover:bg-accent/40">
+                  <td className="px-4 py-3 text-muted-foreground">{(fixture.gameweeks as any)?.label ?? '—'}</td>
+                  <td className="px-4 py-3 font-medium">{fixture.home_team_name} vs {fixture.away_team_name}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{new Date(fixture.kickoff).toLocaleString('en-GB', { timeZone: 'Europe/London', dateStyle: 'short', timeStyle: 'short' })}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <AdminBadge tone={fixture.status === 'postponed' ? 'amber' : statusTone(fixture.status)}>{fixture.status}</AdminBadge>
+                      {fixture.result_confirmed && <AdminBadge tone="green">Confirmed</AdminBadge>}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 font-semibold">{fixture.home_score !== null ? `${fixture.home_score}–${fixture.away_score}` : '—'}</td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground">
+                    {fixture.last_synced_at ? new Date(fixture.last_synced_at).toLocaleString('en-GB', { timeZone: 'Europe/London', dateStyle: 'short', timeStyle: 'short' }) : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
   );
 }

@@ -41,6 +41,7 @@ export async function createLeague(formData: FormData) {
   }
 
   revalidatePath('/admin/leagues');
+  redirect('/admin/leagues?leagueCreated=1');
 }
 
 export async function assignLeagueAdmin(formData: FormData) {
@@ -54,6 +55,8 @@ export async function assignLeagueAdmin(formData: FormData) {
     redirect('/admin/leagues?error=Select+a+user+to+assign');
   }
 
+  const adminsPath = `/admin/leagues/${leagueId}?tab=admins`;
+
   const supabase = await createServiceClient();
   const { error } = await supabase.from('league_roles').upsert(
     {
@@ -66,11 +69,12 @@ export async function assignLeagueAdmin(formData: FormData) {
   );
 
   if (error) {
-    redirect(`/admin/leagues?error=${encodeURIComponent(error.message)}`);
+    redirect(`${adminsPath}&error=${encodeURIComponent(error.message)}`);
   }
 
   revalidatePath('/admin/leagues');
-  redirect('/admin/leagues?adminAssigned=1');
+  revalidatePath(`/admin/leagues/${leagueId}`);
+  redirect(`${adminsPath}&adminAssigned=1`);
 }
 
 export async function regenerateInviteCode(leagueId: string) {
@@ -86,6 +90,7 @@ export async function regenerateInviteCode(leagueId: string) {
     .eq('id', leagueId);
 
   revalidatePath('/admin/leagues');
+  revalidatePath(`/admin/leagues/${leagueId}`);
 }
 
 export async function toggleInviteActive(leagueId: string, active: boolean) {
@@ -96,6 +101,7 @@ export async function toggleInviteActive(leagueId: string, active: boolean) {
   await supabase.from('leagues').update({ invite_active: active }).eq('id', leagueId);
 
   revalidatePath('/admin/leagues');
+  revalidatePath(`/admin/leagues/${leagueId}`);
 }
 
 export async function deleteLeague(leagueId: string, formData: FormData) {
@@ -103,6 +109,7 @@ export async function deleteLeague(leagueId: string, formData: FormData) {
   if (!user || !(await isSuperAdmin())) redirect('/dashboard');
 
   const confirmation = formData.get('confirmation');
+  const dangerPath = `/admin/leagues/${leagueId}?tab=danger`;
   const supabase = await createServiceClient();
   const { data: league, error: leagueError } = await supabase
     .from('leagues')
@@ -112,22 +119,22 @@ export async function deleteLeague(leagueId: string, formData: FormData) {
 
   if (leagueError || !league) redirect('/admin/leagues?error=League+not+found');
   if (confirmation !== league.name) {
-    redirect('/admin/leagues?error=Enter+the+exact+league+name+to+confirm+deletion');
+    redirect(`${dangerPath}&error=Enter+the+exact+league+name+to+confirm+deletion`);
   }
 
   const seasons = league.seasons ?? [];
   if (seasons.some((season) => season.status !== 'archived')) {
-    redirect('/admin/leagues?error=Archive+every+season+before+deleting+the+league');
+    redirect(`${dangerPath}&error=Archive+every+season+before+deleting+the+league`);
   }
 
   const seasonIds = seasons.map((season) => season.id);
   if (seasonIds.length) {
     const { error: logError } = await supabase.from('notification_log').delete().in('season_id', seasonIds);
-    if (logError) redirect(`/admin/leagues?error=${encodeURIComponent(logError.message)}`);
+    if (logError) redirect(`${dangerPath}&error=${encodeURIComponent(logError.message)}`);
   }
 
   const { error } = await supabase.from('leagues').delete().eq('id', leagueId);
-  if (error) redirect(`/admin/leagues?error=${encodeURIComponent(error.message)}`);
+  if (error) redirect(`${dangerPath}&error=${encodeURIComponent(error.message)}`);
 
   revalidatePath('/admin');
   revalidatePath('/admin/leagues');

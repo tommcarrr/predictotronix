@@ -13,6 +13,7 @@ interface ParticipantOption extends Option {
   completed: number;
   total: number;
   status: 'awaiting' | 'in_progress' | 'ready';
+  isOffline: boolean;
 }
 
 interface Fixture {
@@ -154,7 +155,14 @@ export function AdminPredictionsForm({
                     active ? 'border-primary bg-primary/5' : 'border-border hover:bg-accent'
                   }`}
                 >
-                  <span className="font-medium">{participant.label}</span>
+                  <span className="flex min-w-0 items-center gap-2">
+                    <span className="truncate font-medium">{participant.label}</span>
+                    {participant.isOffline && (
+                      <span className="rounded-full bg-muted px-2 py-0.5 text-[0.68rem] font-semibold text-muted-foreground">
+                        Offline
+                      </span>
+                    )}
+                  </span>
                   <span className="flex items-center gap-2">
                     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.className}`}>
                       {status.label}

@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export const metadata = { title: 'Admin' };
 
@@ -18,9 +19,9 @@ export default async function AdminDashboardPage() {
         <p className="mt-3 text-sm text-muted-foreground">
           Create a league to start managing seasons, participants and fixtures.
         </p>
-        <a href="/admin/leagues" className="mt-4 inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+        <Link href="/admin/leagues" className="mt-4 inline-block rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
           Create a league
-        </a>
+        </Link>
       </main>
     );
   }
@@ -62,24 +63,26 @@ export default async function AdminDashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {[
-          { label: 'Seasons', value: seasonCount ?? 0 },
-          { label: 'Enrolled', value: participantCount ?? 0 },
-          { label: 'Pending requests', value: pendingRequests ?? 0, highlight: (pendingRequests ?? 0) > 0 },
-          { label: 'Last sync', value: lastSync, small: true },
+          { label: 'Seasons', value: seasonCount ?? 0, href: '/admin/seasons' },
+          { label: 'Enrolled', value: participantCount ?? 0, href: '/admin/participants' },
+          { label: 'Pending requests', value: pendingRequests ?? 0, highlight: (pendingRequests ?? 0) > 0, href: '/admin/participants?tab=requests' },
+          { label: 'Last sync', value: lastSync, small: true, href: '/admin/fixtures?tab=sync' },
         ].map((stat) => (
-          <div
+          <Link
             key={stat.label}
+            href={stat.href}
             className={`rounded-lg border p-4 ${stat.highlight ? 'border-destructive bg-destructive/10' : 'border-border bg-card'}`}
           >
             <p className="text-xs text-muted-foreground uppercase tracking-wide">{stat.label}</p>
             <p className={`mt-1 font-bold ${stat.small ? 'text-sm' : 'text-2xl'}`}>{stat.value}</p>
-          </div>
+            <p className="mt-2 text-xs font-medium text-primary">View details</p>
+          </Link>
         ))}
       </div>
 
       {!selectedSeason && (
         <div className="rounded-lg border border-dashed border-border p-5 text-sm text-muted-foreground">
-          This league has no seasons yet. <a href="/admin/seasons" className="text-primary hover:underline">Create one on the Seasons page.</a>
+          This league has no seasons yet. <Link href="/admin/seasons/new" className="text-primary hover:underline">Create one on the Seasons page.</Link>
         </div>
       )}
     </main>

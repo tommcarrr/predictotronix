@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 test.describe('Admin — participants page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/admin/participants');
-    await expect(page.getByRole('heading', { name: 'Participants', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'People', exact: true })).toBeVisible();
   });
 
   /**
@@ -12,11 +12,12 @@ test.describe('Admin — participants page', () => {
    * to silently return null. The "Pending Requests" section now always renders.
    */
   test('renders the Pending Requests section', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Pending Requests' })).toBeVisible();
+    await page.getByRole('link', { name: /Join requests/ }).click();
+    await expect(page.getByRole('heading', { name: 'Join requests', exact: true })).toBeVisible();
   });
 
   test('renders the All Participants section', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'All Participants' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Season members' })).toBeVisible();
   });
 
   /**
@@ -29,6 +30,7 @@ test.describe('Admin — participants page', () => {
    * to seed one automatically, or create one manually before running.
    */
   test('approving a pending request removes it from the list', async ({ page }) => {
+    await page.goto('/admin/participants?tab=requests');
     const approveButtons = page.getByRole('button', { name: 'Approve' });
     const count = await approveButtons.count();
 
@@ -38,19 +40,19 @@ test.describe('Admin — participants page', () => {
     }
 
     // Record which request is first so we can confirm it disappears
-    const firstRequest = page.locator('section').filter({ hasText: 'Pending Requests' })
-      .locator('.rounded-lg.border').first();
+    const firstRequest = page.locator('section').filter({ hasText: 'Join requests' })
+      .locator('article').first();
     const requestText = await firstRequest.innerText();
 
     await approveButtons.first().click();
 
     // The action redirects back to /admin/participants on success
-    await expect(page).toHaveURL(/\/admin\/participants$/, { timeout: 15_000 });
+    await expect(page).toHaveURL(/\/admin\/participants\?tab=requests$/, { timeout: 15_000 });
 
     // The approved request should no longer appear
     const remaining = page.locator('section')
-      .filter({ hasText: 'Pending Requests' })
-      .locator('.rounded-lg.border');
+      .filter({ hasText: 'Join requests' })
+      .locator('article');
 
     // Either fewer items, or the specific item is gone
     if (await remaining.count() > 0) {
@@ -112,13 +114,13 @@ test.describe('Join request full flow', () => {
     const adminPage = await adminCtx.newPage();
 
     await loginAs(adminPage, adminEmail, adminPassword);
-    await adminPage.goto('/admin/participants');
-    await expect(adminPage.getByRole('heading', { name: 'Participants' })).toBeVisible();
+    await adminPage.goto('/admin/participants?tab=requests');
+    await expect(adminPage.getByRole('heading', { name: 'People' })).toBeVisible();
 
     const approveBtn = adminPage.getByRole('button', { name: 'Approve' }).first();
     await expect(approveBtn).toBeVisible({ timeout: 5_000 });
     await approveBtn.click();
-    await expect(adminPage).toHaveURL(/\/admin\/participants$/, { timeout: 15_000 });
+    await expect(adminPage).toHaveURL(/\/admin\/participants\?tab=requests$/, { timeout: 15_000 });
 
     await adminCtx.close();
 

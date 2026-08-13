@@ -50,43 +50,43 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/fixtures/page.tsx": {
-    "mtime": 1786456438.1691787,
-    "ast_hash": "6ad515b90bfb84c265fb6175bf0e1f61",
+    "mtime": 1786610714.5409136,
+    "ast_hash": "ce33b6e193753df5a813a06071031ee7",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/leagues/actions.ts": {
-    "mtime": 1786563501.5083919,
-    "ast_hash": "0066d15a96454ae99ee036918dabf828",
+    "mtime": 1786610270.712442,
+    "ast_hash": "01906123e85bfb9ec0a18cf287a3b8c4",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/leagues/page.tsx": {
-    "mtime": 1786563506.137684,
-    "ast_hash": "7c1e445edac5d698e6ce809d93971df6",
+    "mtime": 1786611090.111479,
+    "ast_hash": "a148add5264c48b9847e551622ecf5f5",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/page.tsx": {
-    "mtime": 1786437305.0706074,
-    "ast_hash": "90a5056c47e9792a0d10f60bfbe46e6e",
+    "mtime": 1786610814.118919,
+    "ast_hash": "e05520d44cb39305c387f3eb288ca278",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/actions.ts": {
-    "mtime": 1786563483.515715,
-    "ast_hash": "2561345d09424fe7f0f820ca35130a86",
+    "mtime": 1786610612.4557085,
+    "ast_hash": "a3557a307a49cf17d286baf6fa7ed6e7",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/page.tsx": {
-    "mtime": 1786563488.046983,
-    "ast_hash": "2f3708a824689fc648b23cc674a6af38",
+    "mtime": 1786610574.5609891,
+    "ast_hash": "726bdad54c8fb0386f995f28801ccad0",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/seasons/actions.ts": {
-    "mtime": 1786563494.0816207,
-    "ast_hash": "29187ffe7435669f6a87f1ad0ca70b02",
+    "mtime": 1786610480.6626525,
+    "ast_hash": "8e042253ec3909ccaa31e4788f14127b",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/seasons/page.tsx": {
-    "mtime": 1786563498.9372542,
-    "ast_hash": "ee1a183b24625db5a8598f554bd8c38e",
+    "mtime": 1786611094.147805,
+    "ast_hash": "4e5dd24c557257fcbea081b5e89b8caf",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/test-tools/actions.ts": {
@@ -95,8 +95,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/test-tools/page.tsx": {
-    "mtime": 1786437305.0908022,
-    "ast_hash": "08dbdbba7df51ba8b4a90c772bc1dbe3",
+    "mtime": 1786611209.380432,
+    "ast_hash": "bf68afd703cb3c3460b21d6d5976e18e",
     "semantic_hash": ""
   },
   "src/app/(admin)/layout.tsx": {
@@ -335,9 +335,9 @@
     "semantic_hash": ""
   },
   "tests/e2e/admin-participants.test.ts": {
-    "mtime": 1782831468.1685748,
-    "ast_hash": "61e2abcaa9214d3b6bd5c309afb8f104",
-    "semantic_hash": "61e2abcaa9214d3b6bd5c309afb8f104"
+    "mtime": 1786610854.1700528,
+    "ast_hash": "cffba6c18ba831505533b711c3810540",
+    "semantic_hash": ""
   },
   "tests/e2e/dashboard.test.ts": {
     "mtime": 1786437308.212893,
@@ -425,8 +425,8 @@
     "semantic_hash": "d649c7987dff7f738bdcf8cc06d29234"
   },
   "AGENTS.md": {
-    "mtime": 1786561296.1780427,
-    "ast_hash": "218af0e70dc94a57c6d54d7a7af6a90a",
+    "mtime": 1786608297.2267604,
+    "ast_hash": "df4de1edcb82f9200e7244f7bfef090c",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -550,8 +550,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/AdminShell.tsx": {
-    "mtime": 1786545628.991968,
-    "ast_hash": "888287fc84aae56119462f20f401ca93",
+    "mtime": 1786610090.310702,
+    "ast_hash": "0047ba43f2866120fe23501564654ce0",
     "semantic_hash": ""
   },
   "src/lib/admin/context.ts": {
@@ -580,8 +580,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/FixtureSyncConsole.tsx": {
-    "mtime": 1786459910.471388,
-    "ast_hash": "c55e75dcf3a357e77f41af1ba5013e9a",
+    "mtime": 1786610732.9229748,
+    "ast_hash": "f3c07845a08ae02f4494bf062a29e889",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260811_095419_why_is_my_ability_to_make_predictions_being_blocke.md": {
@@ -625,18 +625,18 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/predictions/page.tsx": {
-    "mtime": 1786537470.6503735,
-    "ast_hash": "a148ec30ed7a4046d3c10494f56b85f2",
+    "mtime": 1786610792.0314012,
+    "ast_hash": "010e02ef6528b567563bd996d831901d",
     "semantic_hash": ""
   },
   "src/components/admin/AdminPredictionsForm.tsx": {
-    "mtime": 1786537455.2694159,
-    "ast_hash": "802dedbc5bdba408a287863a91ea4942",
+    "mtime": 1786610783.5536778,
+    "ast_hash": "6358607a13de83ea7edc117c19f4bfda",
     "semantic_hash": ""
   },
   "tests/e2e/admin-leagues.test.ts": {
-    "mtime": 1786541238.9835956,
-    "ast_hash": "c25ad2d8cf2b6786f88c9c82e84bf041",
+    "mtime": 1786610846.1196198,
+    "ast_hash": "2a26449811892b5226ebe8b06f569f89",
     "semantic_hash": ""
   },
   "src/components/participant/GameweekCarousel.tsx": {
@@ -667,6 +667,61 @@
   "graphify-out/memory/query_20260812_193442_how_do_i_assign_a_user_to_a_league_from_the_admin.md": {
     "mtime": 1786563282.2321627,
     "ast_hash": "9a2f23a5616a279657bedb8bc2b51365",
+    "semantic_hash": ""
+  },
+  "src/app/(admin)/admin/leagues/[leagueId]/loading.tsx": {
+    "mtime": 1786610249.2332144,
+    "ast_hash": "7b31ec25f67e7e6a7bde2a9124f33319",
+    "semantic_hash": ""
+  },
+  "src/app/(admin)/admin/leagues/[leagueId]/page.tsx": {
+    "mtime": 1786610243.8544474,
+    "ast_hash": "f1fc52ea781e6dcd2789e3d70c91ecf1",
+    "semantic_hash": ""
+  },
+  "src/app/(admin)/admin/seasons/[seasonId]/loading.tsx": {
+    "mtime": 1786610398.343512,
+    "ast_hash": "eb2c3f56a6f57bdca1599e5aec89548e",
+    "semantic_hash": ""
+  },
+  "src/app/(admin)/admin/seasons/[seasonId]/page.tsx": {
+    "mtime": 1786611101.387883,
+    "ast_hash": "4370aa1ee81b8a03362c31da1b9964ce",
+    "semantic_hash": ""
+  },
+  "src/app/(admin)/admin/seasons/new/page.tsx": {
+    "mtime": 1786610386.5794654,
+    "ast_hash": "d5141a0f5fbdaa584da3c92f07b1eaf1",
+    "semantic_hash": ""
+  },
+  "src/components/admin/AdminBadge.tsx": {
+    "mtime": 1786610035.9694607,
+    "ast_hash": "18e068503b5a69731a351982e079315b",
+    "semantic_hash": ""
+  },
+  "src/components/admin/AdminDialog.tsx": {
+    "mtime": 1786610051.9418392,
+    "ast_hash": "c3954a9ff75d080464ad39ba0b708c5e",
+    "semantic_hash": ""
+  },
+  "src/components/admin/AdminNotice.tsx": {
+    "mtime": 1786610058.0677142,
+    "ast_hash": "730b600bef0c7f22cbfca8d7c77a43a6",
+    "semantic_hash": ""
+  },
+  "src/components/admin/AdminPageHeader.tsx": {
+    "mtime": 1786610038.7386253,
+    "ast_hash": "af1cb382c6bec80a2a13ff99478ca106",
+    "semantic_hash": ""
+  },
+  "src/components/admin/AdminTabs.tsx": {
+    "mtime": 1786610045.3076336,
+    "ast_hash": "aa50a556043af27bb08f35b86111f163",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260813_080851_i_have_some_issues_with_the_admin_ux__it_feels_lik.md": {
+    "mtime": 1786608531.4384024,
+    "ast_hash": "27f9fbdfda054c6d792d4fa1867c1105",
     "semantic_hash": ""
   }
 }

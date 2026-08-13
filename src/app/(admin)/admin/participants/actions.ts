@@ -115,7 +115,7 @@ export async function approveJoinRequest(
       .upsert({ participant_id: participantId }, { onConflict: 'participant_id' });
   }
 
-  redirect('/admin/participants');
+  redirect('/admin/participants?tab=requests');
 }
 
 export async function rejectJoinRequest(requestId: string) {
@@ -130,7 +130,7 @@ export async function rejectJoinRequest(requestId: string) {
 
   if (error) throw new Error(`Failed to reject request: ${error.message}`);
 
-  redirect('/admin/participants');
+  redirect('/admin/participants?tab=requests');
 }
 
 export async function createOfflineParticipant(formData: FormData) {
