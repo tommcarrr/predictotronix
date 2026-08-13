@@ -78,17 +78,18 @@ The repository provides:
    ```text
    https://predictotronix-staging.onrender.com
    ```
-6. Add the exact email-confirmation callback to **Redirect URLs**, for example:
+6. Add the exact email-confirmation and password-recovery callbacks to **Redirect URLs**, for example:
 
    ```text
    https://predictotronix-staging.onrender.com/auth/confirm
+   https://predictotronix-staging.onrender.com/auth/recover
    ```
 
 The invite signup flow uses that callback to preserve the league invitation
-through email confirmation. It does not require a wildcard callback URL. If an
-OAuth or password-reset callback is added later, add its exact staging URL to
-Supabase's redirect allow-list. Prefer exact paths over broad wildcards for
-this persistent environment. See the
+through email confirmation. Password recovery uses its own callback to exchange
+the recovery code before the user chooses a new password. Neither flow requires
+a wildcard callback URL. Prefer exact paths over broad wildcards for this
+persistent environment. See the
 [Supabase redirect URL guide](https://supabase.com/docs/guides/auth/redirect-urls).
 
 Do not make schema changes directly in the remote Table Editor or SQL Editor.

@@ -74,9 +74,19 @@ export default async function LoginPage({
         </div>
 
         <div className="space-y-1">
-          <label htmlFor="password" className="text-sm font-medium">
-            Password
-          </label>
+          <div className="flex items-center justify-between gap-4">
+            <label htmlFor="password" className="text-sm font-medium">
+              Password
+            </label>
+            <Link
+              href={
+                inviteCode ? inviteAuthPath('/forgot-password', inviteCode) : '/forgot-password'
+              }
+              className="text-sm underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
           <input
             id="password"
             name="password"

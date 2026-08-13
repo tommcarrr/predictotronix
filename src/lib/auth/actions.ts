@@ -78,6 +78,13 @@ function confirmationUrl(inviteCode: string | null) {
   return url.toString();
 }
 
+function recoveryUrl(inviteCode: string | null) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+  const url = new URL('/auth/recover', appUrl);
+  if (inviteCode) url.searchParams.set('invite', inviteCode);
+  return url.toString();
+}
+
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get('email') ?? '').trim();
@@ -147,6 +154,107 @@ export async function signIn(formData: FormData) {
   }
 
   redirect('/');
+}
+
+export async function requestPasswordReset(formData: FormData) {
+  const supabase = await createClient();
+  const email = String(formData.get('email') ?? '').trim();
+  const inviteCode = normalizeInviteCode(formData.get('invite_code'));
+
+  if (!email || !email.includes('@')) {
+    redirect(
+      withInviteParam('/forgot-password', inviteCode, 'error', 'Enter a valid email address.')
+    );
+  }
+
+  await rememberInvite(inviteCode);
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: recoveryUrl(inviteCode),
+  });
+
+  if (error) {
+    redirect(
+      withInviteParam(
+        '/forgot-password',
+        inviteCode,
+        'error',
+        'We could not send a reset email. Please wait a moment and try again.'
+      )
+    );
+  }
+
+  redirect(
+    withInviteParam(
+      '/forgot-password',
+      inviteCode,
+      'message',
+      'If an account exists for that email, a password reset link is on its way.'
+    )
+  );
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+  const password = String(formData.get('password') ?? '');
+  const confirmPassword = String(formData.get('confirm_password') ?? '');
+  const cookieStore = await cookies();
+  const inviteCode =
+    normalizeInviteCode(formData.get('invite_code')) ??
+    normalizeInviteCode(cookieStore.get(PENDING_INVITE_COOKIE)?.value);
+
+  if (password.length < 8) {
+    redirect(
+      withInviteParam(
+        '/reset-password',
+        inviteCode,
+        'error',
+        'Use a password with at least 8 characters.'
+      )
+    );
+  }
+  if (password !== confirmPassword) {
+    redirect(
+      withInviteParam('/reset-password', inviteCode, 'error', 'The passwords do not match.')
+    );
+  }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect(
+      withInviteParam(
+        '/forgot-password',
+        inviteCode,
+        'error',
+        'This password reset link is invalid or has expired. Request a new one.'
+      )
+    );
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    redirect(
+      withInviteParam(
+        '/reset-password',
+        inviteCode,
+        'error',
+        'We could not update your password. Request a new reset link and try again.'
+      )
+    );
+  }
+
+  await supabase.auth.signOut({ scope: 'local' });
+  redirect(
+    withInviteParam(
+      '/login',
+      inviteCode,
+      'message',
+      'Password updated. Sign in with your new password.'
+    )
+  );
 }
 
 export async function signOut() {

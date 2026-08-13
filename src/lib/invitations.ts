@@ -27,12 +27,14 @@ export function invitePath(code: string) {
   return `/join/${encodeURIComponent(code)}`;
 }
 
-export function inviteAuthPath(route: '/login' | '/register', code: string) {
+type InviteAuthRoute = '/login' | '/register' | '/forgot-password' | '/reset-password';
+
+export function inviteAuthPath(route: InviteAuthRoute, code: string) {
   return `${route}?invite=${encodeURIComponent(code)}`;
 }
 
 export function withInviteParam(
-  route: '/login' | '/register',
+  route: InviteAuthRoute,
   code: string | null,
   key: 'error' | 'message',
   value: string,
