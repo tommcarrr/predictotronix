@@ -1,25 +1,25 @@
 # Graph Report - predictotronix  (2026-08-12)
 
 ## Corpus Check
-- 126 files · ~48,485 words
+- 131 files · ~51,272 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 633 nodes · 1076 edges · 46 communities (36 shown, 10 thin omitted)
+- 663 nodes · 1128 edges · 51 communities (41 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b1479762`
+- Built from commit: `c0cc40ce`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- server.ts
+- auth/index.ts
 - createServiceClient
 - environment.ts
 - devDependencies
-- scoring/index.ts
+- types/index.ts
 - dependencies
 - compilerOptions
 - components.json
@@ -27,7 +27,7 @@
 - Predictotronix
 - Staging environment runbook
 - fixtures/actions.ts
-- getAdminContext
+- exports/page.tsx
 - Verify Before Completion
 - app/layout.tsx
 - button.tsx
@@ -52,11 +52,16 @@
 - leaderboard/[gameweekId]/page.tsx
 - predictions/[gameweekId]/page.tsx
 - leaderboard/page.tsx
+- season/route.ts
+- Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing.
+- AdminShell.tsx
+- AdminPredictionsForm.tsx
+- Q: How do I assign a user to a league from the admin panel?
 
 ## God Nodes (most connected - your core abstractions)
-1. `createServiceClient()` - 56 edges
-2. `isSuperAdmin()` - 32 edges
-3. `getUser` - 29 edges
+1. `createServiceClient()` - 61 edges
+2. `isSuperAdmin()` - 36 edges
+3. `getUser` - 31 edges
 4. `getAdminContext` - 22 edges
 5. `createClient()` - 22 edges
 6. `ApiFixture` - 18 edges
@@ -85,31 +90,31 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (46 total, 10 thin omitted)
+## Communities (51 total, 10 thin omitted)
 
-### Community 0 - "server.ts"
+### Community 0 - "auth/index.ts"
 Cohesion: 0.06
-Nodes (50): AdminPredictionsPage(), dynamic, metadata, Props, submitJoinRequest(), dynamic, JoinPage(), Props (+42 more)
+Nodes (52): submitJoinRequest(), dynamic, JoinPage(), Props, dynamic, metadata, dynamic, metadata (+44 more)
 
 ### Community 1 - "createServiceClient"
-Cohesion: 0.10
-Nodes (45): correctResult(), assignLeagueAdmin(), createLeague(), regenerateInviteCode(), toggleInviteActive(), dynamic, LeaguesAdminPage(), metadata (+37 more)
+Cohesion: 0.07
+Nodes (66): cookieOptions, setAdminLeague(), setAdminSeason(), correctResult(), dynamic, FixturesAdminPage(), metadata, assignLeagueAdmin() (+58 more)
 
 ### Community 2 - "environment.ts"
 Cohesion: 0.09
-Nodes (25): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+17 more)
+Nodes (26): main(), requiredEnvironment(), dynamic, POST(), validateCronSecret(), dynamic, GET(), APP_ENVIRONMENTS (+18 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
-### Community 4 - "scoring/index.ts"
-Cohesion: 0.09
-Nodes (26): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+18 more)
+### Community 4 - "types/index.ts"
+Cohesion: 0.12
+Nodes (16): updateSession(), config, proxy(), Database, Enums, Json, Tables, GameweekStatus (+8 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.04
-Nodes (46): @base-ui/react, class-variance-authority, clsx, lucide-react, next, dependencies, @base-ui/react, class-variance-authority (+38 more)
+Nodes (48): @base-ui/react, class-variance-authority, clsx, exceljs, lucide-react, next, dependencies, @base-ui/react (+40 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -133,11 +138,11 @@ Nodes (13): 1. Create and configure Supabase staging, 2. Create the protected Gi
 
 ### Community 11 - "fixtures/actions.ts"
 Cohesion: 0.14
-Nodes (25): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), POST() (+17 more)
+Nodes (24): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), POST() (+16 more)
 
-### Community 12 - "getAdminContext"
-Cohesion: 0.07
-Nodes (32): cookieOptions, setAdminLeague(), setAdminSeason(), dynamic, ExportsAdminPage(), metadata, dynamic, FixturesAdminPage() (+24 more)
+### Community 12 - "exports/page.tsx"
+Cohesion: 0.19
+Nodes (11): dynamic, ExportsAdminPage(), metadata, ExportPanel(), Format, formats, GameweekStandings, getMovementLabel() (+3 more)
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -195,31 +200,54 @@ Nodes (3): dynamic, metadata, Props
 Cohesion: 0.40
 Nodes (3): dynamic, metadata, Props
 
+### Community 46 - "season/route.ts"
+Cohesion: 0.24
+Nodes (11): dynamic, GET(), createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture (+3 more)
+
+### Community 47 - "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing., Source Nodes
+
+### Community 48 - "AdminShell.tsx"
+Cohesion: 0.20
+Nodes (8): AdminLayout(), AdminShell(), NavItem, Option, primaryNav, Props, SeasonOption, systemNav
+
+### Community 49 - "AdminPredictionsForm.tsx"
+Cohesion: 0.40
+Nodes (5): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props
+
+### Community 50 - "Q: How do I assign a user to a league from the admin panel?"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: How do I assign a user to a league from the admin panel?, Source Nodes
+
 ## Knowledge Gaps
-- **253 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+248 more)
+- **266 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+261 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `getSeasonNow()` (2× useful, score=1.951442313)
-- `isKickoffLocked()` (2× useful, score=1.951442313)
+- `DashboardPage()` (2× useful, score=1.967621201)
+- `ParticipantsAdminPage()` (2× useful, score=1.946906032) _(code changed — re-verify)_
+- `submitJoinRequest()` (2× useful, score=1.946906032)
+- `getSeasonNow()` (2× useful, score=1.938014438)
+- `isKickoffLocked()` (2× useful, score=1.938014438)
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `server.ts`, `environment.ts`, `fixtures/actions.ts`, `getAdminContext`?**
-  _High betweenness centrality (0.069) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `auth/index.ts`, `environment.ts`, `fixtures/actions.ts`, `exports/page.tsx`, `season/route.ts`?**
+  _High betweenness centrality (0.076) - this node is a cross-community bridge._
 - **Why does `ApiFixture` connect `ApiFixture` to `fixtures/actions.ts`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
-- **Why does `isSuperAdmin()` connect `createServiceClient` to `server.ts`, `fixtures/actions.ts`, `getAdminContext`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+- **Why does `isSuperAdmin()` connect `createServiceClient` to `auth/index.ts`, `fixtures/actions.ts`, `season/route.ts`?**
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _253 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `server.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.06308610400682012 - nodes in this community are weakly interconnected._
+  _266 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `auth/index.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.05674044265593561 - nodes in this community are weakly interconnected._
 - **Should `createServiceClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07023214810461358 - nodes in this community are weakly interconnected._
 - **Should `environment.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09269162210338681 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09411764705882353 - nodes in this community are weakly interconnected._
