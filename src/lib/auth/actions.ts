@@ -1,38 +1,149 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import {
+  ensureJoinRequest,
+  invitePath,
+  normalizeInviteCode,
+  PENDING_INVITE_COOKIE,
+  withInviteParam,
+  type JoinRequestOutcome,
+} from '@/lib/invitations';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+
+const pendingInviteCookieOptions = {
+  httpOnly: true,
+  sameSite: 'lax' as const,
+  secure: process.env.NODE_ENV === 'production',
+  path: '/',
+  maxAge: 60 * 60 * 24 * 7,
+};
+
+function friendlyAuthError(message: string, mode: 'login' | 'register') {
+  const normalized = message.toLowerCase();
+  if (normalized.includes('already registered') || normalized.includes('already exists')) {
+    return 'An account already exists for this email. Sign in instead.';
+  }
+  if (normalized.includes('invalid login credentials')) {
+    return 'The email or password is incorrect.';
+  }
+  if (normalized.includes('email not confirmed')) {
+    return 'Confirm your email before signing in.';
+  }
+  if (normalized.includes('password')) {
+    return 'Use a password with at least 8 characters.';
+  }
+  return mode === 'register'
+    ? 'We could not create your account. Please try again.'
+    : 'We could not sign you in. Please try again.';
+}
+
+function destinationForInvite(code: string, outcome: JoinRequestOutcome) {
+  if (outcome.status === 'approved') {
+    return '/dashboard?joined=1';
+  }
+  const params = new URLSearchParams();
+  if (outcome.status === 'pending') params.set('requested', 'true');
+  if (outcome.status === 'rejected') params.set('rejected', 'true');
+  const query = params.toString();
+  return `${invitePath(code)}${query ? `?${query}` : ''}`;
+}
+
+async function rememberInvite(code: string | null) {
+  if (!code) return;
+  (await cookies()).set(PENDING_INVITE_COOKIE, code, pendingInviteCookieOptions);
+}
+
+async function clearRememberedInvite() {
+  (await cookies()).delete(PENDING_INVITE_COOKIE);
+}
+
+async function ensureInviteOrRecover(userId: string, inviteCode: string) {
+  try {
+    return await ensureJoinRequest(userId, inviteCode);
+  } catch {
+    redirect(
+      `${invitePath(inviteCode)}?error=${encodeURIComponent(
+        'Your account is ready, but we could not send the join request. Please try again.',
+      )}`,
+    );
+  }
+}
+
+function confirmationUrl(inviteCode: string | null) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+  const url = new URL('/auth/confirm', appUrl);
+  if (inviteCode) url.searchParams.set('invite', inviteCode);
+  return url.toString();
+}
 
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const displayName = formData.get('display_name') as string;
+  const email = String(formData.get('email') ?? '').trim();
+  const password = String(formData.get('password') ?? '');
+  const displayName = String(formData.get('display_name') ?? '').trim();
+  const inviteCode = normalizeInviteCode(formData.get('invite_code'));
 
-  const { error } = await supabase.auth.signUp({
+  if (displayName.length < 2 || displayName.length > 80) {
+    redirect(withInviteParam('/register', inviteCode, 'error', 'Display name must be between 2 and 80 characters.'));
+  }
+  if (!email || !email.includes('@')) {
+    redirect(withInviteParam('/register', inviteCode, 'error', 'Enter a valid email address.'));
+  }
+  if (password.length < 8) {
+    redirect(withInviteParam('/register', inviteCode, 'error', 'Use a password with at least 8 characters.'));
+  }
+
+  await rememberInvite(inviteCode);
+
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { display_name: displayName },
+      emailRedirectTo: confirmationUrl(inviteCode),
     },
   });
 
   if (error) {
-    redirect(`/register?error=${encodeURIComponent(error.message)}`);
+    redirect(withInviteParam('/register', inviteCode, 'error', friendlyAuthError(error.message, 'register')));
   }
 
-  redirect('/login?message=Check your email to confirm your account');
+  if (data.session && data.user) {
+    if (inviteCode) {
+      const outcome = await ensureInviteOrRecover(data.user.id, inviteCode);
+      await clearRememberedInvite();
+      redirect(destinationForInvite(inviteCode, outcome));
+    }
+    redirect('/dashboard');
+  }
+
+  const message = inviteCode
+    ? 'Account created. Confirm your email, then sign in to finish joining your league.'
+    : 'Account created. Confirm your email, then sign in.';
+  redirect(withInviteParam('/login', inviteCode, 'message', message));
 }
 
 export async function signIn(formData: FormData) {
   const supabase = await createClient();
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
+  const email = String(formData.get('email') ?? '').trim();
+  const password = String(formData.get('password') ?? '');
+  const cookieStore = await cookies();
+  const inviteCode =
+    normalizeInviteCode(formData.get('invite_code')) ??
+    normalizeInviteCode(cookieStore.get(PENDING_INVITE_COOKIE)?.value);
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(error.message)}`);
+    redirect(withInviteParam('/login', inviteCode, 'error', friendlyAuthError(error.message, 'login')));
+  }
+
+  if (inviteCode && data.user) {
+    const outcome = await ensureInviteOrRecover(data.user.id, inviteCode);
+    await clearRememberedInvite();
+    redirect(destinationForInvite(inviteCode, outcome));
   }
 
   redirect('/');

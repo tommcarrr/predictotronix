@@ -27,7 +27,12 @@ interface PendingJoinRequest {
   leagues: { name: string } | null;
 }
 
-export default async function DashboardPage() {
+type Props = {
+  searchParams: Promise<{ joined?: string }>;
+};
+
+export default async function DashboardPage({ searchParams }: Props) {
+  const { joined } = await searchParams;
   const user = await requireUser().catch(() => null);
   if (!user) redirect('/login');
 
@@ -138,6 +143,17 @@ export default async function DashboardPage() {
       </header>
 
       <main className="participant-dashboard__content space-y-6">
+        {joined === '1' && (
+          <section role="status" className="border border-[--color-success] p-4 space-y-1">
+            <p className="font-bold text-[--color-success]">
+              You&apos;re in{activeSeason?.leagues?.name ? ` ${activeSeason.leagues.name}` : ''}.
+            </p>
+            <p className="text-sm text-[--color-text-secondary]">
+              Welcome to the league. Your prediction fixtures are ready below when its season is active.
+            </p>
+          </section>
+        )}
+
         {/* Active season */}
         {activeSeason ? (
           <section className="space-y-3">
@@ -191,9 +207,9 @@ export default async function DashboardPage() {
           </section>
         ) : (
           <section className="border border-[--color-warning] p-3 space-y-2">
-            <p className="text-[--color-warning]">You are not enrolled in any active season.</p>
             {pendingJoinRequests && pendingJoinRequests.length > 0 ? (
-              <div className="space-y-1">
+              <div className="space-y-2">
+                <p className="font-bold text-[--color-warning]">Your request has been sent.</p>
                 {(pendingJoinRequests as unknown as PendingJoinRequest[]).map((req) => (
                   <p key={req.id} className="text-[--color-text-secondary] text-sm">
                     ⧗ Join request for{' '}
@@ -203,11 +219,17 @@ export default async function DashboardPage() {
                     is pending approval.
                   </p>
                 ))}
+                <p className="text-[--color-text-secondary] text-xs">
+                  You can close this page. Your league will appear here after an admin approves you.
+                </p>
               </div>
             ) : (
-              <p className="text-[--color-text-secondary] text-sm">
-                Contact your league admin for an invite.
-              </p>
+              <>
+                <p className="text-[--color-warning]">You are not enrolled in any active season.</p>
+                <p className="text-[--color-text-secondary] text-sm">
+                  Contact your league admin for an invite.
+                </p>
+              </>
             )}
           </section>
         )}

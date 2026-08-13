@@ -1,22 +1,30 @@
 'use server';
 
-import { createClient } from '@/lib/supabase/server';
 import { requireUser } from '@/lib/auth';
+import { ensureJoinRequest, invitePath, normalizeInviteCode } from '@/lib/invitations';
 import { redirect } from 'next/navigation';
 
-export async function submitJoinRequest(leagueId: string, inviteCode: string) {
+export async function submitJoinRequest(rawInviteCode: string) {
   const user = await requireUser();
-  const supabase = await createClient();
+  const inviteCode = normalizeInviteCode(rawInviteCode);
+  if (!inviteCode) redirect('/login?error=This+invite+link+is+invalid');
 
-  const { error } = await supabase.from('join_requests').insert({
-    league_id: leagueId,
-    user_id: user.id,
-    status: 'pending',
-  });
-
-  if (error && !error.message.includes('duplicate')) {
-    redirect(`/join/${inviteCode}?error=${encodeURIComponent(error.message)}`);
+  let outcome;
+  try {
+    outcome = await ensureJoinRequest(user.id, inviteCode);
+  } catch {
+    redirect(`${invitePath(inviteCode)}?error=${encodeURIComponent('Unable to send your request. Please try again.')}`);
   }
 
-  redirect(`/join/${inviteCode}?requested=true`);
+  if (outcome.status === 'approved') {
+    redirect('/dashboard?joined=1');
+  }
+  if (outcome.status === 'rejected') {
+    redirect(`${invitePath(inviteCode)}?rejected=true`);
+  }
+  if (outcome.status === 'invalid') {
+    redirect(invitePath(inviteCode));
+  }
+
+  redirect(`${invitePath(inviteCode)}?requested=true`);
 }

@@ -1,34 +1,46 @@
 'use server';
 
 import { createServiceClient } from '@/lib/supabase/server';
-import { getUser, isSuperAdmin, requireLeagueAdmin } from '@/lib/auth';
+import { getUser, isLeagueAdmin, isSuperAdmin, requireLeagueAdmin } from '@/lib/auth';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function approveJoinRequest(
   requestId: string,
-  userId: string,
-  leagueId: string,
   selectedSeasonId: string
 ) {
   const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  if (!user) redirect('/login');
 
   const supabase = await createServiceClient();
-
-  // Approve the request
-  const { data: updatedRows, error: updateError } = await supabase
+  const { data: request, error: requestError } = await supabase
     .from('join_requests')
-    .update({ status: 'approved', reviewed_by: user.id, reviewed_at: new Date().toISOString() })
+    .select('id, user_id, league_id, status')
     .eq('id', requestId)
-    .select('id');
+    .maybeSingle();
 
-  if (updateError) throw new Error(`Failed to approve request: ${updateError.message}`);
-  if (!updatedRows || updatedRows.length === 0) {
-    throw new Error(
-      'Join request not found or could not be updated — check that SUPABASE_SERVICE_ROLE_KEY is set correctly on Render.',
-    );
+  if (requestError) throw new Error(`Failed to load join request: ${requestError.message}`);
+  if (!request || request.status !== 'pending') {
+    redirect('/admin/participants?tab=requests&error=This+join+request+is+no+longer+pending');
   }
+  if (!(await isLeagueAdmin(request.league_id))) redirect('/dashboard');
+  if (!selectedSeasonId) {
+    redirect('/admin/participants?tab=requests&error=Select+a+season+before+approving+this+request');
+  }
+
+  const { data: targetSeason, error: seasonError } = await supabase
+    .from('seasons')
+    .select('id')
+    .eq('id', selectedSeasonId)
+    .eq('league_id', request.league_id)
+    .maybeSingle();
+
+  if (seasonError) throw new Error(`Failed to verify target season: ${seasonError.message}`);
+  if (!targetSeason) {
+    redirect('/admin/participants?tab=requests&error=The+selected+season+does+not+belong+to+this+league');
+  }
+
+  const userId = request.user_id;
 
   const [{ data: profile }, { data: authUserData, error: authUserError }] = await Promise.all([
     supabase
@@ -55,11 +67,15 @@ export async function approveJoinRequest(
     'Unknown user';
 
   // Create a participant record if one doesn't exist
-  const { data: existingParticipant } = await supabase
+  const { data: existingParticipant, error: participantLookupError } = await supabase
     .from('participants')
     .select('id, display_name, email')
     .eq('user_id', userId)
     .maybeSingle();
+
+  if (participantLookupError) {
+    throw new Error(`Failed to check participant: ${participantLookupError.message}`);
+  }
 
   let participantId = existingParticipant?.id;
 
@@ -90,39 +106,52 @@ export async function approveJoinRequest(
     if (repairError) throw new Error(`Failed to repair participant details: ${repairError.message}`);
   }
 
-  // Add to the active season for this league
-  if (participantId) {
-    const selectedSeasonQuery = supabase
-      .from('seasons')
-      .select('id')
-      .eq('league_id', leagueId)
-      .limit(1);
+  if (!participantId) throw new Error('Failed to resolve participant after approval.');
 
-    const { data: selectedSeasons } = selectedSeasonId
-      ? await selectedSeasonQuery.eq('id', selectedSeasonId)
-      : await selectedSeasonQuery.eq('status', 'active');
-    const targetSeason = selectedSeasons?.[0];
+  const { error: enrolmentError } = await supabase
+    .from('season_participants')
+    .upsert({ season_id: targetSeason.id, participant_id: participantId });
+  if (enrolmentError) throw new Error(`Failed to enrol participant: ${enrolmentError.message}`);
 
-    if (targetSeason) {
-      await supabase
-        .from('season_participants')
-        .upsert({ season_id: targetSeason.id, participant_id: participantId });
-    }
-
-    // Create default notification preferences
-    await supabase
-      .from('notification_preferences')
-      .upsert({ participant_id: participantId }, { onConflict: 'participant_id' });
+  const { error: preferencesError } = await supabase
+    .from('notification_preferences')
+    .upsert({ participant_id: participantId }, { onConflict: 'participant_id' });
+  if (preferencesError) {
+    throw new Error(`Failed to create notification preferences: ${preferencesError.message}`);
   }
 
-  redirect('/admin/participants?tab=requests');
+  // Commit the visible approval state last. If any preparation fails, the
+  // request remains pending and the idempotent steps above can be retried.
+  const { data: updatedRows, error: updateError } = await supabase
+    .from('join_requests')
+    .update({ status: 'approved', reviewed_by: user.id, reviewed_at: new Date().toISOString() })
+    .eq('id', requestId)
+    .eq('status', 'pending')
+    .select('id');
+
+  if (updateError) throw new Error(`Failed to approve request: ${updateError.message}`);
+  if (!updatedRows?.length) throw new Error('Join request changed before it could be approved.');
+
+  redirect('/admin/participants?tab=requests&approved=1');
 }
 
 export async function rejectJoinRequest(requestId: string) {
   const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  if (!user) redirect('/login');
 
   const supabase = await createServiceClient();
+  const { data: request, error: requestError } = await supabase
+    .from('join_requests')
+    .select('league_id, status')
+    .eq('id', requestId)
+    .maybeSingle();
+
+  if (requestError) throw new Error(`Failed to load join request: ${requestError.message}`);
+  if (!request || request.status !== 'pending') {
+    redirect('/admin/participants?tab=requests&error=This+join+request+is+no+longer+pending');
+  }
+  if (!(await isLeagueAdmin(request.league_id))) redirect('/dashboard');
+
   const { error } = await supabase
     .from('join_requests')
     .update({ status: 'rejected', reviewed_by: user.id, reviewed_at: new Date().toISOString() })
@@ -130,7 +159,7 @@ export async function rejectJoinRequest(requestId: string) {
 
   if (error) throw new Error(`Failed to reject request: ${error.message}`);
 
-  redirect('/admin/participants?tab=requests');
+  redirect('/admin/participants?tab=requests&rejected=1');
 }
 
 export async function createOfflineParticipant(formData: FormData) {

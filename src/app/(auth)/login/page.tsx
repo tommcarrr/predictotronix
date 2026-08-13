@@ -1,5 +1,7 @@
 import { signIn } from '@/lib/auth/actions';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
+import Link from 'next/link';
+import { getInviteLeague, inviteAuthPath, normalizeInviteCode } from '@/lib/invitations';
 
 export const metadata = {
   title: 'Sign in',
@@ -11,16 +13,40 @@ export const dynamic = 'force-dynamic';
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ message?: string; error?: string }>;
+  searchParams: Promise<{ message?: string; error?: string; invite?: string }>;
 }) {
-  const { message, error } = await searchParams;
+  const { message, error, invite: rawInvite } = await searchParams;
+  const inviteCode = normalizeInviteCode(rawInvite);
+  const league = inviteCode ? await getInviteLeague(inviteCode) : null;
+
+  if (rawInvite && (!inviteCode || !league)) {
+    return (
+      <div className="login-ceefax w-full max-w-md space-y-5 p-8">
+        <p className="login-ceefax__eyebrow text-xs">Predictotronix invitation</p>
+        <h1 className="text-2xl font-bold text-destructive">This invite is no longer valid</h1>
+        <p className="text-sm text-muted-foreground">
+          Ask your league admin for a new link. You can still sign in to your existing leagues.
+        </p>
+        <Link href="/login" className="login-ceefax__submit inline-flex w-full justify-center px-4 py-2 text-sm font-medium">
+          Sign in without this invite
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="login-ceefax w-full max-w-md space-y-6 p-8">
       <div>
-        <p className="login-ceefax__eyebrow text-xs">Predictotronix player access</p>
-        <h1 className="text-2xl font-bold">Sign in</h1>
+        <p className="login-ceefax__eyebrow text-xs">
+          {league ? 'Predictotronix league invitation' : 'Predictotronix player access'}
+        </p>
+        <h1 className="text-2xl font-bold">
+          {league ? `Join ${league.name}` : 'Sign in'}
+        </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Enter your email and password to continue.
+          {league
+            ? 'Sign in and we will send your request to the league admin.'
+            : 'Enter your email and password to continue.'}
         </p>
       </div>
 
@@ -32,6 +58,7 @@ export default async function LoginPage({
       )}
 
       <form action={signIn} className="space-y-4">
+        {inviteCode && <input type="hidden" name="invite_code" value={inviteCode} />}
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm font-medium">
             Email
@@ -64,15 +91,15 @@ export default async function LoginPage({
           pendingLabel="Signing in…"
           className="login-ceefax__submit w-full px-4 py-2 text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
         >
-          Sign in
+          Sign in{league ? ' and request to join' : ''}
         </FormSubmitButton>
       </form>
 
       <p className="text-center text-sm">
         Don&apos;t have an account?{' '}
-        <a href="/register" className="underline">
-          Register
-        </a>
+        <Link href={inviteCode ? inviteAuthPath('/register', inviteCode) : '/register'} className="underline">
+          {league ? 'Create an account to join' : 'Register'}
+        </Link>
       </p>
     </div>
   );

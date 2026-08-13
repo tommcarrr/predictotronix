@@ -1,5 +1,7 @@
 import { signUp } from '@/lib/auth/actions';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
+import Link from 'next/link';
+import { getInviteLeague, inviteAuthPath, normalizeInviteCode } from '@/lib/invitations';
 
 export const metadata = {
   title: 'Create an account',
@@ -8,18 +10,62 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default function RegisterPage() {
+type Props = {
+  searchParams: Promise<{ invite?: string; error?: string }>;
+};
+
+export default async function RegisterPage({ searchParams }: Props) {
+  const { invite: rawInvite, error } = await searchParams;
+  const inviteCode = normalizeInviteCode(rawInvite);
+  const league = inviteCode ? await getInviteLeague(inviteCode) : null;
+
+  if (rawInvite && (!inviteCode || !league)) {
+    return (
+      <div className="login-ceefax w-full max-w-md space-y-5 p-8">
+        <p className="login-ceefax__eyebrow text-xs">Predictotronix invitation</p>
+        <h1 className="text-2xl font-bold text-destructive">This invite is no longer valid</h1>
+        <p className="text-sm text-muted-foreground">
+          Ask your league admin for a new link before creating an account for this league.
+        </p>
+        <Link href="/register" className="login-ceefax__submit inline-flex w-full justify-center px-4 py-2 text-sm font-medium">
+          Create an account without an invite
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="login-ceefax w-full max-w-md space-y-6 p-8">
       <div>
-        <p className="login-ceefax__eyebrow text-xs">Predictotronix player registration</p>
-        <h1 className="text-2xl font-bold">Create an account</h1>
+        <p className="login-ceefax__eyebrow text-xs">
+          {league ? 'Predictotronix league invitation' : 'Predictotronix player registration'}
+        </p>
+        <h1 className="text-2xl font-bold">
+          {league ? `Join ${league.name}` : 'Create an account'}
+        </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Register to join a predictor league.
+          {league
+            ? 'Create your account and we will send your request to the league admin.'
+            : 'Register to join a predictor league.'}
         </p>
       </div>
 
+      {league && (
+        <ol className="space-y-2 border-y border-border py-4 text-sm text-muted-foreground">
+          <li><span className="text-primary">1.</span> Create your player account</li>
+          <li><span className="text-primary">2.</span> The league admin approves your request</li>
+          <li><span className="text-primary">3.</span> Start making predictions</li>
+        </ol>
+      )}
+
+      {error && (
+        <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+
       <form action={signUp} className="space-y-4">
+        {inviteCode && <input type="hidden" name="invite_code" value={inviteCode} />}
         <div className="space-y-1">
           <label htmlFor="display_name" className="text-sm font-medium">
             Display name
@@ -68,14 +114,15 @@ export default function RegisterPage() {
           className="login-ceefax__submit w-full px-4 py-2 text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-ring"
         >
           Create account
+          {league ? ' and request to join' : ''}
         </FormSubmitButton>
       </form>
 
       <p className="text-center text-sm">
         Already have an account?{' '}
-        <a href="/login" className="underline">
-          Sign in
-        </a>
+        <Link href={inviteCode ? inviteAuthPath('/login', inviteCode) : '/login'} className="underline">
+          {league ? 'Sign in to join' : 'Sign in'}
+        </Link>
       </p>
     </div>
   );

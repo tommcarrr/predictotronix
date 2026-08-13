@@ -122,7 +122,8 @@ Stop `local:dev` with Ctrl+C. `npm run local:stop` stops the Docker-backed Supab
 2. **Build command:** `npm run build`
 3. **Start command:** `npm start`
 4. Set all environment variables from `.env.local` (use production Supabase values)
-5. Uses `output: 'standalone'` for efficient Docker deployment
+5. In Supabase **Authentication → URL Configuration**, set the production Site URL and add the exact `<NEXT_PUBLIC_APP_URL>/auth/confirm` redirect URL
+6. Uses `output: 'standalone'` for efficient Docker deployment
 
 ### Cron Jobs
 

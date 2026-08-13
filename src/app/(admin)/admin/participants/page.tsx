@@ -19,11 +19,17 @@ export const metadata = { title: 'People | Admin' };
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  searchParams: Promise<{ tab?: string; error?: string; nameUpdated?: string }>;
+  searchParams: Promise<{
+    tab?: string;
+    error?: string;
+    nameUpdated?: string;
+    approved?: string;
+    rejected?: string;
+  }>;
 };
 
 export default async function ParticipantsAdminPage({ searchParams }: Props) {
-  const { tab: requestedTab, error, nameUpdated } = await searchParams;
+  const { tab: requestedTab, error, nameUpdated, approved, rejected } = await searchParams;
   const tab = requestedTab === 'requests' ? 'requests' : 'members';
   const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
   const supabase = await createServiceClient();
@@ -152,6 +158,8 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
 
       {error && <AdminNotice tone="danger" role="alert">{error}</AdminNotice>}
       {nameUpdated === '1' && <AdminNotice tone="success" role="status">Display name updated.</AdminNotice>}
+      {approved === '1' && <AdminNotice tone="success" role="status">Join request approved and participant enrolled.</AdminNotice>}
+      {rejected === '1' && <AdminNotice role="status">Join request rejected.</AdminNotice>}
 
       <AdminTabs
         label="People"
@@ -166,8 +174,11 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
         <section aria-labelledby="join-requests-heading">
           <div className="mb-4">
             <h2 id="join-requests-heading" className="text-lg font-semibold">Join requests</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Approval enrols the person into the selected season when one is available.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Approval enrols the person into the selected season.</p>
           </div>
+          {!selectedSeason && pendingRequests && pendingRequests.length > 0 && (
+            <AdminNotice tone="danger">Select or create a season before approving these requests.</AdminNotice>
+          )}
           {!pendingRequests?.length ? (
             <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">No pending requests.</div>
           ) : (
@@ -180,8 +191,15 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                     <p className="mt-1 text-xs text-muted-foreground">Requested {new Date(request.created_at).toLocaleDateString('en-GB')}</p>
                   </div>
                   <div className="flex gap-2">
-                    <form action={approveJoinRequest.bind(null, request.id, request.user_id, request.leagues?.id, selectedSeason?.id ?? '')}>
-                      <FormSubmitButton pendingLabel="Approving…" className="rounded-lg bg-green-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-green-700">Approve</FormSubmitButton>
+                    <form action={approveJoinRequest.bind(null, request.id, selectedSeason?.id ?? '')}>
+                      <FormSubmitButton
+                        pendingLabel="Approving…"
+                        disabled={!selectedSeason}
+                        title={!selectedSeason ? 'Select a season before approving' : undefined}
+                        className="rounded-lg bg-green-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        Approve
+                      </FormSubmitButton>
                     </form>
                     <form action={rejectJoinRequest.bind(null, request.id)}>
                       <FormSubmitButton pendingLabel="Rejecting…" className="rounded-lg border border-destructive/40 px-3.5 py-2 text-sm font-semibold text-destructive hover:bg-destructive/10">Reject</FormSubmitButton>

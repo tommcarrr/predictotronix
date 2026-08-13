@@ -3,6 +3,8 @@ able
 about
 accent
 acceptance
+accessibility
+accessible
 action
 actions
 active
@@ -15,6 +17,7 @@ aliases
 all
 allow
 also
+alt
 and
 animate
 answer
@@ -126,6 +129,7 @@ environment
 environments
 error
 errors
+escape
 eslint
 esnext
 etc
@@ -140,6 +144,8 @@ exports
 extensions
 external
 extraction
+facing
+factory
 failure
 fallback
 fast
@@ -181,9 +187,11 @@ highlighted
 honest
 hooks
 how
+html
 hub
 icon
 idempotent
+image
 implementing
 importing
 impression
@@ -259,6 +267,7 @@ migrations
 mjs
 mock
 modals
+mode
 model
 module
 modules
@@ -284,6 +293,8 @@ npm
 number
 offline
 one
+open
+opengraph
 operations
 optimized
 option
@@ -310,6 +321,7 @@ personas
 pipeline
 place
 placeholder
+player
 playwright
 plugin
 plugins
@@ -323,6 +335,7 @@ postponed
 prediction
 predictions
 predictotronix
+preference
 preferences
 prefix
 premier
@@ -338,10 +351,12 @@ provenance
 provider
 proxy
 query
+random
 rank
 ranked
 rate
 react
+read
 real
 realistic
 reason
@@ -383,10 +398,12 @@ safe
 safety
 sans
 save
+saved
 scenario
 scheduled
 schema
 score
+scores
 scoring
 screen
 screens
@@ -439,6 +456,7 @@ strict
 structural
 style
 submit
+suggested
 supabase
 super
 sync
@@ -456,6 +474,7 @@ team
 teams
 test
 testing
+that
 the
 theme
 they
@@ -465,9 +484,11 @@ through
 time
 title
 toggle
+toggled
 tone
 too
 tools
+total
 trail
 transcription
 trigger
@@ -475,6 +496,7 @@ troubleshooting
 tsconfig
 tsx
 twilio
+twitter
 two
 type
 types
@@ -488,6 +510,7 @@ users
 utils
 uuid
 validate
+value
 variables
 variance
 variants
@@ -498,6 +521,9 @@ vitejs
 vitest
 want
 watch
+weight
+weighted
+weights
 what
 where
 whisper

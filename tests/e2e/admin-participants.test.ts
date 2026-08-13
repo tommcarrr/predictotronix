@@ -92,17 +92,25 @@ test.describe('Join request full flow', () => {
     const playerCtx = await browser.newContext({ storageState: undefined });
     const playerPage = await playerCtx.newPage();
 
-    await loginAs(playerPage, playerEmail!, playerPassword!);
+    // Enter as a genuinely anonymous invitee. The invite identity must survive
+    // the transition through sign-in and create the request automatically.
     await playerPage.goto(`/join/${inviteCode}`);
+    await expect(playerPage.getByRole('heading', { name: /you.re invited to/i })).toBeVisible();
+    await playerPage.getByRole('link', { name: /sign in to join/i }).click();
+    await expect(playerPage).toHaveURL(new RegExp(`/login\\?invite=${inviteCode}`));
+    await playerPage.fill('input[name="email"]', playerEmail!);
+    await playerPage.fill('input[name="password"]', playerPassword!);
+    await playerPage.getByRole('button', { name: /sign in and request to join/i }).click();
+    await playerPage.waitForURL((url) => !url.pathname.startsWith('/login'), { timeout: 15_000 });
 
     // If already has a pending/approved request, skip the submit step
-    const alreadyPending = await playerPage.getByText('Your join request is pending').isVisible()
+    const alreadyPending = await playerPage.getByText(/request (sent|pending)/i).isVisible()
       .catch(() => false);
     const alreadyApproved = playerPage.url().includes('/dashboard');
 
     if (!alreadyPending && !alreadyApproved) {
       await playerPage.getByRole('button', { name: /request to join/i }).click();
-      await expect(playerPage.getByText('Your join request is pending')).toBeVisible({ timeout: 10_000 });
+      await expect(playerPage.getByText(/request (sent|pending)/i)).toBeVisible({ timeout: 10_000 });
     }
 
     // Player dashboard shows pending notice
@@ -120,7 +128,7 @@ test.describe('Join request full flow', () => {
     const approveBtn = adminPage.getByRole('button', { name: 'Approve' }).first();
     await expect(approveBtn).toBeVisible({ timeout: 5_000 });
     await approveBtn.click();
-    await expect(adminPage).toHaveURL(/\/admin\/participants\?tab=requests$/, { timeout: 15_000 });
+    await expect(adminPage).toHaveURL(/\/admin\/participants\?tab=requests&approved=1$/, { timeout: 15_000 });
 
     await adminCtx.close();
 
