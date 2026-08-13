@@ -1,5 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server';
-import { assignLeagueAdmin, createLeague, regenerateInviteCode } from './actions';
+import { assignLeagueAdmin, createLeague, deleteLeague, regenerateInviteCode } from './actions';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
 
@@ -8,11 +8,11 @@ export const metadata = { title: 'Leagues | Admin' };
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  searchParams: Promise<{ error?: string; adminAssigned?: string }>;
+  searchParams: Promise<{ error?: string; adminAssigned?: string; leagueDeleted?: string }>;
 };
 
 export default async function LeaguesAdminPage({ searchParams }: Props) {
-  const { error, adminAssigned } = await searchParams;
+  const { error, adminAssigned, leagueDeleted } = await searchParams;
   const { selectedLeague, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -101,6 +101,11 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
           League admin assigned.
         </p>
       )}
+      {leagueDeleted === '1' && (
+        <p role="status" className="rounded-md border border-green-600/40 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400">
+          League and its associated data deleted.
+        </p>
+      )}
 
       {/* Existing leagues */}
       <section className="space-y-4">
@@ -167,6 +172,28 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
                     </button>
                   </form>
                 </div>
+              </div>
+
+              <div className="border-t border-destructive/20 pt-3">
+                <p className="mb-2 text-xs text-muted-foreground">
+                  Permanent deletion is available only when every season is archived.
+                </p>
+                <form action={deleteLeague.bind(null, league.id)} className="flex flex-wrap items-center gap-2">
+                  <label className="sr-only" htmlFor={`delete-league-${league.id}`}>
+                    Enter {league.name} to confirm deletion
+                  </label>
+                  <input
+                    id={`delete-league-${league.id}`}
+                    name="confirmation"
+                    required
+                    placeholder={`Type ${league.name} to confirm`}
+                    autoComplete="off"
+                    className="min-w-64 flex-1 rounded border border-destructive/50 bg-background px-3 py-1.5 text-xs"
+                  />
+                  <button type="submit" className="rounded bg-destructive px-3 py-1.5 text-xs font-medium text-destructive-foreground hover:opacity-90">
+                    Delete league permanently
+                  </button>
+                </form>
               </div>
             </div>
           );

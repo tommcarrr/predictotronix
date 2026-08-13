@@ -1,7 +1,8 @@
 'use server';
 
 import { createServiceClient } from '@/lib/supabase/server';
-import { getUser, isSuperAdmin } from '@/lib/auth';
+import { getUser, isSuperAdmin, requireLeagueAdmin } from '@/lib/auth';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function approveJoinRequest(
@@ -29,29 +30,46 @@ export async function approveJoinRequest(
     );
   }
 
+  const [{ data: profile }, { data: authUserData, error: authUserError }] = await Promise.all([
+    supabase
+      .from('profiles')
+      .select('display_name, email')
+      .eq('id', userId)
+      .maybeSingle(),
+    supabase.auth.admin.getUserById(userId),
+  ]);
+
+  if (authUserError && !profile) {
+    throw new Error(`Failed to resolve requesting user: ${authUserError.message}`);
+  }
+
+  const authUser = authUserData.user;
+  const participantEmail = profile?.email ?? authUser?.email ?? null;
+  const metadataDisplayName = authUser?.user_metadata?.display_name;
+  const participantDisplayName =
+    profile?.display_name ??
+    (typeof metadataDisplayName === 'string' && metadataDisplayName.trim()
+      ? metadataDisplayName.trim()
+      : null) ??
+    participantEmail?.split('@')[0] ??
+    'Unknown user';
+
   // Create a participant record if one doesn't exist
   const { data: existingParticipant } = await supabase
     .from('participants')
-    .select('id')
+    .select('id, display_name, email')
     .eq('user_id', userId)
     .maybeSingle();
 
   let participantId = existingParticipant?.id;
 
-  if (!participantId) {
-    // Get user profile for display name
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('display_name, email')
-      .eq('id', userId)
-      .maybeSingle();
-
+  if (!existingParticipant) {
     const { data: newParticipant, error: insertError } = await supabase
       .from('participants')
       .insert({
-        display_name: profile?.display_name ?? profile?.email ?? 'Unknown',
+        display_name: participantDisplayName,
         user_id: userId,
-        email: profile?.email,
+        email: participantEmail,
         is_offline: false,
       })
       .select('id')
@@ -59,6 +77,17 @@ export async function approveJoinRequest(
 
     if (insertError) throw new Error(`Failed to create participant: ${insertError.message}`);
     participantId = newParticipant?.id;
+  } else if (
+    existingParticipant.display_name === 'Unknown' ||
+    existingParticipant.display_name === 'Unknown user' ||
+    !existingParticipant.email
+  ) {
+    const { error: repairError } = await supabase
+      .from('participants')
+      .update({ display_name: participantDisplayName, email: participantEmail })
+      .eq('id', existingParticipant.id);
+
+    if (repairError) throw new Error(`Failed to repair participant details: ${repairError.message}`);
   }
 
   // Add to the active season for this league
@@ -142,5 +171,69 @@ export async function createOfflineParticipant(formData: FormData) {
   }
 
   redirect('/admin/participants');
+}
+
+export async function updateParticipantDisplayName(
+  leagueId: string,
+  participantId: string,
+  formData: FormData,
+) {
+  await requireLeagueAdmin(leagueId);
+
+  const displayNameValue = formData.get('display_name');
+  const displayName = typeof displayNameValue === 'string' ? displayNameValue.trim() : '';
+  if (displayName.length < 2 || displayName.length > 80) {
+    redirect('/admin/participants?error=Display+name+must+be+between+2+and+80+characters');
+  }
+
+  const supabase = await createServiceClient();
+  const { data: enrolments, error: enrolmentError } = await supabase
+    .from('season_participants')
+    .select('season_id')
+    .eq('participant_id', participantId);
+
+  if (enrolmentError) throw new Error(`Failed to verify participant: ${enrolmentError.message}`);
+
+  const seasonIds = (enrolments ?? []).map((row) => row.season_id);
+  const { data: leagueSeason } = seasonIds.length
+    ? await supabase
+        .from('seasons')
+        .select('id')
+        .eq('league_id', leagueId)
+        .in('id', seasonIds)
+        .limit(1)
+        .maybeSingle()
+    : { data: null };
+
+  if (!leagueSeason) throw new Error('FORBIDDEN');
+
+  const { data: participant, error: participantError } = await supabase
+    .from('participants')
+    .update({ display_name: displayName })
+    .eq('id', participantId)
+    .select('user_id')
+    .single();
+
+  if (participantError) {
+    redirect(`/admin/participants?error=${encodeURIComponent(participantError.message)}`);
+  }
+
+  if (participant.user_id) {
+    const [{ error: profileError }, { error: authError }] = await Promise.all([
+      supabase.from('profiles').update({ display_name: displayName }).eq('id', participant.user_id),
+      supabase.auth.admin.updateUserById(participant.user_id, {
+        user_metadata: { display_name: displayName },
+      }),
+    ]);
+
+    if (profileError || authError) {
+      throw new Error(`Display name updated partially: ${profileError?.message ?? authError?.message}`);
+    }
+  }
+
+  revalidatePath('/admin/participants');
+  revalidatePath('/admin/seasons');
+  revalidatePath('/dashboard');
+  redirect('/admin/participants?nameUpdated=1');
 }
 

@@ -97,3 +97,40 @@ export async function toggleInviteActive(leagueId: string, active: boolean) {
 
   revalidatePath('/admin/leagues');
 }
+
+export async function deleteLeague(leagueId: string, formData: FormData) {
+  const user = await getUser();
+  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+
+  const confirmation = formData.get('confirmation');
+  const supabase = await createServiceClient();
+  const { data: league, error: leagueError } = await supabase
+    .from('leagues')
+    .select('id, name, seasons(id, status)')
+    .eq('id', leagueId)
+    .single();
+
+  if (leagueError || !league) redirect('/admin/leagues?error=League+not+found');
+  if (confirmation !== league.name) {
+    redirect('/admin/leagues?error=Enter+the+exact+league+name+to+confirm+deletion');
+  }
+
+  const seasons = league.seasons ?? [];
+  if (seasons.some((season) => season.status !== 'archived')) {
+    redirect('/admin/leagues?error=Archive+every+season+before+deleting+the+league');
+  }
+
+  const seasonIds = seasons.map((season) => season.id);
+  if (seasonIds.length) {
+    const { error: logError } = await supabase.from('notification_log').delete().in('season_id', seasonIds);
+    if (logError) redirect(`/admin/leagues?error=${encodeURIComponent(logError.message)}`);
+  }
+
+  const { error } = await supabase.from('leagues').delete().eq('id', leagueId);
+  if (error) redirect(`/admin/leagues?error=${encodeURIComponent(error.message)}`);
+
+  revalidatePath('/admin');
+  revalidatePath('/admin/leagues');
+  revalidatePath('/admin/seasons');
+  redirect('/admin/leagues?leagueDeleted=1');
+}

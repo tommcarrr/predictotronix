@@ -1,12 +1,17 @@
 import { createServiceClient } from '@/lib/supabase/server';
-import { approveJoinRequest, rejectJoinRequest, createOfflineParticipant } from './actions';
+import { approveJoinRequest, rejectJoinRequest, createOfflineParticipant, updateParticipantDisplayName } from './actions';
 import { getAdminContext } from '@/lib/admin/context';
 
 export const metadata = { title: 'Participants | Admin' };
 
 export const dynamic = 'force-dynamic';
 
-export default async function ParticipantsAdminPage() {
+type Props = {
+  searchParams: Promise<{ error?: string; nameUpdated?: string }>;
+};
+
+export default async function ParticipantsAdminPage({ searchParams }: Props) {
+  const { error, nameUpdated } = await searchParams;
   const { selectedLeague, selectedSeason } = await getAdminContext();
   const supabase = await createServiceClient();
 
@@ -81,6 +86,17 @@ export default async function ParticipantsAdminPage() {
         </p>
       </div>
 
+      {error && (
+        <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+      {nameUpdated === '1' && (
+        <p role="status" className="rounded-md border border-green-600/40 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400">
+          Display name updated.
+        </p>
+      )}
+
       {/* Pending join requests */}
       <section>
         <h2 className="text-lg font-semibold mb-3">
@@ -149,6 +165,7 @@ export default async function ParticipantsAdminPage() {
                 <th className="text-left py-2 pr-4">Name</th>
                 <th className="text-left py-2 pr-4">Email</th>
                 <th className="text-left py-2 pr-4">Type</th>
+                <th className="text-left py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -166,6 +183,31 @@ export default async function ParticipantsAdminPage() {
                     >
                       {p.is_offline ? 'offline' : 'registered'}
                     </span>
+                  </td>
+                  <td className="py-2">
+                    {selectedLeague && (
+                      <form
+                        action={updateParticipantDisplayName.bind(null, selectedLeague.id, p.id)}
+                        className="flex min-w-64 gap-2"
+                      >
+                        <label className="sr-only" htmlFor={`display-name-${p.id}`}>
+                          Display name for {p.display_name}
+                        </label>
+                        <input
+                          id={`display-name-${p.id}`}
+                          name="display_name"
+                          type="text"
+                          required
+                          minLength={2}
+                          maxLength={80}
+                          defaultValue={p.display_name}
+                          className="min-w-0 flex-1 rounded-md border border-border bg-background px-2 py-1 text-sm"
+                        />
+                        <button type="submit" className="rounded border border-border px-2 py-1 text-xs hover:bg-accent">
+                          Save
+                        </button>
+                      </form>
+                    )}
                   </td>
                 </tr>
               ))}

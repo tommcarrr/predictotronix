@@ -1,5 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server';
-import { createSeason, updateSeasonStatus, addSeasonParticipant, removeSeasonParticipant } from './actions';
+import { createSeason, updateSeasonStatus, addSeasonParticipant, removeSeasonParticipant, deleteSeason } from './actions';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
 
@@ -7,7 +7,12 @@ export const metadata = { title: 'Seasons | Admin' };
 
 export const dynamic = 'force-dynamic';
 
-export default async function SeasonsAdminPage() {
+type Props = {
+  searchParams: Promise<{ error?: string; seasonDeleted?: string }>;
+};
+
+export default async function SeasonsAdminPage({ searchParams }: Props) {
+  const { error, seasonDeleted } = await searchParams;
   const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
   if (!superAdmin) redirect('/admin/participants');
   const supabase = await createServiceClient();
@@ -42,6 +47,17 @@ export default async function SeasonsAdminPage() {
           {selectedLeague ? `Manage seasons for ${selectedLeague.name}.` : 'Create a league before adding seasons.'}
         </p>
       </div>
+
+      {error && (
+        <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+      {seasonDeleted === '1' && (
+        <p role="status" className="rounded-md border border-green-600/40 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400">
+          Season and its associated data deleted.
+        </p>
+      )}
 
       {selectedLeague && (
         <>
@@ -90,6 +106,24 @@ export default async function SeasonsAdminPage() {
                     <form action={updateSeasonStatus.bind(null, season.id, 'archived')}>
                       <button type="submit" className="rounded border border-destructive px-3 py-1 text-xs text-destructive hover:bg-destructive/10">
                         Archive
+                      </button>
+                    </form>
+                  )}
+                  {season.status === 'archived' && (
+                    <form action={deleteSeason.bind(null, season.id)} className="flex flex-wrap items-center gap-2">
+                      <label className="sr-only" htmlFor={`delete-season-${season.id}`}>
+                        Enter {season.name} to confirm deletion
+                      </label>
+                      <input
+                        id={`delete-season-${season.id}`}
+                        name="confirmation"
+                        required
+                        placeholder={`Type ${season.name} to confirm`}
+                        autoComplete="off"
+                        className="rounded border border-destructive/50 bg-background px-2 py-1 text-xs"
+                      />
+                      <button type="submit" className="rounded bg-destructive px-3 py-1 text-xs font-medium text-destructive-foreground hover:opacity-90">
+                        Delete permanently
                       </button>
                     </form>
                   )}
