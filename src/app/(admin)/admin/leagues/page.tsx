@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { ArrowRight, Plus } from 'lucide-react';
+import { ArrowRight, Eye, Plus } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
 import { createLeague } from './actions';
+import { viewAsLeagueAdmin } from '../context-actions';
 import { getAdminContext } from '@/lib/admin/context';
 import { redirect } from 'next/navigation';
 import { AdminBadge } from '@/components/admin/AdminBadge';
@@ -137,7 +138,17 @@ export default async function LeaguesAdminPage({ searchParams }: Props) {
                   </div>
                 </dl>
 
-                <div className="mt-5 flex justify-end">
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                  <form action={viewAsLeagueAdmin}>
+                    <input type="hidden" name="league_id" value={league.id} />
+                    <FormSubmitButton
+                      pendingLabel="Switching view…"
+                      className="rounded-lg border border-border px-3 py-2 text-sm font-semibold hover:bg-accent"
+                    >
+                      <Eye className="size-4" />
+                      View as league admin
+                    </FormSubmitButton>
+                  </form>
                   <Link href={`/admin/leagues/${league.id}`} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
                     Manage league <ArrowRight className="size-4" />
                   </Link>

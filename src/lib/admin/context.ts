@@ -6,16 +6,18 @@ import { createServiceClient } from '@/lib/supabase/server';
 
 export const ADMIN_LEAGUE_COOKIE = 'predictotronix_admin_league';
 export const ADMIN_SEASON_COOKIE = 'predictotronix_admin_season';
+export const ADMIN_VIEW_AS_LEAGUE_COOKIE = 'predictotronix_admin_view_as_league';
 
 export const getAdminContext = cache(async () => {
   const user = await getUser();
   if (!user) redirect('/login');
 
   const supabase = await createServiceClient();
-  const superAdmin = await isSuperAdmin();
+  const actualSuperAdmin = await isSuperAdmin();
+  const cookieStore = await cookies();
 
   let accessibleLeagueIds: string[] | null = null;
-  if (!superAdmin) {
+  if (!actualSuperAdmin) {
     const { data: roles } = await supabase
       .from('league_roles')
       .select('league_id')
@@ -39,8 +41,17 @@ export const getAdminContext = cache(async () => {
   }
 
   const { data: leagues } = await leaguesQuery;
-  const leagueList = leagues ?? [];
-  const cookieStore = await cookies();
+  const availableLeagues = leagues ?? [];
+  const requestedViewAsLeagueId = actualSuperAdmin
+    ? cookieStore.get(ADMIN_VIEW_AS_LEAGUE_COOKIE)?.value
+    : undefined;
+  const viewingAsLeagueAdmin = Boolean(
+    requestedViewAsLeagueId &&
+      availableLeagues.some((league) => league.id === requestedViewAsLeagueId),
+  );
+  const leagueList = viewingAsLeagueAdmin
+    ? availableLeagues.filter((league) => league.id === requestedViewAsLeagueId)
+    : availableLeagues;
   const requestedLeagueId = cookieStore.get(ADMIN_LEAGUE_COOKIE)?.value;
   const selectedLeague =
     leagueList.find((league) => league.id === requestedLeagueId) ?? leagueList[0] ?? null;
@@ -63,7 +74,8 @@ export const getAdminContext = cache(async () => {
 
   return {
     user,
-    superAdmin,
+    superAdmin: actualSuperAdmin && !viewingAsLeagueAdmin,
+    viewingAsLeagueAdmin,
     leagues: leagueList,
     seasons: seasonList,
     selectedLeague,

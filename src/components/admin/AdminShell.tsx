@@ -18,8 +18,12 @@ import {
   Trophy,
   Users,
 } from 'lucide-react';
-import { setAdminLeague, setAdminSeason } from '@/app/(admin)/admin/context-actions';
-import { FormPendingStatus } from '@/components/ui/form-submit-button';
+import {
+  setAdminLeague,
+  setAdminSeason,
+  stopViewingAsLeagueAdmin,
+} from '@/app/(admin)/admin/context-actions';
+import { FormSubmitButton, FormPendingStatus } from '@/components/ui/form-submit-button';
 
 interface Option {
   id: string;
@@ -38,6 +42,7 @@ interface Props {
   selectedLeagueId: string | null;
   selectedSeasonId: string | null;
   superAdmin: boolean;
+  viewingAsLeagueAdmin: boolean;
 }
 
 interface NavItem {
@@ -130,6 +135,7 @@ export function AdminShell({
   selectedLeagueId,
   selectedSeasonId,
   superAdmin,
+  viewingAsLeagueAdmin,
 }: Props) {
   const pathname = usePathname();
   const visibleRun = runNav.filter((item) => superAdmin || !item.superOnly);
@@ -217,6 +223,22 @@ export function AdminShell({
 
       <div className="min-w-0">
         <header className="sticky top-0 z-20 border-b border-border/80 bg-background/90 backdrop-blur-xl">
+          {viewingAsLeagueAdmin && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-300/60 bg-amber-50 px-4 py-2 text-amber-950 dark:border-amber-700/60 dark:bg-amber-950/40 dark:text-amber-100 sm:px-6 lg:px-8 xl:px-10">
+              <p className="text-sm font-medium">
+                Viewing as league admin for {selectedLeague?.name ?? 'this league'}
+              </p>
+              <form action={stopViewingAsLeagueAdmin}>
+                <FormSubmitButton
+                  pendingLabel="Returning…"
+                  className="rounded-lg border border-amber-400/70 bg-background/80 px-3 py-1.5 text-xs font-semibold shadow-xs hover:bg-background"
+                >
+                  <ArrowLeft className="size-3.5" />
+                  Back to superadmin
+                </FormSubmitButton>
+              </form>
+            </div>
+          )}
           <div className="flex min-h-16 items-center gap-3 px-4 sm:px-6 lg:px-8 xl:px-10">
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">

@@ -12,6 +12,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       selectedLeagueId={context.selectedLeague?.id ?? null}
       selectedSeasonId={context.selectedSeason?.id ?? null}
       superAdmin={context.superAdmin}
+      viewingAsLeagueAdmin={context.viewingAsLeagueAdmin}
     >
       {children}
     </AdminShell>
