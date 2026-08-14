@@ -250,8 +250,8 @@
     "semantic_hash": ""
   },
   "src/lib/predictions/actions.ts": {
-    "mtime": 1786698959.0320957,
-    "ast_hash": "077bfcbb42c95a07328371a13343750b",
+    "mtime": 1786699219.9816954,
+    "ast_hash": "787152242a13ab2bb0729a20895455c4",
     "semantic_hash": ""
   },
   "src/lib/scoring/index.ts": {
@@ -910,13 +910,13 @@
     "semantic_hash": ""
   },
   "src/lib/admin/authorization.ts": {
-    "mtime": 1786698958.7828941,
-    "ast_hash": "3ae4f90fbffa4db819966b2ec096bdc4",
+    "mtime": 1786699216.7793612,
+    "ast_hash": "b9601a307a9372b8909683ac2f039180",
     "semantic_hash": ""
   },
   "tests/unit/admin-authorization.test.ts": {
-    "mtime": 1786698958.7898958,
-    "ast_hash": "3fecd03a4cc89bc1f90f06f1d2e6b90d",
+    "mtime": 1786699223.136579,
+    "ast_hash": "544946657892d931a5b8fd8927898327",
     "semantic_hash": ""
   },
   "src/lib/predictions/email-import-llm.ts": {
