@@ -76,7 +76,7 @@ export default async function FixturesAdminPage({
   }
 
   const exportGameweeks = [...fixtureExportGameweeks.values()].sort(
-    (first, second) => second.gameweekNumber - first.gameweekNumber
+    (first, second) => first.gameweekNumber - second.gameweekNumber
   );
 
   return (

@@ -1,8 +1,9 @@
 {
-  "0": "predictions/actions.ts",
+  "0": "dashboard/page.tsx",
   "1": "send-reminders/route.ts",
+  "2": "types/index.ts",
   "3": "devDependencies",
-  "4": "auth/actions.ts",
+  "4": "server.ts",
   "5": "dependencies",
   "6": "compilerOptions",
   "7": "components.json",
@@ -45,7 +46,7 @@
   "45": "leaderboard/page.tsx",
   "46": "createServiceClient",
   "47": "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing.",
-  "48": "server.ts",
+  "48": "participants/page.tsx",
   "49": "[leagueId]/loading.tsx",
   "50": "Q: How do I assign a user to a league from the admin panel?",
   "51": "[seasonId]/loading.tsx",
@@ -57,6 +58,6 @@
   "58": "Q: Give me a nice way to copy the invite link to the clipboard.",
   "59": "FixtureClipboardExport.tsx",
   "63": "InviteLinkCopy.tsx",
-  "65": "email-import-parser.ts",
+  "65": "predictions/actions.ts",
   "66": "fixtures/actions.ts"
 }

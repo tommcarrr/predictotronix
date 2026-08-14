@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/fixtures/page.tsx": {
-    "mtime": 1786713937.7467694,
-    "ast_hash": "8406f596cf6d4693db323655273009fb",
+    "mtime": 1786716076.2038739,
+    "ast_hash": "1761d62a0f7254e388bd5f7c8e38601f",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/leagues/actions.ts": {
@@ -900,13 +900,13 @@
     "semantic_hash": ""
   },
   "src/components/admin/FixtureClipboardExport.tsx": {
-    "mtime": 1786713937.678164,
-    "ast_hash": "e2f356943ff5c47b4328d21de2fbfb13",
+    "mtime": 1786716146.321717,
+    "ast_hash": "65a5cce9cb73a50c34ab70d536994d45",
     "semantic_hash": ""
   },
   "tests/unit/fixture-clipboard-export.test.tsx": {
-    "mtime": 1786713937.7898624,
-    "ast_hash": "8168034250c94dca525c1fc1e7ff857a",
+    "mtime": 1786716146.400451,
+    "ast_hash": "054202a35aed0c5d06ca40e265132eb1",
     "semantic_hash": ""
   },
   "src/lib/admin/authorization.ts": {

@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   FixtureClipboardExport,
   formatFixtureExport,
+  orderFixtureExportGameweeks,
   selectFixtureExportGameweek,
   type FixtureExportGameweek,
 } from '@/components/admin/FixtureClipboardExport';
@@ -113,6 +114,19 @@ describe('FixtureClipboardExport', () => {
     expect(selectFixtureExportGameweek(gameweeks, new Date('2026-08-20T12:00:00.000Z'))?.id).toBe(
       'gameweek-2'
     );
+  });
+
+  it('orders gameweeks from lowest to highest for the dropdown', () => {
+    expect(
+      orderFixtureExportGameweeks(gameweeks).map((gameweek) => gameweek.gameweekNumber)
+    ).toEqual([1, 2]);
+
+    render(<FixtureClipboardExport gameweeks={gameweeks} now="2026-08-11T12:00:00.000Z" />);
+
+    expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual([
+      'Gameweek 1 (1)',
+      'Gameweek 2 (2)',
+    ]);
   });
 
   it('copies the selected gameweek and confirms success', async () => {

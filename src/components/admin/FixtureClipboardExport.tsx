@@ -70,11 +70,13 @@ export function formatFixtureExport(gameweek: FixtureExportGameweek) {
     .join('\n\n');
 }
 
+export function orderFixtureExportGameweeks(gameweeks: FixtureExportGameweek[]) {
+  return [...gameweeks].sort((first, second) => first.gameweekNumber - second.gameweekNumber);
+}
+
 /** Pick the current gameweek while it has a future kickoff, otherwise the next or latest one. */
 export function selectFixtureExportGameweek(gameweeks: FixtureExportGameweek[], now: Date) {
-  const chronological = [...gameweeks].sort(
-    (first, second) => first.gameweekNumber - second.gameweekNumber
-  );
+  const chronological = orderFixtureExportGameweeks(gameweeks);
   return (
     chronological.find((gameweek) =>
       gameweek.fixtures.some((fixture) => new Date(fixture.kickoff) >= now)
@@ -83,13 +85,14 @@ export function selectFixtureExportGameweek(gameweeks: FixtureExportGameweek[], 
 }
 
 export function FixtureClipboardExport({ gameweeks, now }: Props) {
+  const orderedGameweeks = useMemo(() => orderFixtureExportGameweeks(gameweeks), [gameweeks]);
   const [selectedGameweekId, setSelectedGameweekId] = useState(
     () => selectFixtureExportGameweek(gameweeks, new Date(now))?.id ?? ''
   );
   const [status, setStatus] = useState<CopyStatus>('idle');
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const selectedGameweek =
-    gameweeks.find((gameweek) => gameweek.id === selectedGameweekId) ?? gameweeks[0];
+    orderedGameweeks.find((gameweek) => gameweek.id === selectedGameweekId) ?? orderedGameweeks[0];
   const exportText = useMemo(
     () => (selectedGameweek ? formatFixtureExport(selectedGameweek) : ''),
     [selectedGameweek]
@@ -143,7 +146,7 @@ export function FixtureClipboardExport({ gameweeks, now }: Props) {
                 }}
                 className="min-w-52 appearance-none rounded-lg border border-border bg-background py-2.5 pl-3 pr-10 text-sm font-medium shadow-xs focus:outline-none focus:ring-2 focus:ring-ring"
               >
-                {gameweeks.map((gameweek) => (
+                {orderedGameweeks.map((gameweek) => (
                   <option key={gameweek.id} value={gameweek.id}>
                     {gameweek.label} ({gameweek.fixtures.length})
                   </option>
