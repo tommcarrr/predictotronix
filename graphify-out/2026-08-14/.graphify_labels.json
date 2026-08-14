@@ -1,7 +1,7 @@
 {
   "0": "server.ts",
-  "1": "season/route.ts",
-  "2": "environment.ts",
+  "1": "send-reminders/route.ts",
+  "2": "fixtures/actions.ts",
   "3": "devDependencies",
   "4": "auth/actions.ts",
   "5": "dependencies",
@@ -10,7 +10,6 @@
   "8": "Graphify Skill",
   "9": "Predictotronix",
   "10": "Predictotronix guide for superadmins",
-  "11": "fixtures.ts",
   "12": "exports/page.tsx",
   "13": "Verify Before Completion",
   "14": "app/layout.tsx",
@@ -41,7 +40,7 @@
   "39": "supabase-server.test.ts",
   "40": "Q: Why are they locked at all?",
   "41": "Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?",
-  "42": "fpl/client.ts",
+  "42": "ApiFixture",
   "43": "leaderboard/[gameweekId]/page.tsx",
   "44": "predictions/[gameweekId]/page.tsx",
   "45": "leaderboard/page.tsx",
@@ -58,10 +57,5 @@
   "56": "Predictotronix guide for players",
   "57": "Predictotronix guide for league admins",
   "58": "Q: Give me a nice way to copy the invite link to the clipboard.",
-  "59": "api-football/client.ts",
-  "60": "fixtures/actions.ts",
-  "61": "FixtureProvider",
-  "62": "ApiFixture",
-  "63": "InviteLinkCopy.tsx",
-  "64": "getEnvironmentPolicy"
+  "63": "InviteLinkCopy.tsx"
 }

@@ -10,6 +10,7 @@
   "8": "Graphify Skill",
   "9": "Predictotronix",
   "10": "Predictotronix guide for superadmins",
+  "11": "season/route.ts",
   "12": "exports/page.tsx",
   "13": "Verify Before Completion",
   "14": "app/layout.tsx",
@@ -57,5 +58,6 @@
   "56": "Predictotronix guide for players",
   "57": "Predictotronix guide for league admins",
   "58": "Q: Give me a nice way to copy the invite link to the clipboard.",
+  "59": "FixtureClipboardExport.tsx",
   "63": "InviteLinkCopy.tsx"
 }

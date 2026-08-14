@@ -1932,7 +1932,7 @@
       "label": "metadata",
       "file_type": "code",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_metadata",
       "community": 48,
@@ -1943,7 +1943,7 @@
       "label": "dynamic",
       "file_type": "code",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_dynamic",
       "community": 48,
@@ -1954,7 +1954,7 @@
       "label": "FixturesAdminPage()",
       "file_type": "code",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_fixturesadminpage",
       "community": 48,
@@ -3541,8 +3541,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "season/route.ts"
     },
     {
@@ -3552,8 +3552,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route_dynamic",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "dynamic"
     },
     {
@@ -4481,6 +4481,83 @@
       "norm_label": "stat()"
     },
     {
+      "label": "FixtureClipboardExport.tsx",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "fixtureclipboardexport.tsx"
+    },
+    {
+      "label": "FixtureExportGameweek",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport_fixtureexportgameweek",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "fixtureexportgameweek"
+    },
+    {
+      "label": "Props",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport_props",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "props"
+    },
+    {
+      "label": "CopyStatus",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport_copystatus",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "copystatus"
+    },
+    {
+      "label": "kickoffFormatter",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport_kickoffformatter",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "kickoffformatter"
+    },
+    {
+      "label": "formatFixtureExport()",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport_formatfixtureexport",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "formatfixtureexport()"
+    },
+    {
+      "label": "FixtureClipboardExport()",
+      "file_type": "code",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "fixtureclipboardexport()"
+    },
+    {
       "label": "FixtureSyncConsole.tsx",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureSyncConsole.tsx",
@@ -5312,8 +5389,8 @@
       "source_location": "L260",
       "_origin": "ast",
       "id": "src_lib_auth_actions_signout",
-      "community": 4,
-      "community_name": "auth/actions.ts",
+      "community": 0,
+      "community_name": "server.ts",
       "norm_label": "signout()"
     },
     {
@@ -5587,8 +5664,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "season-workbook.ts"
     },
     {
@@ -5598,8 +5675,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookleaderboardrow",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "workbookleaderboardrow"
     },
     {
@@ -5609,8 +5686,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookfixture",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "workbookfixture"
     },
     {
@@ -5620,8 +5697,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookprediction",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "workbookprediction"
     },
     {
@@ -5631,8 +5708,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookgameweek",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "workbookgameweek"
     },
     {
@@ -5642,8 +5719,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_seasonworkbookdata",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "seasonworkbookdata"
     },
     {
@@ -5653,8 +5730,8 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_titlerow",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "titlerow()"
     },
     {
@@ -5664,8 +5741,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_styleheader",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "styleheader()"
     },
     {
@@ -5675,8 +5752,8 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_safesheetname",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "safesheetname()"
     },
     {
@@ -5686,8 +5763,8 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_createseasonworkbook",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 11,
+      "community_name": "season/route.ts",
       "norm_label": "createseasonworkbook()"
     },
     {
@@ -6313,8 +6390,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "src_lib_notifications_sms_sendtestsms",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "send-reminders/route.ts",
       "norm_label": "sendtestsms()"
     },
     {
@@ -7328,6 +7405,39 @@
       "community": 2,
       "community_name": "fixtures/actions.ts",
       "norm_label": "environment.test.ts"
+    },
+    {
+      "label": "fixture-clipboard-export.test.tsx",
+      "file_type": "code",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_unit_fixture_clipboard_export_test",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "fixture-clipboard-export.test.tsx"
+    },
+    {
+      "label": "gameweeks",
+      "file_type": "code",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "tests_unit_fixture_clipboard_export_test_gameweeks",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "gameweeks"
+    },
+    {
+      "label": "writeText",
+      "file_type": "code",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "tests_unit_fixture_clipboard_export_test_writetext",
+      "community": 59,
+      "community_name": "FixtureClipboardExport.tsx",
+      "norm_label": "writetext"
     },
     {
       "label": "fixture-sync.test.ts",
@@ -12853,7 +12963,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_admin_admin_fixtures_page",
@@ -12864,7 +12974,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_admin_admin_fixtures_page",
@@ -12875,7 +12985,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_admin_admin_fixtures_page",
@@ -12995,6 +13105,42 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_app_admin_admin_fixtures_page",
+      "target": "src_components_admin_fixtureclipboardexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_app_admin_admin_fixtures_page",
+      "target": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_app_admin_admin_fixtures_page",
+      "target": "src_components_admin_fixtureclipboardexport_fixtureexportgameweek",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
       "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
@@ -13068,7 +13214,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L78",
+      "source_location": "L113",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_admin_admin_fixtures_page_fixturesadminpage",
@@ -13080,7 +13226,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_admin_admin_fixtures_page_fixturesadminpage",
@@ -13092,7 +13238,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_admin_admin_fixtures_page_fixturesadminpage",
@@ -21411,6 +21557,132 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_copystatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_fixtureexportgameweek",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_formatfixtureexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_kickoffformatter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_props",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_clipboard_export_test",
+      "target": "src_components_admin_fixtureclipboardexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_clipboard_export_test",
+      "target": "src_components_admin_fixtureclipboardexport_fixtureexportgameweek",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
+      "target": "src_components_admin_fixtureclipboardexport_formatfixtureexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_clipboard_export_test",
+      "target": "src_components_admin_fixtureclipboardexport_formatfixtureexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_clipboard_export_test",
+      "target": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureSyncConsole.tsx",
       "source_location": "L16",
       "weight": 1.0,
@@ -26863,6 +27135,28 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_clipboard_export_test",
+      "target": "tests_unit_fixture_clipboard_export_test_gameweeks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/fixture-clipboard-export.test.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_fixture_clipboard_export_test",
+      "target": "tests_unit_fixture_clipboard_export_test_writetext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tests/unit/fpl-client.test.ts",
       "source_location": "L4",
       "weight": 1.0,
@@ -28973,5 +29267,6 @@
       "confidence_score": 1.0,
       "source_file": "AGENTS.md"
     }
-  ]
+  ],
+  "built_at_commit": "43d8fa52442ed9ba16a7c01bfc2769eb86728dd9"
 }
