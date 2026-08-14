@@ -1,11 +1,10 @@
 'use server';
 
-import { isSuperAdmin } from '@/lib/auth';
+import { requireLeagueAdminForFixture, requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { createServiceClient } from '@/lib/supabase/server';
 import { createProductionFixtureProvider } from '@/lib/fixtures/provider';
 import { syncFixtures, syncResults, type SyncLogEntry } from '@/lib/sync/fixtures';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { getEnvironmentPolicy } from '@/lib/environment';
 
 function assertExternalFixtureSyncEnabled() {
@@ -47,7 +46,7 @@ export async function triggerFixtureSync(
   _previousState: SyncActionState,
   _formData: FormData
 ): Promise<SyncActionState> {
-  if (!(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdminForSeason(seasonId);
   const logs: SyncLogEntry[] = [];
 
   try {
@@ -85,7 +84,7 @@ export async function triggerResultSync(
   _previousState: SyncActionState,
   _formData: FormData
 ): Promise<SyncActionState> {
-  if (!(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdminForSeason(seasonId);
   const logs: SyncLogEntry[] = [];
 
   try {
@@ -123,7 +122,7 @@ export async function correctResult(
   homeScore: number,
   awayScore: number
 ) {
-  if (!(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdminForFixture(fixtureId);
 
   const supabase = await createServiceClient();
 

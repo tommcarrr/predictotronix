@@ -34,8 +34,10 @@ describe('AdminShell league-admin view mode', () => {
 
     expect(screen.getByText('Viewing as league admin for North League')).toBeVisible();
     expect(screen.getByRole('button', { name: 'Back to superadmin' })).toBeVisible();
-    expect(screen.getByRole('link', { name: 'People' })).toBeVisible();
-    expect(screen.queryByRole('link', { name: 'Overview' })).not.toBeInTheDocument();
+    for (const link of ['Overview', 'People', 'Predictions', 'Fixtures & results', 'Standings', 'Seasons']) {
+      expect(screen.getAllByRole('link', { name: link }).length).toBeGreaterThan(0);
+    }
     expect(screen.queryByRole('link', { name: 'Leagues' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Notifications' })).not.toBeInTheDocument();
   });
 });

@@ -1,15 +1,13 @@
 import { ExportPanel, type GameweekStandings, type LeaderboardRow } from '@/components/admin/ExportPanel';
 import { getAdminContext } from '@/lib/admin/context';
 import { createServiceClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 
 export const metadata = { title: 'Standings | Admin' };
 
 export const dynamic = 'force-dynamic';
 
 export default async function ExportsAdminPage() {
-  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const { selectedLeague, selectedSeason } = await getAdminContext();
 
   let seasonRows: LeaderboardRow[] = [];
   let gameweekStandings: GameweekStandings[] = [];

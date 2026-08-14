@@ -53,15 +53,15 @@ interface NavItem {
 }
 
 const runNav: NavItem[] = [
-  { href: '/admin', label: 'Overview', icon: Gauge, superOnly: true },
+  { href: '/admin', label: 'Overview', icon: Gauge },
   { href: '/admin/participants', label: 'People', icon: Users },
-  { href: '/admin/predictions', label: 'Predictions', icon: BarChart3, superOnly: true },
-  { href: '/admin/fixtures', label: 'Fixtures & results', icon: CalendarDays, superOnly: true },
-  { href: '/admin/exports', label: 'Standings', icon: Trophy, superOnly: true },
+  { href: '/admin/predictions', label: 'Predictions', icon: BarChart3 },
+  { href: '/admin/fixtures', label: 'Fixtures & results', icon: CalendarDays },
+  { href: '/admin/exports', label: 'Standings', icon: Trophy },
 ];
 
 const configureNav: NavItem[] = [
-  { href: '/admin/seasons', label: 'Seasons', icon: Sparkles, superOnly: true },
+  { href: '/admin/seasons', label: 'Seasons', icon: Sparkles },
   { href: '/admin/leagues', label: 'Leagues', icon: Settings2, superOnly: true },
 ];
 

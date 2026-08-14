@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/auth';
+import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 
 type Format = 'text' | 'markdown' | 'html' | 'csv';
 
@@ -59,10 +59,6 @@ function formatLeaderboard(rows: LeaderboardRow[], format: Format): string {
 }
 
 export async function GET(request: NextRequest) {
-  if (!(await isSuperAdmin())) {
-    return new NextResponse('Forbidden', { status: 403 });
-  }
-
   const { searchParams } = request.nextUrl;
   const seasonId = searchParams.get('seasonId');
   const gameweekId = searchParams.get('gameweekId');
@@ -72,7 +68,22 @@ export async function GET(request: NextRequest) {
     return new NextResponse('Missing seasonId', { status: 400 });
   }
 
+  try {
+    await requireLeagueAdminForSeason(seasonId);
+  } catch {
+    return new NextResponse('Forbidden', { status: 403 });
+  }
+
   const supabase = await createServiceClient();
+  if (gameweekId) {
+    const { data: gameweek } = await supabase
+      .from('gameweeks')
+      .select('id')
+      .eq('id', gameweekId)
+      .eq('season_id', seasonId)
+      .maybeSingle();
+    if (!gameweek) return new NextResponse('Gameweek not found', { status: 404 });
+  }
   const { data, error } = gameweekId
     ? await supabase.rpc('get_gameweek_leaderboard', { p_gameweek_id: gameweekId })
     : await supabase.rpc('get_season_leaderboard', { p_season_id: seasonId });

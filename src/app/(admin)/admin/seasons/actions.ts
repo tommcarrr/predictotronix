@@ -1,13 +1,13 @@
 'use server';
 
 import { createServiceClient } from '@/lib/supabase/server';
-import { getUser, isSuperAdmin } from '@/lib/auth';
+import { requireLeagueAdmin } from '@/lib/auth';
+import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createSeason(leagueId: string, formData: FormData) {
-  const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdmin(leagueId);
 
   const supabase = await createServiceClient();
   const name = formData.get('name') as string;
@@ -34,8 +34,7 @@ export async function updateSeasonStatus(
   seasonId: string,
   status: 'setup' | 'active' | 'completed' | 'archived',
 ) {
-  const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdminForSeason(seasonId);
 
   const supabase = await createServiceClient();
   const { error } = await supabase.from('seasons').update({ status }).eq('id', seasonId);
@@ -46,10 +45,25 @@ export async function updateSeasonStatus(
 }
 
 export async function addSeasonParticipant(seasonId: string, participantId: string) {
-  const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  const { leagueId } = await requireLeagueAdminForSeason(seasonId);
 
   const supabase = await createServiceClient();
+  const { data: leagueSeasons } = await supabase
+    .from('seasons')
+    .select('id')
+    .eq('league_id', leagueId);
+  const leagueSeasonIds = (leagueSeasons ?? []).map((season) => season.id);
+  const { data: existingLeagueEnrolment } = leagueSeasonIds.length
+    ? await supabase
+        .from('season_participants')
+        .select('id')
+        .eq('participant_id', participantId)
+        .in('season_id', leagueSeasonIds)
+        .limit(1)
+        .maybeSingle()
+    : { data: null };
+  if (!existingLeagueEnrolment) throw new Error('PARTICIPANT_NOT_IN_LEAGUE');
+
   await supabase.from('season_participants').upsert({ season_id: seasonId, participant_id: participantId });
 
   revalidatePath('/admin/participants');
@@ -57,8 +71,7 @@ export async function addSeasonParticipant(seasonId: string, participantId: stri
 }
 
 export async function removeSeasonParticipant(seasonId: string, participantId: string) {
-  const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdminForSeason(seasonId);
 
   const supabase = await createServiceClient();
   await supabase
@@ -72,8 +85,7 @@ export async function removeSeasonParticipant(seasonId: string, participantId: s
 }
 
 export async function deleteSeason(seasonId: string, formData: FormData) {
-  const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
+  await requireLeagueAdminForSeason(seasonId);
 
   const confirmation = formData.get('confirmation');
   const dangerPath = `/admin/seasons/${seasonId}?tab=danger`;

@@ -1,93 +1,71 @@
 # Predictotronix guide for league admins
 
-This guide covers everything available to a **league admin**. League admins look after people in their assigned leagues: they review join requests and maintain player display names. League, season, fixture, score and export configuration belongs to a superadmin.
+League admins run the competition inside their assigned leagues. They can manage seasons, people, predictions, fixtures, results and standings. Superadmins retain league creation and settings, administrator assignments, invitation management and system/test tools.
 
 ## Quick reference
 
 | Task | Where to go |
 | --- | --- |
-| Open the admin workspace | **Dashboard → Admin panel** |
-| Change league or season | **Change workspace** in the admin header |
-| Review join requests | **People → Join requests** |
-| View season members | **People → Members** |
-| Correct a display name | **People → Members → Edit** |
-| Return to player mode | **Player dashboard** |
+| Review league health | **Overview** |
+| Change league or season | **Change workspace** |
+| Review requests and manage members | **People** |
+| Enter or amend player predictions | **Predictions** |
+| Synchronise fixtures and results | **Fixtures & results** |
+| Review and export tables | **Standings** |
+| Create and manage seasons | **Seasons** |
 
-## 1. Get into the admin workspace
+## 1. Open and select the workspace
 
-1. Sign in with the email address that has been assigned as a league admin.
-2. On the player dashboard, select **Admin panel**.
-3. The admin workspace opens on **People**.
+Sign in with the account assigned as a league admin and select **Admin panel** from the dashboard. Under **Change workspace**, select the league and season you intend to operate. Only leagues assigned to your account appear.
 
-If **Admin panel** is missing, ask a superadmin to assign your registered account to the league. If the assignment has just been made, refresh the dashboard or sign out and back in.
+The selected league scopes requests and available seasons. The selected season scopes members, predictions, fixtures, results and standings. Check both before making a change.
 
-## 2. Select the correct workspace
+## 2. Manage seasons
 
-Every action is scoped by the league and season shown under **Current workspace** at the top of the admin area.
+Open **Seasons** to create a season, configure its football-provider identifiers and move it through setup, active, completed and archived states. An archived season can be permanently deleted after confirming its exact name.
 
-1. Select **Change workspace**.
-2. Choose the **League** you want to manage. Only leagues assigned to you appear.
-3. Choose the **Season**.
+Creating or deleting a season is an operation inside a league and is available to that league's admins. Creating, deleting or changing the league itself remains a superadmin responsibility.
 
-The league controls which join requests you see. The season controls which members are shown and where an approved player is enrolled. Check both before taking action.
+## 3. Manage people
 
-If a league has no season, you can reject requests but cannot approve them. Ask a superadmin to create or select a season first.
+Use **People → Join requests** to approve or reject requests. Approval enrols the person into the selected season.
 
-## 3. Review join requests
+Use **People → Members** to:
 
-Players request access through an invitation link supplied by a superadmin. To process those requests:
+- correct a display name;
+- add an existing league participant to the selected season;
+- create and enrol an offline participant; or
+- remove a participant from the selected season.
 
-1. Select the correct league and target season under **Change workspace**.
-2. Open **People**.
-3. Select **Join requests**.
-4. Check the player's name, email and request date.
-5. Select **Approve** or **Reject**.
+## 4. Manage predictions
 
-Approving creates or updates the person's player record and enrols them in the currently selected season. Rejecting closes the request and does not enrol them. There is no undo control in the league-admin interface, so confirm the league, season and identity before deciding.
+Open **Predictions** to enter or amend predictions for registered and offline participants. Administrative entries are audited and may be corrected after kickoff. If a confirmed result already exists, the changed prediction is rescored.
 
-If **Approve** is disabled, no season is selected. If a request has already been processed elsewhere, the page reports that it is no longer pending.
+## 5. Manage fixtures and results
 
-## 4. View and maintain season members
+Use **Fixtures & results** to synchronise production fixtures, synchronise completed results and correct an incorrect score. Correcting a result recalculates affected prediction scores.
 
-1. Select the league and season under **Change workspace**.
-2. Open **People → Members**.
+External synchronisation remains subject to the environment policy and the selected production season's provider configuration.
 
-The list shows only people enrolled in the selected season. Each person is marked **Registered** or **Offline**:
+## 6. Review and export standings
 
-- **Registered** players have their own sign-in.
-- **Offline** players are maintained by a superadmin and do not need an account.
+Use **Standings** to review season and gameweek tables and export leaderboard or full-season workbooks. Every export is checked against your assigned league on the server.
 
-To correct a name:
+## Reserved for superadmins
 
-1. Find the person and select **Edit**.
-2. Enter a display name between 2 and 80 characters.
-3. Select **Save name**.
+Contact a superadmin to:
 
-The new name is applied to that player across the league. League admins cannot add, remove or create participants; ask a superadmin to make enrolment changes.
+- create or delete a league;
+- change league settings;
+- assign or revoke league administrators;
+- enable, disable or regenerate invitation links;
+- access another league without an assignment;
+- use test notifications, simulated clocks/results or other system/test tools.
 
-## 5. Switch back to player mode
+## Security and troubleshooting
 
-Use **Player dashboard** at the bottom of the desktop sidebar. On a smaller screen, use the back-arrow button in the admin header.
-
-Your player access and league-admin access are independent. You must also be enrolled as a participant to make predictions.
-
-## What to ask a superadmin to do
-
-Contact a superadmin when you need to:
-
-- create, activate, complete, archive or delete a season;
-- create or delete a league, manage invitation links, or assign another admin;
-- add an existing or offline participant, or remove someone from a season;
-- enter predictions on a player's behalf;
-- sync fixtures or results;
-- inspect or export standings; or
-- use test-season tools.
-
-## Troubleshooting
-
-- **The wrong people or requests are showing:** reopen **Change workspace** and check both selections.
-- **A player cannot join:** ask a superadmin to confirm that the invitation is active and has not been regenerated.
-- **A player is approved but sees no fixtures:** confirm they were approved into the intended season, then ask a superadmin to check that the season is active and has fixtures.
-- **You cannot approve a request:** select a season. If none exists, a superadmin must create one.
-- **You cannot see a league:** your account has not been assigned to it; a superadmin must grant access.
-- **You need to reverse a rejection or move an enrolment:** contact a superadmin.
+- Every operation is authorized against the league that owns the submitted season, fixture or participant; changing an ID cannot grant access to another league.
+- If **Admin panel** is missing, ask a superadmin to assign your registered account to the league, then refresh or sign in again.
+- If a league is missing, your account is not assigned to it.
+- If fixture synchronisation is unavailable, confirm the season is active, production-type and has provider identifiers configured.
+- If a player cannot use an invitation, ask a superadmin to confirm that the league invitation remains active.

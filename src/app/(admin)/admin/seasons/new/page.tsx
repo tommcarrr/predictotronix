@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { redirect } from 'next/navigation';
 import { getAdminContext } from '@/lib/admin/context';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
@@ -11,8 +10,7 @@ export const metadata = { title: 'Create season | Admin' };
 
 export default async function NewSeasonPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
-  const { selectedLeague, superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const { selectedLeague } = await getAdminContext();
 
   return (
     <main className="mx-auto max-w-4xl space-y-6 p-6 lg:p-8">

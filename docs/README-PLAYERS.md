@@ -66,9 +66,9 @@ To remove saved or typed picks for the gameweek, select **Clear predicted scores
 
 Each fixture locks at its own kickoff time. A fixture marked **LOCKED** cannot be created, changed or cleared by a player. Later fixtures in the same gameweek may remain editable.
 
-Saving early is safest. If you miss a deadline, contact your league admin; only a superadmin can decide whether to enter or amend a prediction on your behalf.
+Saving early is safest. If you miss a deadline, contact your league admin, who can decide whether to enter or amend a prediction on your behalf.
 
-If a superadmin entered a still-editable prediction for you, it is marked **ADMIN-ENTERED**. You can replace it before kickoff by changing the score and saving.
+If an administrator entered a still-editable prediction for you, it is marked **ADMIN-ENTERED**. You can replace it before kickoff by changing the score and saving.
 
 ## 5. Results and scoring
 

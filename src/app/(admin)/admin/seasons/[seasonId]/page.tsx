@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft, Archive, CheckCircle2, Play, Trash2, Users } from 'lucide-react';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
 import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
@@ -24,8 +24,8 @@ export default async function SeasonDetailPage({
 }) {
   const { seasonId } = await params;
   const query = await searchParams;
-  const { superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const context = await getAdminContext();
+  if (!context.seasons.some((season) => season.id === seasonId)) notFound();
   const tab: SeasonTab = query.tab === 'danger' ? 'danger' : 'overview';
   const supabase = await createServiceClient();
 

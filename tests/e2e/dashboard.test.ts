@@ -8,7 +8,7 @@ test.describe('Dashboard — admin user', () => {
 
   /**
    * Regression: the admin panel link was missing from the dashboard entirely.
-   * A super_admin must see the Admin panel button in the nav.
+   * Any assigned administrator must see the Admin panel button in the nav.
    */
   test('shows Admin panel link for super admins', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Admin panel' })).toBeVisible();

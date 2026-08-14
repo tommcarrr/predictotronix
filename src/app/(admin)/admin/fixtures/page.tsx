@@ -1,6 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
-import { redirect } from 'next/navigation';
 import { FixtureSyncConsole } from '@/components/admin/FixtureSyncConsole';
 import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
 import { AdminNotice } from '@/components/admin/AdminNotice';
@@ -14,8 +13,7 @@ export const dynamic = 'force-dynamic';
 export default async function FixturesAdminPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const { tab: requestedTab } = await searchParams;
   const tab = requestedTab === 'sync' ? 'sync' : 'fixtures';
-  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const { selectedLeague, selectedSeason } = await getAdminContext();
   const supabase = await createServiceClient();
 
   const { data: fixtures } = selectedSeason

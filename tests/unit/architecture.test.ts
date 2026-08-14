@@ -201,19 +201,19 @@ describe('Every page.tsx exports a default component', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Rule 6: Admin-entered predictions must be super-admin-only and unlocked
+// Rule 6: Admin-entered predictions must be league-scoped and unlocked
 //
 // The admin workflow deliberately permits corrections after kickoff, but uses
 // the service-role client. Keep the authorization guard inside the Server
 // Action and do not accidentally share the participant kickoff lock.
 // ---------------------------------------------------------------------------
-describe('Admin prediction entry remains privileged and unlocked', () => {
+describe('Admin prediction entry remains league-scoped and unlocked', () => {
   const actionsPath = join(ROOT, 'lib', 'predictions', 'actions.ts');
   const source = readFileSync(actionsPath, 'utf8');
   const adminAction = source.slice(source.indexOf('export async function adminSubmitPredictions'));
 
-  it('requires a super admin inside the Server Action', () => {
-    expect(adminAction).toContain('await requireSuperAdmin()');
+  it('authorizes every submitted fixture inside the Server Action', () => {
+    expect(adminAction).toContain('await requireLeagueAdminForFixtures(');
   });
 
   it('does not apply the participant kickoff lock', () => {

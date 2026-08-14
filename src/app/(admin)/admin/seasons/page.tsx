@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { ArrowRight, Plus } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
-import { redirect } from 'next/navigation';
 import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
@@ -16,8 +15,7 @@ type Props = {
 
 export default async function SeasonsAdminPage({ searchParams }: Props) {
   const { error, seasonCreated, seasonDeleted } = await searchParams;
-  const { selectedLeague, superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const { selectedLeague } = await getAdminContext();
   const supabase = await createServiceClient();
 
   const { data: seasons } = selectedLeague

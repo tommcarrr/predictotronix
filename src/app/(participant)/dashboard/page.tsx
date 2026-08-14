@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { getParticipant, requireUser, isSuperAdmin } from '@/lib/auth';
+import { getParticipant, requireUser, isAdmin } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/lib/auth/actions';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
@@ -36,7 +36,7 @@ export default async function DashboardPage({ searchParams }: Props) {
   const user = await requireUser().catch(() => null);
   if (!user) redirect('/login');
 
-  const [participant, isAdmin] = await Promise.all([getParticipant(), isSuperAdmin()]);
+  const [participant, hasAdminRole] = await Promise.all([getParticipant(), isAdmin()]);
   const supabase = await createClient();
 
   // Get pending join requests for this user
@@ -239,7 +239,7 @@ export default async function DashboardPage({ searchParams }: Props) {
           <Link href="/settings" className="participant-button participant-button--primary">
             Notification settings
           </Link>
-          {isAdmin && (
+          {hasAdminRole && (
             <Link
               href="/admin"
               className="participant-button participant-button--admin"

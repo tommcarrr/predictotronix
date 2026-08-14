@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { getAdminContext } from '@/lib/admin/context';
 import { createServiceClient } from '@/lib/supabase/server';
 import { AdminPredictionsForm } from '@/components/admin/AdminPredictionsForm';
@@ -14,8 +13,7 @@ interface Props {
 }
 
 export default async function AdminPredictionsPage({ searchParams }: Props) {
-  const { selectedSeason, superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const { selectedSeason } = await getAdminContext();
 
   const { participantId = '', gameweekId = '' } = await searchParams;
   const supabase = await createServiceClient();

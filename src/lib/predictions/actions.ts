@@ -1,7 +1,8 @@
 'use server';
 
 import { createClient, createServiceClient } from '@/lib/supabase/server';
-import { getParticipant, requireSuperAdmin, requireUser } from '@/lib/auth';
+import { getParticipant, requireUser } from '@/lib/auth';
+import { requireLeagueAdminForFixtures } from '@/lib/admin/authorization';
 import { isKickoffLocked } from '@/lib/scoring';
 import { getSeasonNow } from '@/lib/clock';
 import { revalidatePath } from 'next/cache';
@@ -233,8 +234,7 @@ export async function adminSubmitPredictions(
   participantId: string,
   inputs: PredictionInput[]
 ): Promise<SubmitPredictionsResult> {
-  const user = await requireSuperAdmin();
-  const supabase = await createServiceClient();
+  const user = await requireUser();
 
   const errors: string[] = [];
   let saved = 0;
@@ -246,6 +246,9 @@ export async function adminSubmitPredictions(
   if (!inputs.length) {
     return { success: false, saved: 0, errors: ['No predictions supplied'] };
   }
+
+  await requireLeagueAdminForFixtures(inputs.map((input) => input.fixtureId));
+  const supabase = await createServiceClient();
 
   for (const input of inputs) {
     if (

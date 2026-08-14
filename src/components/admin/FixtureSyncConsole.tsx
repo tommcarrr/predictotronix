@@ -63,7 +63,7 @@ export function FixtureSyncConsole({ seasonId, canSync }: { seasonId: string; ca
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 id="sync-console-heading" className="text-lg font-semibold">Fixture synchronisation</h2>
-          <p className="text-sm text-muted-foreground">Visible only to superadmins. Output is also written to backend logs.</p>
+          <p className="text-sm text-muted-foreground">Available to administrators for this league. Output is also written to backend logs.</p>
         </div>
         <div className="flex gap-2">
           <form action={fixtureAction}>

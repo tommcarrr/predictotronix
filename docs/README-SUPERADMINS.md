@@ -1,6 +1,6 @@
 # Predictotronix guide for superadmins
 
-This is the operational guide for a **superadmin**. It covers setting up and running leagues and seasons, managing people, handling predictions, synchronising fixtures and results, publishing standings, and safely using test tools.
+This guide covers the **superadmin** responsibilities that sit above normal league operations: creating and managing leagues, assigning league administrators, managing invitations, working across leagues and safely using test tools. League admins can run seasons, people, predictions, fixtures, results and standings within their assigned leagues.
 
 ## Quick reference
 
@@ -225,7 +225,7 @@ Before changing the clock or sending notifications, verify that the deployment i
 
 ## Troubleshooting
 
-- **A control is missing:** check the signed-in role. Most operational and configuration controls are superadmin-only.
+- **A control is missing:** check the signed-in role and selected league. League operations require an assignment to that league; league settings and test tools remain superadmin-only.
 - **The wrong data is showing:** verify the league and season under **Current workspace**.
 - **Approve is disabled:** select or create a season.
 - **A player sees no fixtures:** confirm their enrolment, season status and fixture import.

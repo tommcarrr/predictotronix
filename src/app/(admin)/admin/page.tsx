@@ -1,6 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 export const metadata = { title: 'Admin' };
@@ -8,8 +7,7 @@ export const metadata = { title: 'Admin' };
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
-  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
-  if (!superAdmin) redirect('/admin/participants');
+  const { selectedLeague, selectedSeason } = await getAdminContext();
   const supabase = await createServiceClient();
 
   if (!selectedLeague) {

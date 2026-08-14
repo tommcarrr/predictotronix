@@ -1,14 +1,18 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { isSuperAdmin } from '@/lib/auth';
+import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { createSeasonWorkbook, type WorkbookGameweek, type WorkbookLeaderboardRow } from '@/lib/exports/season-workbook';
 import { createServiceClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
-  if (!(await isSuperAdmin())) return new NextResponse('Forbidden', { status: 403 });
   const seasonId = request.nextUrl.searchParams.get('seasonId');
   if (!seasonId) return new NextResponse('Missing seasonId', { status: 400 });
+  try {
+    await requireLeagueAdminForSeason(seasonId);
+  } catch {
+    return new NextResponse('Forbidden', { status: 403 });
+  }
 
   const supabase = await createServiceClient();
   const [seasonResult, gameweeksResult, fixturesResult, predictionsResult, standingsResult] = await Promise.all([

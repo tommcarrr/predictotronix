@@ -31,7 +31,7 @@ type Props = {
 export default async function ParticipantsAdminPage({ searchParams }: Props) {
   const { tab: requestedTab, error, nameUpdated, approved, rejected } = await searchParams;
   const tab = requestedTab === 'requests' ? 'requests' : 'members';
-  const { selectedLeague, selectedSeason, superAdmin } = await getAdminContext();
+  const { selectedLeague, selectedSeason } = await getAdminContext();
   const supabase = await createServiceClient();
 
   const { data: pendingRequests } = selectedLeague
@@ -110,7 +110,7 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
             Join requests are scoped to <strong>{selectedLeague?.name ?? 'no league'}</strong>. Members are scoped to <strong>{selectedSeason?.name ?? 'no season'}</strong>.
           </>
         }
-        actions={tab === 'members' && superAdmin && selectedSeason && (
+        actions={tab === 'members' && selectedSeason && (
           <div className="flex flex-wrap gap-2">
             {availableParticipants.length > 0 && (
               <AdminDialog
@@ -256,11 +256,9 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                               </form>
                             </AdminDialog>
                           )}
-                          {superAdmin && (
-                            <form action={removeSeasonParticipant.bind(null, selectedSeason.id, participant.id)}>
-                              <FormSubmitButton pendingLabel="Removing…" className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10"><UserRoundMinus className="size-3.5" />Remove</FormSubmitButton>
-                            </form>
-                          )}
+                          <form action={removeSeasonParticipant.bind(null, selectedSeason.id, participant.id)}>
+                            <FormSubmitButton pendingLabel="Removing…" className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10"><UserRoundMinus className="size-3.5" />Remove</FormSubmitButton>
+                          </form>
                         </div>
                       </td>
                     </tr>

@@ -19,6 +19,21 @@ export async function isSuperAdmin(): Promise<boolean> {
   return !!data;
 }
 
+/** Returns true if the current user has any administrative role. */
+export async function isAdmin(): Promise<boolean> {
+  const user = await getUser();
+  if (!user) return false;
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('league_roles')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .in('role', ['super_admin', 'league_admin'])
+    .limit(1)
+    .maybeSingle();
+  return !!data;
+}
+
 /** Returns true if the current user is a league admin (or super admin) for the given league. */
 export async function isLeagueAdmin(leagueId: string): Promise<boolean> {
   const user = await getUser();

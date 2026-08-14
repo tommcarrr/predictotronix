@@ -1,7 +1,8 @@
 'use server';
 
 import { createServiceClient } from '@/lib/supabase/server';
-import { getUser, isLeagueAdmin, isSuperAdmin, requireLeagueAdmin } from '@/lib/auth';
+import { getUser, isLeagueAdmin, requireLeagueAdmin } from '@/lib/auth';
+import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -163,13 +164,13 @@ export async function rejectJoinRequest(requestId: string) {
 }
 
 export async function createOfflineParticipant(formData: FormData) {
-  const user = await getUser();
-  if (!user || !(await isSuperAdmin())) redirect('/dashboard');
-
-  const supabase = await createServiceClient();
   const displayName = formData.get('display_name') as string;
   const email = (formData.get('email') as string | null) || null;
   const seasonId = (formData.get('season_id') as string | null) || null;
+  if (!seasonId) redirect('/admin/participants?error=Select+a+season+before+adding+a+participant');
+  await requireLeagueAdminForSeason(seasonId);
+
+  const supabase = await createServiceClient();
 
   const { data: participant, error } = await supabase
     .from('participants')
@@ -184,19 +185,9 @@ export async function createOfflineParticipant(formData: FormData) {
       .from('notification_preferences')
       .insert({ participant_id: participant.id, email_enabled: false });
 
-    if (seasonId) {
-      const { data: season } = await supabase
-        .from('seasons')
-        .select('id')
-        .eq('id', seasonId)
-        .maybeSingle();
-
-      if (season) {
-        await supabase
-          .from('season_participants')
-          .insert({ participant_id: participant.id, season_id: season.id });
-      }
-    }
+    await supabase
+      .from('season_participants')
+      .insert({ participant_id: participant.id, season_id: seasonId });
   }
 
   redirect('/admin/participants');
