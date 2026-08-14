@@ -9,6 +9,7 @@ export interface ReminderEmailParams {
   firstKickoff: Date;
   predictionsUrl: string;
   isDryRun?: boolean;
+  idempotencyKey?: string;
 }
 
 export interface EmailResult {
@@ -101,7 +102,7 @@ function renderBrandedEmail(params: BrandedEmailParams): string {
 }
 
 export async function sendReminderEmail(params: ReminderEmailParams): Promise<EmailResult> {
-  const { to, displayName, gameweekLabel, firstKickoff, predictionsUrl, isDryRun } = params;
+  const { to, displayName, gameweekLabel, firstKickoff, predictionsUrl, isDryRun, idempotencyKey } = params;
 
   if (isDryRun) {
     console.log('[DRY RUN] Would send reminder email to:', to, { gameweekLabel });
@@ -142,7 +143,7 @@ export async function sendReminderEmail(params: ReminderEmailParams): Promise<Em
         footer: 'You are receiving this because prediction reminders are enabled for your account.',
       }),
       text: `Hi ${displayName},\n\n${gameweekLabel} starts ${kickoffStr}. Submit your predictions before kickoff:\n${predictionsUrl}\n\n— Predictotronix`,
-    });
+    }, idempotencyKey ? { idempotencyKey } : undefined);
 
     if (error) {
       return { success: false, error: error.message };

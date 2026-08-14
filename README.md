@@ -139,7 +139,7 @@ Three cron jobs required, each sending `x-cron-secret: <CRON_SECRET>` header:
 |---|---|---|
 | `POST /api/cron/sync-fixtures` | Daily 06:00 UTC | Import fixtures from API-Football |
 | `POST /api/cron/sync-results` | Every 15 min | Import results + auto-score predictions |
-| `POST /api/cron/send-reminders` | Every 30 min | Send gameweek reminder emails/SMS |
+| `POST /api/cron/send-reminders` | Every 15 min | Send gameweek reminder emails/SMS |
 
 Set these up via **Render Cron Jobs** or GitHub Actions. Example GitHub Actions workflow:
 

@@ -87,4 +87,22 @@ describe('test notification providers', () => {
     await expect(sendTestSms({ to: '+447700900000' }))
       .resolves.toMatchObject({ success: false, error: expect.stringContaining('Unavailable') });
   });
+
+  it('passes the delivery key to Resend for idempotent reminder retries', async () => {
+    emailSend.mockResolvedValue({ data: { id: 'email-123' }, error: null });
+
+    await sendReminderEmail({
+      to: 'player@example.com',
+      displayName: 'Player',
+      gameweekLabel: 'Gameweek 1',
+      firstKickoff: new Date('2026-08-13T18:45:00.000Z'),
+      predictionsUrl: 'https://example.com/predictions/gameweek-1',
+      idempotencyKey: 'reminder:participant-1:gameweek-1:email:two_hours_before',
+    });
+
+    expect(emailSend).toHaveBeenCalledWith(
+      expect.objectContaining({ to: 'player@example.com' }),
+      { idempotencyKey: 'reminder:participant-1:gameweek-1:email:two_hours_before' },
+    );
+  });
 });

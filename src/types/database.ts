@@ -382,29 +382,36 @@ export type Database = {
       notification_log: {
         Row: {
           id: string;
+          delivery_key: string | null;
           participant_id: string;
           season_id: string | null;
           gameweek_id: string | null;
           channel: 'email' | 'sms';
           notification_type: 'reminder' | 'results' | 'welcome' | 'test';
-          status: 'sent' | 'failed' | 'suppressed' | 'dry_run';
+          status: 'processing' | 'sent' | 'failed' | 'suppressed' | 'dry_run';
           sent_at: string;
           error_message: string | null;
           metadata: Json | null;
         };
         Insert: {
           id?: string;
+          delivery_key?: string | null;
           participant_id: string;
           season_id?: string | null;
           gameweek_id?: string | null;
           channel: 'email' | 'sms';
           notification_type: 'reminder' | 'results' | 'welcome' | 'test';
-          status: 'sent' | 'failed' | 'suppressed' | 'dry_run';
+          status: 'processing' | 'sent' | 'failed' | 'suppressed' | 'dry_run';
           sent_at?: string;
           error_message?: string | null;
           metadata?: Json | null;
         };
-        Update: Record<string, never>;
+        Update: {
+          delivery_key?: string | null;
+          status?: 'processing' | 'sent' | 'failed' | 'suppressed' | 'dry_run';
+          error_message?: string | null;
+          metadata?: Json | null;
+        };
         Relationships: [];
       };
     };
@@ -451,4 +458,3 @@ export type Tables<T extends keyof Database['public']['Tables']> =
 
 export type Enums<T extends keyof Database['public']['Enums']> =
   Database['public']['Enums'][T];
-

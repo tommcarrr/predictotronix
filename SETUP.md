@@ -224,7 +224,7 @@ The three jobs:
 |---|---|---|
 | `sync-fixtures` | `0 6 * * *` (daily 06:00 UTC) | `curl -fsS -X POST -H "x-cron-secret: $CRON_SECRET" $NEXT_PUBLIC_APP_URL/api/cron/sync-fixtures` |
 | `sync-results` | `*/15 * * * *` (every 15 min) | `curl -fsS -X POST -H "x-cron-secret: $CRON_SECRET" $NEXT_PUBLIC_APP_URL/api/cron/sync-results` |
-| `send-reminders` | `*/30 * * * *` (every 30 min) | `curl -fsS -X POST -H "x-cron-secret: $CRON_SECRET" $NEXT_PUBLIC_APP_URL/api/cron/send-reminders` |
+| `send-reminders` | `*/15 * * * *` (every 15 min) | `curl -fsS -X POST -H "x-cron-secret: $CRON_SECRET" $NEXT_PUBLIC_APP_URL/api/cron/send-reminders` |
 
 > **Why pick a repo at all?** Because Render's cron pricing is per-container, every cron job is a tiny disposable Linux container that Render builds from a repo. The build command runs once when the container image is created; the **Command** runs on every tick of the schedule. By making the build a no-op, the container is essentially "stock Node + curl", which is all we need.
 

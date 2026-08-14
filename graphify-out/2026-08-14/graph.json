@@ -1628,7 +1628,7 @@
       "_origin": "ast",
       "id": "scripts_staging_smoke",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "smoke.mts"
     },
     {
@@ -1639,7 +1639,7 @@
       "_origin": "ast",
       "id": "scripts_staging_smoke_requiredenvironment",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "requiredenvironment()"
     },
     {
@@ -1650,7 +1650,7 @@
       "_origin": "ast",
       "id": "scripts_staging_smoke_main",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "main()"
     },
     {
@@ -1825,7 +1825,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "fixtures/actions.ts"
     },
@@ -1836,7 +1836,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_assertexternalfixturesyncenabled",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "assertexternalfixturesyncenabled()"
     },
@@ -1847,7 +1847,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_getproductionseason",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "getproductionseason()"
     },
@@ -1858,7 +1858,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_syncactionstate",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "syncactionstate"
     },
@@ -1869,7 +1869,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_actionlogger",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "actionlogger()"
     },
@@ -1880,7 +1880,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_failureentry",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "failureentry()"
     },
@@ -1891,7 +1891,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_triggerfixturesync",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "triggerfixturesync()"
     },
@@ -1902,7 +1902,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_triggerresultsync",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "triggerresultsync()"
     },
@@ -3541,8 +3541,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "season/route.ts"
     },
     {
@@ -3552,8 +3552,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route_dynamic",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "dynamic"
     },
     {
@@ -3574,74 +3574,41 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_send_reminders_route",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "send-reminders/route.ts"
     },
     {
       "label": "dynamic",
       "file_type": "code",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L14",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "src_app_api_cron_send_reminders_route_dynamic",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "dynamic"
     },
     {
       "label": "validateCronSecret()",
       "file_type": "code",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L16",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_api_cron_send_reminders_route_validatecronsecret",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "validatecronsecret()"
-    },
-    {
-      "label": "ServiceClient",
-      "file_type": "code",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L21",
-      "_origin": "ast",
-      "id": "src_app_api_cron_send_reminders_route_serviceclient",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "serviceclient"
-    },
-    {
-      "label": "DeliveryClaim",
-      "file_type": "code",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L23",
-      "_origin": "ast",
-      "id": "src_app_api_cron_send_reminders_route_deliveryclaim",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "deliveryclaim"
-    },
-    {
-      "label": "claimReminderDelivery()",
-      "file_type": "code",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L28",
-      "_origin": "ast",
-      "id": "src_app_api_cron_send_reminders_route_claimreminderdelivery",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "claimreminderdelivery()"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L76",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_api_cron_send_reminders_route_post",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "post()"
     },
     {
@@ -3651,8 +3618,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "sync-fixtures/route.ts"
     },
     {
@@ -3662,8 +3629,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_validatecronsecret",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "validatecronsecret()"
     },
     {
@@ -3673,8 +3640,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_post",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "post()"
     },
     {
@@ -3684,8 +3651,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "sync-results/route.ts"
     },
     {
@@ -3695,8 +3662,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_validatecronsecret",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "validatecronsecret()"
     },
     {
@@ -3706,8 +3673,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_post",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "post()"
     },
     {
@@ -3718,7 +3685,7 @@
       "_origin": "ast",
       "id": "src_app_api_health_route",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "health/route.ts"
     },
     {
@@ -3729,7 +3696,7 @@
       "_origin": "ast",
       "id": "src_app_api_health_route_dynamic",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "dynamic"
     },
     {
@@ -3740,7 +3707,7 @@
       "_origin": "ast",
       "id": "src_app_api_health_route_get",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "get()"
     },
     {
@@ -4487,7 +4454,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "fixturesyncconsole.tsx"
     },
@@ -4498,7 +4465,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_initialsyncactionstate",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "initialsyncactionstate"
     },
@@ -4509,7 +4476,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_consoleoutput",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "consoleoutput()"
     },
@@ -4520,7 +4487,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_fixturesyncconsole",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "fixturesyncconsole()"
     },
@@ -4751,8 +4718,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "form-submit-button.tsx"
     },
     {
@@ -4762,8 +4729,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbuttonprops",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "formsubmitbuttonprops"
     },
     {
@@ -4773,8 +4740,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbutton",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "auth/actions.ts",
       "norm_label": "formsubmitbutton()"
     },
     {
@@ -4861,8 +4828,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_api_football_client",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "api-football/client.ts"
     },
     {
@@ -4872,8 +4839,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballconfig",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifootballconfig"
     },
     {
@@ -4883,8 +4850,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_api_football_client_getapifootballconfig",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "getapifootballconfig()"
     },
     {
@@ -4894,8 +4861,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballenvelope",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifootballenvelope"
     },
     {
@@ -4905,8 +4872,8 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "src_lib_api_football_client_ratelimitstate",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "ratelimitstate"
     },
     {
@@ -4916,8 +4883,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_lib_api_football_client_formatapierrors",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "formatapierrors()"
     },
     {
@@ -4927,8 +4894,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "src_lib_api_football_client_getsaferequestdiagnostics",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "getsaferequestdiagnostics()"
     },
     {
@@ -4938,8 +4905,8 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifetch",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifetch()"
     },
     {
@@ -4949,8 +4916,8 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifootballprovider"
     },
     {
@@ -4960,8 +4927,8 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getseasonfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -4971,8 +4938,8 @@
       "source_location": "L155",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getroundfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -4982,8 +4949,8 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getfixture",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getfixture()"
     },
     {
@@ -4993,8 +4960,8 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getrounds",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getrounds()"
     },
     {
@@ -5004,7 +4971,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": "test-provider.ts"
     },
@@ -5015,7 +4982,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": "testfixtureprovider"
     },
@@ -5026,7 +4993,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_constructor",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": ".constructor()"
     },
@@ -5037,7 +5004,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getseasonfixtures",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": ".getseasonfixtures()"
     },
@@ -5048,7 +5015,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getroundfixtures",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": ".getroundfixtures()"
     },
@@ -5059,7 +5026,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getfixture",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": ".getfixture()"
     },
@@ -5070,7 +5037,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getrounds",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": ".getrounds()"
     },
@@ -5081,7 +5048,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_api_football_types",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": "types.ts"
     },
@@ -5092,7 +5059,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_api_football_types_apifixture",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": "apifixture"
     },
@@ -5103,7 +5070,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_lib_api_football_types_apiround",
-      "community": 42,
+      "community": 62,
       "community_name": "ApiFixture",
       "norm_label": "apiround"
     },
@@ -5114,8 +5081,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": "fixtureprovider"
     },
     {
@@ -5125,8 +5092,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getseasonfixtures",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -5136,8 +5103,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getroundfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -5147,8 +5114,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getfixture",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getfixture()"
     },
     {
@@ -5158,8 +5125,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getrounds",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getrounds()"
     },
     {
@@ -5467,7 +5434,7 @@
       "_origin": "ast",
       "id": "src_lib_environment",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "environment.ts"
     },
     {
@@ -5478,7 +5445,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_appenvironment",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "appenvironment"
     },
     {
@@ -5489,7 +5456,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_seasontype",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "seasontype"
     },
     {
@@ -5500,7 +5467,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_environmentsource",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "environmentsource"
     },
     {
@@ -5511,7 +5478,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_environmentpolicy",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "environmentpolicy"
     },
     {
@@ -5522,7 +5489,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_app_environments",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "app_environments"
     },
     {
@@ -5533,7 +5500,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_resolveappenvironment",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "resolveappenvironment()"
     },
     {
@@ -5543,8 +5510,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_environment_getenvironmentpolicy",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "getenvironmentpolicy()"
     },
     {
@@ -5555,7 +5522,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_shoulddryrunnotifications",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "shoulddryrunnotifications()"
     },
     {
@@ -5566,7 +5533,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_getsupabaseprojectref",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "getsupabaseprojectref()"
     },
     {
@@ -5577,7 +5544,7 @@
       "_origin": "ast",
       "id": "src_lib_environment_assertsafestagingtarget",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "assertsafestagingtarget()"
     },
     {
@@ -5587,8 +5554,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "season-workbook.ts"
     },
     {
@@ -5598,8 +5565,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookleaderboardrow",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "workbookleaderboardrow"
     },
     {
@@ -5609,8 +5576,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookfixture",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "workbookfixture"
     },
     {
@@ -5620,8 +5587,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookprediction",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "workbookprediction"
     },
     {
@@ -5631,8 +5598,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookgameweek",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "workbookgameweek"
     },
     {
@@ -5642,8 +5609,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_seasonworkbookdata",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "seasonworkbookdata"
     },
     {
@@ -5653,8 +5620,8 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_titlerow",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "titlerow()"
     },
     {
@@ -5664,8 +5631,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_styleheader",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "styleheader()"
     },
     {
@@ -5675,8 +5642,8 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_safesheetname",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "safesheetname()"
     },
     {
@@ -5686,8 +5653,8 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_createseasonworkbook",
-      "community": 46,
-      "community_name": "createServiceClient",
+      "community": 1,
+      "community_name": "season/route.ts",
       "norm_label": "createseasonworkbook()"
     },
     {
@@ -5697,8 +5664,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "provider.ts"
     },
     {
@@ -5708,8 +5675,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": "fallbackfixtureprovider"
     },
     {
@@ -5719,8 +5686,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_constructor",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".constructor()"
     },
     {
@@ -5730,8 +5697,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_run",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".run()"
     },
     {
@@ -5741,8 +5708,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getseasonfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -5752,8 +5719,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getroundfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -5763,8 +5730,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getfixture",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getfixture()"
     },
     {
@@ -5774,8 +5741,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getrounds",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 61,
+      "community_name": "FixtureProvider",
       "norm_label": ".getrounds()"
     },
     {
@@ -5785,8 +5752,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_createproductionfixtureprovider",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "createproductionfixtureprovider()"
     },
     {
@@ -5797,7 +5764,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fpl/client.ts"
     },
     {
@@ -5808,7 +5775,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplteam",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplteam"
     },
     {
@@ -5819,7 +5786,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplevent",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplevent"
     },
     {
@@ -5830,7 +5797,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplbootstrap",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplbootstrap"
     },
     {
@@ -5841,7 +5808,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixture",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplfixture"
     },
     {
@@ -5852,7 +5819,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfetch",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplfetch()"
     },
     {
@@ -5863,7 +5830,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplseason",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplseason()"
     },
     {
@@ -5874,7 +5841,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplstatus",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplstatus()"
     },
     {
@@ -5885,7 +5852,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplfixtureprovider"
     },
     {
@@ -5896,7 +5863,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_bootstrap",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".bootstrap()"
     },
     {
@@ -5907,7 +5874,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_fixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".fixtures()"
     },
     {
@@ -5918,7 +5885,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".mappedfixtures()"
     },
     {
@@ -5929,7 +5896,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getseasonfixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -5940,7 +5907,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getroundfixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -5951,7 +5918,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getfixture",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getfixture()"
     },
     {
@@ -5962,7 +5929,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getrounds",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getrounds()"
     },
     {
@@ -6093,8 +6060,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_notifications_email",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "email.ts"
     },
     {
@@ -6104,152 +6071,86 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_notifications_email_reminderemailparams",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "reminderemailparams"
     },
     {
       "label": "EmailResult",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L15",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "src_lib_notifications_email_emailresult",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "emailresult"
     },
     {
       "label": "TestEmailParams",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L22",
+      "source_location": "L21",
       "_origin": "ast",
       "id": "src_lib_notifications_email_testemailparams",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "testemailparams"
     },
     {
       "label": "BrandedEmailParams",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L27",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "src_lib_notifications_email_brandedemailparams",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "brandedemailparams"
     },
     {
       "label": "escapeHtml()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L39",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_notifications_email_escapehtml",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "escapehtml()"
     },
     {
       "label": "renderBrandedEmail()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L49",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "src_lib_notifications_email_renderbrandedemail",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "renderbrandedemail()"
     },
     {
       "label": "sendReminderEmail()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L104",
+      "source_location": "L103",
       "_origin": "ast",
       "id": "src_lib_notifications_email_sendreminderemail",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "sendreminderemail()"
     },
     {
       "label": "sendTestEmail()",
       "file_type": "code",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L159",
+      "source_location": "L158",
       "_origin": "ast",
       "id": "src_lib_notifications_email_sendtestemail",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "sendtestemail()"
-    },
-    {
-      "label": "reminders.ts",
-      "file_type": "code",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "src_lib_notifications_reminders",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "reminders.ts"
-    },
-    {
-      "label": "REMINDER_WINDOWS",
-      "file_type": "code",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "src_lib_notifications_reminders_reminder_windows",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "reminder_windows"
-    },
-    {
-      "label": "ReminderWindow",
-      "file_type": "code",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "src_lib_notifications_reminders_reminderwindow",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "reminderwindow"
-    },
-    {
-      "label": "ReminderChannel",
-      "file_type": "code",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L7",
-      "_origin": "ast",
-      "id": "src_lib_notifications_reminders_reminderchannel",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "reminderchannel"
-    },
-    {
-      "label": "getDueReminderWindows()",
-      "file_type": "code",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "src_lib_notifications_reminders_getduereminderwindows",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "getduereminderwindows()"
-    },
-    {
-      "label": "buildReminderDeliveryKey()",
-      "file_type": "code",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L33",
-      "_origin": "ast",
-      "id": "src_lib_notifications_reminders_buildreminderdeliverykey",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "buildreminderdeliverykey()"
     },
     {
       "label": "sms.ts",
@@ -6258,8 +6159,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_notifications_sms",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "sms.ts"
     },
     {
@@ -6269,8 +6170,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_notifications_sms_remindersmsparams",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "remindersmsparams"
     },
     {
@@ -6280,8 +6181,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_lib_notifications_sms_smsresult",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "smsresult"
     },
     {
@@ -6291,8 +6192,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_lib_notifications_sms_testsmsparams",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "testsmsparams"
     },
     {
@@ -6302,8 +6203,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_lib_notifications_sms_sendremindersms",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "sendremindersms()"
     },
     {
@@ -6687,8 +6588,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "fixtures.ts"
     },
     {
@@ -6698,8 +6599,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_mapfixturestatus",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "mapfixturestatus()"
     },
     {
@@ -6709,8 +6610,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresult",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "syncresult"
     },
     {
@@ -6720,8 +6621,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_gameweeknumberfromround",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "gameweeknumberfromround()"
     },
     {
@@ -6731,8 +6632,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncloglevel",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "syncloglevel"
     },
     {
@@ -6742,7 +6643,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogentry",
-      "community": 2,
+      "community": 60,
       "community_name": "fixtures/actions.ts",
       "norm_label": "synclogentry"
     },
@@ -6753,8 +6654,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogger",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "synclogger"
     },
     {
@@ -6764,8 +6665,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_log",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "log()"
     },
     {
@@ -6775,8 +6676,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncfixtures",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "syncfixtures()"
     },
     {
@@ -6786,8 +6687,8 @@
       "source_location": "L200",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresults",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "syncresults()"
     },
     {
@@ -6882,7 +6783,7 @@
       "label": "Tables",
       "file_type": "code",
       "source_file": "src/types/database.ts",
-      "source_location": "L456",
+      "source_location": "L449",
       "_origin": "ast",
       "id": "src_types_database_tables",
       "community": 54,
@@ -6893,7 +6794,7 @@
       "label": "Enums",
       "file_type": "code",
       "source_file": "src/types/database.ts",
-      "source_location": "L459",
+      "source_location": "L452",
       "_origin": "ast",
       "id": "src_types_database_enums",
       "community": 54,
@@ -6951,8 +6852,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_types_index_fixturestatus",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 54,
+      "community_name": "types/index.ts",
       "norm_label": "fixturestatus"
     },
     {
@@ -7204,8 +7105,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_api_football_client_test",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 59,
+      "community_name": "api-football/client.ts",
       "norm_label": "api-football-client.test.ts"
     },
     {
@@ -7271,7 +7172,7 @@
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "deployment-config.test.ts"
     },
     {
@@ -7282,7 +7183,7 @@
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_normalizelines",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "normalizelines()"
     },
     {
@@ -7293,7 +7194,7 @@
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_renderblueprint",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "renderblueprint"
     },
     {
@@ -7304,7 +7205,7 @@
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_stagingworkflow",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "stagingworkflow"
     },
     {
@@ -7315,7 +7216,7 @@
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_seasonclockmigration",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "seasonclockmigration"
     },
     {
@@ -7326,7 +7227,7 @@
       "_origin": "ast",
       "id": "tests_unit_environment_test",
       "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community_name": "environment.ts",
       "norm_label": "environment.test.ts"
     },
     {
@@ -7336,8 +7237,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_fixture_sync_test",
-      "community": 2,
-      "community_name": "fixtures/actions.ts",
+      "community": 11,
+      "community_name": "fixtures.ts",
       "norm_label": "fixture-sync.test.ts"
     },
     {
@@ -7348,7 +7249,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fpl-client.test.ts"
     },
     {
@@ -7359,7 +7260,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test_bootstrap",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "bootstrap"
     },
     {
@@ -7370,7 +7271,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test_scheduledfixture",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "scheduledfixture"
     },
     {
@@ -7381,7 +7282,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test_mockfpl",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "mockfpl()"
     },
     {
@@ -7517,17 +7418,6 @@
       "norm_label": "random-score.test.ts"
     },
     {
-      "label": "reminder-delivery.test.ts",
-      "file_type": "code",
-      "source_file": "tests/unit/reminder-delivery.test.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_unit_reminder_delivery_test",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "reminder-delivery.test.ts"
-    },
-    {
       "label": "scoring.test.ts",
       "file_type": "code",
       "source_file": "tests/unit/scoring.test.ts",
@@ -7537,50 +7427,6 @@
       "community": 54,
       "community_name": "types/index.ts",
       "norm_label": "scoring.test.ts"
-    },
-    {
-      "label": "send-reminders-route.test.ts",
-      "file_type": "code",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "tests_unit_send_reminders_route_test",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "send-reminders-route.test.ts"
-    },
-    {
-      "label": "{\r\n  createServiceClient,\r\n  getSeasonNow,\r\n  sendReminderEmail,\r\n  sendReminderSms,\r\n  shouldDryRunNotifications,\r\n}",
-      "file_type": "code",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L4",
-      "_origin": "ast",
-      "id": "tests_unit_send_reminders_route_test_createserviceclient_getseasonnow_sendreminderemail_sendremindersms_shoulddryrunnotifications",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "{\r\n  createserviceclient,\r\n  getseasonnow,\r\n  sendreminderemail,\r\n  sendremindersms,\r\n  shoulddryrunnotifications,\r\n}"
-    },
-    {
-      "label": "gameweeksQuery()",
-      "file_type": "code",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L26",
-      "_origin": "ast",
-      "id": "tests_unit_send_reminders_route_test_gameweeksquery",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "gameweeksquery()"
-    },
-    {
-      "label": "participantsQuery()",
-      "file_type": "code",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L48",
-      "_origin": "ast",
-      "id": "tests_unit_send_reminders_route_test_participantsquery",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
-      "norm_label": "participantsquery()"
     },
     {
       "label": "staging-scenario.test.ts",
@@ -7649,7 +7495,7 @@
       "norm_label": "test-notification-action.test.ts"
     },
     {
-      "label": "{\r\n  createServiceClient,\r\n  getUser,\r\n  isSuperAdmin,\r\n  redirect,\r\n  revalidatePath,\r\n  sendTestEmail,\r\n  sendTestSms,\r\n}",
+      "label": "{\n  createServiceClient,\n  getUser,\n  isSuperAdmin,\n  redirect,\n  revalidatePath,\n  sendTestEmail,\n  sendTestSms,\n}",
       "file_type": "code",
       "source_file": "tests/unit/test-notification-action.test.ts",
       "source_location": "L3",
@@ -7657,7 +7503,7 @@
       "id": "tests_unit_test_notification_action_test_createserviceclient_getuser_issuperadmin_redirect_revalidatepath_sendtestemail_sendtestsms",
       "community": 46,
       "community_name": "createServiceClient",
-      "norm_label": "{\r\n  createserviceclient,\r\n  getuser,\r\n  issuperadmin,\r\n  redirect,\r\n  revalidatepath,\r\n  sendtestemail,\r\n  sendtestsms,\r\n}"
+      "norm_label": "{\n  createserviceclient,\n  getuser,\n  issuperadmin,\n  redirect,\n  revalidatepath,\n  sendtestemail,\n  sendtestsms,\n}"
     },
     {
       "label": "queryReturning()",
@@ -7677,8 +7523,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_test_notifications_test",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "test-notifications.test.ts"
     },
     {
@@ -7688,8 +7534,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "tests_unit_test_notifications_test_emailsend_smscreate_twiliofactory",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 2,
+      "community_name": "environment.ts",
       "norm_label": "{ emailsend, smscreate, twiliofactory }"
     },
     {
@@ -19303,29 +19149,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L28",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_app_api_cron_send_reminders_route_claimreminderdelivery",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L23",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_app_api_cron_send_reminders_route_deliveryclaim",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L14",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route",
@@ -19336,7 +19160,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L76",
+      "source_location": "L15",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route",
@@ -19347,18 +19171,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L21",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_app_api_cron_send_reminders_route_serviceclient",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L16",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route",
@@ -19442,66 +19255,6 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_lib_notifications_reminders",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_lib_notifications_reminders_buildreminderdeliverykey",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_lib_notifications_reminders_getduereminderwindows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_lib_notifications_reminders_reminderchannel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route",
-      "target": "src_lib_notifications_reminders_reminderwindow",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
       "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
@@ -19546,23 +19299,11 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L24",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_send_reminders_route_test",
-      "target": "src_app_api_cron_send_reminders_route",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L77",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route_post",
@@ -19570,60 +19311,12 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L45",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route_claimreminderdelivery",
-      "target": "src_app_api_cron_send_reminders_route_serviceclient"
-    },
-    {
-      "relation": "references",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L93",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route_post",
-      "target": "src_app_api_cron_send_reminders_route_serviceclient"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L38",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route_claimreminderdelivery",
-      "target": "src_lib_notifications_reminders_buildreminderdeliverykey",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L181",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route_post",
-      "target": "src_app_api_cron_send_reminders_route_claimreminderdelivery",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L105",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route_post",
@@ -19635,7 +19328,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L111",
+      "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route_post",
@@ -19647,7 +19340,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L197",
+      "source_location": "L129",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route_post",
@@ -19659,19 +19352,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L114",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_app_api_cron_send_reminders_route_post",
-      "target": "src_lib_notifications_reminders_getduereminderwindows"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L242",
+      "source_location": "L155",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route_post",
@@ -19683,23 +19364,11 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
-      "source_location": "L82",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_api_cron_send_reminders_route_post",
       "target": "src_lib_supabase_server_createserviceclient"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L24",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_send_reminders_route_test",
-      "target": "src_app_api_cron_send_reminders_route_post",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -25137,7 +24806,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L27",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25148,7 +24817,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L15",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25159,7 +24828,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L39",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25181,7 +24850,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L49",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25192,7 +24861,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L104",
+      "source_location": "L103",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25203,7 +24872,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L159",
+      "source_location": "L158",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25214,7 +24883,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L22",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email",
@@ -25238,7 +24907,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L57",
+      "source_location": "L56",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email_renderbrandedemail",
@@ -25250,7 +24919,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L117",
+      "source_location": "L116",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email_sendreminderemail",
@@ -25262,7 +24931,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L173",
+      "source_location": "L172",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email_sendtestemail",
@@ -25274,7 +24943,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L127",
+      "source_location": "L126",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email_sendreminderemail",
@@ -25286,7 +24955,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/notifications/email.ts",
-      "source_location": "L168",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_notifications_email_sendtestemail",
@@ -25315,109 +24984,6 @@
       "_origin": "ast",
       "source": "tests_unit_test_notifications_test",
       "target": "src_lib_notifications_email_sendtestemail",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L33",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_lib_notifications_reminders",
-      "target": "src_lib_notifications_reminders_buildreminderdeliverykey",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_lib_notifications_reminders",
-      "target": "src_lib_notifications_reminders_getduereminderwindows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_lib_notifications_reminders",
-      "target": "src_lib_notifications_reminders_reminder_windows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_lib_notifications_reminders",
-      "target": "src_lib_notifications_reminders_reminderchannel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/notifications/reminders.ts",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_lib_notifications_reminders",
-      "target": "src_lib_notifications_reminders_reminderwindow",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/reminder-delivery.test.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_reminder_delivery_test",
-      "target": "src_lib_notifications_reminders",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/reminder-delivery.test.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_reminder_delivery_test",
-      "target": "src_lib_notifications_reminders_reminder_windows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/reminder-delivery.test.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_reminder_delivery_test",
-      "target": "src_lib_notifications_reminders_getduereminderwindows",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/reminder-delivery.test.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_reminder_delivery_test",
-      "target": "src_lib_notifications_reminders_buildreminderdeliverykey",
       "confidence_score": 1.0
     },
     {
@@ -26484,7 +26050,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/types/database.ts",
-      "source_location": "L459",
+      "source_location": "L452",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_types_database",
@@ -26506,7 +26072,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/types/database.ts",
-      "source_location": "L456",
+      "source_location": "L449",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_types_database",
@@ -26946,39 +26512,6 @@
       "_origin": "ast",
       "source": "tests_unit_predictions_form_test",
       "target": "tests_unit_predictions_form_test_fixtures",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_send_reminders_route_test",
-      "target": "tests_unit_send_reminders_route_test_createserviceclient_getseasonnow_sendreminderemail_sendremindersms_shoulddryrunnotifications",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L26",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_send_reminders_route_test",
-      "target": "tests_unit_send_reminders_route_test_gameweeksquery",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/unit/send-reminders-route.test.ts",
-      "source_location": "L48",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "tests_unit_send_reminders_route_test",
-      "target": "tests_unit_send_reminders_route_test_participantsquery",
       "confidence_score": 1.0
     },
     {
@@ -28973,5 +28506,6 @@
       "confidence_score": 1.0,
       "source_file": "AGENTS.md"
     }
-  ]
+  ],
+  "built_at_commit": "266d619724ab56de200374e616664b2052fe94da"
 }

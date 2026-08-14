@@ -4,12 +4,73 @@ import { sendReminderEmail } from '@/lib/notifications/email';
 import { sendReminderSms } from '@/lib/notifications/sms';
 import { shouldDryRunNotifications } from '@/lib/environment';
 import { getSeasonNow } from '@/lib/clock';
+import {
+  buildReminderDeliveryKey,
+  getDueReminderWindows,
+  type ReminderChannel,
+  type ReminderWindow,
+} from '@/lib/notifications/reminders';
 
 export const dynamic = 'force-dynamic';
 
 function validateCronSecret(request: NextRequest): boolean {
   const secret = request.headers.get('x-cron-secret');
   return !!process.env.CRON_SECRET && secret === process.env.CRON_SECRET;
+}
+
+type ServiceClient = Awaited<ReturnType<typeof createServiceClient>>;
+
+type DeliveryClaim =
+  | { id: string; deliveryKey: string; duplicate: false; error: null }
+  | { id: null; deliveryKey: string; duplicate: true; error: null }
+  | { id: null; deliveryKey: string; duplicate: false; error: string };
+
+async function claimReminderDelivery(
+  supabase: ServiceClient,
+  params: {
+    participantId: string;
+    seasonId: string;
+    gameweekId: string;
+    channel: ReminderChannel;
+    reminderWindow: ReminderWindow;
+  }
+): Promise<DeliveryClaim> {
+  const deliveryKey = buildReminderDeliveryKey({
+    participantId: params.participantId,
+    gameweekId: params.gameweekId,
+    channel: params.channel,
+    reminderWindow: params.reminderWindow,
+  });
+
+  const { data, error } = await supabase
+    .from('notification_log')
+    .insert({
+      delivery_key: deliveryKey,
+      participant_id: params.participantId,
+      season_id: params.seasonId,
+      gameweek_id: params.gameweekId,
+      channel: params.channel,
+      notification_type: 'reminder',
+      status: 'processing',
+      metadata: { reminderWindow: params.reminderWindow },
+    })
+    .select('id')
+    .single();
+
+  if (error?.code === '23505') {
+    return { id: null, deliveryKey, duplicate: true, error: null };
+  }
+
+  if (error || !data) {
+    return {
+      id: null,
+      deliveryKey,
+      duplicate: false,
+      error: error?.message ?? 'Notification delivery claim returned no row',
+    };
+  }
+
+  return { id: data.id, deliveryKey, duplicate: false, error: null };
 }
 
 export async function POST(request: NextRequest) {
@@ -22,6 +83,7 @@ export async function POST(request: NextRequest) {
     const processedAt = new Date();
     let sent = 0;
     let suppressed = 0;
+    let duplicates = 0;
     const errors: string[] = [];
 
     // Find gameweeks with first_kickoff coming up — due for reminders
@@ -30,18 +92,17 @@ export async function POST(request: NextRequest) {
     //   2. 2 hours before first fixture kickoff (within the last 30 min)
     const { data: gameweeks } = await supabase
       .from('gameweeks')
-      .select(`
+      .select(
+        `
         id, label, first_kickoff, season_id,
         seasons!inner(season_type, status)
-      `)
+      `
+      )
       .eq('status', 'upcoming')
       .not('first_kickoff', 'is', null);
 
     for (const gw of gameweeks ?? []) {
       const now = await getSeasonNow(supabase, gw.season_id);
-      const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
-      const todayAt10 = new Date(ukNow);
-      todayAt10.setHours(10, 0, 0, 0);
       const firstKickoff = new Date(gw.first_kickoff!);
       const season = (gw as any).seasons;
 
@@ -50,23 +111,14 @@ export async function POST(request: NextRequest) {
       const isDryRun = shouldDryRunNotifications(season?.season_type);
 
       // Check if a reminder is due (within 30-min window)
-      const diffToKickoff = firstKickoff.getTime() - now.getTime();
-      const diffTo10am = Math.abs(now.getTime() - todayAt10.getTime());
-      const isNear2HourWindow =
-        diffToKickoff > 0 &&
-        diffToKickoff <= 2 * 60 * 60 * 1000 &&
-        diffToKickoff >= 1.5 * 60 * 60 * 1000;
-      const isNear10amWindow =
-        diffTo10am <= 30 * 60 * 1000 &&
-        now >= todayAt10 &&
-        firstKickoff > now;
-
-      if (!isNear2HourWindow && !isNear10amWindow) continue;
+      const reminderWindows = getDueReminderWindows(now, firstKickoff);
+      if (reminderWindows.length === 0) continue;
 
       // Get season participants with notification preferences
       const { data: participants } = await supabase
         .from('season_participants')
-        .select(`
+        .select(
+          `
           participant_id,
           participants!inner(
             id, display_name, email, mobile,
@@ -74,7 +126,8 @@ export async function POST(request: NextRequest) {
               email_enabled, sms_enabled, remind_when_complete, opted_out
             )
           )
-        `)
+        `
+        )
         .eq('season_id', gw.season_id);
 
       for (const sp of participants ?? []) {
@@ -94,12 +147,9 @@ export async function POST(request: NextRequest) {
             .eq('participant_id', p.id)
             .in(
               'fixture_id',
-              (
-                await supabase
-                  .from('fixtures')
-                  .select('id')
-                  .eq('gameweek_id', gw.id)
-              ).data?.map((f: any) => f.id) ?? []
+              (await supabase.from('fixtures').select('id').eq('gameweek_id', gw.id)).data?.map(
+                (f: any) => f.id
+              ) ?? []
             );
 
           const { count: fixtureCount } = await supabase
@@ -124,55 +174,96 @@ export async function POST(request: NextRequest) {
         const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
         const predictionsUrl = `${appUrl}/predictions/${gw.id}`;
 
-        // Send email
-        if (prefs.email_enabled && p.email) {
-          const result = await sendReminderEmail({
-            to: p.email,
-            displayName: p.display_name,
-            gameweekLabel: gw.label ?? `Gameweek`,
-            firstKickoff,
-            predictionsUrl,
-            isDryRun,
-          });
+        for (const reminderWindow of reminderWindows) {
+          // Claim the occurrence before calling either provider. The database's
+          // unique delivery_key makes this safe across retries and concurrent jobs.
+          if (prefs.email_enabled && p.email) {
+            const claim = await claimReminderDelivery(supabase, {
+              participantId: p.id,
+              seasonId: gw.season_id,
+              gameweekId: gw.id,
+              channel: 'email',
+              reminderWindow,
+            });
 
-          await supabase.from('notification_log').insert({
-            participant_id: p.id,
-            season_id: gw.season_id,
-            gameweek_id: gw.id,
-            channel: 'email',
-            notification_type: 'reminder',
-            status: result.dryRun ? 'dry_run' : result.success ? 'sent' : 'failed',
-            error_message: result.error,
-            metadata: result.messageId ? { messageId: result.messageId } : null,
-          });
+            if (claim.duplicate) {
+              duplicates++;
+              suppressed++;
+            } else if (claim.error || !claim.id) {
+              errors.push(
+                `Could not claim email to ${p.email}: ${claim.error ?? 'No claim ID returned'}`
+              );
+            } else {
+              const result = await sendReminderEmail({
+                to: p.email,
+                displayName: p.display_name,
+                gameweekLabel: gw.label ?? `Gameweek`,
+                firstKickoff,
+                predictionsUrl,
+                isDryRun,
+                idempotencyKey: claim.deliveryKey,
+              });
 
-          if (result.success) sent++;
-          else if (result.error) errors.push(`Email to ${p.email}: ${result.error}`);
-        }
+              const { error: logError } = await supabase
+                .from('notification_log')
+                .update({
+                  status: result.dryRun ? 'dry_run' : result.success ? 'sent' : 'failed',
+                  error_message: result.error ?? null,
+                  metadata: {
+                    reminderWindow,
+                    ...(result.messageId ? { messageId: result.messageId } : {}),
+                  },
+                })
+                .eq('id', claim.id);
 
-        // Send SMS
-        if (prefs.sms_enabled && p.mobile) {
-          const result = await sendReminderSms({
-            to: p.mobile,
-            displayName: p.display_name,
-            gameweekLabel: gw.label ?? `Gameweek`,
-            firstKickoff,
-            isDryRun,
-          });
+              if (logError) errors.push(`Could not update email log: ${logError.message}`);
+              if (result.success) sent++;
+              else if (result.error) errors.push(`Email to ${p.email}: ${result.error}`);
+            }
+          }
 
-          await supabase.from('notification_log').insert({
-            participant_id: p.id,
-            season_id: gw.season_id,
-            gameweek_id: gw.id,
-            channel: 'sms',
-            notification_type: 'reminder',
-            status: result.dryRun ? 'dry_run' : result.success ? 'sent' : 'failed',
-            error_message: result.error,
-            metadata: result.messageSid ? { messageSid: result.messageSid } : null,
-          });
+          if (prefs.sms_enabled && p.mobile) {
+            const claim = await claimReminderDelivery(supabase, {
+              participantId: p.id,
+              seasonId: gw.season_id,
+              gameweekId: gw.id,
+              channel: 'sms',
+              reminderWindow,
+            });
 
-          if (result.success) sent++;
-          else if (result.error) errors.push(`SMS to ${p.mobile}: ${result.error}`);
+            if (claim.duplicate) {
+              duplicates++;
+              suppressed++;
+            } else if (claim.error || !claim.id) {
+              errors.push(
+                `Could not claim SMS to ${p.mobile}: ${claim.error ?? 'No claim ID returned'}`
+              );
+            } else {
+              const result = await sendReminderSms({
+                to: p.mobile,
+                displayName: p.display_name,
+                gameweekLabel: gw.label ?? `Gameweek`,
+                firstKickoff,
+                isDryRun,
+              });
+
+              const { error: logError } = await supabase
+                .from('notification_log')
+                .update({
+                  status: result.dryRun ? 'dry_run' : result.success ? 'sent' : 'failed',
+                  error_message: result.error ?? null,
+                  metadata: {
+                    reminderWindow,
+                    ...(result.messageSid ? { messageSid: result.messageSid } : {}),
+                  },
+                })
+                .eq('id', claim.id);
+
+              if (logError) errors.push(`Could not update SMS log: ${logError.message}`);
+              if (result.success) sent++;
+              else if (result.error) errors.push(`SMS to ${p.mobile}: ${result.error}`);
+            }
+          }
         }
       }
     }
@@ -182,6 +273,7 @@ export async function POST(request: NextRequest) {
       timestamp: processedAt.toISOString(),
       sent,
       suppressed,
+      duplicates,
       errors,
     });
   } catch (err) {
