@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { adminSubmitPredictions } from '@/lib/predictions/actions';
+import { adminExtractEmailPredictions, adminSubmitPredictions } from '@/lib/predictions/actions';
 
 interface Option {
   id: string;
@@ -34,6 +34,7 @@ interface Props {
   gameweeks: Option[];
   selectedParticipantId: string;
   selectedGameweekId: string;
+  llmFallbackConfigured: boolean;
   fixtures: Fixture[];
 }
 
@@ -42,6 +43,7 @@ export function AdminPredictionsForm({
   gameweeks,
   selectedParticipantId,
   selectedGameweekId,
+  llmFallbackConfigured,
   fixtures,
 }: Props) {
   const router = useRouter();
@@ -61,15 +63,20 @@ export function AdminPredictionsForm({
   const [participantName, setParticipantName] = useState('');
   const [hideReady, setHideReady] = useState(false);
   const [offlineOnly, setOfflineOnly] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [emailText, setEmailText] = useState('');
+  const [importMessage, setImportMessage] = useState<string | null>(null);
+  const [importWarnings, setImportWarnings] = useState<string[]>([]);
+  const [importedBy, setImportedBy] = useState<Record<string, 'deterministic' | 'llm'>>({});
+  const [isExtracting, startExtraction] = useTransition();
+  const [isSaving, startSaving] = useTransition();
 
   const normalizedParticipantName = participantName.trim().toLocaleLowerCase();
   const filteredParticipants = participants.filter(
     (participant) =>
-      (!normalizedParticipantName
-        || participant.label.toLocaleLowerCase().includes(normalizedParticipantName))
-      && (!hideReady || participant.status !== 'ready')
-      && (!offlineOnly || participant.isOffline)
+      (!normalizedParticipantName ||
+        participant.label.toLocaleLowerCase().includes(normalizedParticipantName)) &&
+      (!hideReady || participant.status !== 'ready') &&
+      (!offlineOnly || participant.isOffline)
   );
 
   function navigate(nextParticipantId: string, nextGameweekId: string) {
@@ -87,6 +94,48 @@ export function AdminPredictionsForm({
     }));
   }
 
+  function extractEmail() {
+    setImportMessage(null);
+    setImportWarnings([]);
+    startExtraction(async () => {
+      const result = await adminExtractEmailPredictions(gameweekId, emailText);
+      if (!result.success) {
+        setImportedBy({});
+        setImportMessage(result.error ?? 'The email could not be processed.');
+        return;
+      }
+
+      setInputs((current) => {
+        const next = { ...current };
+        for (const prediction of result.predictions) {
+          next[prediction.fixtureId] = {
+            home: prediction.homeScore.toString(),
+            away: prediction.awayScore.toString(),
+          };
+        }
+        return next;
+      });
+      setImportedBy(
+        Object.fromEntries(
+          result.predictions.map((prediction) => [prediction.fixtureId, prediction.method])
+        )
+      );
+
+      const missingNames = fixtures
+        .filter((fixture) => result.unmatchedFixtureIds.includes(fixture.id))
+        .map((fixture) => `${fixture.home_team_name} v ${fixture.away_team_name}`);
+      setImportWarnings([
+        ...result.warnings,
+        ...(missingNames.length ? [`Still missing: ${missingNames.join(', ')}.`] : []),
+      ]);
+      setImportMessage(
+        result.predictions.length
+          ? `Extracted ${result.predictions.length} of ${fixtures.length} fixtures${result.usedLlm ? ' using the parser and LLM fallback' : ' using the deterministic parser'}. Review the highlighted scores before saving.`
+          : 'No predictions were recognised. Enter the scores manually or adjust the pasted text.'
+      );
+    });
+  }
+
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage(null);
@@ -97,8 +146,9 @@ export function AdminPredictionsForm({
         homeScore: Number.parseInt(inputs[fixture.id]?.home ?? '', 10),
         awayScore: Number.parseInt(inputs[fixture.id]?.away ?? '', 10),
       }))
-      .filter((prediction) =>
-        Number.isInteger(prediction.homeScore) && Number.isInteger(prediction.awayScore)
+      .filter(
+        (prediction) =>
+          Number.isInteger(prediction.homeScore) && Number.isInteger(prediction.awayScore)
       );
 
     if (!selectedParticipantId || predictions.length === 0) {
@@ -106,13 +156,14 @@ export function AdminPredictionsForm({
       return;
     }
 
-    startTransition(async () => {
+    startSaving(async () => {
       const result = await adminSubmitPredictions(selectedParticipantId, predictions);
       setMessage(
         result.success
           ? `Saved ${result.saved} prediction${result.saved === 1 ? '' : 's'}.`
           : `Saved ${result.saved}. ${result.errors.join('; ')}`
       );
+      if (result.success) setImportedBy({});
       router.refresh();
     });
   }
@@ -133,7 +184,9 @@ export function AdminPredictionsForm({
           >
             <option value="">Select a gameweek</option>
             {gameweeks.map((gameweek) => (
-              <option key={gameweek.id} value={gameweek.id}>{gameweek.label}</option>
+              <option key={gameweek.id} value={gameweek.id}>
+                {gameweek.label}
+              </option>
             ))}
           </select>
         </label>
@@ -147,7 +200,9 @@ export function AdminPredictionsForm({
         <section className="space-y-3">
           <div>
             <h2 className="text-lg font-semibold">Participants</h2>
-            <p className="text-sm text-muted-foreground">Select someone to enter or amend their picks.</p>
+            <p className="text-sm text-muted-foreground">
+              Select someone to enter or amend their picks.
+            </p>
           </div>
           <div className="space-y-3 rounded-lg border border-border p-3">
             <label className="block space-y-1 text-sm font-medium">
@@ -185,11 +240,20 @@ export function AdminPredictionsForm({
             <div className="grid gap-2 sm:grid-cols-2">
               {filteredParticipants.map((participant) => {
                 const active = participant.id === selectedParticipantId;
-                const status = participant.status === 'ready'
-                  ? { label: 'Ready', className: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' }
-                  : participant.status === 'in_progress'
-                    ? { label: 'In progress', className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' }
-                    : { label: 'Awaiting picks', className: 'bg-muted text-muted-foreground' };
+                const status =
+                  participant.status === 'ready'
+                    ? {
+                        label: 'Ready',
+                        className:
+                          'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
+                      }
+                    : participant.status === 'in_progress'
+                      ? {
+                          label: 'In progress',
+                          className:
+                            'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
+                        }
+                      : { label: 'Awaiting picks', className: 'bg-muted text-muted-foreground' };
 
                 return (
                   <button
@@ -209,7 +273,9 @@ export function AdminPredictionsForm({
                       )}
                     </span>
                     <span className="flex items-center gap-2">
-                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.className}`}>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${status.className}`}
+                      >
                         {status.label}
                       </span>
                       <span className="text-xs tabular-nums text-muted-foreground">
@@ -233,60 +299,141 @@ export function AdminPredictionsForm({
           <h2 className="border-b border-border pb-2 text-lg font-semibold">
             {participants.find((participant) => participant.id === selectedParticipantId)?.label}
           </h2>
+          <section className="space-y-3 rounded-lg border border-border bg-muted/20 p-4">
+            <div>
+              <h3 className="font-semibold">Paste prediction email</h3>
+              <p className="text-sm text-muted-foreground">
+                The built-in parser runs first. The optional LLM fallback is{' '}
+                <span className="font-medium">
+                  {llmFallbackConfigured ? 'configured' : 'not configured'}
+                </span>
+                . Nothing is saved until you review the scores and select Save predictions.
+              </p>
+            </div>
+            <label className="block space-y-1 text-sm font-medium">
+              <span>Email text</span>
+              <textarea
+                value={emailText}
+                onChange={(event) => setEmailText(event.target.value)}
+                rows={8}
+                maxLength={50_000}
+                placeholder={'Arsenal 2-1 Chelsea\nMan Utd v Liverpool: 1-2'}
+                className="w-full resize-y rounded-md border border-border bg-background px-3 py-2 font-normal"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={extractEmail}
+              disabled={isExtracting || !emailText.trim()}
+              className="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium disabled:opacity-50"
+            >
+              {isExtracting ? 'Extracting…' : 'Extract predictions'}
+            </button>
+            {importMessage && (
+              <p className="text-sm" role="status">
+                {importMessage}
+              </p>
+            )}
+            {importWarnings.length > 0 && (
+              <ul className="list-disc space-y-1 pl-5 text-sm text-amber-700 dark:text-amber-300">
+                {importWarnings.map((warning) => (
+                  <li key={warning}>{warning}</li>
+                ))}
+              </ul>
+            )}
+          </section>
           <div className="space-y-2">
-            {fixtures.map((fixture) => (
-              <div key={fixture.id} className="rounded-lg border border-border p-4">
-                <div className="mb-3 flex items-center justify-between gap-3 text-xs text-muted-foreground">
-                  <span>{new Date(fixture.kickoff).toLocaleString('en-GB', {
-                    timeZone: 'Europe/London',
-                    weekday: 'short',
-                    day: 'numeric',
-                    month: 'short',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}</span>
-                  {fixture.result_confirmed && <span>Result confirmed</span>}
+            {fixtures.map((fixture) => {
+              const importMethod = importedBy[fixture.id];
+              const importedHome = Number.parseInt(inputs[fixture.id]?.home ?? '', 10);
+              const importedAway = Number.parseInt(inputs[fixture.id]?.away ?? '', 10);
+              const overwritesExisting = Boolean(
+                importMethod &&
+                fixture.prediction &&
+                (fixture.prediction.home_score !== importedHome ||
+                  fixture.prediction.away_score !== importedAway)
+              );
+
+              return (
+                <div
+                  key={fixture.id}
+                  className={`rounded-lg border p-4 ${importMethod ? 'border-primary bg-primary/5' : 'border-border'}`}
+                >
+                  <div className="mb-3 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                    <span>
+                      {new Date(fixture.kickoff).toLocaleString('en-GB', {
+                        timeZone: 'Europe/London',
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      {importMethod && (
+                        <span className="font-medium text-primary">
+                          {importMethod === 'llm' ? 'LLM suggestion' : 'Parser match'}
+                        </span>
+                      )}
+                      {fixture.result_confirmed && <span>Result confirmed</span>}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="flex-1 text-right font-medium">{fixture.home_team_name}</span>
+                    <input
+                      aria-label={`${fixture.home_team_name} score`}
+                      value={inputs[fixture.id]?.home ?? ''}
+                      onChange={(event) => changeScore(fixture.id, 'home', event.target.value)}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={2}
+                      className="w-12 rounded border border-border bg-background p-2 text-center"
+                    />
+                    <span className="text-muted-foreground">–</span>
+                    <input
+                      aria-label={`${fixture.away_team_name} score`}
+                      value={inputs[fixture.id]?.away ?? ''}
+                      onChange={(event) => changeScore(fixture.id, 'away', event.target.value)}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={2}
+                      className="w-12 rounded border border-border bg-background p-2 text-center"
+                    />
+                    <span className="flex-1 font-medium">{fixture.away_team_name}</span>
+                  </div>
+                  {fixture.prediction?.points_awarded != null && (
+                    <p className="mt-2 text-center text-xs text-muted-foreground">
+                      Current points: {fixture.prediction.points_awarded}
+                    </p>
+                  )}
+                  {overwritesExisting && (
+                    <p className="mt-2 text-center text-xs font-medium text-amber-700 dark:text-amber-300">
+                      Will replace existing prediction {fixture.prediction?.home_score}–
+                      {fixture.prediction?.away_score}
+                    </p>
+                  )}
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="flex-1 text-right font-medium">{fixture.home_team_name}</span>
-                  <input
-                    aria-label={`${fixture.home_team_name} score`}
-                    value={inputs[fixture.id]?.home ?? ''}
-                    onChange={(event) => changeScore(fixture.id, 'home', event.target.value)}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    maxLength={2}
-                    className="w-12 rounded border border-border bg-background p-2 text-center"
-                  />
-                  <span className="text-muted-foreground">–</span>
-                  <input
-                    aria-label={`${fixture.away_team_name} score`}
-                    value={inputs[fixture.id]?.away ?? ''}
-                    onChange={(event) => changeScore(fixture.id, 'away', event.target.value)}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    maxLength={2}
-                    className="w-12 rounded border border-border bg-background p-2 text-center"
-                  />
-                  <span className="flex-1 font-medium">{fixture.away_team_name}</span>
-                </div>
-                {fixture.prediction?.points_awarded != null && (
-                  <p className="mt-2 text-center text-xs text-muted-foreground">
-                    Current points: {fixture.prediction.points_awarded}
-                  </p>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <button
             type="submit"
-            disabled={isPending}
+            disabled={isSaving || isExtracting}
             className="w-full rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground disabled:opacity-50"
           >
-            {isPending ? 'Saving…' : 'Save predictions'}
+            {isSaving
+              ? 'Saving…'
+              : importedBy && Object.keys(importedBy).length > 0
+                ? 'Review and save predictions'
+                : 'Save predictions'}
           </button>
-          {message && <p className="text-center text-sm" role="status">{message}</p>}
+          {message && (
+            <p className="text-center text-sm" role="status">
+              {message}
+            </p>
+          )}
         </form>
       )}
     </div>

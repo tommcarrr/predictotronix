@@ -13,6 +13,7 @@ vi.mock('@/lib/supabase/server', () => ({ createServiceClient }));
 import {
   requireLeagueAdminForFixture,
   requireLeagueAdminForFixtures,
+  requireLeagueAdminForGameweek,
   requireLeagueAdminForSeason,
 } from '@/lib/admin/authorization';
 
@@ -44,6 +45,19 @@ describe('league-scoped admin authorization', () => {
       .mockResolvedValueOnce({ data: { id: 'season-1', league_id: 'league-1' } });
 
     await requireLeagueAdminForFixture('fixture-1');
+    expect(requireLeagueAdmin).toHaveBeenCalledWith('league-1');
+  });
+
+  it('derives gameweek ownership through its season', async () => {
+    maybeSingle
+      .mockResolvedValueOnce({ data: { id: 'gameweek-1', season_id: 'season-1' } })
+      .mockResolvedValueOnce({ data: { id: 'season-1', league_id: 'league-1' } });
+
+    await expect(requireLeagueAdminForGameweek('gameweek-1')).resolves.toMatchObject({
+      gameweekId: 'gameweek-1',
+      leagueId: 'league-1',
+      seasonId: 'season-1',
+    });
     expect(requireLeagueAdmin).toHaveBeenCalledWith('league-1');
   });
 

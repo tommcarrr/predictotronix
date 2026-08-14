@@ -35,19 +35,23 @@ cp .env.local.example .env.local
 
 Fill in `.env.local`:
 
-| Variable | Where to find it |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project → Settings → API → Project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase project → Settings → API → anon public key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase project → Settings → API → service_role key |
-| `API_FOOTBALL_KEY` | Optional API-Football fallback key from [API-Sports](https://dashboard.api-football.com/) |
-| `RAPIDAPI_KEY` | Optional RapidAPI fallback key. Configure this or `API_FOOTBALL_KEY`, never both. |
-| `RESEND_API_KEY` | [Resend](https://resend.com) → API Keys |
-| `TWILIO_ACCOUNT_SID` | [Twilio console](https://console.twilio.com) |
-| `TWILIO_AUTH_TOKEN` | Twilio console |
-| `TWILIO_FROM_NUMBER` | Your Twilio phone number in E.164 format |
-| `CRON_SECRET` | Any strong random string (`openssl rand -hex 32`) |
-| `NEXT_PUBLIC_APP_URL` | `http://localhost:3000` for local dev |
+| Variable                                 | Where to find it                                                                                                                                     |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`               | Supabase project → Settings → API → Project URL                                                                                                      |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`          | Supabase project → Settings → API → anon public key                                                                                                  |
+| `SUPABASE_SERVICE_ROLE_KEY`              | Supabase project → Settings → API → service_role key                                                                                                 |
+| `API_FOOTBALL_KEY`                       | Optional API-Football fallback key from [API-Sports](https://dashboard.api-football.com/)                                                            |
+| `RAPIDAPI_KEY`                           | Optional RapidAPI fallback key. Configure this or `API_FOOTBALL_KEY`, never both.                                                                    |
+| `OPENAI_API_KEY`                         | Optional prediction-email LLM fallback key from [OpenAI API keys](https://platform.openai.com/api-keys). Leave unset for deterministic-only imports. |
+| `PREDICTION_IMPORT_LLM_MODEL`            | Optional model override. Defaults to `gpt-5.6-luna`, OpenAI's cost-sensitive, high-volume model.                                                     |
+| `PREDICTION_IMPORT_LLM_REASONING_EFFORT` | Optional reasoning override. Defaults to `none` for `gpt-5.6-luna`; use only after testing a different model.                                        |
+| `PREDICTION_IMPORT_LLM_BASE_URL`         | Optional OpenAI-compatible API base URL. Defaults to `https://api.openai.com/v1`.                                                                    |
+| `RESEND_API_KEY`                         | [Resend](https://resend.com) → API Keys                                                                                                              |
+| `TWILIO_ACCOUNT_SID`                     | [Twilio console](https://console.twilio.com)                                                                                                         |
+| `TWILIO_AUTH_TOKEN`                      | Twilio console                                                                                                                                       |
+| `TWILIO_FROM_NUMBER`                     | Your Twilio phone number in E.164 format                                                                                                             |
+| `CRON_SECRET`                            | Any strong random string (`openssl rand -hex 32`)                                                                                                    |
+| `NEXT_PUBLIC_APP_URL`                    | `http://localhost:3000` for local dev                                                                                                                |
 
 ### 4. Run database migrations
 
@@ -87,6 +91,58 @@ npm run dev
 
 Visit `http://localhost:3000` — redirects to `/login`.
 
+### Optional prediction-email LLM fallback
+
+Prediction email imports always run the local deterministic parser first. It
+recognises common Premier League club names, abbreviations and provider naming
+variants without making an external request. The LLM is called only for fixtures
+the parser could not resolve, and only when `OPENAI_API_KEY` is configured.
+
+To provision the default OpenAI fallback:
+
+1. Create or select an OpenAI API project and enable API billing at
+   [platform.openai.com](https://platform.openai.com/).
+2. Create a restricted API key at
+   [API keys](https://platform.openai.com/api-keys). The key only needs model
+   inference access.
+3. Add the key to `.env.local`; never prefix it with `NEXT_PUBLIC_` and never
+   commit it:
+
+   ```bash
+   OPENAI_API_KEY=<secret>
+   PREDICTION_IMPORT_LLM_MODEL=gpt-5.6-luna
+   PREDICTION_IMPORT_LLM_REASONING_EFFORT=none
+   ```
+
+4. Restart `npm run dev`. The Predictions page will report that the optional
+   fallback is configured.
+
+For Render, open the web service, select **Environment**, and add these values:
+
+| Key                                      | Value                                       |
+| ---------------------------------------- | ------------------------------------------- |
+| `OPENAI_API_KEY`                         | Your secret project API key (`sk-proj-...`) |
+| `PREDICTION_IMPORT_LLM_MODEL`            | `gpt-5.6-luna`                              |
+| `PREDICTION_IMPORT_LLM_REASONING_EFFORT` | `none`                                      |
+
+The model and reasoning values match the application defaults, but setting them
+explicitly makes the production configuration visible and intentional. Do not add
+`PREDICTION_IMPORT_LLM_BASE_URL` for OpenAI; the built-in value is
+`https://api.openai.com/v1`. Save the environment changes, then redeploy the
+service. Configuration is per deployment, so production and staging can enable
+the fallback independently.
+
+`PREDICTION_IMPORT_LLM_BASE_URL` can point to an OpenAI-compatible provider, but
+the selected model must support Chat Completions structured outputs using strict
+JSON Schema. Test a compatible provider in staging before enabling it in
+production.
+
+When the fallback runs, the pasted email and only the still-unmatched fixture
+names/IDs are sent to the configured provider. Predictotronix does not store the
+email. The response is schema-validated, shown as a review draft, and is never
+saved automatically. Review the provider's retention and data-processing terms
+before sending emails containing personal information.
+
 ### Local Docker-backed development loop
 
 On Windows and macOS, Next.js recommends running `next dev` natively because Docker Desktop bind mounts can make HMR extremely slow and can cause Turbopack worker timeouts. The local development command therefore runs Next.js natively while keeping Postgres, Auth, and the Supabase API in Docker.
@@ -108,15 +164,15 @@ Stop `local:dev` with Ctrl+C. `npm run local:stop` stops the Docker-backed Supab
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm test` | Run unit tests (Vitest) |
-| `npm run test:watch` | Unit tests in watch mode |
-| `npm run test:e2e` | Run E2E tests (Playwright) |
-| `npm run lint` | Run ESLint |
+| Command              | Description                |
+| -------------------- | -------------------------- |
+| `npm run dev`        | Start development server   |
+| `npm run build`      | Production build           |
+| `npm run start`      | Start production server    |
+| `npm test`           | Run unit tests (Vitest)    |
+| `npm run test:watch` | Unit tests in watch mode   |
+| `npm run test:e2e`   | Run E2E tests (Playwright) |
+| `npm run lint`       | Run ESLint                 |
 
 ---
 
@@ -128,6 +184,7 @@ Stop `local:dev` with Ctrl+C. `npm run local:stop` stops the Docker-backed Supab
 2. **Build command:** `npm run build`
 3. **Start command:** `npm start`
 4. Set all environment variables from `.env.local` (use production Supabase values)
+   and optionally configure the prediction-email LLM fallback as described above
 5. In Supabase **Authentication → URL Configuration**, set the production Site URL and add the exact `<NEXT_PUBLIC_APP_URL>/auth/confirm` and `<NEXT_PUBLIC_APP_URL>/auth/recover` redirect URLs
 6. Uses `output: 'standalone'` for efficient Docker deployment
 
@@ -190,16 +247,16 @@ tests/
 
 ### Key design decisions
 
-| Concern | Approach |
-|---|---|
-| Prediction visibility | RLS: participants can only SELECT their own. Admins use service-role client. |
-| Kickoff locking | Server Action check **and** RLS UPDATE policy (defence in depth) |
-| Offline participants | `participants` table independent of `auth.users` — offline entries have `user_id = null` |
-| Test data isolation | `season_type` column — test/demo seasons never contaminate production |
-| Fixture provider | `FixtureProvider` interface — swap `ApiFootballProvider` for `TestFixtureProvider` per season |
-| Notifications in test mode | Test seasons always dry-run (logged, not sent) |
-| Scoring | Database RPC `score_predictions(fixture_id)` — atomic, idempotent |
-| Leaderboards | Database RPC — returns points only, never raw predictions |
+| Concern                    | Approach                                                                                      |
+| -------------------------- | --------------------------------------------------------------------------------------------- |
+| Prediction visibility      | RLS: participants can only SELECT their own. Admins use service-role client.                  |
+| Kickoff locking            | Server Action check **and** RLS UPDATE policy (defence in depth)                              |
+| Offline participants       | `participants` table independent of `auth.users` — offline entries have `user_id = null`      |
+| Test data isolation        | `season_type` column — test/demo seasons never contaminate production                         |
+| Fixture provider           | `FixtureProvider` interface — swap `ApiFootballProvider` for `TestFixtureProvider` per season |
+| Notifications in test mode | Test seasons always dry-run (logged, not sent)                                                |
+| Scoring                    | Database RPC `score_predictions(fixture_id)` — atomic, idempotent                             |
+| Leaderboards               | Database RPC — returns points only, never raw predictions                                     |
 
 ---
 

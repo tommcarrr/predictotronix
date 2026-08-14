@@ -42,10 +42,16 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
     .filter(Boolean)
     .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
   const seasonNow = selectedSeason ? await getSeasonNow(supabase, selectedSeason.id) : new Date();
-  const defaultGameweek = selectPredictionGameweek(gameweeks ?? [], seasonFixtures ?? [], seasonNow);
+  const defaultGameweek = selectPredictionGameweek(
+    gameweeks ?? [],
+    seasonFixtures ?? [],
+    seasonNow
+  );
   const selectedGameweek =
     (gameweeks ?? []).find((gameweek) => gameweek.id === gameweekId) ?? defaultGameweek;
-  const selectedParticipant = participants.find((participant: any) => participant.id === participantId);
+  const selectedParticipant = participants.find(
+    (participant: any) => participant.id === participantId
+  );
 
   const { data: fixtures } = selectedGameweek
     ? await supabase
@@ -57,17 +63,20 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
 
   const fixtureIds = (fixtures ?? []).map((fixture) => fixture.id);
   const participantIds = participants.map((participant: any) => participant.id);
-  const { data: gameweekPredictions } = fixtureIds.length && participantIds.length
-    ? await supabase
-        .from('predictions')
-        .select('participant_id, fixture_id, home_score, away_score, points_awarded')
-        .in('participant_id', participantIds)
-        .in('fixture_id', fixtureIds)
-    : { data: [] };
+  const { data: gameweekPredictions } =
+    fixtureIds.length && participantIds.length
+      ? await supabase
+          .from('predictions')
+          .select('participant_id, fixture_id, home_score, away_score, points_awarded')
+          .in('participant_id', participantIds)
+          .in('fixture_id', fixtureIds)
+      : { data: [] };
   const selectedPredictions = (gameweekPredictions ?? []).filter(
     (prediction) => prediction.participant_id === selectedParticipant?.id
   );
-  const predictionMap = new Map(selectedPredictions.map((prediction) => [prediction.fixture_id, prediction]));
+  const predictionMap = new Map(
+    selectedPredictions.map((prediction) => [prediction.fixture_id, prediction])
+  );
   const predictionCounts = new Map<string, number>();
   for (const prediction of gameweekPredictions ?? []) {
     predictionCounts.set(
@@ -79,11 +88,8 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
   const participantStatuses = participants.map((participant: any) => {
     const completed = predictionCounts.get(participant.id) ?? 0;
     const total = fixtureIds.length;
-    const status = completed === 0
-      ? 'awaiting'
-      : total > 0 && completed >= total
-        ? 'ready'
-        : 'in_progress';
+    const status =
+      completed === 0 ? 'awaiting' : total > 0 && completed >= total ? 'ready' : 'in_progress';
 
     return {
       id: participant.id,
@@ -102,7 +108,8 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
       <div>
         <h1 className="text-2xl font-bold">Participant Predictions</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Enter or amend predictions on a participant&apos;s behalf. Admin entries remain editable after kickoff.
+          Enter or amend predictions on a participant&apos;s behalf. Admin entries remain editable
+          after kickoff.
         </p>
       </div>
 
@@ -120,6 +127,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
           }))}
           selectedParticipantId={selectedParticipant?.id ?? ''}
           selectedGameweekId={effectiveGameweekId}
+          llmFallbackConfigured={Boolean(process.env.OPENAI_API_KEY?.trim())}
           fixtures={(fixtures ?? []).map((fixture) => ({
             ...fixture,
             prediction: predictionMap.get(fixture.id) ?? null,

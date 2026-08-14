@@ -1,19 +1,42 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { AdminPredictionsForm } from '@/components/admin/AdminPredictionsForm';
+import { adminExtractEmailPredictions, adminSubmitPredictions } from '@/lib/predictions/actions';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
 }));
 
 vi.mock('@/lib/predictions/actions', () => ({
+  adminExtractEmailPredictions: vi.fn(),
   adminSubmitPredictions: vi.fn(),
 }));
 
 const participants = [
-  { id: 'alice', label: 'Alice Adams', completed: 2, total: 2, status: 'ready' as const, isOffline: true },
-  { id: 'bob', label: 'Bob Brown', completed: 1, total: 2, status: 'in_progress' as const, isOffline: true },
-  { id: 'carol', label: 'Carol Clark', completed: 0, total: 2, status: 'awaiting' as const, isOffline: false },
+  {
+    id: 'alice',
+    label: 'Alice Adams',
+    completed: 2,
+    total: 2,
+    status: 'ready' as const,
+    isOffline: true,
+  },
+  {
+    id: 'bob',
+    label: 'Bob Brown',
+    completed: 1,
+    total: 2,
+    status: 'in_progress' as const,
+    isOffline: true,
+  },
+  {
+    id: 'carol',
+    label: 'Carol Clark',
+    completed: 0,
+    total: 2,
+    status: 'awaiting' as const,
+    isOffline: false,
+  },
 ];
 
 function renderForm() {
@@ -23,6 +46,7 @@ function renderForm() {
       gameweeks={[{ id: 'gameweek', label: 'Gameweek 1' }]}
       selectedParticipantId=""
       selectedGameweekId="gameweek"
+      llmFallbackConfigured={false}
       fixtures={[
         {
           id: 'fixture',
@@ -31,6 +55,34 @@ function renderForm() {
           kickoff: '2026-08-15T15:00:00.000Z',
           result_confirmed: false,
           prediction: null,
+        },
+      ]}
+    />
+  );
+}
+
+function renderSelectedForm(
+  prediction: {
+    home_score: number;
+    away_score: number;
+    points_awarded: number | null;
+  } | null = null
+) {
+  render(
+    <AdminPredictionsForm
+      participants={participants}
+      gameweeks={[{ id: 'gameweek', label: 'Gameweek 1' }]}
+      selectedParticipantId="bob"
+      selectedGameweekId="gameweek"
+      llmFallbackConfigured={false}
+      fixtures={[
+        {
+          id: 'fixture',
+          home_team_name: 'Home',
+          away_team_name: 'Away',
+          kickoff: '2026-08-15T15:00:00.000Z',
+          result_confirmed: false,
+          prediction,
         },
       ]}
     />
@@ -69,5 +121,57 @@ describe('AdminPredictionsForm participant filters', () => {
     fireEvent.change(within(filters!).getByRole('searchbox'), { target: { value: 'Nobody' } });
 
     expect(screen.getByText('No participants match these filters.')).toBeInTheDocument();
+  });
+});
+
+describe('AdminPredictionsForm email import review', () => {
+  it('fills a review draft without saving it automatically', async () => {
+    vi.mocked(adminExtractEmailPredictions).mockResolvedValue({
+      success: true,
+      predictions: [
+        {
+          fixtureId: 'fixture',
+          homeScore: 2,
+          awayScore: 1,
+          method: 'deterministic',
+        },
+      ],
+      unmatchedFixtureIds: [],
+      warnings: [],
+      llmConfigured: false,
+      usedLlm: false,
+    });
+    renderSelectedForm();
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Email text' }), {
+      target: { value: 'Home 2-1 Away' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Extract predictions' }));
+
+    expect(await screen.findByText('Parser match')).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: 'Home score' })).toHaveValue('2');
+    expect(screen.getByRole('textbox', { name: 'Away score' })).toHaveValue('1');
+    expect(screen.getByRole('button', { name: 'Review and save predictions' })).toBeInTheDocument();
+    expect(adminSubmitPredictions).not.toHaveBeenCalled();
+  });
+
+  it('warns when an imported score will replace an existing prediction', async () => {
+    vi.mocked(adminExtractEmailPredictions).mockResolvedValue({
+      success: true,
+      predictions: [{ fixtureId: 'fixture', homeScore: 3, awayScore: 0, method: 'llm' }],
+      unmatchedFixtureIds: [],
+      warnings: [],
+      llmConfigured: true,
+      usedLlm: true,
+    });
+    renderSelectedForm({ home_score: 1, away_score: 1, points_awarded: null });
+
+    fireEvent.change(screen.getByRole('textbox', { name: 'Email text' }), {
+      target: { value: 'Home will beat Away' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Extract predictions' }));
+
+    expect(await screen.findByText('LLM suggestion')).toBeInTheDocument();
+    expect(screen.getByText('Will replace existing prediction 1–1')).toBeInTheDocument();
   });
 });

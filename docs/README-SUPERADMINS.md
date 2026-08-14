@@ -4,17 +4,17 @@ This guide covers the **superadmin** responsibilities that sit above normal leag
 
 ## Quick reference
 
-| Task | Where to go |
-| --- | --- |
-| Check current state | **Admin → Overview** |
-| Change working league/season | **Change workspace** |
-| Create/manage leagues and invites | **Leagues** |
-| Create/manage season lifecycle | **Seasons** |
-| Approve and enrol people | **People** |
-| Enter picks for a player | **Predictions** |
-| Sync fixtures/results | **Fixtures & results → Sync** |
-| Review/export tables | **Standings** |
-| Simulate a test season | **Test tools** |
+| Task                              | Where to go                   |
+| --------------------------------- | ----------------------------- |
+| Check current state               | **Admin → Overview**          |
+| Change working league/season      | **Change workspace**          |
+| Create/manage leagues and invites | **Leagues**                   |
+| Create/manage season lifecycle    | **Seasons**                   |
+| Approve and enrol people          | **People**                    |
+| Enter picks for a player          | **Predictions**               |
+| Sync fixtures/results             | **Fixtures & results → Sync** |
+| Review/export tables              | **Standings**                 |
+| Simulate a test season            | **Test tools**                |
 
 ## 1. Always check the current workspace
 
@@ -119,10 +119,21 @@ Offline participants have no sign-in. Use **Predictions** to enter their picks.
 2. Open **Predictions**.
 3. Choose a gameweek.
 4. Choose the participant. Status cards show **Awaiting picks**, **In progress** or **Ready**, plus completed/total fixtures.
-5. Enter at least one complete score.
-6. Select **Save predictions**.
+5. Either enter scores manually, or paste the participant's email under
+   **Paste prediction email** and select **Extract predictions**.
+6. Review every highlighted score. **Parser match** means the local deterministic
+   parser recognised it; **LLM suggestion** means the optional configured fallback
+   supplied it. Missing or conflicting fixtures remain unfilled for manual entry.
+7. Check any **Will replace existing prediction** warning carefully.
+8. Select **Review and save predictions** (or **Save predictions** for manual entry).
 
 Superadmin entries remain editable after kickoff and can be used for offline players or authorised corrections. Confirm the player and gameweek carefully; this is an override of the normal player lock. Existing awarded points are shown where available.
+
+Email processing never saves directly and the pasted email is not retained by
+Predictotronix. Without an LLM API key, the deterministic parser remains fully
+available; unresolved fixtures must be entered manually. Provisioning and
+configuration instructions for the optional fallback are in the main
+[README](../README.md#optional-prediction-email-llm-fallback).
 
 ## 8. Synchronise fixtures and results
 

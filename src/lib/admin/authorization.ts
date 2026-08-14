@@ -18,6 +18,19 @@ export async function requireLeagueAdminForSeason(seasonId: string) {
   return { user, leagueId: season.league_id, seasonId: season.id };
 }
 
+export async function requireLeagueAdminForGameweek(gameweekId: string) {
+  const supabase = await createServiceClient();
+  const { data: gameweek } = await supabase
+    .from('gameweeks')
+    .select('id, season_id')
+    .eq('id', gameweekId)
+    .maybeSingle();
+
+  if (!gameweek) notFound('gameweek');
+  const authorization = await requireLeagueAdminForSeason(gameweek.season_id);
+  return { ...authorization, gameweekId: gameweek.id };
+}
+
 export async function requireLeagueAdminForFixture(fixtureId: string) {
   const supabase = await createServiceClient();
   const { data: fixture } = await supabase

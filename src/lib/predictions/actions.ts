@@ -2,10 +2,19 @@
 
 import { createClient, createServiceClient } from '@/lib/supabase/server';
 import { getParticipant, requireUser } from '@/lib/auth';
-import { requireLeagueAdminForFixtures } from '@/lib/admin/authorization';
+import {
+  requireLeagueAdminForFixtures,
+  requireLeagueAdminForGameweek,
+} from '@/lib/admin/authorization';
 import { isKickoffLocked } from '@/lib/scoring';
 import { getSeasonNow } from '@/lib/clock';
 import { revalidatePath } from 'next/cache';
+import {
+  parsePredictionEmail,
+  type ExtractedEmailPrediction,
+  type EmailImportFixture,
+} from './email-import-parser';
+import { extractPredictionsWithLlm, getPredictionImportLlmConfig } from './email-import-llm';
 
 export interface PredictionInput {
   fixtureId: string;
@@ -24,6 +33,16 @@ export interface ClearPredictionsResult {
   cleared: number;
   clearedFixtureIds: string[];
   errors: string[];
+}
+
+export interface ExtractEmailPredictionsResult {
+  success: boolean;
+  predictions: ExtractedEmailPrediction[];
+  unmatchedFixtureIds: string[];
+  warnings: string[];
+  llmConfigured: boolean;
+  usedLlm: boolean;
+  error?: string;
 }
 
 /**
@@ -127,9 +146,7 @@ export async function submitPredictions(
  * Fixture ownership and kickoff locks are re-checked server-side, with RLS
  * providing a second ownership and real-kickoff boundary.
  */
-export async function clearPredictions(
-  fixtureIds: string[]
-): Promise<ClearPredictionsResult> {
+export async function clearPredictions(fixtureIds: string[]): Promise<ClearPredictionsResult> {
   await requireUser();
   const supabase = await createClient();
   const participant = await getParticipant();
@@ -212,9 +229,7 @@ export async function clearPredictions(
     return { success: false, cleared: 0, clearedFixtureIds: [], errors };
   }
 
-  const clearedFixtureIds = (clearedPredictions ?? []).map(
-    (prediction) => prediction.fixture_id
-  );
+  const clearedFixtureIds = (clearedPredictions ?? []).map((prediction) => prediction.fixture_id);
 
   revalidatePath('/dashboard');
 
@@ -223,6 +238,95 @@ export async function clearPredictions(
     cleared: clearedFixtureIds.length,
     clearedFixtureIds,
     errors,
+  };
+}
+
+/**
+ * Admin: parse pasted email text into a review-only prediction draft.
+ * Fixtures are re-read by gameweek so the client cannot supply team names or IDs
+ * to the deterministic parser or optional LLM fallback.
+ */
+export async function adminExtractEmailPredictions(
+  gameweekId: string,
+  email: string
+): Promise<ExtractEmailPredictionsResult> {
+  const llmConfig = getPredictionImportLlmConfig();
+  const emptyResult = {
+    predictions: [],
+    unmatchedFixtureIds: [],
+    warnings: [],
+    llmConfigured: Boolean(llmConfig),
+    usedLlm: false,
+  };
+
+  if (!gameweekId) {
+    return { success: false, ...emptyResult, error: 'Select a gameweek first.' };
+  }
+  if (typeof email !== 'string' || !email.trim()) {
+    return { success: false, ...emptyResult, error: 'Paste an email first.' };
+  }
+  if (email.length > 50_000) {
+    return {
+      success: false,
+      ...emptyResult,
+      error: 'The pasted email is too long. Remove quoted history and try again.',
+    };
+  }
+
+  await requireLeagueAdminForGameweek(gameweekId);
+
+  const supabase = await createServiceClient();
+  const { data: fixtureRows, error: fixturesError } = await supabase
+    .from('fixtures')
+    .select('id, home_team_name, away_team_name')
+    .eq('gameweek_id', gameweekId)
+    .order('kickoff', { ascending: true });
+
+  if (fixturesError) {
+    return {
+      success: false,
+      ...emptyResult,
+      error: 'Fixtures could not be loaded for this gameweek.',
+    };
+  }
+
+  const fixtures: EmailImportFixture[] = (fixtureRows ?? []).map((fixture) => ({
+    id: fixture.id,
+    homeTeamName: fixture.home_team_name,
+    awayTeamName: fixture.away_team_name,
+  }));
+  if (fixtures.length === 0) {
+    return { success: false, ...emptyResult, error: 'This gameweek has no fixtures.' };
+  }
+
+  const deterministic = parsePredictionEmail(email, fixtures);
+  const unmatchedFixtures = fixtures.filter((fixture) =>
+    deterministic.unmatchedFixtureIds.includes(fixture.id)
+  );
+  const llm =
+    llmConfig && unmatchedFixtures.length > 0
+      ? await extractPredictionsWithLlm(email, unmatchedFixtures, llmConfig)
+      : { predictions: [], warnings: [] };
+  const predictions = [...deterministic.predictions, ...llm.predictions];
+  const matchedIds = new Set(predictions.map((prediction) => prediction.fixtureId));
+  const unmatchedFixtureIds = fixtures
+    .filter((fixture) => !matchedIds.has(fixture.id))
+    .map((fixture) => fixture.id);
+  const warnings = [...deterministic.warnings, ...llm.warnings];
+
+  if (!llmConfig && unmatchedFixtureIds.length > 0) {
+    warnings.push(
+      'Some fixtures could not be read deterministically. Configure the optional LLM fallback or enter those scores manually.'
+    );
+  }
+
+  return {
+    success: true,
+    predictions,
+    unmatchedFixtureIds,
+    warnings,
+    llmConfigured: Boolean(llmConfig),
+    usedLlm: llm.predictions.length > 0,
   };
 }
 
