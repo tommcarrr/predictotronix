@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createServiceClient } from '@/lib/supabase/server';
+import { sendJoinRequestEmail } from '@/lib/notifications/email';
 import type { Database } from '@/types/database';
 
 export const PENDING_INVITE_COOKIE = 'predictotronix_pending_invite';
@@ -42,6 +43,62 @@ export function withInviteParam(
   const params = new URLSearchParams({ [key]: value });
   if (code) params.set('invite', code);
   return `${route}?${params.toString()}`;
+}
+
+async function notifyLeagueAdmins(
+  client: SupabaseClient<Database>,
+  league: InviteLeague,
+  userId: string,
+) {
+  const [{ data: roles, error: rolesError }, { data: applicant, error: applicantError }] = await Promise.all([
+    client.from('league_roles').select('user_id').eq('league_id', league.id).eq('role', 'league_admin'),
+    client.from('profiles').select('display_name, email').eq('id', userId).maybeSingle(),
+  ]);
+
+  if (rolesError || applicantError || !applicant || !roles?.length) {
+    console.error('Unable to prepare join-request admin notification', {
+      leagueId: league.id,
+      userId,
+      error: rolesError?.message ?? applicantError?.message ?? 'No league administrators found',
+    });
+    return;
+  }
+
+  const adminIds = [...new Set(roles.map((role) => role.user_id))];
+  const { data: admins, error: adminsError } = await client
+    .from('profiles')
+    .select('id, display_name, email')
+    .in('id', adminIds);
+
+  if (adminsError || !admins?.length) {
+    console.error('Unable to load league administrators for join-request notification', {
+      leagueId: league.id,
+      error: adminsError?.message ?? 'No administrator profiles found',
+    });
+    return;
+  }
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+  const reviewUrl = new URL('/admin/participants?tab=requests', appUrl).toString();
+  const results = await Promise.all(admins.map((admin) => sendJoinRequestEmail({
+    to: admin.email,
+    adminDisplayName: admin.display_name,
+    applicantDisplayName: applicant.display_name,
+    applicantEmail: applicant.email,
+    leagueName: league.name,
+    reviewUrl,
+    idempotencyKey: `join-request:${league.id}:${userId}:${admin.id}`,
+  })));
+
+  results.forEach((result, index) => {
+    if (!result.success) {
+      console.error('Unable to send join-request admin notification', {
+        leagueId: league.id,
+        adminId: admins[index].id,
+        error: result.error,
+      });
+    }
+  });
 }
 
 export async function getInviteLeague(rawCode: string | null | undefined): Promise<InviteLeague | null> {
@@ -105,6 +162,7 @@ export async function ensureJoinRequest(
   });
 
   if (!insertError) {
+    await notifyLeagueAdmins(client, inviteLeague, userId);
     return { status: 'pending', league: inviteLeague, created: true };
   }
 

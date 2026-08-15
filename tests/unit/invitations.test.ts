@@ -1,5 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+const { sendJoinRequestEmail } = vi.hoisted(() => ({ sendJoinRequestEmail: vi.fn() }));
+
+vi.mock('@/lib/notifications/email', () => ({ sendJoinRequestEmail }));
 import {
   ensureJoinRequest,
   inviteAuthPath,
@@ -26,6 +30,36 @@ function fakeInvitationClient({
           eq() { return query; },
           async maybeSingle() { return { data: league, error: null }; },
         };
+        return query;
+      }
+
+      if (table === 'league_roles') {
+        const query = {
+          select() { return query; },
+          eq() { return query; },
+          then(resolve: (value: unknown) => unknown) {
+            return Promise.resolve({ data: [{ user_id: 'admin-1' }], error: null }).then(resolve);
+          },
+        };
+        return query;
+      }
+
+      if (table === 'profiles') {
+        let selectedId: string | null = null;
+        const query = {
+          select() { return query; },
+          eq(_column: string, value: string) { selectedId = value; return query; },
+          async maybeSingle() {
+            return { data: { display_name: 'New Player', email: 'player@example.com' }, error: null };
+          },
+          async in() {
+            return {
+              data: [{ id: 'admin-1', display_name: 'League Admin', email: 'admin@example.com' }],
+              error: null,
+            };
+          },
+        };
+        void selectedId;
         return query;
       }
 
@@ -65,6 +99,11 @@ describe('invite continuation helpers', () => {
 });
 
 describe('ensureJoinRequest', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    sendJoinRequestEmail.mockResolvedValue({ success: true, messageId: 'email-1' });
+  });
+
   it('creates one pending request for a valid new invitation', async () => {
     const fake = fakeInvitationClient();
     const result = await ensureJoinRequest('user-1', 'testinvitecode001', fake.client);
@@ -75,6 +114,18 @@ describe('ensureJoinRequest', () => {
       created: true,
     });
     expect(fake.getInsertCount()).toBe(1);
+    expect(sendJoinRequestEmail).toHaveBeenCalledWith({
+      to: 'admin@example.com',
+      adminDisplayName: 'League Admin',
+      applicantDisplayName: 'New Player',
+      applicantEmail: 'player@example.com',
+      leagueName: 'Office League',
+      reviewUrl: new URL(
+        '/admin/participants?tab=requests',
+        process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
+      ).toString(),
+      idempotencyKey: 'join-request:league-1:user-1:admin-1',
+    });
   });
 
   it('returns the canonical state without inserting a duplicate request', async () => {
@@ -83,6 +134,7 @@ describe('ensureJoinRequest', () => {
 
     expect(result.status).toBe('approved');
     expect(fake.getInsertCount()).toBe(0);
+    expect(sendJoinRequestEmail).not.toHaveBeenCalled();
   });
 
   it('rejects inactive or missing invitations', async () => {

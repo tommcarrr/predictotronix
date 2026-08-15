@@ -16,7 +16,7 @@ vi.mock('twilio', () => ({
   default: twilioFactory,
 }));
 
-import { sendReminderEmail, sendTestEmail } from '@/lib/notifications/email';
+import { sendJoinRequestEmail, sendReminderEmail, sendTestEmail } from '@/lib/notifications/email';
 import { sendTestSms } from '@/lib/notifications/sms';
 
 describe('test notification providers', () => {
@@ -64,6 +64,31 @@ describe('test notification providers', () => {
     expect(message.html).toContain('Gameweek &lt;12&gt;');
     expect(message.html).toContain('from=email&amp;mode=full');
     expect(message.text).toContain('https://example.com/predictions/gameweek-12?from=email&mode=full');
+  });
+
+  it('sends an idempotent join-request email to a league admin', async () => {
+    emailSend.mockResolvedValue({ data: { id: 'email-join' }, error: null });
+
+    await expect(sendJoinRequestEmail({
+      to: 'admin@example.com',
+      adminDisplayName: 'Admin <One>',
+      applicantDisplayName: 'Player & Co',
+      applicantEmail: 'player@example.com',
+      leagueName: 'Office <League>',
+      reviewUrl: 'https://example.com/admin/participants?tab=requests&from=email',
+      idempotencyKey: 'join-request:league-1:user-1:admin-1',
+    })).resolves.toEqual({ success: true, messageId: 'email-join' });
+
+    expect(emailSend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'admin@example.com',
+        subject: '[PREDICTOTRONIX] New join request for Office <League>',
+        html: expect.stringContaining('Player &amp; Co'),
+        text: expect.stringContaining('player@example.com'),
+      }),
+      { idempotencyKey: 'join-request:league-1:user-1:admin-1' },
+    );
+    expect(emailSend.mock.calls[0][0].html).toContain('tab=requests&amp;from=email');
   });
 
   it('sends a clearly labelled test SMS', async () => {

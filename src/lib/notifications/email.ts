@@ -24,6 +24,16 @@ export interface TestEmailParams {
   displayName: string;
 }
 
+export interface JoinRequestEmailParams {
+  to: string;
+  adminDisplayName: string;
+  applicantDisplayName: string;
+  applicantEmail: string;
+  leagueName: string;
+  reviewUrl: string;
+  idempotencyKey: string;
+}
+
 interface BrandedEmailParams {
   preheader: string;
   label: string;
@@ -149,6 +159,45 @@ export async function sendReminderEmail(params: ReminderEmailParams): Promise<Em
       return { success: false, error: error.message };
     }
 
+    return { success: true, messageId: data?.id };
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+}
+
+/** Notify a league administrator that a player is waiting for review. */
+export async function sendJoinRequestEmail(params: JoinRequestEmailParams): Promise<EmailResult> {
+  const {
+    to,
+    adminDisplayName,
+    applicantDisplayName,
+    applicantEmail,
+    leagueName,
+    reviewUrl,
+    idempotencyKey,
+  } = params;
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { data, error } = await resend.emails.send({
+      from: RESEND_FROM,
+      to,
+      subject: `[PREDICTOTRONIX] New join request for ${leagueName}`,
+      html: renderBrandedEmail({
+        preheader: `${applicantDisplayName} has asked to join ${leagueName}.`,
+        label: 'JOIN REQUEST',
+        heading: 'A player is waiting for review',
+        bodyHtml: `
+          <p style="margin:0 0 16px;">Hi ${escapeHtml(adminDisplayName)},</p>
+          <p style="margin:0 0 16px;"><strong style="color:#ffffff;">${escapeHtml(applicantDisplayName)}</strong> has asked to join <strong style="color:#ffffff;">${escapeHtml(leagueName)}</strong>.</p>
+          <p style="margin:0; color:#00e5ff;">${escapeHtml(applicantEmail)}</p>`,
+        action: { href: reviewUrl, label: 'REVIEW REQUEST' },
+        footer: 'You are receiving this because you are an administrator for this league.',
+      }),
+      text: `Hi ${adminDisplayName},\n\n${applicantDisplayName} (${applicantEmail}) has asked to join ${leagueName}.\n\nReview the request:\n${reviewUrl}\n\n— Predictotronix`,
+    }, { idempotencyKey });
+
+    if (error) return { success: false, error: error.message };
     return { success: true, messageId: data?.id };
   } catch (err) {
     return { success: false, error: String(err) };
