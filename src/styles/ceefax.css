@@ -370,6 +370,38 @@
   margin-top: 1rem;
 }
 
+.quick-match-chance-profile {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.quick-match-chance-profile strong {
+  color: var(--color-warning);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+}
+
+.quick-match-goal-rule {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.quick-match-goal-rule strong {
+  color: var(--color-success);
+}
+
+.quick-match-goal-rule span {
+  color: var(--color-text-secondary);
+}
+
 .quick-match-meter {
   position: relative;
   height: 2.25rem;
@@ -382,9 +414,9 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 16%;
   background: rgb(0 255 0 / 48%);
   border-inline: 2px solid var(--color-success);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 45%);
 }
 
 .quick-match-marker {
@@ -508,6 +540,11 @@
 @media (max-width: 480px) {
   .participant-gameweek-control {
     padding-inline: 0.5rem;
+  }
+
+  .quick-match-chance-profile {
+    display: grid;
+    gap: 0.15rem;
   }
 }
 

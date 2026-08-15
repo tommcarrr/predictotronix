@@ -109,15 +109,14 @@ describe('PredictionsForm random scores', () => {
       configurable: true,
       value: vi.fn().mockReturnValue({ matches: true }),
     });
-    const randomValues = Array.from({ length: 8 }, () => [0.5, 0.1]).flat();
-    vi.spyOn(Math, 'random').mockImplementation(() => randomValues.shift() ?? 0.1);
+    vi.spyOn(Math, 'random').mockReturnValue(0.5);
     submitPredictionsMock.mockResolvedValue({ success: true, saved: 1, errors: [] });
     render(<PredictionsForm fixtures={fixtures} />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Play Quick Match for Home versus Away' }));
 
     for (let chance = 0; chance < 8; chance += 1) {
-      fireEvent.click(screen.getByRole('button', { name: 'Take chance' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Stop marker' }));
       if (chance < 7) {
         fireEvent.click(screen.getByRole('button', { name: 'Next chance' }));
       }

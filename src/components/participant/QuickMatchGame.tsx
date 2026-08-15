@@ -4,12 +4,50 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { submitPredictions } from '@/lib/predictions/actions';
 
 const TOTAL_CHANCES = 8;
-const METER_CYCLE_MS = 1_800;
-const PERFECT_DISTANCE = 8;
-const GOOD_DISTANCE = 18;
+const SAVED_MARGIN = 10;
 
 type TeamSide = 'home' | 'away';
 type GamePhase = 'aiming' | 'resolved' | 'saving' | 'saved' | 'error';
+type ChanceType = 'clear' | 'half' | 'long';
+
+export interface ChanceProfile {
+  label: string;
+  detail: string;
+  targetWidth: number;
+  cycleMs: number;
+}
+
+export const QUICK_MATCH_CHANCE_PROFILES: Record<ChanceType, ChanceProfile> = {
+  clear: {
+    label: 'CLEAR CHANCE',
+    detail: 'Large goal zone · slower marker',
+    targetWidth: 28,
+    cycleMs: 1_500,
+  },
+  half: {
+    label: 'HALF CHANCE',
+    detail: 'Medium goal zone · quick marker',
+    targetWidth: 18,
+    cycleMs: 1_200,
+  },
+  long: {
+    label: 'LONG SHOT',
+    detail: 'Small goal zone · fast marker',
+    targetWidth: 10,
+    cycleMs: 900,
+  },
+};
+
+const CHANCE_SEQUENCE: ChanceType[] = [
+  'half',
+  'clear',
+  'long',
+  'half',
+  'clear',
+  'long',
+  'half',
+  'half',
+];
 
 export interface QuickMatchFixture {
   id: string;
@@ -25,7 +63,7 @@ interface Score {
 
 interface ChanceResult {
   goal: boolean;
-  quality: 'PERFECT' | 'GOOD' | 'WIDE';
+  outcome: 'GOAL' | 'SAVED' | 'WIDE';
 }
 
 interface Props {
@@ -34,39 +72,42 @@ interface Props {
   onSaved: (homeScore: number, awayScore: number) => void;
 }
 
-export function markerPositionAtElapsed(elapsedMs: number): number {
-  const progress = ((elapsedMs % METER_CYCLE_MS) + METER_CYCLE_MS) % METER_CYCLE_MS;
-  const normalized = progress / METER_CYCLE_MS;
+export function markerPositionAtElapsed(elapsedMs: number, cycleMs: number): number {
+  const progress = ((elapsedMs % cycleMs) + cycleMs) % cycleMs;
+  const normalized = progress / cycleMs;
   return normalized <= 0.5 ? normalized * 200 : (1 - normalized) * 200;
+}
+
+export function chanceProfileForRound(roundIndex: number): ChanceProfile {
+  return QUICK_MATCH_CHANCE_PROFILES[CHANCE_SEQUENCE[roundIndex % CHANCE_SEQUENCE.length]];
 }
 
 export function resolveQuickMatchChance({
   markerPosition,
   targetPosition,
-  attackingSide,
-  random = Math.random,
+  targetWidth,
 }: {
   markerPosition: number;
   targetPosition: number;
-  attackingSide: TeamSide;
-  random?: () => number;
+  targetWidth: number;
 }): ChanceResult {
   const distance = Math.abs(markerPosition - targetPosition);
-  const isHome = attackingSide === 'home';
+  const goalDistance = targetWidth / 2;
 
-  if (distance <= PERFECT_DISTANCE) {
-    return { goal: random() < (isHome ? 0.48 : 0.42), quality: 'PERFECT' };
+  if (distance <= goalDistance) {
+    return { goal: true, outcome: 'GOAL' };
   }
 
-  if (distance <= GOOD_DISTANCE) {
-    return { goal: random() < (isHome ? 0.28 : 0.24), quality: 'GOOD' };
+  if (distance <= goalDistance + SAVED_MARGIN) {
+    return { goal: false, outcome: 'SAVED' };
   }
 
-  return { goal: random() < (isHome ? 0.06 : 0.05), quality: 'WIDE' };
+  return { goal: false, outcome: 'WIDE' };
 }
 
-function createTargetPosition(random = Math.random) {
-  return 20 + random() * 60;
+function createTargetPosition(targetWidth: number, random = Math.random) {
+  const halfWidth = targetWidth / 2;
+  return halfWidth + random() * (100 - targetWidth);
 }
 
 export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
@@ -76,7 +117,9 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
   const instructionsId = useId();
   const [roundIndex, setRoundIndex] = useState(0);
   const [score, setScore] = useState<Score>({ home: 0, away: 0 });
-  const [targetPosition, setTargetPosition] = useState(() => createTargetPosition());
+  const [targetPosition, setTargetPosition] = useState(() =>
+    createTargetPosition(chanceProfileForRound(0).targetWidth)
+  );
   const [markerPosition, setMarkerPosition] = useState(50);
   const [phase, setPhase] = useState<GamePhase>('aiming');
   const [lastResult, setLastResult] = useState<ChanceResult | null>(null);
@@ -89,6 +132,7 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
 
   const attackingSide: TeamSide = roundIndex % 2 === 0 ? 'home' : 'away';
   const attackingTeam = attackingSide === 'home' ? fixture.homeTeamName : fixture.awayTeamName;
+  const chanceProfile = chanceProfileForRound(roundIndex);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -109,7 +153,7 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
     let animationFrame = 0;
 
     function animate(now: number) {
-      const position = markerPositionAtElapsed(now - startedAt);
+      const position = markerPositionAtElapsed(now - startedAt, chanceProfile.cycleMs);
       markerPositionRef.current = position;
       setMarkerPosition(position);
       animationFrame = requestAnimationFrame(animate);
@@ -117,7 +161,7 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
 
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [phase, reducedMotion, roundIndex]);
+  }, [chanceProfile.cycleMs, phase, reducedMotion, roundIndex]);
 
   function closeGame() {
     if (phase === 'saving') return;
@@ -157,7 +201,7 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
     const result = resolveQuickMatchChance({
       markerPosition: markerPositionRef.current,
       targetPosition,
-      attackingSide,
+      targetWidth: chanceProfile.targetWidth,
     });
     const nextScore = { ...score };
     if (result.goal) nextScore[attackingSide] += 1;
@@ -177,7 +221,7 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
 
     markerPositionRef.current = 50;
     setMarkerPosition(50);
-    setTargetPosition(createTargetPosition());
+    setTargetPosition(createTargetPosition(chanceProfileForRound(roundIndex + 1).targetWidth));
     setLastResult(null);
     setRoundIndex((current) => current + 1);
     setPhase('aiming');
@@ -222,7 +266,8 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
         </header>
 
         <p id={instructionsId} className="quick-match-instructions">
-          Stop the marker inside the target zone. Eight alternating chances decide the score.
+          Stop the marker in the green goal zone. Green always scores; outside green never does.
+          Eight alternating chances decide the score.
         </p>
 
         {fixture.existingPrediction && (
@@ -247,7 +292,11 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
             </>
           )}
           {phase === 'resolved' && lastResult && (
-            <strong>{lastResult.goal ? 'GOAL!' : `${lastResult.quality} — NO GOAL`}</strong>
+            <strong>
+              {lastResult.outcome === 'GOAL'
+                ? 'GOAL — stopped in green!'
+                : `${lastResult.outcome} — outside green, no goal`}
+            </strong>
           )}
           {phase === 'saving' && (
             <strong>
@@ -260,10 +309,21 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
 
         {(phase === 'aiming' || phase === 'resolved') && (
           <div className="quick-match-meter-wrap">
+            <div className="quick-match-chance-profile">
+              <strong>{chanceProfile.label}</strong>
+              <span>{chanceProfile.detail}</span>
+            </div>
+            <p className="quick-match-goal-rule">
+              <strong>GREEN = GOAL</strong>
+              <span>OUTSIDE = NO GOAL</span>
+            </p>
             <div className="quick-match-meter" aria-hidden="true">
               <span
                 className="quick-match-target"
-                style={{ left: `${targetPosition - PERFECT_DISTANCE}%` }}
+                style={{
+                  left: `${targetPosition - chanceProfile.targetWidth / 2}%`,
+                  width: `${chanceProfile.targetWidth}%`,
+                }}
               />
               <span className="quick-match-marker" style={{ left: `${markerPosition}%` }} />
             </div>
@@ -292,7 +352,7 @@ export function QuickMatchGame({ fixture, onClose, onSaved }: Props) {
               className="participant-button participant-button--save"
               onClick={takeChance}
             >
-              Take chance
+              Stop marker
             </button>
           )}
           {phase === 'resolved' && (
