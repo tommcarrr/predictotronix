@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 import { Dices, Trash2 } from 'lucide-react';
 import { clearPredictions, submitPredictions } from '@/lib/predictions/actions';
 import { weightedRandomScore } from '@/lib/predictions/random-score';
+import { QuickMatchGame, type QuickMatchFixture } from '@/components/participant/QuickMatchGame';
 
 interface Fixture {
   id: string;
@@ -41,8 +42,10 @@ export function PredictionsForm({ fixtures }: Props) {
     )
   );
   const [message, setMessage] = useState<string | null>(null);
+  const [quickMatchFixture, setQuickMatchFixture] = useState<QuickMatchFixture | null>(null);
   const [isPending, startTransition] = useTransition();
   const focusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fixtureActivation = useRef({ fixtureId: '', count: 0, lastActivatedAt: 0 });
 
   useEffect(
     () => () => {
@@ -97,6 +100,56 @@ export function PredictionsForm({ fixtures }: Props) {
         setMessage(`Saved ${result.saved}. Errors: ${result.errors.join('; ')}`);
       }
     });
+  }
+
+  function openQuickMatch(fixture: Fixture) {
+    if (fixture.locked) return;
+
+    setQuickMatchFixture({
+      id: fixture.id,
+      homeTeamName: fixture.home_team_name,
+      awayTeamName: fixture.away_team_name,
+      existingPrediction: fixture.prediction
+        ? {
+            home: Number(inputs[fixture.id]?.home || fixture.prediction.home_score),
+            away: Number(inputs[fixture.id]?.away || fixture.prediction.away_score),
+          }
+        : null,
+    });
+  }
+
+  function handleFixturePointerUp(fixture: Fixture, event: React.PointerEvent<HTMLDivElement>) {
+    if (fixture.locked || event.isPrimary === false) return;
+
+    const target = event.target as HTMLElement;
+    if (target.closest('input, button, a, select, textarea')) return;
+
+    const now = event.timeStamp;
+    const previous = fixtureActivation.current;
+    const isContinuation =
+      previous.fixtureId === fixture.id && now - previous.lastActivatedAt <= 900;
+    const count = isContinuation ? previous.count + 1 : 1;
+
+    fixtureActivation.current = {
+      fixtureId: fixture.id,
+      count,
+      lastActivatedAt: now,
+    };
+
+    if (count === 3) {
+      fixtureActivation.current = { fixtureId: '', count: 0, lastActivatedAt: 0 };
+      openQuickMatch(fixture);
+    }
+  }
+
+  function handleQuickMatchSaved(fixture: QuickMatchFixture, homeScore: number, awayScore: number) {
+    setInputs((previous) => ({
+      ...previous,
+      [fixture.id]: { home: homeScore.toString(), away: awayScore.toString() },
+    }));
+    setMessage(
+      `✓ Quick Match saved ${fixture.homeTeamName} ${homeScore}–${awayScore} ${fixture.awayTeamName}.`
+    );
   }
 
   function fillOutstandingScores() {
@@ -181,8 +234,20 @@ export function PredictionsForm({ fixtures }: Props) {
           return (
             <div
               key={f.id}
-              className={`participant-fixture ${f.locked ? 'participant-fixture--locked' : ''}`}
+              className={`participant-fixture ${f.locked ? 'participant-fixture--locked' : 'participant-fixture--quick-match'}`}
+              data-fixture-card={f.id}
+              onPointerUp={(event) => handleFixturePointerUp(f, event)}
             >
+              {!f.locked && (
+                <button
+                  type="button"
+                  className="sr-only focus:not-sr-only focus:absolute focus:right-2 focus:top-2 focus:z-10"
+                  onClick={() => openQuickMatch(f)}
+                  aria-label={`Play Quick Match for ${f.home_team_name} versus ${f.away_team_name}`}
+                >
+                  Play Quick Match
+                </button>
+              )}
               {/* Fixture header */}
               <div className="flex justify-between items-center text-xs text-[--color-text-secondary] mb-2">
                 <span>
@@ -259,6 +324,16 @@ export function PredictionsForm({ fixtures }: Props) {
           );
         })}
       </div>
+
+      {quickMatchFixture && (
+        <QuickMatchGame
+          fixture={quickMatchFixture}
+          onClose={() => setQuickMatchFixture(null)}
+          onSaved={(homeScore, awayScore) =>
+            handleQuickMatchSaved(quickMatchFixture, homeScore, awayScore)
+          }
+        />
+      )}
 
       {outstandingScoreCount > 0 && (
         <button

@@ -241,6 +241,7 @@
 }
 
 .participant-fixture {
+  position: relative;
   padding: 0.875rem 0.5rem;
   border-top: 1px solid #333;
 }
@@ -251,6 +252,169 @@
 
 .participant-fixture--locked {
   color: #aaa;
+}
+
+.participant-fixture--quick-match {
+  touch-action: manipulation;
+}
+
+.quick-match-dialog {
+  width: min(34rem, calc(100vw - 1.5rem));
+  margin: auto;
+  padding: 0;
+  border: 3px solid var(--color-info);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 2rem rgb(0 255 255 / 35%);
+}
+
+.quick-match-dialog::backdrop {
+  background: rgb(0 0 0 / 82%);
+}
+
+.quick-match-shell {
+  padding: 1rem;
+}
+
+.quick-match-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.quick-match-kicker {
+  color: var(--color-warning);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.quick-match-title {
+  margin-top: 0.25rem;
+  color: var(--color-info);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.quick-match-close {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.quick-match-instructions,
+.quick-match-warning,
+.quick-match-error {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.quick-match-instructions {
+  color: var(--color-text-secondary);
+}
+
+.quick-match-warning {
+  color: var(--color-warning);
+}
+
+.quick-match-error {
+  color: var(--color-error);
+}
+
+.quick-match-scoreboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.quick-match-scoreboard span {
+  overflow-wrap: anywhere;
+  color: var(--color-info);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.quick-match-scoreboard strong {
+  color: var(--color-success);
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+}
+
+.quick-match-status {
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  color: var(--color-warning);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.quick-match-meter-wrap {
+  margin-top: 1rem;
+}
+
+.quick-match-meter {
+  position: relative;
+  height: 2.25rem;
+  margin-inline: 0.5rem;
+  border: 2px solid var(--color-text-secondary);
+  background: repeating-linear-gradient(90deg, #111 0, #111 9%, #222 9%, #222 10%);
+}
+
+.quick-match-target {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16%;
+  background: rgb(0 255 0 / 48%);
+  border-inline: 2px solid var(--color-success);
+}
+
+.quick-match-marker {
+  position: absolute;
+  top: -0.35rem;
+  bottom: -0.35rem;
+  width: 0.3rem;
+  transform: translateX(-50%);
+  background: var(--color-warning);
+  box-shadow: 0 0 0.45rem var(--color-warning);
+}
+
+.quick-match-aim-control {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+}
+
+.quick-match-aim-control input {
+  width: 100%;
+}
+
+.quick-match-actions {
+  margin-top: 1rem;
+}
+
+.quick-match-actions .participant-button {
+  width: 100%;
 }
 
 .participant-team-name {
@@ -511,6 +675,33 @@
 
 .player-accessibility[data-accessibility-mode='enabled'] .participant-fixture--locked {
   color: #4b5563;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-dialog {
+  border-color: #174ea6;
+  background: #fff;
+  color: #111827;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 1rem 3rem rgb(17 24 39 / 30%);
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-title,
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-scoreboard span {
+  color: #004b80;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-scoreboard strong {
+  color: #137333;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-status,
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-meter {
+  border-color: #6b7280;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .quick-match-meter {
+  background: #e5e7eb;
 }
 
 .player-accessibility[data-accessibility-mode='enabled'] .participant-team-name {

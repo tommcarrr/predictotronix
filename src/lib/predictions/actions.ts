@@ -45,6 +45,17 @@ export interface ExtractEmailPredictionsResult {
   error?: string;
 }
 
+function hasValidScores(input: PredictionInput) {
+  return (
+    Number.isInteger(input.homeScore) &&
+    Number.isInteger(input.awayScore) &&
+    input.homeScore >= 0 &&
+    input.awayScore >= 0 &&
+    input.homeScore <= 99 &&
+    input.awayScore <= 99
+  );
+}
+
 /**
  * Submit or update predictions for a batch of fixtures.
  * Server-side kickoff lock is validated for every fixture.
@@ -66,6 +77,11 @@ export async function submitPredictions(
   const seasonTimes = new Map<string, Date>();
 
   for (const input of inputs) {
+    if (!hasValidScores(input)) {
+      errors.push(`Fixture ${input.fixtureId}: scores must be whole numbers from 0 to 99`);
+      continue;
+    }
+
     // Server-side kickoff lock check (defence in depth — RLS also enforces this)
     const { data: fixture } = await supabase
       .from('fixtures')
@@ -355,14 +371,7 @@ export async function adminSubmitPredictions(
   const supabase = await createServiceClient();
 
   for (const input of inputs) {
-    if (
-      !Number.isInteger(input.homeScore) ||
-      !Number.isInteger(input.awayScore) ||
-      input.homeScore < 0 ||
-      input.awayScore < 0 ||
-      input.homeScore > 99 ||
-      input.awayScore > 99
-    ) {
+    if (!hasValidScores(input)) {
       errors.push(`Fixture ${input.fixtureId}: scores must be whole numbers from 0 to 99`);
       continue;
     }
