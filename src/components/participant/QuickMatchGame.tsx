@@ -5,6 +5,7 @@ import { submitPredictions } from '@/lib/predictions/actions';
 
 const TOTAL_CHANCES = 8;
 const SAVED_MARGIN = 10;
+const SPEED_MULTIPLIER = 1.5;
 
 type TeamSide = 'home' | 'away';
 type GamePhase = 'aiming' | 'resolved' | 'saving' | 'saved' | 'error';
@@ -22,19 +23,19 @@ export const QUICK_MATCH_CHANCE_PROFILES: Record<ChanceType, ChanceProfile> = {
     label: 'CLEAR CHANCE',
     detail: 'Large goal zone · slower marker',
     targetWidth: 28,
-    cycleMs: 1_500,
+    cycleMs: 1_500 / SPEED_MULTIPLIER,
   },
   half: {
     label: 'HALF CHANCE',
     detail: 'Medium goal zone · quick marker',
     targetWidth: 18,
-    cycleMs: 1_200,
+    cycleMs: 1_200 / SPEED_MULTIPLIER,
   },
   long: {
     label: 'LONG SHOT',
     detail: 'Small goal zone · fast marker',
     targetWidth: 10,
-    cycleMs: 900,
+    cycleMs: 900 / SPEED_MULTIPLIER,
   },
 };
 

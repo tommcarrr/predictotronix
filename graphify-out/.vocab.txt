@@ -63,6 +63,7 @@ calculate
 can
 candidate
 carousel
+chance
 changes
 channel
 chat
@@ -144,6 +145,7 @@ dynamic
 each
 ease
 edit
+elapsed
 email
 emit
 enabled
@@ -205,6 +207,7 @@ found
 fpl
 friendly
 from
+game
 gameweek
 gameweeks
 geist
@@ -220,6 +223,7 @@ guidance
 guide
 guided
 handling
+has
 have
 having
 header
@@ -303,6 +307,8 @@ manually
 map
 mapped
 mark
+marker
+match
 maybe
 media
 memory
@@ -337,6 +343,7 @@ note
 notice
 notification
 notifications
+notify
 now
 npm
 number
@@ -376,6 +383,7 @@ people
 persistent
 persona
 personas
+phase
 pipeline
 place
 placeholder
@@ -402,6 +410,8 @@ prerequisites
 prettier
 private
 production
+profile
+profiles
 project
 prompt
 proposed
@@ -499,6 +509,7 @@ semantic
 send
 sense
 separate
+sequence
 server
 service
 session
@@ -511,6 +522,7 @@ sheet
 shell
 should
 showing
+side
 sign
 signin
 signing
@@ -598,6 +610,7 @@ user
 users
 utils
 uuid
+valid
 validate
 value
 variables

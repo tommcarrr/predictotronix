@@ -1,23 +1,18 @@
-# Graph Report - predictotronix  (2026-08-15)
+# Graph Report - predictotronix  (2026-08-20)
 
 ## Corpus Check
-- 187 files · ~75,554 words
+- 187 files · ~75,669 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 955 nodes · 1813 edges · 67 communities (56 shown, 11 thin omitted)
+- 956 nodes · 1814 edges · 67 communities (57 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
-
-## Graph Freshness
-- Built from commit: `4747fdf7`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - dashboard/page.tsx
 - send-reminders/route.ts
-- getAdminContext
+- email-import-parser.ts
 - devDependencies
 - server.ts
 - dependencies
@@ -60,18 +55,18 @@
 - Q: How do I assign a user to a league from the admin panel?
 - Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?
 - opengraph-image.tsx
-- context.ts
+- scoring/index.ts
 - Q: Can you talk me through the proposed changes to the flow to make this work?
 - Predictotronix guide for players
 - Predictotronix guide for league admins
 - Q: Give me a nice way to copy the invite link to the clipboard.
 - FixtureClipboardExport.tsx
-- button.tsx
+- predictions/page.tsx
 - predictions/actions.ts
+- AdminPredictionsForm.tsx
 - InviteLinkCopy.tsx
 - types/index.ts
 - fixtures/actions.ts
-- test-tools/page.tsx
 - createServiceClient
 
 ## God Nodes (most connected - your core abstractions)
@@ -106,19 +101,19 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (67 total, 11 thin omitted)
+## Communities (67 total, 10 thin omitted)
 
 ### Community 0 - "dashboard/page.tsx"
-Cohesion: 0.07
-Nodes (42): AdminPredictionsPage(), dynamic, metadata, Props, dynamic, RootPage(), ActiveSeason, DashboardPage() (+34 more)
+Cohesion: 0.16
+Nodes (17): ActiveSeason, DashboardPage(), dynamic, metadata, PendingJoinRequest, Props, saveNotificationPreferences(), dynamic (+9 more)
 
 ### Community 1 - "send-reminders/route.ts"
 Cohesion: 0.10
 Nodes (27): claimReminderDelivery(), DeliveryClaim, dynamic, POST(), ServiceClient, validateCronSecret(), BrandedEmailParams, EmailResult (+19 more)
 
-### Community 2 - "getAdminContext"
-Cohesion: 0.14
-Nodes (16): dynamic, FixturesAdminPage(), metadata, LeagueDetailPage(), AdminDashboardPage(), dynamic, metadata, ParticipantsAdminPage() (+8 more)
+### Community 2 - "email-import-parser.ts"
+Cohesion: 0.30
+Nodes (12): aliasesFor(), aliasPattern(), candidateSegments(), collectFixtureScores(), EmailImportFixture, EmailParseResult, escapeRegExp(), generatedAliases() (+4 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
@@ -153,8 +148,8 @@ Cohesion: 0.05
 Nodes (38): 10. Complete, archive and delete safely, 11. Use test-season tools, 12. Routine operating checklists, 1. Always check the current workspace, 2. Create a league, 3. Manage invitations, 4. Assign a league admin, 5. Create and activate a season (+30 more)
 
 ### Community 11 - "QuickMatchGame.tsx"
-Cohesion: 0.10
-Nodes (23): Fixture, PredictionsForm(), Props, CHANCE_SEQUENCE, ChanceProfile, chanceProfileForRound(), ChanceResult, ChanceType (+15 more)
+Cohesion: 0.09
+Nodes (24): Fixture, PredictionsForm(), Props, CHANCE_SEQUENCE, ChanceProfile, chanceProfileForRound(), ChanceResult, ChanceType (+16 more)
 
 ### Community 12 - "exports/page.tsx"
 Cohesion: 0.19
@@ -233,8 +228,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing., Source Nodes
 
 ### Community 48 - "participants/page.tsx"
-Cohesion: 0.16
-Nodes (23): dynamic, LeagueTab, dynamic, LeaguesAdminPage(), metadata, Props, dynamic, metadata (+15 more)
+Cohesion: 0.06
+Nodes (62): cookieOptions, setAdminLeague(), setAdminSeason(), stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), dynamic, FixturesAdminPage() (+54 more)
 
 ### Community 50 - "Q: How do I assign a user to a league from the admin panel?"
 Cohesion: 0.40
@@ -248,9 +243,9 @@ Nodes (4): Answer, Outcome, Q: Can you create an accessible mode for the player 
 Cohesion: 0.43
 Nodes (4): alt, contentType, scores, size
 
-### Community 54 - "context.ts"
-Cohesion: 0.10
-Nodes (21): cookieOptions, setAdminLeague(), setAdminSeason(), stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), AdminLayout(), AdminShell() (+13 more)
+### Community 54 - "scoring/index.ts"
+Cohesion: 0.27
+Nodes (10): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+2 more)
 
 ### Community 55 - "Q: Can you talk me through the proposed changes to the flow to make this work?"
 Cohesion: 0.40
@@ -272,9 +267,17 @@ Nodes (4): Answer, Outcome, Q: Give me a nice way to copy the invite link to the
 Cohesion: 0.21
 Nodes (14): CopyStatus, datePartsFormatter, exportWeekdays, FixtureClipboardExport(), fixtureDateHeading(), FixtureExportGameweek, FixtureStatus, formatFixtureExport() (+6 more)
 
+### Community 60 - "predictions/page.tsx"
+Cohesion: 0.27
+Nodes (7): AdminPredictionsPage(), dynamic, metadata, Props, PredictionFixture, PredictionGameweek, selectPredictionGameweek()
+
 ### Community 61 - "predictions/actions.ts"
-Cohesion: 0.10
-Nodes (31): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, adminExtractEmailPredictions(), adminSubmitPredictions(), ClearPredictionsResult (+23 more)
+Cohesion: 0.18
+Nodes (17): getSeasonNow(), adminExtractEmailPredictions(), adminSubmitPredictions(), clearPredictions(), ClearPredictionsResult, ExtractEmailPredictionsResult, hasValidScores(), PredictionInput (+9 more)
+
+### Community 62 - "AdminPredictionsForm.tsx"
+Cohesion: 0.24
+Nodes (6): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, participants
 
 ### Community 63 - "InviteLinkCopy.tsx"
 Cohesion: 0.40
@@ -285,21 +288,17 @@ Cohesion: 0.11
 Nodes (15): updateSession(), config, proxy(), Enums, Json, Tables, GameweekStatus, JoinRequestStatus (+7 more)
 
 ### Community 66 - "fixtures/actions.ts"
-Cohesion: 0.06
-Nodes (52): main(), requiredEnvironment(), actionLogger(), assertExternalFixtureSyncEnabled(), correctResult(), failureEntry(), getProductionSeason(), SyncActionState (+44 more)
-
-### Community 67 - "test-tools/page.tsx"
-Cohesion: 0.19
-Nodes (17): clearSeasonClock(), fastForwardGameweek(), guardActiveSeason(), guardTestSeason(), injectResult(), markFixturePostponed(), requireStagingSuperAdmin(), requireSuperAdmin() (+9 more)
+Cohesion: 0.07
+Nodes (42): main(), requiredEnvironment(), actionLogger(), assertExternalFixtureSyncEnabled(), correctResult(), failureEntry(), getProductionSeason(), SyncActionState (+34 more)
 
 ### Community 69 - "createServiceClient"
-Cohesion: 0.24
-Nodes (19): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant(), rejectJoinRequest() (+11 more)
+Cohesion: 0.09
+Nodes (50): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), approveJoinRequest(), createOfflineParticipant(), rejectJoinRequest() (+42 more)
 
 ## Knowledge Gaps
-- **385 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+380 more)
+- **386 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+381 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **11 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
@@ -318,17 +317,17 @@ Nodes (19): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInvit
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `dashboard/page.tsx`, `send-reminders/route.ts`, `fixtures/actions.ts`, `getAdminContext`, `test-tools/page.tsx`, `server.ts`, `exports/page.tsx`, `season/route.ts`, `participants/page.tsx`, `context.ts`, `predictions/actions.ts`?**
+- **Why does `createServiceClient()` connect `createServiceClient` to `send-reminders/route.ts`, `fixtures/actions.ts`, `server.ts`, `exports/page.tsx`, `season/route.ts`, `participants/page.tsx`, `predictions/page.tsx`, `predictions/actions.ts`?**
   _High betweenness centrality (0.100) - this node is a cross-community bridge._
 - **Why does `ApiFixture` connect `ApiFixture` to `fixtures/actions.ts`?**
   _High betweenness centrality (0.014) - this node is a cross-community bridge._
 - **Why does `createClient()` connect `server.ts` to `dashboard/page.tsx`, `predictions/actions.ts`, `createServiceClient`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _385 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `dashboard/page.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.06801346801346801 - nodes in this community are weakly interconnected._
+  _386 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `send-reminders/route.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.10158730158730159 - nodes in this community are weakly interconnected._
-- **Should `getAdminContext` be split into smaller, more focused modules?**
-  _Cohesion score 0.14035087719298245 - nodes in this community are weakly interconnected._
+- **Should `devDependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._
+- **Should `server.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.09672131147540984 - nodes in this community are weakly interconnected._

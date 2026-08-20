@@ -45,11 +45,43 @@ const fixtures = [
   },
 ];
 
+const nextGameweekFixture = {
+  ...fixtures[0],
+  id: 'next-gameweek',
+  home_team_name: 'Next home',
+  away_team_name: 'Next away',
+  prediction: null,
+};
+
 describe('PredictionsForm random scores', () => {
   afterEach(() => {
+    vi.useRealTimers();
     vi.restoreAllMocks();
     clearPredictionsMock.mockReset();
     submitPredictionsMock.mockReset();
+  });
+
+  it('auto-selects the next score box only within the current gameweek', () => {
+    vi.useFakeTimers();
+    render(
+      <>
+        <PredictionsForm fixtures={[fixtures[0]]} />
+        <PredictionsForm fixtures={[nextGameweekFixture]} />
+      </>
+    );
+
+    const currentHome = screen.getByLabelText('Home score');
+    const currentAway = screen.getByLabelText('Away score');
+    const nextHome = screen.getByLabelText('Next home score');
+
+    fireEvent.change(currentHome, { target: { value: '3' } });
+    vi.advanceTimersByTime(500);
+    expect(currentAway).toHaveFocus();
+
+    fireEvent.change(currentAway, { target: { value: '2' } });
+    vi.advanceTimersByTime(500);
+    expect(currentAway).toHaveFocus();
+    expect(nextHome).not.toHaveFocus();
   });
 
   it('fills only empty, unlocked score boxes and preserves existing values', () => {

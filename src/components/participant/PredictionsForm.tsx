@@ -44,6 +44,7 @@ export function PredictionsForm({ fixtures }: Props) {
   const [message, setMessage] = useState<string | null>(null);
   const [quickMatchFixture, setQuickMatchFixture] = useState<QuickMatchFixture | null>(null);
   const [isPending, startTransition] = useTransition();
+  const formRef = useRef<HTMLFormElement>(null);
   const focusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fixtureActivation = useRef({ fixtureId: '', count: 0, lastActivatedAt: 0 });
 
@@ -65,7 +66,9 @@ export function PredictionsForm({ fixtures }: Props) {
     if (!numeric) return;
     focusTimer.current = setTimeout(() => {
       const editableInputs = Array.from(
-        document.querySelectorAll<HTMLInputElement>('[data-prediction-score]:not(:disabled)')
+        formRef.current?.querySelectorAll<HTMLInputElement>(
+          '[data-prediction-score]:not(:disabled)'
+        ) ?? []
       );
       const currentIndex = editableInputs.findIndex(
         (input) => input.dataset.fixtureId === fixtureId && input.dataset.side === side
@@ -225,7 +228,7 @@ export function PredictionsForm({ fixtures }: Props) {
   });
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
       <div className="participant-fixtures">
         {fixtures.map((f) => {
           const pred = f.prediction;

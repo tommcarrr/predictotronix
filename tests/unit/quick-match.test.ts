@@ -16,8 +16,14 @@ describe('Quick Match mechanics', () => {
   });
 
   it('moves farther in the same time when the chance is faster', () => {
-    expect(markerPositionAtElapsed(225, QUICK_MATCH_CHANCE_PROFILES.clear.cycleMs)).toBe(30);
-    expect(markerPositionAtElapsed(225, QUICK_MATCH_CHANCE_PROFILES.long.cycleMs)).toBe(50);
+    expect(markerPositionAtElapsed(150, QUICK_MATCH_CHANCE_PROFILES.clear.cycleMs)).toBe(30);
+    expect(markerPositionAtElapsed(150, QUICK_MATCH_CHANCE_PROFILES.long.cycleMs)).toBe(50);
+  });
+
+  it('runs every chance at 1.5 times the original marker speed', () => {
+    expect(QUICK_MATCH_CHANCE_PROFILES.clear.cycleMs).toBe(1_000);
+    expect(QUICK_MATCH_CHANCE_PROFILES.half.cycleMs).toBe(800);
+    expect(QUICK_MATCH_CHANCE_PROFILES.long.cycleMs).toBe(600);
   });
 
   it('always scores inside the visible green zone', () => {
