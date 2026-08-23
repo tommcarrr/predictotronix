@@ -10,6 +10,7 @@ import {
   type ReminderChannel,
   type ReminderWindow,
 } from '@/lib/notifications/reminders';
+import { executeCronJob } from '@/lib/cron/run';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,8 +79,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  try {
-    const supabase = await createServiceClient();
+  return executeCronJob('send-reminders', async (supabase) => {
     const processedAt = new Date();
     let sent = 0;
     let suppressed = 0;
@@ -268,16 +268,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({
-      ok: true,
-      timestamp: processedAt.toISOString(),
-      sent,
-      suppressed,
-      duplicates,
+    return {
+      body: {
+        ok: errors.length === 0,
+        timestamp: processedAt.toISOString(),
+        sent,
+        suppressed,
+        duplicates,
+        errors,
+      },
+      summary: { sent, suppressed, duplicates, errorCount: errors.length },
       errors,
-    });
-  } catch (err) {
-    console.error('[cron/send-reminders]', err);
-    return NextResponse.json({ error: String(err) }, { status: 500 });
-  }
+    };
+  });
 }

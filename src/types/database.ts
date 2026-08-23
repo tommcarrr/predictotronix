@@ -414,6 +414,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      cron_job_runs: {
+        Row: {
+          id: string;
+          job_name: 'sync-fixtures' | 'sync-results' | 'send-reminders';
+          status: 'running' | 'success' | 'error';
+          started_at: string;
+          finished_at: string | null;
+          duration_ms: number | null;
+          summary: Json;
+          error_details: Json | null;
+        };
+        Insert: {
+          id?: string;
+          job_name: 'sync-fixtures' | 'sync-results' | 'send-reminders';
+          status?: 'running' | 'success' | 'error';
+          started_at?: string;
+          finished_at?: string | null;
+          duration_ms?: number | null;
+          summary?: Json;
+          error_details?: Json | null;
+        };
+        Update: {
+          status?: 'running' | 'success' | 'error';
+          finished_at?: string | null;
+          duration_ms?: number | null;
+          summary?: Json;
+          error_details?: Json | null;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {

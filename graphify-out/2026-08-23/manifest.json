@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/fixtures/page.tsx": {
-    "mtime": 1787503207.1759336,
-    "ast_hash": "2a30f980b51bd9fbf0a6e13b591d2413",
+    "mtime": 1787488071.2596776,
+    "ast_hash": "aa720e1229e47b85d4cb86ce94033a3e",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/leagues/actions.ts": {
@@ -170,18 +170,18 @@
     "semantic_hash": ""
   },
   "src/app/api/cron/send-reminders/route.ts": {
-    "mtime": 1787503207.1792195,
-    "ast_hash": "0d245b93f7b83141f55d6993d2a5f39f",
+    "mtime": 1787488155.9990513,
+    "ast_hash": "c86856cc0664d92b88152f5bb26c4cb2",
     "semantic_hash": ""
   },
   "src/app/api/cron/sync-fixtures/route.ts": {
-    "mtime": 1787503207.1822212,
-    "ast_hash": "54ea9fe86882d7fc75965fed9234e5a3",
+    "mtime": 1787488143.5430274,
+    "ast_hash": "0a4a72f6a090ba218f5046e5961a8e89",
     "semantic_hash": ""
   },
   "src/app/api/cron/sync-results/route.ts": {
-    "mtime": 1787503207.1842203,
-    "ast_hash": "b6cdb79640760af59c671ea780fabdaa",
+    "mtime": 1787488147.7552607,
+    "ast_hash": "e49ea785edca48aad6bc5fb059f428c9",
     "semantic_hash": ""
   },
   "src/app/global-error.tsx": {
@@ -290,8 +290,8 @@
     "semantic_hash": "50cbc0dc995e4c03a649e59f2cdbbe01"
   },
   "src/types/database.ts": {
-    "mtime": 1787503207.194912,
-    "ast_hash": "a3107ccfab80748cf17e407d653babb0",
+    "mtime": 1787487990.9329913,
+    "ast_hash": "17506721018d4e6479ac92b73d77fb42",
     "semantic_hash": ""
   },
   "src/types/index.ts": {
@@ -610,13 +610,13 @@
     "semantic_hash": ""
   },
   "src/lib/fpl/client.ts": {
-    "mtime": 1787503206.7006023,
-    "ast_hash": "2e47362052ab575f8e8211d8a2e1e3d9",
+    "mtime": 1787487330.8435729,
+    "ast_hash": "171e5295e3f91c056d25f9efd03703ff",
     "semantic_hash": ""
   },
   "tests/unit/fpl-client.test.ts": {
-    "mtime": 1787503206.7056053,
-    "ast_hash": "9a94c349033d6398555482ce4b911e53",
+    "mtime": 1787487331.0992148,
+    "ast_hash": "d02586c50c5d3a426900604a7d17e7a4",
     "semantic_hash": ""
   },
   "tests/unit/fixture-sync.test.ts": {
@@ -895,8 +895,8 @@
     "semantic_hash": ""
   },
   "tests/unit/send-reminders-route.test.ts": {
-    "mtime": 1787503207.2028565,
-    "ast_hash": "7894cc28387fd2048a24b7051ff9cc99",
+    "mtime": 1787488251.2620308,
+    "ast_hash": "483023deebca864cc3a6f9ec5a1ebf2b",
     "semantic_hash": ""
   },
   "src/components/admin/FixtureClipboardExport.tsx": {
@@ -950,43 +950,38 @@
     "semantic_hash": ""
   },
   "src/components/admin/CronJobStatusPanel.tsx": {
-    "mtime": 1787503207.1865149,
-    "ast_hash": "9fdbf476f212b2ef6463271635aa18c5",
+    "mtime": 1787488063.2149415,
+    "ast_hash": "d84f77874d8f426465f99373424608f7",
     "semantic_hash": ""
   },
   "src/lib/cron/jobs.ts": {
-    "mtime": 1787503207.1893227,
-    "ast_hash": "a0399f701ca72e45d6668d32ee13689d",
+    "mtime": 1787487984.391954,
+    "ast_hash": "5e4b3818f334764d16ed433ca6fe685f",
     "semantic_hash": ""
   },
   "src/lib/cron/run.ts": {
-    "mtime": 1787503207.1910415,
-    "ast_hash": "6dd6e386345c80e2df7123dcd3443a41",
+    "mtime": 1787488853.771912,
+    "ast_hash": "91f6d498846b55acaedf7c77229a1f2e",
     "semantic_hash": ""
   },
   "supabase/migrations/013_cron_job_runs.sql": {
-    "mtime": 1787503207.1963992,
-    "ast_hash": "5b708a93c0aeaa5dbea429b12a0b9aeb",
+    "mtime": 1787487978.8814101,
+    "ast_hash": "57430dad3397745d9e2d2838ba9abc98",
     "semantic_hash": ""
   },
   "tests/unit/cron-job-status-panel.test.tsx": {
-    "mtime": 1787503207.1985402,
-    "ast_hash": "a059f89dc7d27d00a2163f826da24b3f",
+    "mtime": 1787488216.6002645,
+    "ast_hash": "640df24159afb18c3d315bbbf5e9e545",
     "semantic_hash": ""
   },
   "tests/unit/cron-run.test.ts": {
-    "mtime": 1787503207.2006125,
-    "ast_hash": "8dd868e219aab429633d0c6ab68a86df",
+    "mtime": 1787488752.6426568,
+    "ast_hash": "e5e142baed7c1cb6a0c71d60a44f9df9",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md": {
     "mtime": 1787487330.3393328,
     "ast_hash": "82502d39064be84a8c0e1ee894d73b62",
-    "semantic_hash": ""
-  },
-  "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md": {
-    "mtime": 1787503206.6821752,
-    "ast_hash": "c180a07176f5441b7af4efb0592a542e",
     "semantic_hash": ""
   }
 }

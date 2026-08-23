@@ -9,6 +9,11 @@ import {
   FixtureClipboardExport,
   type FixtureExportGameweek,
 } from '@/components/admin/FixtureClipboardExport';
+import {
+  CronJobStatusPanel,
+  type CronJobRunStatus,
+} from '@/components/admin/CronJobStatusPanel';
+import { CRON_JOBS } from '@/lib/cron/jobs';
 
 export const metadata = { title: 'Fixtures & Results | Admin' };
 export const dynamic = 'force-dynamic';
@@ -37,6 +42,24 @@ export default async function FixturesAdminPage({
         .eq('season_id', selectedSeason.id)
         .order('kickoff', { ascending: false })
     : { data: [] };
+
+  const cronRunResults = tab === 'sync'
+    ? await Promise.all(
+        CRON_JOBS.map((job) =>
+          supabase
+            .from('cron_job_runs')
+            .select('id, job_name, status, started_at, finished_at, duration_ms, summary, error_details')
+            .eq('job_name', job.id)
+            .order('started_at', { ascending: false })
+            .limit(1)
+            .maybeSingle()
+        )
+      )
+    : [];
+  const cronRuns = cronRunResults
+    .map(({ data }) => data)
+    .filter((run): run is NonNullable<typeof run> => Boolean(run)) as CronJobRunStatus[];
+  const cronLoadError = cronRunResults.find(({ error }) => error)?.error?.message;
 
   const canSync = Boolean(
     selectedSeason?.status === 'active' &&
@@ -96,9 +119,8 @@ export default async function FixturesAdminPage({
       />
 
       {!selectedSeason && <AdminNotice>Select or create a season to view fixtures.</AdminNotice>}
-      {selectedSeason && tab === 'sync' && (
-        <FixtureSyncConsole seasonId={selectedSeason.id} canSync={canSync} />
-      )}
+      {tab === 'sync' && <CronJobStatusPanel runs={cronRuns} loadError={cronLoadError} />}
+      {selectedSeason && tab === 'sync' && <FixtureSyncConsole seasonId={selectedSeason.id} canSync={canSync} />}
       {selectedSeason && tab === 'fixtures' && !(fixtures ?? []).length && (
         <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
           No fixtures have been added to this season yet. Use the Sync tab for a production season.

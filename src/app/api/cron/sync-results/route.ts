@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { createServiceClient } from '@/lib/supabase/server';
 import { createProductionFixtureProvider } from '@/lib/fixtures/provider';
 import { syncResults } from '@/lib/sync/fixtures';
 import { getEnvironmentPolicy } from '@/lib/environment';
+import { CronExecutionError, executeCronJob } from '@/lib/cron/run';
 
 function validateCronSecret(request: NextRequest): boolean {
   const secret = request.headers.get('x-cron-secret');
@@ -14,15 +14,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  if (!getEnvironmentPolicy().externalFixtureSyncEnabled) {
-    return NextResponse.json(
-      { error: 'External result synchronization is disabled in this environment.' },
-      { status: 409 },
-    );
-  }
-
-  try {
-    const supabase = await createServiceClient();
+  return executeCronJob('sync-results', async (supabase) => {
+    if (!getEnvironmentPolicy().externalFixtureSyncEnabled) {
+      throw new CronExecutionError(
+        'External result synchronization is disabled in this environment.',
+        409
+      );
+    }
     const provider = createProductionFixtureProvider();
 
     const { data: seasons, error } = await supabase
@@ -33,7 +31,9 @@ export async function POST(request: NextRequest) {
       .not('api_football_league_id', 'is', null);
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      throw new CronExecutionError('Could not load production seasons.', 500, {
+        databaseError: error,
+      });
     }
 
     const results = [];
@@ -49,13 +49,15 @@ export async function POST(request: NextRequest) {
       results.push({ seasonId: season.id, ...result });
     }
 
-    return NextResponse.json({
-      ok: true,
-      timestamp: new Date().toISOString(),
-      results,
-    });
-  } catch (err) {
-    console.error('[cron/sync-results]', err);
-    return NextResponse.json({ error: String(err) }, { status: 500 });
-  }
+    const errors = results.flatMap((result) => result.errors);
+    return {
+      body: { ok: errors.length === 0, timestamp: new Date().toISOString(), results },
+      summary: {
+        seasonsProcessed: results.length,
+        fixturesScored: results.reduce((total, result) => total + result.scored, 0),
+        errorCount: errors.length,
+      },
+      errors,
+    };
+  });
 }

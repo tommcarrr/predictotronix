@@ -1,11 +1,11 @@
 # Graph Report - predictotronix  (2026-08-23)
 
 ## Corpus Check
-- 195 files · ~78,015 words
+- 194 files · ~77,753 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 991 nodes · 1882 edges · 75 communities (65 shown, 10 thin omitted)
+- 986 nodes · 1878 edges · 67 communities (57 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
@@ -14,7 +14,7 @@
 - send-reminders/route.ts
 - predictions/actions.ts
 - devDependencies
-- auth/actions.ts
+- server.ts
 - dependencies
 - compilerOptions
 - components.json
@@ -51,31 +51,23 @@
 - leaderboard/page.tsx
 - AdminShell.tsx
 - Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing.
-- participants/page.tsx
+- createServiceClient
 - Q: How do I assign a user to a league from the admin panel?
 - Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?
 - opengraph-image.tsx
-- types/index.ts
+- scoring/index.ts
 - Q: Can you talk me through the proposed changes to the flow to make this work?
 - Predictotronix guide for players
 - Predictotronix guide for league admins
 - Q: Give me a nice way to copy the invite link to the clipboard.
 - fixtures/page.tsx
 - PredictionsForm.tsx
-- server.ts
+- auth/index.ts
 - Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?
 - InviteLinkCopy.tsx
-- test-tools/page.tsx
-- getAdminContext
+- types/index.ts
 - fixtures/actions.ts
-- context.ts
-- email-import-parser.ts
-- createServiceClient
-- season/route.ts
-- getUser
-- predictions/page.tsx
-- AdminPredictionsForm.tsx
-- Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.
+- requireLeagueAdminForSeason
 
 ## God Nodes (most connected - your core abstractions)
 1. `createServiceClient()` - 73 edges
@@ -109,27 +101,27 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (75 total, 10 thin omitted)
+## Communities (67 total, 10 thin omitted)
 
 ### Community 0 - "dashboard/page.tsx"
-Cohesion: 0.22
-Nodes (8): ActiveSeason, dynamic, metadata, PendingJoinRequest, Props, GameweekCarousel(), Props, signOut()
+Cohesion: 0.18
+Nodes (13): ActiveSeason, DashboardPage(), dynamic, metadata, PendingJoinRequest, Props, GameweekCarousel(), Props (+5 more)
 
 ### Community 1 - "send-reminders/route.ts"
 Cohesion: 0.10
 Nodes (28): claimReminderDelivery(), DeliveryClaim, dynamic, POST(), ServiceClient, validateCronSecret(), shouldDryRunNotifications(), BrandedEmailParams (+20 more)
 
 ### Community 2 - "predictions/actions.ts"
-Cohesion: 0.24
-Nodes (11): adminExtractEmailPredictions(), ClearPredictionsResult, ExtractEmailPredictionsResult, PredictionInput, SubmitPredictionsResult, ChatCompletionResponse, extractPredictionsWithLlm(), getPredictionImportLlmConfig() (+3 more)
+Cohesion: 0.10
+Nodes (29): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, adminExtractEmailPredictions(), ClearPredictionsResult, ExtractEmailPredictionsResult (+21 more)
 
 ### Community 3 - "devDependencies"
 Cohesion: 0.06
 Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
 
-### Community 4 - "auth/actions.ts"
-Cohesion: 0.09
-Nodes (47): GET(), dynamic, ForgotPasswordPage(), metadata, submitJoinRequest(), dynamic, JoinPage(), Props (+39 more)
+### Community 4 - "server.ts"
+Cohesion: 0.08
+Nodes (52): GET(), dynamic, ForgotPasswordPage(), metadata, submitJoinRequest(), dynamic, JoinPage(), Props (+44 more)
 
 ### Community 5 - "dependencies"
 Cohesion: 0.04
@@ -156,8 +148,8 @@ Cohesion: 0.05
 Nodes (38): 10. Complete, archive and delete safely, 11. Use test-season tools, 12. Routine operating checklists, 1. Always check the current workspace, 2. Create a league, 3. Manage invitations, 4. Assign a league admin, 5. Create and activate a season (+30 more)
 
 ### Community 11 - "QuickMatchGame.tsx"
-Cohesion: 0.16
-Nodes (15): CHANCE_SEQUENCE, ChanceProfile, chanceProfileForRound(), ChanceResult, ChanceType, createTargetPosition(), GamePhase, markerPositionAtElapsed() (+7 more)
+Cohesion: 0.17
+Nodes (14): CHANCE_SEQUENCE, ChanceProfile, chanceProfileForRound(), ChanceResult, ChanceType, createTargetPosition(), GamePhase, markerPositionAtElapsed() (+6 more)
 
 ### Community 12 - "exports/page.tsx"
 Cohesion: 0.19
@@ -235,9 +227,9 @@ Nodes (11): setAdminLeague(), setAdminSeason(), AdminShell(), configureNav, NavI
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing., Source Nodes
 
-### Community 48 - "participants/page.tsx"
-Cohesion: 0.15
-Nodes (22): dynamic, LeagueTab, dynamic, metadata, Props, dynamic, metadata, Props (+14 more)
+### Community 48 - "createServiceClient"
+Cohesion: 0.05
+Nodes (82): cookieOptions, stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), FixturesAdminPage(), assignLeagueAdmin(), createLeague(), deleteLeague() (+74 more)
 
 ### Community 50 - "Q: How do I assign a user to a league from the admin panel?"
 Cohesion: 0.40
@@ -251,9 +243,9 @@ Nodes (4): Answer, Outcome, Q: Can you create an accessible mode for the player 
 Cohesion: 0.43
 Nodes (4): alt, contentType, scores, size
 
-### Community 54 - "types/index.ts"
-Cohesion: 0.09
-Nodes (24): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+16 more)
+### Community 54 - "scoring/index.ts"
+Cohesion: 0.27
+Nodes (10): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction() (+2 more)
 
 ### Community 55 - "Q: Can you talk me through the proposed changes to the flow to make this work?"
 Cohesion: 0.40
@@ -273,15 +265,15 @@ Nodes (4): Answer, Outcome, Q: Give me a nice way to copy the invite link to the
 
 ### Community 59 - "fixtures/page.tsx"
 Cohesion: 0.11
-Nodes (28): dynamic, FixturesAdminPage(), metadata, buildCronDiagnosticPrompt(), CronJobRunStatus, CronJobStatusPanel(), formatDuration(), formatUtc() (+20 more)
+Nodes (26): dynamic, metadata, buildCronDiagnosticPrompt(), CronJobRunStatus, CronJobStatusPanel(), formatDuration(), formatUtc(), statusStyles (+18 more)
 
 ### Community 60 - "PredictionsForm.tsx"
-Cohesion: 0.19
-Nodes (9): Fixture, PredictionsForm(), Props, SCORE_WEIGHTS, TOTAL_WEIGHT, weightedRandomScore(), { clearPredictionsMock, submitPredictionsMock }, fixtures (+1 more)
+Cohesion: 0.18
+Nodes (10): Fixture, PredictionsForm(), Props, QuickMatchFixture, SCORE_WEIGHTS, TOTAL_WEIGHT, weightedRandomScore(), { clearPredictionsMock, submitPredictionsMock } (+2 more)
 
-### Community 61 - "server.ts"
-Cohesion: 0.32
-Nodes (13): DashboardPage(), saveNotificationPreferences(), dynamic, metadata, SettingsPage(), getParticipant(), isAdmin(), isSeasonParticipant() (+5 more)
+### Community 61 - "auth/index.ts"
+Cohesion: 0.26
+Nodes (12): saveNotificationPreferences(), dynamic, metadata, SettingsPage(), getParticipant(), isSeasonParticipant(), requireSuperAdmin(), requireUser() (+4 more)
 
 ### Community 62 - "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
 Cohesion: 0.40
@@ -291,83 +283,51 @@ Nodes (4): Answer, Outcome, Q: Can you make the mini game a little bit harder, j
 Cohesion: 0.40
 Nodes (4): CopyStatus, InviteLinkCopy(), Props, writeText
 
-### Community 64 - "test-tools/page.tsx"
-Cohesion: 0.16
-Nodes (18): clearSeasonClock(), fastForwardGameweek(), guardActiveSeason(), guardTestSeason(), injectResult(), markFixturePostponed(), requireStagingSuperAdmin(), sendTestNotification() (+10 more)
-
-### Community 65 - "getAdminContext"
+### Community 64 - "types/index.ts"
 Cohesion: 0.15
-Nodes (15): LeagueDetailPage(), LeaguesAdminPage(), AdminDashboardPage(), dynamic, metadata, ParticipantsAdminPage(), NewSeasonPage(), dynamic (+7 more)
+Nodes (12): Enums, Tables, FixtureStatus, GameweekStatus, JoinRequestStatus, NotificationChannel, NotificationStatus, NotificationType (+4 more)
 
 ### Community 66 - "fixtures/actions.ts"
 Cohesion: 0.10
 Nodes (35): actionLogger(), assertExternalFixtureSyncEnabled(), correctResult(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync() (+27 more)
 
-### Community 67 - "context.ts"
-Cohesion: 0.24
-Nodes (9): cookieOptions, stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), ADMIN_LEAGUE_COOKIE, ADMIN_SEASON_COOKIE, ADMIN_VIEW_AS_LEAGUE_COOKIE, AdminContext (+1 more)
-
-### Community 68 - "email-import-parser.ts"
-Cohesion: 0.30
-Nodes (12): aliasesFor(), aliasPattern(), candidateSegments(), collectFixtureScores(), EmailImportFixture, EmailParseResult, escapeRegExp(), generatedAliases() (+4 more)
-
-### Community 69 - "createServiceClient"
-Cohesion: 0.21
-Nodes (22): approveJoinRequest(), createOfflineParticipant(), rejectJoinRequest(), updateParticipantDisplayName(), addSeasonParticipant(), createSeason(), deleteSeason(), removeSeasonParticipant() (+14 more)
-
-### Community 70 - "season/route.ts"
-Cohesion: 0.24
-Nodes (11): dynamic, GET(), createSeasonWorkbook(), safeSheetName(), SeasonWorkbookData, styleHeader(), titleRow(), WorkbookFixture (+3 more)
-
-### Community 71 - "getUser"
-Cohesion: 0.36
-Nodes (10): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), requireSuperAdmin(), dynamic, RootPage() (+2 more)
-
-### Community 72 - "predictions/page.tsx"
-Cohesion: 0.24
-Nodes (9): AdminPredictionsPage(), dynamic, metadata, Props, getSeasonNow(), PredictionFixture, PredictionGameweek, selectPredictionGameweek() (+1 more)
-
-### Community 73 - "AdminPredictionsForm.tsx"
-Cohesion: 0.21
-Nodes (8): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, adminSubmitPredictions(), hasValidScores(), participants
-
-### Community 74 - "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results."
-Cohesion: 0.40
-Nodes (4): Answer, Outcome, Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results., Source Nodes
+### Community 69 - "requireLeagueAdminForSeason"
+Cohesion: 0.11
+Nodes (31): approveJoinRequest(), rejectJoinRequest(), updateParticipantDisplayName(), addSeasonParticipant(), createSeason(), deleteSeason(), removeSeasonParticipant(), updateSeasonStatus() (+23 more)
 
 ## Knowledge Gaps
-- **396 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+391 more)
+- **393 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+388 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
 **Preferred sources** — corroborated by past sessions; start here.
-- `ParticipantsAdminPage()` (6× useful, score=4.678386636)
-- `DashboardPage()` (3× useful, score=2.331667021)
-- `submitJoinRequest()` (3× useful, score=2.315487322)
-- `PredictionsForm()` (2× useful, score=1.688472441)
-- `SeasonsAdminPage()` (2× useful, score=1.581826405)
-- `AdminShell()` (2× useful, score=1.581826405)
-- `approveJoinRequest()` (2× useful, score=1.575918267)
-- `JoinPage()` (2× useful, score=1.575508215)
-- `LoginPage()` (2× useful, score=1.575508215)
-- `RegisterPage()` (2× useful, score=1.575508215)
+- `ParticipantsAdminPage()` (6× useful, score=5.877174945) _(code changed — re-verify)_
+- `DashboardPage()` (3× useful, score=2.92913264) _(code changed — re-verify)_
+- `submitJoinRequest()` (3× useful, score=2.908807059) _(code changed — re-verify)_
+- `SeasonsAdminPage()` (2× useful, score=1.987153102) _(code changed — re-verify)_
+- `AdminShell()` (2× useful, score=1.987153102) _(code changed — re-verify)_
+- `approveJoinRequest()` (2× useful, score=1.979731065) _(code changed — re-verify)_
+- `JoinPage()` (2× useful, score=1.97921594) _(code changed — re-verify)_
+- `LoginPage()` (2× useful, score=1.97921594) _(code changed — re-verify)_
+- `RegisterPage()` (2× useful, score=1.97921594) _(code changed — re-verify)_
+- `signIn()` (2× useful, score=1.97921594) _(code changed — re-verify)_
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `test-tools/page.tsx`, `getAdminContext`, `fixtures/actions.ts`, `context.ts`, `send-reminders/route.ts`, `auth/actions.ts`, `season/route.ts`, `getUser`, `predictions/page.tsx`, `predictions/actions.ts`, `AdminPredictionsForm.tsx`, `exports/page.tsx`, `AdminShell.tsx`, `participants/page.tsx`, `fixtures/page.tsx`, `server.ts`?**
-  _High betweenness centrality (0.094) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `send-reminders/route.ts`, `fixtures/actions.ts`, `predictions/actions.ts`, `server.ts`, `requireLeagueAdminForSeason`, `exports/page.tsx`, `AdminShell.tsx`, `fixtures/page.tsx`, `auth/index.ts`?**
+  _High betweenness centrality (0.095) - this node is a cross-community bridge._
 - **Why does `ApiFixture` connect `ApiFixture` to `fixtures/actions.ts`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Why does `createClient()` connect `server.ts` to `dashboard/page.tsx`, `predictions/actions.ts`, `auth/actions.ts`, `createServiceClient`, `getUser`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `createClient()` connect `server.ts` to `dashboard/page.tsx`, `predictions/actions.ts`, `requireLeagueAdminForSeason`, `createServiceClient`, `auth/index.ts`?**
   _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _396 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _393 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `send-reminders/route.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.0960960960960961 - nodes in this community are weakly interconnected._
+- **Should `predictions/actions.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.10099573257467995 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._
-- **Should `auth/actions.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.08704557091653865 - nodes in this community are weakly interconnected._

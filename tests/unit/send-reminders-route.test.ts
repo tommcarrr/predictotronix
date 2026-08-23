@@ -100,11 +100,24 @@ describe('send reminders cron', () => {
     const updateEq = vi.fn().mockResolvedValue({ error: null });
     const update = vi.fn(() => ({ eq: updateEq }));
 
-    createServiceClient.mockResolvedValue({
+    const cronStartQuery = {
+      select: vi.fn(),
+      single: vi.fn().mockResolvedValue({ data: { id: 'cron-run-1' }, error: null }),
+    };
+    cronStartQuery.select.mockReturnValue(cronStartQuery);
+    const cronFinishEq = vi.fn().mockResolvedValue({ error: null });
+
+    createServiceClient.mockReturnValue({
       from: vi.fn((table: string) => {
         if (table === 'gameweeks') return gameweeksQuery();
         if (table === 'season_participants') return participantsQuery();
         if (table === 'notification_log') return { insert, update };
+        if (table === 'cron_job_runs') {
+          return {
+            insert: vi.fn(() => cronStartQuery),
+            update: vi.fn(() => ({ eq: cronFinishEq })),
+          };
+        }
         throw new Error(`Unexpected table: ${table}`);
       }),
     });
@@ -127,5 +140,7 @@ describe('send reminders cron', () => {
       })
     );
     expect(update).toHaveBeenCalledTimes(1);
+    expect(cronFinishEq).toHaveBeenCalledTimes(2);
+    expect(cronFinishEq.mock.calls.every(([, runId]) => runId === 'cron-run-1')).toBe(true);
   });
 });
