@@ -49,8 +49,10 @@ function fplSeason(events: FplEvent[]): number | null {
 }
 
 function fplStatus(fixture: FplFixture) {
-  if (fixture.finished) return { short: 'FT', long: 'Match Finished' };
-  if (fixture.started || fixture.finished_provisional) {
+  if (fixture.finished || fixture.finished_provisional) {
+    return { short: 'FT', long: 'Match Finished' };
+  }
+  if (fixture.started) {
     return { short: '1H', long: 'Match in progress' };
   }
   return { short: 'NS', long: 'Not Started' };

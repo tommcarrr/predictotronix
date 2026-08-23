@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-13T15:16:37.079030+00:00",
+  "generated_at": "2026-08-23T12:14:14.730010+00:00",
   "nodes": {
     "src_app_admin_admin_fixtures_actions_triggerfixturesync": {
-      "code_fingerprint": "f40d3e673bf3568afd2d969c0f31315c6d5ecbdb6cadab1d7aabbea0cd6a037b",
+      "code_fingerprint": "9b76719374439745ec26f71df0ad2b8c1c93ff9b3f7db6b725aaadd1dc214c93",
       "label": "triggerFixtureSync()",
       "last": "2026-08-11T11:55:09.264398+00:00",
       "provenance": [
@@ -12,13 +12,13 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.951760064,
+      "score": 0.757626173,
       "source_file": "src/app/(admin)/admin/fixtures/actions.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_app_admin_admin_fixtures_page_fixturesadminpage": {
-      "code_fingerprint": "2942bd87c67a2bda86e1df818d0610f95f3961e21654d7f8a82318a6f6efa368",
+      "code_fingerprint": "22bc5e07f3f31df91d7183a9f848fce7084e09e33af2af5a7cf43fcf9c19ca21",
       "label": "FixturesAdminPage()",
       "last": "2026-08-13T09:01:06.574157+00:00",
       "provenance": [
@@ -28,13 +28,13 @@
           "q": "Can you make the suggested changes?"
         }
       ],
-      "score": 0.993993054,
+      "score": 0.79124475,
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_app_admin_admin_leagues_actions_assignleagueadmin": {
-      "code_fingerprint": "70e0be427809fc7b1a46502cd9b38ccb09baf753bb71c458926ae927568e6246",
+      "code_fingerprint": "758ceedbddf6c975463019242c5ee7253433b56990a5446692b23babcc82b5ce",
       "label": "assignLeagueAdmin()",
       "last": "2026-08-12T19:34:42.230144+00:00",
       "provenance": [
@@ -44,13 +44,13 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 0.981214784,
+      "score": 0.781072909,
       "source_file": "src/app/(admin)/admin/leagues/actions.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_app_admin_admin_leagues_page_leaguesadminpage": {
-      "code_fingerprint": "d4a922007682539b76d9abbc4e3ac6bee1c2ccf77dfbb8f851b423f5992c1d31",
+      "code_fingerprint": "f16ada4fb395b6ba6ab640f4acc8803ef0bc6b999822a9ad159c5261c7b98da0",
       "label": "LeaguesAdminPage()",
       "last": "2026-08-13T08:08:51.436385+00:00",
       "provenance": [
@@ -65,13 +65,13 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 1.974374832,
+      "score": 1.571654564,
       "source_file": "src/app/(admin)/admin/leagues/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_admin_admin_participants_actions_approvejoinrequest": {
-      "code_fingerprint": "4597c61e2d2bbfead0f8f43cce79140e6fed186546f33bc76169378404f92f56",
+      "code_fingerprint": "1891a07fd52a98044b917e73cfc0fe04ec1465d754cd71b032c2e650b480993a",
       "label": "approveJoinRequest()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -86,13 +86,13 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 1.979731065,
+      "score": 1.575918267,
       "source_file": "src/app/(admin)/admin/participants/actions.ts",
       "status": "preferred",
       "uses": 2
     },
     "src_app_admin_admin_participants_page_participantsadminpage": {
-      "code_fingerprint": "dbb3845adf1b5c7a0b4c44d16789fe654d7a0b287ca5aa47d3e051c3d16562f9",
+      "code_fingerprint": "641fdd8244a5ce1b8e8ac4548bceb3525f37414a6d46cb43636ca198d005a20e",
       "label": "ParticipantsAdminPage()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -122,13 +122,13 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 5.877174945,
+      "score": 4.678386636,
       "source_file": "src/app/(admin)/admin/participants/page.tsx",
       "status": "preferred",
       "uses": 6
     },
     "src_app_admin_admin_seasons_page_seasonsadminpage": {
-      "code_fingerprint": "35cf148741b4c945deb098b009077a9571a653389b4b7cb1749c90e689b7fd3a",
+      "code_fingerprint": "dff5902d9c7feba000e6c679d84ce8e78c686b1d6b84ea8771ef573ad66adaac",
       "label": "SeasonsAdminPage()",
       "last": "2026-08-13T09:01:06.574157+00:00",
       "provenance": [
@@ -143,13 +143,13 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 1.987153102,
+      "score": 1.581826405,
       "source_file": "src/app/(admin)/admin/seasons/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_auth_join_code_actions_submitjoinrequest": {
-      "code_fingerprint": "4a813b2fd4d931b8b7ae761f779c300d100b464477670433d914aefdae1a8ceb",
+      "code_fingerprint": "3accc22360af59f2c84bc89c85eb3dc7d9a61d37c2d056f333d698a3c310c892",
       "label": "submitJoinRequest()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -169,13 +169,13 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 2.908807059,
+      "score": 2.315487322,
       "source_file": "src/app/(auth)/join/[code]/actions.ts",
       "status": "preferred",
       "uses": 3
     },
     "src_app_auth_join_code_page_joinpage": {
-      "code_fingerprint": "1d9fbda1ccb57ec94fc296916e3ee1867d14ad3e29d4d0d1fe31267b766d4e95",
+      "code_fingerprint": "facc6d18aa1bda23cc91718dc0b1aae139271e4622706116e64328a85c43a3f2",
       "label": "JoinPage()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -190,13 +190,13 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.97921594,
+      "score": 1.575508215,
       "source_file": "src/app/(auth)/join/[code]/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_auth_login_page_loginpage": {
-      "code_fingerprint": "5d7e0add6ddb961e3f4abdc67f1cfc397ff3bcd2213ab61030869d7984ec38b6",
+      "code_fingerprint": "84f7dace303de948f0c9187a49393a8ae9bc52858c6908432a006cb0e9534ff2",
       "label": "LoginPage()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -211,13 +211,13 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.97921594,
+      "score": 1.575508215,
       "source_file": "src/app/(auth)/login/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_auth_register_page_registerpage": {
-      "code_fingerprint": "b6e37552e470539eaf5ca542a167f4cdb49858bfc4644af0e676b784c319c0fa",
+      "code_fingerprint": "fb60dd843676274c31e420d199b8266285080d7192bd66bca3cbf4146d6b72b8",
       "label": "RegisterPage()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -232,13 +232,13 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.97921594,
+      "score": 1.575508215,
       "source_file": "src/app/(auth)/register/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_participant_dashboard_page_dashboardpage": {
-      "code_fingerprint": "767f562bf516fe449af48bbf5a028aae0882299b48e3a950e5f519bd264f0c5b",
+      "code_fingerprint": "6a9e1abba15fe8494351cebdf8fc3b467e75a16c491e1b6b026a9be88596cf84",
       "label": "DashboardPage()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -258,13 +258,13 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 2.92913264,
+      "score": 2.331667021,
       "source_file": "src/app/(participant)/dashboard/page.tsx",
       "status": "preferred",
       "uses": 3
     },
     "src_components_admin_adminshell_adminshell": {
-      "code_fingerprint": "7b3a93ec7ccc1c7f7d5dc91f155621cf1e78b64fd51d00601e8c4fb1a9d68acd",
+      "code_fingerprint": "6d04780ae12834f7164d9166bfb8e8bd6cb31476d1cd28ee8cea7fe808630f25",
       "label": "AdminShell()",
       "last": "2026-08-13T09:01:06.574157+00:00",
       "provenance": [
@@ -279,13 +279,13 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 1.987153102,
+      "score": 1.581826405,
       "source_file": "src/components/admin/AdminShell.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_components_admin_exportpanel": {
-      "code_fingerprint": "b12dc10928bdbfa9cb1c75f63292afbc8b866b6d567061fa5eacc0698cbff5f9",
+      "code_fingerprint": "2fc79331512d966ccbe649365fc1abc63f94642e760b3265dc4a6c56c966ab3c",
       "label": "ExportPanel.tsx",
       "last": "2026-08-13T08:08:51.436385+00:00",
       "provenance": [
@@ -295,13 +295,13 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 0.993160048,
+      "score": 0.790581655,
       "source_file": "src/components/admin/ExportPanel.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_components_admin_fixturesyncconsole": {
-      "code_fingerprint": "a3669449c0e2d59905de1ae0d8f7f33f4d3171a2c20d30e5bc8be17ddc689ca2",
+      "code_fingerprint": "44b57e529a971b8ae4fb63dd9bfce2f8b4e392cfeccb3265a251495454ee67ff",
       "label": "FixtureSyncConsole.tsx",
       "last": "2026-08-13T08:08:51.436385+00:00",
       "provenance": [
@@ -311,29 +311,50 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 0.993160048,
+      "score": 0.790581655,
       "source_file": "src/components/admin/FixtureSyncConsole.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_components_participant_predictionsform_predictionsform": {
-      "code_fingerprint": "6701d0cd63a82e85af28947d5001be9a8f67e22aea7b4d1081321bf2f2ff5420",
+      "code_fingerprint": "17a00e1fc2a92357ca156ea1496d0237dfccecc0ce341fdd6fae5977010e501d",
       "label": "PredictionsForm()",
-      "last": "2026-08-11T11:47:55.651711+00:00",
+      "last": "2026-08-20T09:53:53.247504+00:00",
       "provenance": [
+        {
+          "date": "2026-08-20T09:53:53.247504+00:00",
+          "outcome": "useful",
+          "q": "Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
+        },
         {
           "date": "2026-08-11T11:47:55.651711+00:00",
           "outcome": "useful",
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 0.951649708,
+      "score": 1.688472441,
       "source_file": "src/components/participant/PredictionsForm.tsx",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_components_participant_quickmatchgame_quickmatchgame": {
+      "code_fingerprint": "7267f86ac26a7373d5c85d3784843d7967b6b8d4e3db7c63df0e0ef891d04dad",
+      "label": "QuickMatchGame()",
+      "last": "2026-08-20T09:53:53.247504+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-20T09:53:53.247504+00:00",
+          "outcome": "useful",
+          "q": "Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
+        }
+      ],
+      "score": 0.930934114,
+      "source_file": "src/components/participant/QuickMatchGame.tsx",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_api_football_client_apifootballprovider": {
-      "code_fingerprint": "3f8644f8e5b8479579d5dc44fe09689c66752dfb180752567ac5d353c4038e33",
+      "code_fingerprint": "28809365fe4bb12cb8e349781d23d05a9b808e07584cb2c52692e214a2332129",
       "label": "ApiFootballProvider",
       "last": "2026-08-11T11:55:09.264398+00:00",
       "provenance": [
@@ -343,13 +364,13 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.951760064,
+      "score": 0.757626173,
       "source_file": "src/lib/api-football/client.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_auth_actions_signin": {
-      "code_fingerprint": "7f12aff713cc6f063901e7c080da19e4c8690225def34fa04ced3c2abe2458a9",
+      "code_fingerprint": "29a182d33e5078918229c80c3be50a168e70977d90f44a0bf6e921beafc1c307",
       "label": "signIn()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -364,13 +385,13 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.97921594,
+      "score": 1.575508215,
       "source_file": "src/lib/auth/actions.ts",
       "status": "preferred",
       "uses": 2
     },
     "src_lib_auth_actions_signup": {
-      "code_fingerprint": "7f12aff713cc6f063901e7c080da19e4c8690225def34fa04ced3c2abe2458a9",
+      "code_fingerprint": "29a182d33e5078918229c80c3be50a168e70977d90f44a0bf6e921beafc1c307",
       "label": "signUp()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -385,7 +406,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.97921594,
+      "score": 1.575508215,
       "source_file": "src/lib/auth/actions.ts",
       "status": "preferred",
       "uses": 2
@@ -406,7 +427,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.901566408,
+      "score": 1.513697134,
       "source_file": "src/lib/clock.ts",
       "status": "preferred",
       "uses": 2
@@ -422,13 +443,29 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.951760064,
+      "score": 0.757626173,
       "source_file": "src/lib/environment.ts",
       "status": "tentative",
       "uses": 1
     },
+    "src_lib_fpl_client_fplfixtureprovider": {
+      "code_fingerprint": "5afc1ea3073c8def386dc15a3cfa5df4881e339026f7a5808008725a1e0a9970",
+      "label": "FplFixtureProvider",
+      "last": "2026-08-23T11:25:42.010953+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-23T11:25:42.010953+00:00",
+          "outcome": "useful",
+          "q": "The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results."
+        }
+      ],
+      "score": 0.99922139,
+      "source_file": "src/lib/fpl/client.ts",
+      "status": "tentative",
+      "uses": 1
+    },
     "src_lib_predictions_actions_submitpredictions": {
-      "code_fingerprint": "7557194de2ee3b84708ea7c4437bd99937167a2565f3b9c97e5ca14910428381",
+      "code_fingerprint": "be9d7ac9274e721872fab4817becc653f7ccc8f2be1dc8e047c1b84b101071f8",
       "label": "submitPredictions()",
       "last": "2026-08-11T11:47:55.651711+00:00",
       "provenance": [
@@ -438,7 +475,7 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 0.951649708,
+      "score": 0.757538327,
       "source_file": "src/lib/predictions/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -459,7 +496,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.901566408,
+      "score": 1.513697134,
       "source_file": "src/lib/scoring/index.ts",
       "status": "preferred",
       "uses": 2
@@ -475,13 +512,13 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 0.929591119,
+      "score": 0.739979107,
       "source_file": "src/lib/supabase/server.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_sync_fixtures_syncfixtures": {
-      "code_fingerprint": "f3954e32cb9484181213f39acb5c519de47d9ef39ebfc0d26046bf029cc1d953",
+      "code_fingerprint": "05b8a98e7fdfec32f6751d6326f3ea2b12e3d3d8b1b2aee2fe372b7170fa3474",
       "label": "syncFixtures()",
       "last": "2026-08-11T11:55:09.264398+00:00",
       "provenance": [
@@ -491,7 +528,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.951760064,
+      "score": 0.757626173,
       "source_file": "src/lib/sync/fixtures.ts",
       "status": "tentative",
       "uses": 1

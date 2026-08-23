@@ -1353,7 +1353,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "reset.mts"
     },
     {
@@ -1364,7 +1364,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_requiredenvironment",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "requiredenvironment()"
     },
     {
@@ -1375,7 +1375,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_insertbatches",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "insertbatches()"
     },
     {
@@ -1386,7 +1386,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_ensurepersonauser",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "ensurepersonauser()"
     },
     {
@@ -1397,7 +1397,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_scorecompletedfixtures",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scorecompletedfixtures()"
     },
     {
@@ -1408,7 +1408,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_assertcount",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "assertcount()"
     },
     {
@@ -1419,7 +1419,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_main",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "main()"
     },
     {
@@ -1430,7 +1430,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scenario.mts"
     },
     {
@@ -1441,7 +1441,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_scenario_key",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "staging_scenario_key"
     },
     {
@@ -1452,7 +1452,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_league_id",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "staging_league_id"
     },
     {
@@ -1463,7 +1463,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_season_id",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "staging_season_id"
     },
     {
@@ -1474,7 +1474,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_personas",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "staging_personas"
     },
     {
@@ -1485,7 +1485,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_teams",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "teams"
     },
     {
@@ -1496,7 +1496,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenariopersona",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scenariopersona"
     },
     {
@@ -1507,7 +1507,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenarioparticipant",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scenarioparticipant"
     },
     {
@@ -1518,7 +1518,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenariogameweek",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scenariogameweek"
     },
     {
@@ -1529,7 +1529,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenariofixture",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scenariofixture"
     },
     {
@@ -1540,7 +1540,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenarioprediction",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "scenarioprediction"
     },
     {
@@ -1551,7 +1551,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_stagingscenario",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "stagingscenario"
     },
     {
@@ -1562,7 +1562,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_deterministicuuid",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "deterministicuuid()"
     },
     {
@@ -1573,7 +1573,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_seedednumber",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "seedednumber()"
     },
     {
@@ -1584,7 +1584,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_adddays",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "adddays()"
     },
     {
@@ -1595,7 +1595,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_kickofffor",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "kickofffor()"
     },
     {
@@ -1606,7 +1606,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_pairteams",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "pairteams()"
     },
     {
@@ -1617,7 +1617,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_buildstagingscenario",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "buildstagingscenario()"
     },
     {
@@ -1627,8 +1627,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_staging_smoke",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "smoke.mts"
     },
     {
@@ -1638,8 +1638,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "scripts_staging_smoke_requiredenvironment",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "requiredenvironment()"
     },
     {
@@ -1649,8 +1649,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "scripts_staging_smoke_main",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "main()"
     },
     {
@@ -1704,8 +1704,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "context-actions.ts"
     },
     {
@@ -1715,8 +1715,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_viewascookieoptions",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "viewascookieoptions"
     },
     {
@@ -1726,8 +1726,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_cookieoptions",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "cookieoptions"
     },
     {
@@ -1737,8 +1737,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_setadminleague",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "setadminleague()"
     },
     {
@@ -1748,8 +1748,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_setadminseason",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "setadminseason()"
     },
     {
@@ -1759,8 +1759,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_viewasleagueadmin",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "viewasleagueadmin()"
     },
     {
@@ -1770,8 +1770,8 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_stopviewingasleagueadmin",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "stopviewingasleagueadmin()"
     },
     {
@@ -1924,8 +1924,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "fixtures/page.tsx"
     },
     {
@@ -1935,8 +1935,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_metadata",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "metadata"
     },
     {
@@ -1946,8 +1946,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_dynamic",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "dynamic"
     },
     {
@@ -1957,8 +1957,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_page_fixturesadminpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "fixturesadminpage()"
     },
     {
@@ -1990,8 +1990,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "[leagueid]/page.tsx"
     },
     {
@@ -2001,8 +2001,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page_dynamic",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "dynamic"
     },
     {
@@ -2012,8 +2012,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page_leaguetab",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "leaguetab"
     },
     {
@@ -2023,8 +2023,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page_leaguedetailpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "leaguedetailpage()"
     },
     {
@@ -2144,8 +2144,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_page_leaguesadminpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "leaguesadminpage()"
     },
     {
@@ -2155,8 +2155,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_page",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "admin/page.tsx"
     },
     {
@@ -2166,8 +2166,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_metadata",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -2177,8 +2177,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_dynamic",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2188,8 +2188,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_admindashboardpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "admindashboardpage()"
     },
     {
@@ -2232,8 +2232,8 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_actions_createofflineparticipant",
-      "community": 69,
-      "community_name": "createServiceClient",
+      "community": 48,
+      "community_name": "participants/page.tsx",
       "norm_label": "createofflineparticipant()"
     },
     {
@@ -2309,8 +2309,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "predictions/page.tsx"
     },
     {
@@ -2320,8 +2320,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_metadata",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "metadata"
     },
     {
@@ -2331,8 +2331,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_dynamic",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "dynamic"
     },
     {
@@ -2342,8 +2342,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_props",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "props"
     },
     {
@@ -2353,8 +2353,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_adminpredictionspage",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "adminpredictionspage()"
     },
     {
@@ -2419,8 +2419,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_seasonid_page_seasondetailpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "seasondetailpage()"
     },
     {
@@ -2496,8 +2496,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_new_page",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "new/page.tsx"
     },
     {
@@ -2507,8 +2507,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_new_page_metadata",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "metadata"
     },
     {
@@ -2518,8 +2518,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_new_page_newseasonpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "newseasonpage()"
     },
     {
@@ -2529,8 +2529,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "seasons/page.tsx"
     },
     {
@@ -2540,8 +2540,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_metadata",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "metadata"
     },
     {
@@ -2551,8 +2551,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_dynamic",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "dynamic"
     },
     {
@@ -2562,8 +2562,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_props",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "props"
     },
     {
@@ -2573,8 +2573,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_seasonsadminpage",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "seasonsadminpage()"
     },
     {
@@ -2771,8 +2771,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_layout",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "(admin)/layout.tsx"
     },
     {
@@ -2782,8 +2782,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_admin_layout_adminlayout",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "adminlayout()"
     },
     {
@@ -3101,8 +3101,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "dashboard/page.tsx"
     },
     {
@@ -3112,8 +3112,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_metadata",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "metadata"
     },
     {
@@ -3123,8 +3123,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_dynamic",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "dynamic"
     },
     {
@@ -3134,8 +3134,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_activeseason",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "activeseason"
     },
     {
@@ -3145,8 +3145,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_pendingjoinrequest",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "pendingjoinrequest"
     },
     {
@@ -3156,8 +3156,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_props",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "props"
     },
     {
@@ -3167,8 +3167,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_dashboardpage",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "dashboardpage()"
     },
     {
@@ -3420,8 +3420,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_participant_settings_actions",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "settings/actions.ts"
     },
     {
@@ -3431,8 +3431,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_participant_settings_actions_savenotificationpreferences",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "savenotificationpreferences()"
     },
     {
@@ -3442,8 +3442,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_participant_settings_page",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "settings/page.tsx"
     },
     {
@@ -3453,8 +3453,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_participant_settings_page_metadata",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "metadata"
     },
     {
@@ -3464,8 +3464,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_participant_settings_page_dynamic",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "dynamic"
     },
     {
@@ -3475,8 +3475,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_participant_settings_page_settingspage",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "settingspage()"
     },
     {
@@ -3651,8 +3651,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "sync-fixtures/route.ts"
     },
     {
@@ -3662,8 +3662,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_validatecronsecret",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "validatecronsecret()"
     },
     {
@@ -3673,8 +3673,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_post",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "post()"
     },
     {
@@ -3684,8 +3684,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "sync-results/route.ts"
     },
     {
@@ -3695,8 +3695,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_validatecronsecret",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "validatecronsecret()"
     },
     {
@@ -3706,8 +3706,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_post",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "post()"
     },
     {
@@ -3717,8 +3717,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_health_route",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "health/route.ts"
     },
     {
@@ -3728,8 +3728,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_app_api_health_route_dynamic",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "dynamic"
     },
     {
@@ -3739,8 +3739,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_api_health_route_get",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "get()"
     },
     {
@@ -4080,8 +4080,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_components_admin_adminbadge_statustone",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "statustone()"
     },
     {
@@ -4113,8 +4113,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminnotice",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "adminnotice.tsx"
     },
     {
@@ -4124,8 +4124,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_components_admin_adminnotice_adminnotice",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "adminnotice()"
     },
     {
@@ -4135,8 +4135,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminpageheader",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "adminpageheader.tsx"
     },
     {
@@ -4146,8 +4146,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_components_admin_adminpageheader_adminpageheader",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 2,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "adminpageheader()"
     },
     {
@@ -4157,8 +4157,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "adminpredictionsform.tsx"
     },
     {
@@ -4168,8 +4168,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_option",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "option"
     },
     {
@@ -4179,8 +4179,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_participantoption",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "participantoption"
     },
     {
@@ -4190,8 +4190,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_fixture",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "fixture"
     },
     {
@@ -4201,8 +4201,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_props",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "props"
     },
     {
@@ -4212,8 +4212,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_adminpredictionsform",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "adminpredictionsform()"
     },
     {
@@ -4223,8 +4223,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminshell",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "adminshell.tsx"
     },
     {
@@ -4234,8 +4234,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_option",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "option"
     },
     {
@@ -4245,8 +4245,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_seasonoption",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "seasonoption"
     },
     {
@@ -4256,8 +4256,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_props",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "props"
     },
     {
@@ -4267,8 +4267,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_navitem",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "navitem"
     },
     {
@@ -4278,8 +4278,8 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_runnav",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "runnav"
     },
     {
@@ -4289,8 +4289,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_configurenav",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "configurenav"
     },
     {
@@ -4300,8 +4300,8 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_systemnav",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "systemnav"
     },
     {
@@ -4311,8 +4311,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_themetoggle",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "themetoggle()"
     },
     {
@@ -4322,8 +4322,8 @@
       "source_location": "L104",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_navigation",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "navigation()"
     },
     {
@@ -4333,8 +4333,8 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_adminshell",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "adminshell()"
     },
     {
@@ -4663,8 +4663,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy",
-      "community": 63,
-      "community_name": "InviteLinkCopy.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "invitelinkcopy.tsx"
     },
     {
@@ -4674,8 +4674,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy_props",
-      "community": 63,
-      "community_name": "InviteLinkCopy.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "props"
     },
     {
@@ -4685,8 +4685,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy_copystatus",
-      "community": 63,
-      "community_name": "InviteLinkCopy.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "copystatus"
     },
     {
@@ -4696,8 +4696,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy_invitelinkcopy",
-      "community": 63,
-      "community_name": "InviteLinkCopy.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "invitelinkcopy()"
     },
     {
@@ -4707,8 +4707,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_participant_gameweekcarousel",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "gameweekcarousel.tsx"
     },
     {
@@ -4718,8 +4718,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_components_participant_gameweekcarousel_props",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "props"
     },
     {
@@ -4729,8 +4729,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_participant_gameweekcarousel_gameweekcarousel",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "gameweekcarousel()"
     },
     {
@@ -5059,8 +5059,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "form-submit-button.tsx"
     },
     {
@@ -5070,8 +5070,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbuttonprops",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "formsubmitbuttonprops"
     },
     {
@@ -5081,8 +5081,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbutton",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "formsubmitbutton()"
     },
     {
@@ -5092,8 +5092,8 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formpendingstatus",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "formpendingstatus()"
     },
     {
@@ -5169,8 +5169,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_admin_context",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "context.ts"
     },
     {
@@ -5180,8 +5180,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_league_cookie",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "admin_league_cookie"
     },
     {
@@ -5191,8 +5191,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_season_cookie",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "admin_season_cookie"
     },
     {
@@ -5202,8 +5202,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_view_as_league_cookie",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "admin_view_as_league_cookie"
     },
     {
@@ -5213,8 +5213,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_lib_admin_context_getadmincontext",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 62,
+      "community_name": "getAdminContext",
       "norm_label": "getadmincontext"
     },
     {
@@ -5224,8 +5224,8 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "src_lib_admin_context_admincontext",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "admincontext"
     },
     {
@@ -5235,8 +5235,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_api_football_client",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "api-football/client.ts"
     },
     {
@@ -5246,8 +5246,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballconfig",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifootballconfig"
     },
     {
@@ -5257,8 +5257,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_api_football_client_getapifootballconfig",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "getapifootballconfig()"
     },
     {
@@ -5268,8 +5268,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballenvelope",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifootballenvelope"
     },
     {
@@ -5279,8 +5279,8 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "src_lib_api_football_client_ratelimitstate",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "ratelimitstate"
     },
     {
@@ -5290,8 +5290,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_lib_api_football_client_formatapierrors",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "formatapierrors()"
     },
     {
@@ -5301,8 +5301,8 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "src_lib_api_football_client_getsaferequestdiagnostics",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "getsaferequestdiagnostics()"
     },
     {
@@ -5312,8 +5312,8 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifetch",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifetch()"
     },
     {
@@ -5323,8 +5323,8 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "apifootballprovider"
     },
     {
@@ -5334,8 +5334,8 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getseasonfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -5345,8 +5345,8 @@
       "source_location": "L155",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getroundfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -5356,8 +5356,8 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getfixture",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getfixture()"
     },
     {
@@ -5367,8 +5367,8 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "src_lib_api_football_client_apifootballprovider_getrounds",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": ".getrounds()"
     },
     {
@@ -5378,7 +5378,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": "test-provider.ts"
     },
@@ -5389,7 +5389,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": "testfixtureprovider"
     },
@@ -5400,7 +5400,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_constructor",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": ".constructor()"
     },
@@ -5411,7 +5411,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getseasonfixtures",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": ".getseasonfixtures()"
     },
@@ -5422,7 +5422,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getroundfixtures",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": ".getroundfixtures()"
     },
@@ -5433,7 +5433,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getfixture",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": ".getfixture()"
     },
@@ -5444,7 +5444,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_lib_api_football_test_provider_testfixtureprovider_getrounds",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": ".getrounds()"
     },
@@ -5455,7 +5455,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_api_football_types",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": "types.ts"
     },
@@ -5466,7 +5466,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_api_football_types_apifixture",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": "apifixture"
     },
@@ -5477,7 +5477,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_lib_api_football_types_apiround",
-      "community": 42,
+      "community": 65,
       "community_name": "ApiFixture",
       "norm_label": "apiround"
     },
@@ -5488,8 +5488,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": "fixtureprovider"
     },
     {
@@ -5499,8 +5499,8 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getseasonfixtures",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -5510,8 +5510,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getroundfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -5521,8 +5521,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getfixture",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getfixture()"
     },
     {
@@ -5532,8 +5532,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "src_lib_api_football_types_fixtureprovider_getrounds",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getrounds()"
     },
     {
@@ -5697,8 +5697,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_auth_index",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "auth/index.ts"
     },
     {
@@ -5730,8 +5730,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_auth_index_isadmin",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "isadmin()"
     },
     {
@@ -5752,8 +5752,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_lib_auth_index_getparticipant",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "getparticipant()"
     },
     {
@@ -5763,8 +5763,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_lib_auth_index_isseasonparticipant",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "isseasonparticipant()"
     },
     {
@@ -5774,8 +5774,8 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "src_lib_auth_index_requireuser",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "requireuser()"
     },
     {
@@ -5785,8 +5785,8 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "src_lib_auth_index_requiresuperadmin",
-      "community": 0,
-      "community_name": "dashboard/page.tsx",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "requiresuperadmin()"
     },
     {
@@ -5851,8 +5851,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_environment",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "environment.ts"
     },
     {
@@ -5862,8 +5862,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_environment_appenvironment",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "appenvironment"
     },
     {
@@ -5873,8 +5873,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "src_lib_environment_seasontype",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "seasontype"
     },
     {
@@ -5884,8 +5884,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_environment_environmentsource",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "environmentsource"
     },
     {
@@ -5895,8 +5895,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_lib_environment_environmentpolicy",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "environmentpolicy"
     },
     {
@@ -5906,8 +5906,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_lib_environment_app_environments",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "app_environments"
     },
     {
@@ -5917,8 +5917,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_lib_environment_resolveappenvironment",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "resolveappenvironment()"
     },
     {
@@ -5928,8 +5928,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_environment_getenvironmentpolicy",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "getenvironmentpolicy()"
     },
     {
@@ -5939,8 +5939,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_lib_environment_shoulddryrunnotifications",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 1,
+      "community_name": "send-reminders/route.ts",
       "norm_label": "shoulddryrunnotifications()"
     },
     {
@@ -5950,8 +5950,8 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "src_lib_environment_getsupabaseprojectref",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "getsupabaseprojectref()"
     },
     {
@@ -5961,8 +5961,8 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "src_lib_environment_assertsafestagingtarget",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "assertsafestagingtarget()"
     },
     {
@@ -6082,8 +6082,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "provider.ts"
     },
     {
@@ -6093,8 +6093,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": "fallbackfixtureprovider"
     },
     {
@@ -6104,8 +6104,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_constructor",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".constructor()"
     },
     {
@@ -6115,8 +6115,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_run",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".run()"
     },
     {
@@ -6126,8 +6126,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getseasonfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getseasonfixtures()"
     },
     {
@@ -6137,8 +6137,8 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getroundfixtures",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getroundfixtures()"
     },
     {
@@ -6148,8 +6148,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getfixture",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getfixture()"
     },
     {
@@ -6159,8 +6159,8 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_fallbackfixtureprovider_getrounds",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 63,
+      "community_name": "FixtureProvider",
       "norm_label": ".getrounds()"
     },
     {
@@ -6170,8 +6170,8 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_createproductionfixtureprovider",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 68,
+      "community_name": "getEnvironmentPolicy",
       "norm_label": "createproductionfixtureprovider()"
     },
     {
@@ -6182,7 +6182,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fpl/client.ts"
     },
     {
@@ -6193,7 +6193,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplteam",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplteam"
     },
     {
@@ -6204,7 +6204,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplevent",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplevent"
     },
     {
@@ -6215,7 +6215,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplbootstrap",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplbootstrap"
     },
     {
@@ -6226,7 +6226,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixture",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplfixture"
     },
     {
@@ -6237,7 +6237,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfetch",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplfetch()"
     },
     {
@@ -6248,7 +6248,7 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplseason",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplseason()"
     },
     {
@@ -6259,95 +6259,95 @@
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplstatus",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplstatus()"
     },
     {
       "label": "FplFixtureProvider",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L60",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fplfixtureprovider"
     },
     {
       "label": ".bootstrap()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L65",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_bootstrap",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".bootstrap()"
     },
     {
       "label": ".fixtures()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L69",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_fixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".fixtures()"
     },
     {
       "label": ".mappedFixtures()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L73",
+      "source_location": "L75",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".mappedfixtures()"
     },
     {
       "label": ".getSeasonFixtures()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L110",
+      "source_location": "L112",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getseasonfixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getseasonfixtures()"
     },
     {
       "label": ".getRoundFixtures()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L114",
+      "source_location": "L116",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getroundfixtures",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getroundfixtures()"
     },
     {
       "label": ".getFixture()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L119",
+      "source_location": "L121",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getfixture",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getfixture()"
     },
     {
       "label": ".getRounds()",
       "file_type": "code",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L127",
+      "source_location": "L129",
       "_origin": "ast",
       "id": "src_lib_fpl_client_fplfixtureprovider_getrounds",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": ".getrounds()"
     },
     {
@@ -6819,8 +6819,8 @@
       "source_location": "L165",
       "_origin": "ast",
       "id": "src_lib_predictions_actions_clearpredictions",
-      "community": 61,
-      "community_name": "predictions/actions.ts",
+      "community": 4,
+      "community_name": "server.ts",
       "norm_label": "clearpredictions()"
     },
     {
@@ -6918,8 +6918,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "email-import-parser.ts"
     },
     {
@@ -6929,8 +6929,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_emailimportfixture",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "emailimportfixture"
     },
     {
@@ -6951,8 +6951,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_emailparseresult",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "emailparseresult"
     },
     {
@@ -6962,8 +6962,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_premier_league_team_aliases",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "premier_league_team_aliases"
     },
     {
@@ -6973,8 +6973,8 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_normalize",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "normalize()"
     },
     {
@@ -6984,8 +6984,8 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_generatedaliases",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "generatedaliases()"
     },
     {
@@ -6995,8 +6995,8 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_aliasesfor",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "aliasesfor()"
     },
     {
@@ -7006,8 +7006,8 @@
       "source_location": "L114",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_escaperegexp",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "escaperegexp()"
     },
     {
@@ -7017,8 +7017,8 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_aliaspattern",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "aliaspattern()"
     },
     {
@@ -7028,8 +7028,8 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_candidatesegments",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "candidatesegments()"
     },
     {
@@ -7039,8 +7039,8 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_collectfixturescores",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "collectfixturescores()"
     },
     {
@@ -7050,8 +7050,8 @@
       "source_location": "L221",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_parsepredictionemail",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "parsepredictionemail()"
     },
     {
@@ -7061,8 +7061,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "gameweek.ts"
     },
     {
@@ -7072,8 +7072,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek_predictiongameweek",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "predictiongameweek"
     },
     {
@@ -7083,8 +7083,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek_predictionfixture",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "predictionfixture"
     },
     {
@@ -7094,8 +7094,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek_selectpredictiongameweek",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "selectpredictiongameweek()"
     },
     {
@@ -7149,8 +7149,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_scoring_index",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "scoring/index.ts"
     },
     {
@@ -7160,8 +7160,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_scoring_index_scoringresult",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "scoringresult"
     },
     {
@@ -7171,8 +7171,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_scoring_index_score",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "score"
     },
     {
@@ -7182,8 +7182,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_scoring_index_result",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "result"
     },
     {
@@ -7193,8 +7193,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_lib_scoring_index_getresult",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "getresult()"
     },
     {
@@ -7204,8 +7204,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_scoring_index_scoreprediction",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "scoreprediction()"
     },
     {
@@ -7215,8 +7215,8 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_scoring_index_leaderboardentry",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "leaderboardentry"
     },
     {
@@ -7226,8 +7226,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_lib_scoring_index_rankedentry",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "rankedentry"
     },
     {
@@ -7237,8 +7237,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "src_lib_scoring_index_rankleaderboard",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "rankleaderboard()"
     },
     {
@@ -7259,8 +7259,8 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "src_lib_scoring_index_calculatecompletion",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "calculatecompletion()"
     },
     {
@@ -7347,8 +7347,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "fixtures.ts"
     },
     {
@@ -7358,8 +7358,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_mapfixturestatus",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "mapfixturestatus()"
     },
     {
@@ -7369,8 +7369,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresult",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "syncresult"
     },
     {
@@ -7380,8 +7380,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_gameweeknumberfromround",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "gameweeknumberfromround()"
     },
     {
@@ -7391,8 +7391,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncloglevel",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "syncloglevel"
     },
     {
@@ -7413,8 +7413,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogger",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "synclogger"
     },
     {
@@ -7424,8 +7424,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_log",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "log()"
     },
     {
@@ -7435,8 +7435,8 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncfixtures",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "syncfixtures()"
     },
     {
@@ -7446,8 +7446,8 @@
       "source_location": "L200",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresults",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "syncresults()"
     },
     {
@@ -7611,8 +7611,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_types_index_fixturestatus",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "fixturestatus"
     },
     {
@@ -7655,8 +7655,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_types_index_pointsreason",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "pointsreason"
     },
     {
@@ -7798,8 +7798,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "admin-predictions-form.test.tsx"
     },
     {
@@ -7809,8 +7809,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test_participants",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "participants"
     },
     {
@@ -7820,8 +7820,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test_renderform",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "renderform()"
     },
     {
@@ -7831,8 +7831,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test_renderselectedform",
-      "community": 62,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "renderselectedform()"
     },
     {
@@ -7842,8 +7842,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "admin-view-as-actions.test.ts"
     },
     {
@@ -7853,8 +7853,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test_cookiestore_cookies_createserviceclient_issuperadmin_redirect",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "{ cookiestore, cookies, createserviceclient, issuperadmin, redirect }"
     },
     {
@@ -7864,8 +7864,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test_leaguequery",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "leaguequery()"
     },
     {
@@ -7875,8 +7875,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test_seasonsquery",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 0,
+      "community_name": "context.ts",
       "norm_label": "seasonsquery()"
     },
     {
@@ -7886,8 +7886,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_admin_view_mode_shell_test",
-      "community": 48,
-      "community_name": "participants/page.tsx",
+      "community": 60,
+      "community_name": "AdminShell.tsx",
       "norm_label": "admin-view-mode-shell.test.tsx"
     },
     {
@@ -7897,8 +7897,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_api_football_client_test",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "api-football/client.ts",
       "norm_label": "api-football-client.test.ts"
     },
     {
@@ -7963,8 +7963,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "deployment-config.test.ts"
     },
     {
@@ -7974,8 +7974,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_normalizelines",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "normalizelines()"
     },
     {
@@ -7985,8 +7985,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_renderblueprint",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "renderblueprint"
     },
     {
@@ -7996,8 +7996,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_stagingworkflow",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "stagingworkflow"
     },
     {
@@ -8007,8 +8007,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_seasonclockmigration",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "seasonclockmigration"
     },
     {
@@ -8018,8 +8018,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_environment_test",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 32,
+      "community_name": "environment.ts",
       "norm_label": "environment.test.ts"
     },
     {
@@ -8073,8 +8073,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_fixture_sync_test",
-      "community": 66,
-      "community_name": "fixtures/actions.ts",
+      "community": 67,
+      "community_name": "fixtures.ts",
       "norm_label": "fixture-sync.test.ts"
     },
     {
@@ -8085,7 +8085,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "fpl-client.test.ts"
     },
     {
@@ -8096,7 +8096,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test_bootstrap",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "bootstrap"
     },
     {
@@ -8107,7 +8107,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test_scheduledfixture",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "scheduledfixture"
     },
     {
@@ -8118,7 +8118,7 @@
       "_origin": "ast",
       "id": "tests_unit_fpl_client_test_mockfpl",
       "community": 42,
-      "community_name": "ApiFixture",
+      "community_name": "fpl/client.ts",
       "norm_label": "mockfpl()"
     },
     {
@@ -8161,8 +8161,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_invite_link_copy_test",
-      "community": 63,
-      "community_name": "InviteLinkCopy.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "invite-link-copy.test.tsx"
     },
     {
@@ -8172,8 +8172,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "tests_unit_invite_link_copy_test_writetext",
-      "community": 63,
-      "community_name": "InviteLinkCopy.tsx",
+      "community": 69,
+      "community_name": "createServiceClient",
       "norm_label": "writetext"
     },
     {
@@ -8227,8 +8227,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_prediction_email_parser_test",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "prediction-email-parser.test.ts"
     },
     {
@@ -8238,8 +8238,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "tests_unit_prediction_email_parser_test_fixtures",
-      "community": 2,
-      "community_name": "email-import-parser.ts",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "fixtures"
     },
     {
@@ -8249,8 +8249,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_prediction_gameweek_test",
-      "community": 60,
-      "community_name": "predictions/page.tsx",
+      "community": 61,
+      "community_name": "predictions/actions.ts",
       "norm_label": "prediction-gameweek.test.ts"
     },
     {
@@ -8337,8 +8337,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_scoring_test",
-      "community": 54,
-      "community_name": "scoring/index.ts",
+      "community": 64,
+      "community_name": "types/index.ts",
       "norm_label": "scoring.test.ts"
     },
     {
@@ -8393,7 +8393,7 @@
       "_origin": "ast",
       "id": "tests_unit_staging_scenario_test",
       "community": 32,
-      "community_name": "scenario.mts",
+      "community_name": "environment.ts",
       "norm_label": "staging-scenario.test.ts"
     },
     {
@@ -10143,6 +10143,116 @@
       "id": "graphify_out_memory_query_20260813_153018_give_me_a_nice_way_to_copy_the_invite_link_to_the_source_nodes",
       "community": 58,
       "community_name": "Q: Give me a nice way to copy the invite link to the clipboard.",
+      "norm_label": "source nodes"
+    },
+    {
+      "label": "query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju",
+      "community": 70,
+      "community_name": "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?",
+      "norm_label": "query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md"
+    },
+    {
+      "label": "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_q_can_you_make_the_mini_game_a_little_bit_harder_just_so_the_bar_moves_about_1_5_times_faster_also_can_you_fix_a_bug_where_the_last_score_box_of_a_game_week_auto_moves_to_the_first_one_of_the_next_gameweek",
+      "community": 70,
+      "community_name": "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?",
+      "norm_label": "q: can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
+    },
+    {
+      "label": "Answer",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_answer",
+      "community": 70,
+      "community_name": "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?",
+      "norm_label": "answer"
+    },
+    {
+      "label": "Outcome",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_outcome",
+      "community": 70,
+      "community_name": "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?",
+      "norm_label": "outcome"
+    },
+    {
+      "label": "Source Nodes",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_source_nodes",
+      "community": 70,
+      "community_name": "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?",
+      "norm_label": "source nodes"
+    },
+    {
+      "label": "query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an",
+      "community": 71,
+      "community_name": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
+      "norm_label": "query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md"
+    },
+    {
+      "label": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_q_the_syncing_of_results_doesn_t_seem_to_be_doing_anything_the_syncing_of_fixtures_is_showing_the_results_but_the_games_are_still_showing_as_being_active_even_though_they_are_finished_can_you_work_out_what_is_going_on_try_calling_the_api_to_check_that_you_have_the_correct_response_mapped_for_the_results",
+      "community": 71,
+      "community_name": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
+      "norm_label": "q: the syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. can you work out what is going on? try calling the api to check that you have the correct response mapped for the results."
+    },
+    {
+      "label": "Answer",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_answer",
+      "community": 71,
+      "community_name": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
+      "norm_label": "answer"
+    },
+    {
+      "label": "Outcome",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_outcome",
+      "community": 71,
+      "community_name": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
+      "norm_label": "outcome"
+    },
+    {
+      "label": "Source Nodes",
+      "file_type": "document",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_source_nodes",
+      "community": 71,
+      "community_name": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
       "norm_label": "source nodes"
     },
     {
@@ -24477,7 +24587,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L73",
+      "source_location": "L75",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
@@ -24605,7 +24715,7 @@
       "context": "type",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26396,7 +26506,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client",
@@ -26453,7 +26563,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L66",
+      "source_location": "L68",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_bootstrap",
@@ -26465,7 +26575,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L70",
+      "source_location": "L72",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_fixtures",
@@ -26477,7 +26587,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L121",
+      "source_location": "L123",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_getfixture",
@@ -26489,7 +26599,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L79",
+      "source_location": "L81",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
@@ -26501,7 +26611,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L95",
+      "source_location": "L97",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
@@ -26512,7 +26622,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L65",
+      "source_location": "L67",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26523,7 +26633,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L69",
+      "source_location": "L71",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26534,7 +26644,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L119",
+      "source_location": "L121",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26545,7 +26655,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L114",
+      "source_location": "L116",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26556,7 +26666,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L127",
+      "source_location": "L129",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26567,7 +26677,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L110",
+      "source_location": "L112",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26578,7 +26688,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L73",
+      "source_location": "L75",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider",
@@ -26602,7 +26712,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L120",
+      "source_location": "L122",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_getfixture",
@@ -26614,7 +26724,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
@@ -26626,7 +26736,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_mappedfixtures",
@@ -26638,7 +26748,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L123",
+      "source_location": "L125",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_getfixture",
@@ -26650,7 +26760,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L115",
+      "source_location": "L117",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_getroundfixtures",
@@ -26662,7 +26772,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L128",
+      "source_location": "L130",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_getrounds",
@@ -26674,7 +26784,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/fpl/client.ts",
-      "source_location": "L111",
+      "source_location": "L113",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_lib_fpl_client_fplfixtureprovider_getseasonfixtures",
@@ -31236,6 +31346,94 @@
       "_origin": "ast",
       "source": "graphify_out_memory_query_20260813_153018_give_me_a_nice_way_to_copy_the_invite_link_to_the_q_give_me_a_nice_way_to_copy_the_invite_link_to_the_clipboard",
       "target": "graphify_out_memory_query_20260813_153018_give_me_a_nice_way_to_copy_the_invite_link_to_the_source_nodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju",
+      "target": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_q_can_you_make_the_mini_game_a_little_bit_harder_just_so_the_bar_moves_about_1_5_times_faster_also_can_you_fix_a_bug_where_the_last_score_box_of_a_game_week_auto_moves_to_the_first_one_of_the_next_gameweek",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_q_can_you_make_the_mini_game_a_little_bit_harder_just_so_the_bar_moves_about_1_5_times_faster_also_can_you_fix_a_bug_where_the_last_score_box_of_a_game_week_auto_moves_to_the_first_one_of_the_next_gameweek",
+      "target": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_answer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_q_can_you_make_the_mini_game_a_little_bit_harder_just_so_the_bar_moves_about_1_5_times_faster_also_can_you_fix_a_bug_where_the_last_score_box_of_a_game_week_auto_moves_to_the_first_one_of_the_next_gameweek",
+      "target": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_outcome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder__ju.md",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_q_can_you_make_the_mini_game_a_little_bit_harder_just_so_the_bar_moves_about_1_5_times_faster_also_can_you_fix_a_bug_where_the_last_score_box_of_a_game_week_auto_moves_to_the_first_one_of_the_next_gameweek",
+      "target": "graphify_out_memory_query_20260820_095353_can_you_make_the_mini_game_a_little_bit_harder_ju_source_nodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an",
+      "target": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_q_the_syncing_of_results_doesn_t_seem_to_be_doing_anything_the_syncing_of_fixtures_is_showing_the_results_but_the_games_are_still_showing_as_being_active_even_though_they_are_finished_can_you_work_out_what_is_going_on_try_calling_the_api_to_check_that_you_have_the_correct_response_mapped_for_the_results",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_q_the_syncing_of_results_doesn_t_seem_to_be_doing_anything_the_syncing_of_fixtures_is_showing_the_results_but_the_games_are_still_showing_as_being_active_even_though_they_are_finished_can_you_work_out_what_is_going_on_try_calling_the_api_to_check_that_you_have_the_correct_response_mapped_for_the_results",
+      "target": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_answer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_q_the_syncing_of_results_doesn_t_seem_to_be_doing_anything_the_syncing_of_fixtures_is_showing_the_results_but_the_games_are_still_showing_as_being_active_even_though_they_are_finished_can_you_work_out_what_is_going_on_try_calling_the_api_to_check_that_you_have_the_correct_response_mapped_for_the_results",
+      "target": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_outcome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/memory/query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an.md",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_q_the_syncing_of_results_doesn_t_seem_to_be_doing_anything_the_syncing_of_fixtures_is_showing_the_results_but_the_games_are_still_showing_as_being_active_even_though_they_are_finished_can_you_work_out_what_is_going_on_try_calling_the_api_to_check_that_you_have_the_correct_response_mapped_for_the_results",
+      "target": "graphify_out_memory_query_20260823_112542_the_syncing_of_results_doesn_t_seem_to_be_doing_an_source_nodes",
       "confidence_score": 1.0
     },
     {

@@ -72,4 +72,20 @@ describe('FPL fixture provider', () => {
       goals: { home: 2, away: 1 },
     }));
   });
+
+  it('maps provisionally finished fixtures as finished', async () => {
+    mockFpl({
+      ...scheduledFixture,
+      started: true,
+      finished: false,
+      finished_provisional: true,
+      team_h_score: 3,
+      team_a_score: 0,
+    });
+
+    await expect(new FplFixtureProvider().getFixture(-101)).resolves.toEqual(expect.objectContaining({
+      status: { short: 'FT', long: 'Match Finished' },
+      goals: { home: 3, away: 0 },
+    }));
+  });
 });
