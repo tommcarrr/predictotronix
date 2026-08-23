@@ -31,10 +31,10 @@ type Format = 'text' | 'markdown' | 'html' | 'csv';
 type View = 'season' | string;
 
 const formats: { value: Format; label: string; extension: string }[] = [
+  { value: 'html', label: 'Email-ready table', extension: 'html' },
   { value: 'csv', label: 'CSV', extension: 'csv' },
   { value: 'text', label: 'Plain text', extension: 'txt' },
   { value: 'markdown', label: 'Markdown', extension: 'md' },
-  { value: 'html', label: 'HTML table', extension: 'html' },
 ];
 
 function getMovementLabel(position: number) {
@@ -45,7 +45,7 @@ function getMovementLabel(position: number) {
 
 export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
   const [view, setView] = useState<View>('season');
-  const [format, setFormat] = useState<Format>('csv');
+  const [format, setFormat] = useState<Format>('html');
   const [exportOpen, setExportOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState<'copy' | 'download' | null>(null);
@@ -73,7 +73,19 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
   async function copyExport() {
     setBusy('copy');
     try {
-      await navigator.clipboard.writeText(await fetchExport());
+      const content = await fetchExport();
+      if (format === 'html' && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+        const document = new DOMParser().parseFromString(content, 'text/html');
+        const plainText = document.body.innerText;
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'text/html': new Blob([content], { type: 'text/html' }),
+            'text/plain': new Blob([plainText], { type: 'text/plain' }),
+          }),
+        ]);
+      } else {
+        await navigator.clipboard.writeText(content);
+      }
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } finally {
@@ -90,7 +102,15 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
         ? `gameweek-${selectedGameweek.gameweekNumber}-standings.${selectedFormat.extension}`
         : `league-table.${selectedFormat.extension}`;
       const link = document.createElement('a');
-      link.href = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
+      const mimeType =
+        format === 'html'
+          ? 'text/html'
+          : format === 'csv'
+            ? 'text/csv'
+            : format === 'markdown'
+              ? 'text/markdown'
+              : 'text/plain';
+      link.href = URL.createObjectURL(new Blob([content], { type: `${mimeType};charset=utf-8` }));
       link.download = filename;
       link.click();
       URL.revokeObjectURL(link.href);

@@ -1,68 +1,32 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/server';
 import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
+import {
+  formatLeaderboard,
+  leaderboardBeforeLatestGameweek,
+  type ExportLeaderboardRow,
+  type LeaderboardExportFormat,
+} from '@/lib/exports/leaderboard';
 
-type Format = 'text' | 'markdown' | 'html' | 'csv';
+const validFormats = new Set<LeaderboardExportFormat>(['text', 'markdown', 'html', 'csv']);
 
-interface LeaderboardRow {
-  position: number;
-  display_name: string;
-  total_points: number;
-  exact_count: number;
-  predictions_submitted: number;
-  fixtures_in_gameweek?: number;
-}
-
-function formatLeaderboard(rows: LeaderboardRow[], format: Format): string {
-  if (!rows.length) return 'No data.';
-
-  if (format === 'csv') {
-    const header = 'Position,Player,Points,Exact,Predictions';
-    const body = rows.map(
-      (r) =>
-        `${r.position},"${r.display_name}",${r.total_points},${r.exact_count},${r.predictions_submitted}`
-    );
-    return [header, ...body].join('\n');
-  }
-
-  if (format === 'markdown') {
-    const header = '| Pos | Player | Pts | ★ | P |\n|-----|--------|-----|---|---|';
-    const body = rows.map(
-      (r) =>
-        `| ${r.position} | ${r.display_name} | ${r.total_points} | ${r.exact_count} | ${r.predictions_submitted} |`
-    );
-    return [header, ...body].join('\n');
-  }
-
-  if (format === 'html') {
-    const header = `<table>
-  <thead><tr><th>Pos</th><th>Player</th><th>Pts</th><th>Exact</th><th>P</th></tr></thead>
-  <tbody>`;
-    const body = rows
-      .map(
-        (r) =>
-          `    <tr><td>${r.position}</td><td>${r.display_name}</td><td>${r.total_points}</td><td>${r.exact_count}</td><td>${r.predictions_submitted}</td></tr>`
-      )
-      .join('\n');
-    return `${header}\n${body}\n  </tbody>\n</table>`;
-  }
-
-  // Plain text
-  const maxName = Math.max(...rows.map((r) => r.display_name.length), 10);
-  const lines = rows.map(
-    (r) =>
-      `${String(r.position).padStart(3)}. ${r.display_name.padEnd(maxName + 2)} ${String(
-        r.total_points
-      ).padStart(4)} pts   ${r.exact_count} exact   ${r.predictions_submitted} scored`
-  );
-  return lines.join('\n');
+function contentType(format: LeaderboardExportFormat) {
+  if (format === 'html') return 'text/html; charset=utf-8';
+  if (format === 'csv') return 'text/csv; charset=utf-8';
+  if (format === 'markdown') return 'text/markdown; charset=utf-8';
+  return 'text/plain; charset=utf-8';
 }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const seasonId = searchParams.get('seasonId');
   const gameweekId = searchParams.get('gameweekId');
-  const format = (searchParams.get('format') ?? 'text') as Format;
+  const requestedFormat = searchParams.get('format') ?? 'text';
+  const format: LeaderboardExportFormat = validFormats.has(
+    requestedFormat as LeaderboardExportFormat
+  )
+    ? (requestedFormat as LeaderboardExportFormat)
+    : 'text';
 
   if (!seasonId) {
     return new NextResponse('Missing seasonId', { status: 400 });
@@ -92,8 +56,46 @@ export async function GET(request: NextRequest) {
     return new NextResponse(error.message, { status: 500 });
   }
 
-  const formatted = formatLeaderboard(data ?? [], format);
+  let previousPositions: Map<string, number> | undefined;
+  if (!gameweekId) {
+    const { data: startedGameweeks, error: gameweeksError } = await supabase
+      .from('gameweeks')
+      .select('id, gameweek_number')
+      .eq('season_id', seasonId)
+      .neq('status', 'upcoming')
+      .order('gameweek_number', { ascending: true });
+    if (gameweeksError) return new NextResponse(gameweeksError.message, { status: 500 });
+
+    const started = startedGameweeks ?? [];
+    if (started.length > 1) {
+      const latestGameweek = started.at(-1)!;
+      const latestResult = await supabase.rpc('get_gameweek_leaderboard', {
+        p_gameweek_id: latestGameweek.id,
+      });
+      if (latestResult.error) {
+        return new NextResponse(latestResult.error.message, { status: 500 });
+      }
+
+      const previousTable = leaderboardBeforeLatestGameweek(
+        (data ?? []) as ExportLeaderboardRow[],
+        (latestResult.data ?? []) as ExportLeaderboardRow[]
+      );
+      previousPositions = new Map(
+        previousTable.map((row) => [row.participant_id, row.position])
+      );
+    }
+  }
+
+  const formatted = formatLeaderboard(
+    (data ?? []) as ExportLeaderboardRow[],
+    format,
+    gameweekId ? 'gameweek' : 'season',
+    previousPositions
+  );
   return new NextResponse(formatted, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    headers: {
+      'Content-Type': contentType(format),
+      'Cache-Control': 'private, no-store',
+    },
   });
 }
