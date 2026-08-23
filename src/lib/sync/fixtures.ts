@@ -1,6 +1,35 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { ApiFixture, FixtureProvider } from '../api-football/types';
-import type { FixtureStatus } from '@/types';
+import type { FixtureStatus, GameweekStatus } from '@/types';
+
+interface GameweekFixtureState {
+  kickoff: string;
+  status: FixtureStatus;
+}
+
+const completedFixtureStatuses = new Set<FixtureStatus>([
+  'finished',
+  'cancelled',
+  'abandoned',
+]);
+
+export function deriveGameweekStatus(
+  fixtures: GameweekFixtureState[],
+  now = new Date()
+): GameweekStatus {
+  if (fixtures.length === 0) return 'upcoming';
+  if (fixtures.every((fixture) => completedFixtureStatuses.has(fixture.status))) {
+    return 'completed';
+  }
+
+  const hasStarted = fixtures.some(
+    (fixture) =>
+      fixture.status === 'live' ||
+      completedFixtureStatuses.has(fixture.status) ||
+      new Date(fixture.kickoff) <= now
+  );
+  return hasStarted ? 'in_progress' : 'upcoming';
+}
 
 /** Map API-Football status codes to our fixture status enum. */
 function mapFixtureStatus(apiStatus: string): FixtureStatus {
@@ -54,6 +83,68 @@ function log(
   if (level === 'error') console.error(output);
   else if (level === 'warning') console.warn(output);
   else console.info(output);
+}
+
+async function syncGameweekStatuses(
+  supabase: SupabaseClient,
+  seasonId: string,
+  logger?: SyncLogger
+): Promise<string[]> {
+  const errors: string[] = [];
+  const [{ data: gameweeks, error: gameweeksError }, { data: fixtures, error: fixturesError }] =
+    await Promise.all([
+      supabase.from('gameweeks').select('id, status').eq('season_id', seasonId),
+      supabase.from('fixtures').select('gameweek_id, kickoff, status').eq('season_id', seasonId),
+    ]);
+
+  if (gameweeksError || fixturesError) {
+    const message = `Could not refresh gameweek statuses: ${
+      gameweeksError?.message ?? fixturesError?.message
+    }`;
+    log(logger, 'error', message);
+    return [message];
+  }
+
+  const fixturesByGameweek = new Map<string, GameweekFixtureState[]>();
+  for (const fixture of fixtures ?? []) {
+    if (!fixture.gameweek_id) continue;
+    const states = fixturesByGameweek.get(fixture.gameweek_id) ?? [];
+    states.push({ kickoff: fixture.kickoff, status: fixture.status });
+    fixturesByGameweek.set(fixture.gameweek_id, states);
+  }
+
+  let updated = 0;
+  const now = new Date();
+  for (const gameweek of gameweeks ?? []) {
+    const nextStatus = deriveGameweekStatus(fixturesByGameweek.get(gameweek.id) ?? [], now);
+    const shouldAdvance =
+      (gameweek.status === 'upcoming' && nextStatus !== 'upcoming') ||
+      (gameweek.status === 'in_progress' && nextStatus === 'completed');
+    if (!shouldAdvance) continue;
+
+    const { error } = await supabase
+      .from('gameweeks')
+      .update({ status: nextStatus })
+      .eq('id', gameweek.id);
+    if (error) {
+      const message = `Update gameweek ${gameweek.id}: ${error.message}`;
+      errors.push(message);
+      log(logger, 'error', 'Gameweek status update failed', {
+        gameweekId: gameweek.id,
+        status: nextStatus,
+        error: error.message,
+      });
+    } else {
+      updated++;
+    }
+  }
+
+  log(logger, errors.length ? 'warning' : 'success', 'Gameweek statuses refreshed', {
+    checked: gameweeks?.length ?? 0,
+    updated,
+    failed: errors.length,
+  });
+  return errors;
 }
 
 /**
@@ -190,6 +281,7 @@ export async function syncFixtures(
       (fixture) => !roundToGameweekId.has(fixture.league.round)
     ).length,
   });
+  errors.push(...(await syncGameweekStatuses(supabase, seasonId, logger)));
   return { upserted, errors };
 }
 
@@ -228,7 +320,10 @@ export async function syncResults(
     pendingCount: pendingFixtures?.length ?? 0,
   });
 
-  if (!pendingFixtures?.length) return { scored, errors };
+  if (!pendingFixtures?.length) {
+    errors.push(...(await syncGameweekStatuses(supabase, seasonId, logger)));
+    return { scored, errors };
+  }
 
   for (const pending of pendingFixtures) {
     if (!pending.api_football_fixture_id) continue;
@@ -291,5 +386,6 @@ export async function syncResults(
     scored,
     failed: errors.length,
   });
+  errors.push(...(await syncGameweekStatuses(supabase, seasonId, logger)));
   return { scored, errors };
 }
