@@ -2,6 +2,11 @@
 
 import { useMemo, useState } from 'react';
 import { Check, ChevronDown, Copy, Download, Trophy } from 'lucide-react';
+import {
+  correctResultCount,
+  getLeaderboardMovement,
+  leaderboardBeforeLatestGameweek,
+} from '@/lib/exports/leaderboard';
 
 export interface LeaderboardRow {
   participant_id: string;
@@ -37,12 +42,6 @@ const formats: { value: Format; label: string; extension: string }[] = [
   { value: 'markdown', label: 'Markdown', extension: 'md' },
 ];
 
-function getMovementLabel(position: number) {
-  if (position === 1) return 'Leader';
-  if (position <= 3) return 'Top 3';
-  return null;
-}
-
 export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
   const [view, setView] = useState<View>('season');
   const [format, setFormat] = useState<Format>('html');
@@ -53,10 +52,17 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
   const selectedGameweek = gameweeks.find((gameweek) => gameweek.id === view);
   const rows = selectedGameweek?.rows ?? seasonRows;
   const title = selectedGameweek?.label ?? 'Overall league table';
-  const completedGameweeks = gameweeks.filter((gameweek) => gameweek.status === 'completed').length;
   const totalPoints = rows.reduce((sum, row) => sum + row.total_points, 0);
-  const averagePoints = rows.length ? Math.round(totalPoints / rows.length) : 0;
   const exactScores = rows.reduce((sum, row) => sum + row.exact_count, 0);
+  const correctResults = rows.reduce((sum, row) => sum + correctResultCount(row), 0);
+  const previousPositions = useMemo(() => {
+    if (gameweeks.length <= 1) return undefined;
+    const latestGameweek = [...gameweeks].sort(
+      (a, b) => b.gameweekNumber - a.gameweekNumber
+    )[0];
+    const previousTable = leaderboardBeforeLatestGameweek(seasonRows, latestGameweek.rows);
+    return new Map(previousTable.map((row) => [row.participant_id, row.position]));
+  }, [gameweeks, seasonRows]);
 
   const exportUrl = useMemo(() => {
     const params = new URLSearchParams({ seasonId, format });
@@ -206,10 +212,11 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label={selectedGameweek ? 'Players scored' : 'League players'} value={rows.length} />
-        <Stat label={selectedGameweek ? 'Average points' : 'Gameweeks completed'} value={selectedGameweek ? averagePoints : completedGameweeks} />
-        <Stat label="Exact scores" value={exactScores} />
+        <Stat label={selectedGameweek ? 'Correct scores' : 'Total correct scores'} value={exactScores} />
+        <Stat label={selectedGameweek ? 'Correct results' : 'Total correct results'} value={correctResults} />
+        <Stat label={selectedGameweek ? 'Points' : 'Total points'} value={totalPoints} />
       </div>
 
       <section className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
@@ -225,44 +232,56 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
 
         {rows.length ? (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[620px] text-sm">
+            <table className="w-full min-w-[680px] text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/50 text-xs uppercase tracking-wider text-muted-foreground">
-                  <th className="w-20 px-4 py-3 text-left font-semibold sm:px-5">Rank</th>
-                  <th className="px-3 py-3 text-left font-semibold">Player</th>
-                  <th className="px-3 py-3 text-right font-semibold">Points</th>
-                  <th className="px-3 py-3 text-right font-semibold">Exact</th>
-                  <th className="px-4 py-3 text-right font-semibold sm:px-5">Scored</th>
+                  <th className="px-4 py-3 text-left font-semibold sm:px-5">Name</th>
+                  {!selectedGameweek && (
+                    <th className="px-3 py-3 text-left font-semibold">Movement</th>
+                  )}
+                  <th className="px-3 py-3 text-right font-semibold">
+                    {selectedGameweek ? 'Correct scores' : 'Total correct scores'}
+                  </th>
+                  <th className="px-3 py-3 text-right font-semibold">
+                    {selectedGameweek ? 'Correct results' : 'Total correct results'}
+                  </th>
+                  <th className="px-4 py-3 text-right font-semibold sm:px-5">
+                    {selectedGameweek ? 'Points' : 'Total points'}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map((row) => {
-                  const badge = getMovementLabel(row.position);
+                  const movement = getLeaderboardMovement(
+                    row.position,
+                    row.participant_id,
+                    previousPositions
+                  );
                   return (
                     <tr key={row.participant_id} className="border-b border-border/70 last:border-0 hover:bg-muted/35">
                       <td className="px-4 py-3.5 sm:px-5">
                         <div className="flex items-center gap-2">
                           {row.position === 1 ? (
-                            <span className="flex size-8 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+                            <span className="flex size-7 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
                               <Trophy className="size-4" />
                             </span>
-                          ) : (
-                            <span className="flex size-8 items-center justify-center font-semibold text-muted-foreground">{row.position}</span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-3 py-3.5">
-                        <div className="flex items-center gap-2">
+                          ) : null}
                           <span className="font-medium text-foreground">{row.display_name}</span>
-                          {badge && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">{badge}</span>}
                         </div>
                       </td>
-                      <td className="px-3 py-3.5 text-right text-base font-bold tabular-nums">{row.total_points}</td>
-                      <td className="px-3 py-3.5 text-right tabular-nums text-muted-foreground">{row.exact_count}</td>
-                      <td className="px-4 py-3.5 text-right tabular-nums text-muted-foreground sm:px-5">
-                        {selectedGameweek && row.fixtures_in_gameweek
-                          ? `${row.predictions_submitted}/${row.fixtures_in_gameweek}`
-                          : row.predictions_submitted}
+                      {!selectedGameweek && (
+                        <td className="px-3 py-3.5 font-semibold tabular-nums">
+                          <MovementValue movement={movement} />
+                        </td>
+                      )}
+                      <td className="px-3 py-3.5 text-right tabular-nums text-muted-foreground">
+                        {row.exact_count}
+                      </td>
+                      <td className="px-3 py-3.5 text-right tabular-nums text-muted-foreground">
+                        {correctResultCount(row)}
+                      </td>
+                      <td className="px-4 py-3.5 text-right text-base font-bold tabular-nums sm:px-5">
+                        {row.total_points}
                       </td>
                     </tr>
                   );
@@ -278,10 +297,35 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
           </div>
         )}
         <div className="border-t border-border bg-muted/30 px-4 py-3 text-xs text-muted-foreground sm:px-5">
-          Points are ranked by total score, then exact predictions. “Scored” shows predictions included in the calculation.
+          Correct scores earn 3 points. Correct results earn 1 point.
         </div>
       </section>
     </div>
+  );
+}
+
+function MovementValue({
+  movement,
+}: {
+  movement: ReturnType<typeof getLeaderboardMovement>;
+}) {
+  if (movement.direction !== 'up' && movement.direction !== 'down') {
+    return <span className="text-muted-foreground">{movement.label}</span>;
+  }
+
+  return (
+    <span>
+      <span
+        className={
+          movement.direction === 'up'
+            ? 'text-emerald-700 dark:text-emerald-400'
+            : 'text-red-700 dark:text-red-400'
+        }
+      >
+        {movement.direction === 'up' ? '▲' : '▼'}
+      </span>
+      {movement.label.slice(1)}
+    </span>
   );
 }
 

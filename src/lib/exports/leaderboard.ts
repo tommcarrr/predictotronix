@@ -13,22 +13,29 @@ export interface ExportLeaderboardRow {
 
 const EXACT_SCORE_POINTS = 3;
 
-function correctResultCount(row: ExportLeaderboardRow) {
+export function correctResultCount(row: ExportLeaderboardRow) {
   return Math.max(0, row.total_points - row.exact_count * EXACT_SCORE_POINTS);
 }
 
-function movementLabel(
+export type LeaderboardMovementDirection = 'up' | 'down' | 'same' | 'new' | 'none';
+
+export interface LeaderboardMovement {
+  label: string;
+  direction: LeaderboardMovementDirection;
+}
+
+export function getLeaderboardMovement(
   currentPosition: number,
   participantId: string,
   previousPositions: ReadonlyMap<string, number> | undefined
-) {
-  if (!previousPositions) return '—';
+): LeaderboardMovement {
+  if (!previousPositions) return { label: '—', direction: 'none' };
   const previousPosition = previousPositions.get(participantId);
-  if (previousPosition === undefined) return 'New';
+  if (previousPosition === undefined) return { label: 'New', direction: 'new' };
   const places = previousPosition - currentPosition;
-  if (places > 0) return `▲ ${places}`;
-  if (places < 0) return `▼ ${Math.abs(places)}`;
-  return '—';
+  if (places > 0) return { label: `▲ ${places}`, direction: 'up' };
+  if (places < 0) return { label: `▼ ${Math.abs(places)}`, direction: 'down' };
+  return { label: '—', direction: 'same' };
 }
 
 function escapeCsv(value: string) {
@@ -111,7 +118,7 @@ export function formatLeaderboard(
   const isSeason = view === 'season';
   const formattedRows = rows.map((row) => ({
     name: row.display_name,
-    movement: movementLabel(row.position, row.participant_id, previousPositions),
+    movement: getLeaderboardMovement(row.position, row.participant_id, previousPositions).label,
     correctScores: row.exact_count,
     correctResults: correctResultCount(row),
     points: row.total_points,
