@@ -58,25 +58,28 @@ describe('season workbook export', () => {
     const overall = workbook.getWorksheet('Overall Table')!;
     expect(overall.getRow(4).values).toEqual([
       undefined,
+      'Position',
       'Name',
       'Movement',
       'Total Correct Scores',
       'Total Correct Results',
       'Total Points',
     ]);
-    expect(overall.getRow(5).getCell(1).value).toBe('Alice');
-    expect(overall.getRow(5).getCell(2).text).toBe('▲ 1');
-    expect(overall.getRow(5).getCell(3).value).toBe(2);
-    expect(overall.getRow(5).getCell(4).value).toBe(3);
-    expect(overall.getRow(5).getCell(5).value).toBe(9);
+    expect(overall.getRow(5).getCell(1).value).toBe(1);
+    expect(overall.getRow(5).getCell(2).value).toBe('Alice');
+    expect(overall.getRow(5).getCell(3).text).toBe('▲ 1');
+    expect(overall.getRow(5).getCell(4).value).toBe(2);
+    expect(overall.getRow(5).getCell(5).value).toBe(3);
+    expect(overall.getRow(5).getCell(6).value).toBe(9);
 
     const gameweek = workbook.getWorksheet('Gameweek 2')!;
-    expect(gameweek.getRow(4).values).toEqual([undefined, 'Name', 'No fixtures']);
+    expect(gameweek.getRow(4).values).toEqual([undefined, 'Position', 'Name', 'No fixtures']);
     const sectionRow = gameweek
       .getRows(1, gameweek.rowCount)!
       .find((sheetRow) => sheetRow.getCell(1).value === 'Gameweek table')!;
     expect(gameweek.getRow(sectionRow.number + 1).values).toEqual([
       undefined,
+      'Position',
       'Name',
       'Correct Scores',
       'Correct Results',
@@ -84,6 +87,7 @@ describe('season workbook export', () => {
     ]);
     expect(gameweek.getRow(sectionRow.number + 2).values).toEqual([
       undefined,
+      1,
       'Alice',
       1,
       3,

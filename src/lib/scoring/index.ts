@@ -48,13 +48,12 @@ export interface RankedEntry extends LeaderboardEntry {
 
 /**
  * Rank leaderboard entries with shared position logic.
- * Sorting: total points desc → exact score count desc → display name asc.
+ * Sorting: total points desc → display name asc.
  * Ties share the same position (1st, 1st, 3rd — not 1st, 2nd, 3rd).
  */
 export function rankLeaderboard(entries: LeaderboardEntry[]): RankedEntry[] {
   const sorted = [...entries].sort((a, b) => {
     if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
-    if (b.exactCount !== a.exactCount) return b.exactCount - a.exactCount;
     return a.displayName.localeCompare(b.displayName);
   });
 
@@ -62,7 +61,7 @@ export function rankLeaderboard(entries: LeaderboardEntry[]): RankedEntry[] {
   return sorted.map((entry, i) => {
     if (i > 0) {
       const prev = sorted[i - 1];
-      if (entry.totalPoints !== prev.totalPoints || entry.exactCount !== prev.exactCount) {
+      if (entry.totalPoints !== prev.totalPoints) {
         position = i + 1;
       }
     }

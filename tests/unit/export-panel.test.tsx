@@ -43,6 +43,7 @@ describe('ExportPanel standings display', () => {
     render(<ExportPanel seasonId="season-1" seasonRows={seasonRows} gameweeks={gameweeks} />);
 
     expect(screen.getAllByRole('columnheader').map((header) => header.textContent)).toEqual([
+      'Position',
       'Name',
       'Movement',
       'Total correct scores',
@@ -51,8 +52,8 @@ describe('ExportPanel standings display', () => {
     ]);
     expect(screen.getByText('▲')).toHaveClass('text-emerald-700');
     expect(screen.getByText('▼')).toHaveClass('text-red-700');
-    expect(screen.getByRole('row', { name: /Alice ▲ 1 2 3 9/ })).toBeVisible();
-    expect(screen.getByRole('row', { name: /Bob ▼ 1 1 2 5/ })).toBeVisible();
+    expect(screen.getByRole('row', { name: /1 Alice ▲ 1 2 3 9/ })).toBeVisible();
+    expect(screen.getByRole('row', { name: /2 Bob ▼ 1 1 2 5/ })).toBeVisible();
   });
 
   it('shows a gameweek using the four gameweek result fields', () => {
@@ -62,12 +63,13 @@ describe('ExportPanel standings display', () => {
     });
 
     expect(screen.getAllByRole('columnheader').map((header) => header.textContent)).toEqual([
+      'Position',
       'Name',
       'Correct scores',
       'Correct results',
       'Points',
     ]);
     expect(screen.queryByRole('columnheader', { name: 'Movement' })).not.toBeInTheDocument();
-    expect(screen.getByRole('row', { name: /Alice 1 3 6/ })).toBeVisible();
+    expect(screen.getByRole('row', { name: /1 Alice 1 3 6/ })).toBeVisible();
   });
 });

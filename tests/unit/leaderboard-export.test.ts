@@ -27,10 +27,10 @@ describe('leaderboard exports', () => {
 
   it('exports gameweek results with only the requested email-friendly fields', () => {
     expect(formatLeaderboard(rows, 'markdown', 'gameweek')).toBe(
-      '| Name | Correct Scores | Correct Results | Points |\n' +
-        '| --- | --- | --- | --- |\n' +
-        '| Alice | 2 | 3 | 9 |\n' +
-        '| Bob | 1 | 2 | 5 |'
+      '| Position | Name | Correct Scores | Correct Results | Points |\n' +
+        '| --- | --- | --- | --- | --- |\n' +
+        '| 1 | Alice | 2 | 3 | 9 |\n' +
+        '| 2 | Bob | 1 | 2 | 5 |'
     );
   });
 
@@ -41,9 +41,9 @@ describe('leaderboard exports', () => {
     ]);
 
     expect(formatLeaderboard(rows, 'csv', 'season', previousPositions)).toBe(
-      'Name,Movement,Total Correct Scores,Total Correct Results,Total Points\n' +
-        '"Alice","▲ 1",2,3,9\n' +
-        '"Bob","▼ 1",1,2,5'
+      'Position,Name,Movement,Total Correct Scores,Total Correct Results,Total Points\n' +
+        '1,"Alice","▲ 1",2,3,9\n' +
+        '2,"Bob","▼ 1",1,2,5'
     );
   });
 
@@ -59,12 +59,12 @@ describe('leaderboard exports', () => {
       exact_count,
     }))).toEqual([
       { participant_id: 'alice', position: 1, total_points: 6, exact_count: 2 },
-      { participant_id: 'bob', position: 2, total_points: 6, exact_count: 1 },
+      { participant_id: 'bob', position: 1, total_points: 6, exact_count: 1 },
     ]);
   });
 
   it('shows neutral movement when there is no previous gameweek table', () => {
-    expect(formatLeaderboard(rows, 'markdown', 'season')).toContain('| Alice | — |');
+    expect(formatLeaderboard(rows, 'markdown', 'season')).toContain('| 1 | Alice | — |');
   });
 
   it('escapes names safely in HTML and CSV exports', () => {

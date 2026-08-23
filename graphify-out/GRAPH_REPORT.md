@@ -1,13 +1,18 @@
 # Graph Report - predictotronix  (2026-08-23)
 
 ## Corpus Check
-- 202 files · ~82,532 words
+- 203 files · ~82,945 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
 - 1041 nodes · 1996 edges · 72 communities (62 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `4bf64514`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - leaderboard.ts

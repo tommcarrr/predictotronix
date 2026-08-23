@@ -68,17 +68,13 @@ function formatHtmlMovement(value: string) {
 function rankLeaderboard(rows: ExportLeaderboardRow[]) {
   const sorted = [...rows].sort((a, b) => {
     if (b.total_points !== a.total_points) return b.total_points - a.total_points;
-    if (b.exact_count !== a.exact_count) return b.exact_count - a.exact_count;
     return a.display_name.localeCompare(b.display_name);
   });
 
   let position = 1;
   return sorted.map((row, index) => {
     const previous = sorted[index - 1];
-    if (
-      previous &&
-      (row.total_points !== previous.total_points || row.exact_count !== previous.exact_count)
-    ) {
+    if (previous && row.total_points !== previous.total_points) {
       position = index + 1;
     }
     return { ...row, position };
@@ -117,6 +113,7 @@ export function formatLeaderboard(
 
   const isSeason = view === 'season';
   const formattedRows = rows.map((row) => ({
+    position: row.position,
     name: row.display_name,
     movement: getLeaderboardMovement(row.position, row.participant_id, previousPositions).label,
     correctScores: row.exact_count,
@@ -124,20 +121,21 @@ export function formatLeaderboard(
     points: row.total_points,
   }));
   const headers = isSeason
-    ? ['Name', 'Movement', 'Total Correct Scores', 'Total Correct Results', 'Total Points']
-    : ['Name', 'Correct Scores', 'Correct Results', 'Points'];
+    ? ['Position', 'Name', 'Movement', 'Total Correct Scores', 'Total Correct Results', 'Total Points']
+    : ['Position', 'Name', 'Correct Scores', 'Correct Results', 'Points'];
 
   if (format === 'csv') {
     const body = formattedRows.map((row) => {
       const values = isSeason
         ? [
+            row.position,
             escapeCsv(row.name),
             escapeCsv(row.movement),
             row.correctScores,
             row.correctResults,
             row.points,
           ]
-        : [escapeCsv(row.name), row.correctScores, row.correctResults, row.points];
+        : [row.position, escapeCsv(row.name), row.correctScores, row.correctResults, row.points];
       return values.join(',');
     });
     return [headers.join(','), ...body].join('\n');
@@ -149,13 +147,14 @@ export function formatLeaderboard(
     const body = formattedRows.map((row) => {
       const values = isSeason
         ? [
+            row.position,
             escapeMarkdown(row.name),
             row.movement,
             row.correctScores,
             row.correctResults,
             row.points,
           ]
-        : [escapeMarkdown(row.name), row.correctScores, row.correctResults, row.points];
+        : [row.position, escapeMarkdown(row.name), row.correctScores, row.correctResults, row.points];
       return `| ${values.join(' | ')} |`;
     });
     return [header, divider, ...body].join('\n');
@@ -171,12 +170,12 @@ export function formatLeaderboard(
     const body = formattedRows
       .map((row, index) => {
         const values = isSeason
-          ? [row.name, row.movement, row.correctScores, row.correctResults, row.points]
-          : [row.name, row.correctScores, row.correctResults, row.points];
+          ? [row.position, row.name, row.movement, row.correctScores, row.correctResults, row.points]
+          : [row.position, row.name, row.correctScores, row.correctResults, row.points];
         const cells = values
           .map(
             (value, column) =>
-              `<td style="padding:9px 12px;border:1px solid #cbd5e1;${column === 0 ? 'font-weight:600;' : ''}">${isSeason && column === 1 ? formatHtmlMovement(String(value)) : escapeHtml(String(value))}</td>`
+              `<td style="padding:9px 12px;border:1px solid #cbd5e1;${column === 1 ? 'font-weight:600;' : ''}">${isSeason && column === 2 ? formatHtmlMovement(String(value)) : escapeHtml(String(value))}</td>`
           )
           .join('');
         return `<tr style="background:${index % 2 === 0 ? '#ffffff' : '#f8fafc'};">${cells}</tr>`;
@@ -199,7 +198,7 @@ export function formatLeaderboard(
             `Correct results: ${row.correctResults}`,
             `Points: ${row.points}`,
           ];
-      return `${row.name}\n${details.join('  |  ')}`;
+      return `Position: ${row.position}\nName: ${row.name}\n${details.join('  |  ')}`;
     })
     .join('\n\n');
 }

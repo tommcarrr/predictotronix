@@ -45,13 +45,14 @@ describe('rankLeaderboard', () => {
     expect(ranked[1].position).toBe(2);
   });
 
-  it('uses exact count as tiebreaker', () => {
+  it('orders matching points alphabetically regardless of exact scores', () => {
     const entries: LeaderboardEntry[] = [
       { participantId: 'b', displayName: 'Bob', totalPoints: 9, exactCount: 1 },
-      { participantId: 'a', displayName: 'Alice', totalPoints: 9, exactCount: 3 },
+      { participantId: 'a', displayName: 'Alice', totalPoints: 9, exactCount: 0 },
     ];
     const ranked = rankLeaderboard(entries);
     expect(ranked[0].participantId).toBe('a');
+    expect(ranked.map((entry) => entry.position)).toEqual([1, 1]);
   });
 
   it('assigns shared positions for tied entries', () => {
@@ -66,6 +67,31 @@ describe('rankLeaderboard', () => {
     expect(positions.filter((p) => p === 1)).toHaveLength(2);
     expect(positions).toContain(3);
     expect(positions).not.toContain(2);
+  });
+
+  it('leaves competition ranking gaps after tied point totals', () => {
+    const entries: LeaderboardEntry[] = [
+      ['a', 'Amy', 20],
+      ['b', 'Ben', 18],
+      ['d', 'Drew', 16],
+      ['c', 'Cara', 16],
+      ['g', 'Gina', 14],
+      ['e', 'Eli', 14],
+      ['f', 'Fran', 14],
+      ['h', 'Hugo', 12],
+    ].map(([participantId, displayName, totalPoints]) => ({
+      participantId: String(participantId),
+      displayName: String(displayName),
+      totalPoints: Number(totalPoints),
+      exactCount: 0,
+    }));
+
+    const ranked = rankLeaderboard(entries);
+
+    expect(ranked.map((entry) => entry.displayName)).toEqual([
+      'Amy', 'Ben', 'Cara', 'Drew', 'Eli', 'Fran', 'Gina', 'Hugo',
+    ]);
+    expect(ranked.map((entry) => entry.position)).toEqual([1, 2, 3, 3, 5, 5, 5, 8]);
   });
 
   it('handles a single entry', () => {

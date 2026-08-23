@@ -235,6 +235,7 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
             <table className="w-full min-w-[680px] text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/50 text-xs uppercase tracking-wider text-muted-foreground">
+                  <th className="px-3 py-3 text-right font-semibold">Position</th>
                   <th className="px-4 py-3 text-left font-semibold sm:px-5">Name</th>
                   {!selectedGameweek && (
                     <th className="px-3 py-3 text-left font-semibold">Movement</th>
@@ -259,6 +260,9 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
                   );
                   return (
                     <tr key={row.participant_id} className="border-b border-border/70 last:border-0 hover:bg-muted/35">
+                      <td className="px-3 py-3.5 text-right font-semibold tabular-nums">
+                        {row.position}
+                      </td>
                       <td className="px-4 py-3.5 sm:px-5">
                         <div className="flex items-center gap-2">
                           {row.position === 1 ? (

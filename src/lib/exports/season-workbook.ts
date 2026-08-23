@@ -116,12 +116,12 @@ export async function createSeasonWorkbook(data: SeasonWorkbookData): Promise<Bu
     pageSetup: { orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0 },
   });
   overall.columns = [
-    { key: 'name', width: 30 }, { key: 'movement', width: 14 }, { key: 'correctScores', width: 22 },
+    { key: 'position', width: 12 }, { key: 'name', width: 30 }, { key: 'movement', width: 14 }, { key: 'correctScores', width: 22 },
     { key: 'correctResults', width: 22 }, { key: 'points', width: 16 },
   ];
-  titleRow(overall, `${data.leagueName} — ${data.seasonName}`, 'Overall league table', 5);
+  titleRow(overall, `${data.leagueName} — ${data.seasonName}`, 'Overall league table', 6);
   overall.addRow([]);
-  styleHeader(overall.addRow(['Name', 'Movement', 'Total Correct Scores', 'Total Correct Results', 'Total Points']));
+  styleHeader(overall.addRow(['Position', 'Name', 'Movement', 'Total Correct Scores', 'Total Correct Results', 'Total Points']));
   const startedGameweeks = data.gameweeks
     .filter((gameweek) => gameweek.status !== 'upcoming')
     .sort((a, b) => a.gameweekNumber - b.gameweekNumber);
@@ -140,6 +140,7 @@ export async function createSeasonWorkbook(data: SeasonWorkbookData): Promise<Bu
       previousPositions
     );
     const row = overall.addRow([
+      entry.position,
       entry.display_name,
       movementCellValue(movement),
       entry.exact_count,
@@ -147,62 +148,64 @@ export async function createSeasonWorkbook(data: SeasonWorkbookData): Promise<Bu
       entry.total_points,
     ]);
     if (index % 2 === 1) row.eachCell((cell) => { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: grey } }; });
-    row.getCell(5).font = { bold: true };
+    row.getCell(6).font = { bold: true };
   });
-  overall.autoFilter = { from: 'A4', to: 'E4' };
+  overall.autoFilter = { from: 'A4', to: 'F4' };
 
   for (const gameweek of data.gameweeks) {
     const fixtureColumnCount = Math.max(gameweek.fixtures.length, 1);
-    const endColumn = 1 + fixtureColumnCount;
+    const endColumn = 2 + fixtureColumnCount;
     const sheet = workbook.addWorksheet(safeSheetName(gameweek.label, gameweek.gameweekNumber), {
-      views: [{ state: 'frozen', xSplit: 1, ySplit: 6 }],
+      views: [{ state: 'frozen', xSplit: 2, ySplit: 6 }],
       pageSetup: { orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0 },
     });
-    sheet.getColumn(1).width = 25;
-    for (let column = 2; column <= endColumn; column += 1) sheet.getColumn(column).width = 22;
+    sheet.getColumn(1).width = 12;
+    sheet.getColumn(2).width = 25;
+    for (let column = 3; column <= endColumn; column += 1) sheet.getColumn(column).width = 22;
 
     titleRow(sheet, `${gameweek.label} — predictions`, `${data.leagueName} · ${data.seasonName} · ${gameweek.status.replace('_', ' ')}`, endColumn);
     sheet.addRow([]);
     const fixtureNames = gameweek.fixtures.map((fixture) => `${fixture.home_team_name} v ${fixture.away_team_name}`);
-    styleHeader(sheet.addRow(['Name', ...(fixtureNames.length ? fixtureNames : ['No fixtures'])]));
-    const resultRow = sheet.addRow(['Result', ...gameweek.fixtures.map((fixture) => fixture.result_confirmed ? `${fixture.home_score}–${fixture.away_score}` : fixture.status.replace('_', ' '))]);
+    styleHeader(sheet.addRow(['Position', 'Name', ...(fixtureNames.length ? fixtureNames : ['No fixtures'])]));
+    const resultRow = sheet.addRow(['', 'Result', ...gameweek.fixtures.map((fixture) => fixture.result_confirmed ? `${fixture.home_score}–${fixture.away_score}` : fixture.status.replace('_', ' '))]);
     resultRow.eachCell((cell, column) => {
       cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: paleBlue } };
-      cell.font = { bold: column === 1 };
+      cell.font = { bold: column === 2 };
       cell.alignment = { wrapText: true, vertical: 'middle' };
     });
-    const kickoffRow = sheet.addRow(['Kickoff', ...gameweek.fixtures.map((fixture) => new Date(fixture.kickoff))]);
+    const kickoffRow = sheet.addRow(['', 'Kickoff', ...gameweek.fixtures.map((fixture) => new Date(fixture.kickoff))]);
     kickoffRow.eachCell((cell, column) => {
-      if (column >= 2) cell.numFmt = 'ddd d mmm, hh:mm';
+      if (column >= 3) cell.numFmt = 'ddd d mmm, hh:mm';
       cell.font = { color: { argb: 'FF64748B' }, italic: true };
     });
 
     const predictions = new Map(gameweek.predictions.map((prediction) => [`${prediction.participant_id}:${prediction.fixture_id}`, prediction]));
     gameweek.standings.forEach((standing, index) => {
-      const cells: (string | number)[] = [standing.display_name];
+      const cells: (string | number)[] = [standing.position, standing.display_name];
       gameweek.fixtures.forEach((fixture) => {
         const prediction = predictions.get(`${standing.participant_id}:${fixture.id}`);
         cells.push(prediction ? `${prediction.home_score}–${prediction.away_score}${prediction.points_awarded == null ? '' : ` (${prediction.points_awarded} pt${prediction.points_awarded === 1 ? '' : 's'})`}` : '—');
       });
       const row = sheet.addRow(cells);
       if (index % 2 === 1) row.eachCell((cell) => { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: grey } }; });
-      row.eachCell((cell, column) => { if (column >= 2) cell.alignment = { horizontal: 'center' }; });
+      row.eachCell((cell, column) => { if (column === 1 || column >= 3) cell.alignment = { horizontal: 'center' }; });
     });
 
     const standingsStart = sheet.lastRow!.number + 3;
-    sheet.mergeCells(standingsStart, 1, standingsStart, 4);
+    sheet.mergeCells(standingsStart, 1, standingsStart, 5);
     const section = sheet.getCell(standingsStart, 1);
     section.value = 'Gameweek table';
     section.font = { bold: true, size: 14, color: { argb: navy } };
-    styleHeader(sheet.addRow(['Name', 'Correct Scores', 'Correct Results', 'Points']), navy);
+    styleHeader(sheet.addRow(['Position', 'Name', 'Correct Scores', 'Correct Results', 'Points']), navy);
     gameweek.standings.forEach((entry) => {
       const row = sheet.addRow([
+        entry.position,
         entry.display_name,
         entry.exact_count,
         correctResultCount(entry),
         entry.total_points,
       ]);
-      row.getCell(4).font = { bold: true };
+      row.getCell(5).font = { bold: true };
       if (entry.position === 1) row.eachCell((cell) => { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: paleGreen } }; });
     });
   }
