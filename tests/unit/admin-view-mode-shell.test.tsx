@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { AdminShell } from '@/components/admin/AdminShell';
 
@@ -7,6 +7,9 @@ vi.mock('@/app/(admin)/admin/context-actions', () => ({
   setAdminLeague: vi.fn(),
   setAdminSeason: vi.fn(),
   stopViewingAsLeagueAdmin: vi.fn(),
+}));
+vi.mock('@/components/admin/CeefaxBreakout', () => ({
+  CeefaxBreakout: () => <div role="dialog" aria-label="Football Breakout" />,
 }));
 
 describe('AdminShell league-admin view mode', () => {
@@ -21,6 +24,7 @@ describe('AdminShell league-admin view mode', () => {
     render(
       <AdminShell
         email="super@example.com"
+        playerName="Super Player"
         leagues={[{ id: 'league-1', name: 'North League' }]}
         seasons={[{ id: 'season-1', name: '2026/27', status: 'active' }]}
         selectedLeagueId="league-1"
@@ -39,5 +43,28 @@ describe('AdminShell league-admin view mode', () => {
     }
     expect(screen.queryByRole('link', { name: 'Leagues' })).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Notifications' })).not.toBeInTheDocument();
+  });
+
+  it('opens the hidden game only after six consecutive theme changes', () => {
+    render(
+      <AdminShell
+        email="player@example.com"
+        playerName="Test Player"
+        leagues={[]}
+        seasons={[]}
+        selectedLeagueId={null}
+        selectedSeasonId={null}
+        superAdmin
+        viewingAsLeagueAdmin={false}
+      >
+        <div>Admin content</div>
+      </AdminShell>,
+    );
+
+    const themeButton = screen.getByRole('button', { name: 'Use dark theme' });
+    for (let press = 0; press < 5; press += 1) fireEvent.click(themeButton);
+    expect(screen.queryByRole('dialog', { name: 'Football Breakout' })).not.toBeInTheDocument();
+    fireEvent.click(themeButton);
+    expect(screen.getByRole('dialog', { name: 'Football Breakout' })).toBeVisible();
   });
 });

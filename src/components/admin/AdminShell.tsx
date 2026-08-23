@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState, type ComponentType } from 'react';
+import { useEffect, useRef, useState, type ComponentType } from 'react';
 import {
   ArrowLeft,
   BarChart3,
@@ -23,6 +23,11 @@ import {
   setAdminSeason,
   stopViewingAsLeagueAdmin,
 } from '@/app/(admin)/admin/context-actions';
+import { CeefaxBreakout } from '@/components/admin/CeefaxBreakout';
+import {
+  registerSecretGamePress,
+  type SecretGameGateState,
+} from '@/components/admin/secret-game-gate';
 import { FormSubmitButton, FormPendingStatus } from '@/components/ui/form-submit-button';
 
 interface Option {
@@ -37,6 +42,7 @@ interface SeasonOption extends Option {
 interface Props {
   children: React.ReactNode;
   email: string | undefined;
+  playerName: string;
   leagues: Option[];
   seasons: SeasonOption[];
   selectedLeagueId: string | null;
@@ -69,8 +75,11 @@ const systemNav: NavItem[] = [
   { href: '/admin/test-tools?tab=notifications', label: 'Notifications', icon: Bell, superOnly: true },
 ];
 
-function ThemeToggle() {
+function ThemeToggle({ playerName }: { playerName: string }) {
   const [dark, setDark] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const secretGate = useRef<SecretGameGateState>({ count: 0, lastPressedAt: 0 });
 
   useEffect(() => {
     const saved = localStorage.getItem('predictotronix-theme');
@@ -81,23 +90,42 @@ function ThemeToggle() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
+  useEffect(() => {
+    function resetSequenceOnOtherPress(event: PointerEvent) {
+      if (!buttonRef.current?.contains(event.target as Node)) {
+        secretGate.current = { count: 0, lastPressedAt: 0 };
+      }
+    }
+    document.addEventListener('pointerdown', resetSequenceOnOtherPress, true);
+    return () => document.removeEventListener('pointerdown', resetSequenceOnOtherPress, true);
+  }, []);
+
   function toggleTheme() {
     const next = !dark;
     document.documentElement.classList.toggle('dark', next);
     localStorage.setItem('predictotronix-theme', next ? 'dark' : 'light');
     setDark(next);
+    const result = registerSecretGamePress(secretGate.current, performance.now());
+    secretGate.current = result.state;
+    if (result.unlocked) setGameOpen(true);
   }
 
   return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      className="inline-flex size-9 items-center justify-center rounded-xl border border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground transition hover:bg-sidebar-accent"
-      aria-label={dark ? 'Use light theme' : 'Use dark theme'}
-      title={dark ? 'Use light theme' : 'Use dark theme'}
-    >
-      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-    </button>
+    <>
+      <button
+        ref={buttonRef}
+        type="button"
+        onClick={toggleTheme}
+        className="inline-flex size-9 items-center justify-center rounded-xl border border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground transition hover:bg-sidebar-accent"
+        aria-label={dark ? 'Use light theme' : 'Use dark theme'}
+        title={dark ? 'Use light theme' : 'Use dark theme'}
+      >
+        {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+      </button>
+      {gameOpen && (
+        <CeefaxBreakout playerName={playerName} onClose={() => setGameOpen(false)} />
+      )}
+    </>
   );
 }
 
@@ -130,6 +158,7 @@ function Navigation({ items, pathname }: { items: NavItem[]; pathname: string })
 export function AdminShell({
   children,
   email,
+  playerName,
   leagues,
   seasons,
   selectedLeagueId,
@@ -157,7 +186,7 @@ export function AdminShell({
               <span className="block text-xs text-sidebar-foreground/55">Admin workspace</span>
             </span>
           </Link>
-          <ThemeToggle />
+          <ThemeToggle playerName={playerName} />
         </div>
 
         <nav
