@@ -75,7 +75,15 @@ const systemNav: NavItem[] = [
   { href: '/admin/test-tools?tab=notifications', label: 'Notifications', icon: Bell, superOnly: true },
 ];
 
-function ThemeToggle({ playerName }: { playerName: string }) {
+function ThemeToggle({
+  playerName,
+  leagueId,
+  leagueName,
+}: {
+  playerName: string;
+  leagueId: string | null;
+  leagueName: string | null;
+}) {
   const [dark, setDark] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -107,7 +115,7 @@ function ThemeToggle({ playerName }: { playerName: string }) {
     setDark(next);
     const result = registerSecretGamePress(secretGate.current, performance.now());
     secretGate.current = result.state;
-    if (result.unlocked) setGameOpen(true);
+    if (result.unlocked && leagueId && leagueName) setGameOpen(true);
   }
 
   return (
@@ -122,8 +130,13 @@ function ThemeToggle({ playerName }: { playerName: string }) {
       >
         {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
       </button>
-      {gameOpen && (
-        <CeefaxBreakout playerName={playerName} onClose={() => setGameOpen(false)} />
+      {gameOpen && leagueId && leagueName && (
+        <CeefaxBreakout
+          playerName={playerName}
+          leagueId={leagueId}
+          leagueName={leagueName}
+          onClose={() => setGameOpen(false)}
+        />
       )}
     </>
   );
@@ -186,7 +199,11 @@ export function AdminShell({
               <span className="block text-xs text-sidebar-foreground/55">Admin workspace</span>
             </span>
           </Link>
-          <ThemeToggle playerName={playerName} />
+          <ThemeToggle
+            playerName={playerName}
+            leagueId={selectedLeague?.id ?? null}
+            leagueName={selectedLeague?.name ?? null}
+          />
         </div>
 
         <nav

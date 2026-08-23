@@ -167,6 +167,31 @@ export type Database = {
         Update: { role?: 'super_admin' | 'league_admin' };
         Relationships: [];
       };
+      league_breakout_scores: {
+        Row: {
+          league_id: string;
+          participant_id: string;
+          score: number;
+          achieved_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          league_id: string;
+          participant_id: string;
+          score: number;
+          achieved_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          score?: number;
+          achieved_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          { foreignKeyName: 'league_breakout_scores_league_id_fkey'; columns: ['league_id']; referencedRelation: 'leagues'; referencedColumns: ['id'] },
+          { foreignKeyName: 'league_breakout_scores_participant_id_fkey'; columns: ['participant_id']; referencedRelation: 'participants'; referencedColumns: ['id'] },
+        ];
+      };
       join_requests: {
         Row: {
           id: string;
@@ -476,8 +501,29 @@ export type Database = {
       };
       is_super_admin: { Args: Record<string, never>; Returns: boolean };
       is_league_admin: { Args: { p_league_id: string }; Returns: boolean };
+      is_league_breakout_member: { Args: { p_league_id: string }; Returns: boolean };
       get_participant_id: { Args: Record<string, never>; Returns: string };
       is_season_participant: { Args: { p_season_id: string }; Returns: boolean };
+      get_breakout_leaderboard: {
+        Args: { p_league_id: string };
+        Returns: {
+          rank_position: number;
+          participant_id: string;
+          display_name: string;
+          score: number;
+          achieved_at: string;
+        }[];
+      };
+      submit_breakout_score: {
+        Args: { p_league_id: string; p_score: number };
+        Returns: {
+          rank_position: number;
+          participant_id: string;
+          display_name: string;
+          score: number;
+          achieved_at: string;
+        }[];
+      };
     };
     Enums: Record<string, never>;
   };

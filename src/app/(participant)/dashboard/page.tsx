@@ -132,7 +132,13 @@ export default async function DashboardPage({ searchParams }: Props) {
           </div>
           <div className="participant-appbar__menu">
             <p className="participant-appbar__welcome">Welcome, {participant?.display_name ?? user.email}</p>
-            <PlayerAccessibilityToggle />
+            <PlayerAccessibilityToggle
+              breakout={activeSeason ? {
+                leagueId: activeSeason.league_id,
+                leagueName: activeSeason.leagues?.name ?? 'League',
+                playerName: participant?.display_name ?? user.email ?? 'Player 1',
+              } : undefined}
+            />
             <form action={signOut}>
               <FormSubmitButton pendingLabel="Signing out…" className="participant-appbar__signout">
                 Sign out

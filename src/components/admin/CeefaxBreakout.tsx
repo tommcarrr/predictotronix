@@ -1,6 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
+import { getBreakoutLeaderboard, submitBreakoutScore } from '@/lib/breakout/actions';
+import type { BreakoutLeaderboardEntry } from '@/lib/breakout/constants';
 import styles from './CeefaxBreakout.module.css';
 
 const WIDTH = 960;
@@ -39,10 +41,6 @@ const POWER_COLOURS: Record<PowerType, string> = {
 function displayName(value: string) {
   const trimmed = value.trim();
   return (trimmed.includes('@') ? trimmed.split('@')[0] : trimmed || 'PLAYER 1').toUpperCase();
-}
-
-function highScoreKey(playerName: string) {
-  return `predictotronix-breakout-score:${playerName.toLowerCase()}`;
 }
 
 function createBricks(level: number): Brick[] {
@@ -134,16 +132,30 @@ function hitsBrick(x: number, y: number, radius: number, brick: Brick) {
     y + radius >= brick.y && y - radius <= brick.y + brick.height;
 }
 
-export function CeefaxBreakout({ playerName, onClose }: { playerName: string; onClose: () => void }) {
+export function CeefaxBreakout({
+  playerName,
+  leagueId,
+  leagueName,
+  onClose,
+}: {
+  playerName: string;
+  leagueId: string;
+  leagueName: string;
+  onClose: () => void;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<Game>(createGame());
   const screenRef = useRef<Screen>('splash');
   const frameRef = useRef<number | null>(null);
   const lastFrameRef = useRef(0);
+  const submittedScoreRef = useRef<string | null>(null);
   const player = displayName(playerName);
   const [screen, setScreen] = useState<Screen>('splash');
   const [hud, setHud] = useState({ score: 0, lives: 3, level: 1 });
-  const [highScore, setHighScore] = useState(0);
+  const [leaderboard, setLeaderboard] = useState<BreakoutLeaderboardEntry[]>([]);
+  const [participantId, setParticipantId] = useState<string | null>(null);
+  const [scoreStatus, setScoreStatus] = useState('Loading league table…');
+  const [leaderboardPending, startLeaderboardTransition] = useTransition();
   const [powerMessage, setPowerMessage] = useState('');
 
   const changeScreen = useCallback((next: Screen) => {
@@ -154,14 +166,7 @@ export function CeefaxBreakout({ playerName, onClose }: { playerName: string; on
   const publishHud = useCallback(() => {
     const game = gameRef.current;
     setHud({ score: game.score, lives: game.lives, level: game.level });
-    setHighScore((current) => {
-      const next = Math.max(current, game.score);
-      if (next !== current) {
-        try { window.localStorage.setItem(highScoreKey(player), String(next)); } catch { /* optional */ }
-      }
-      return next;
-    });
-  }, [player]);
+  }, []);
 
   const announcePower = useCallback((type: PowerType) => {
     const labels: Record<PowerType, string> = {
@@ -218,17 +223,37 @@ export function CeefaxBreakout({ playerName, onClose }: { playerName: string; on
 
   const startGame = useCallback(() => {
     gameRef.current = createGame();
+    submittedScoreRef.current = null;
     setPowerMessage('');
+    setScoreStatus('');
     publishHud();
     changeScreen('playing');
   }, [changeScreen, publishHud]);
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      try { setHighScore(Number(window.localStorage.getItem(highScoreKey(player))) || 0); } catch { /* optional */ }
+    startLeaderboardTransition(async () => {
+      const result = await getBreakoutLeaderboard(leagueId);
+      setLeaderboard(result.leaderboard);
+      setParticipantId(result.participantId);
+      setScoreStatus(result.success ? '' : (result.error ?? 'League table unavailable.'));
     });
-    return () => cancelAnimationFrame(frame);
-  }, [player]);
+  }, [leagueId]);
+
+  useEffect(() => {
+    if (screen !== 'gameover' && screen !== 'won') return;
+    const submissionKey = `${screen}:${hud.score}`;
+    if (submittedScoreRef.current === submissionKey) return;
+    submittedScoreRef.current = submissionKey;
+    startLeaderboardTransition(async () => {
+      setScoreStatus('Saving your score…');
+      const result = await submitBreakoutScore(leagueId, hud.score);
+      setLeaderboard(result.leaderboard);
+      setParticipantId(result.participantId);
+      setScoreStatus(
+        result.success ? 'League table updated.' : (result.error ?? 'Your score could not be saved.'),
+      );
+    });
+  }, [hud.score, leagueId, screen]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -320,18 +345,29 @@ export function CeefaxBreakout({ playerName, onClose }: { playerName: string; on
 
   useEffect(() => {
     const key = (pressed: boolean) => (event: KeyboardEvent) => {
-      if (event.key === 'ArrowLeft' || event.key.toLowerCase() === 'a') gameRef.current.keys.left = pressed;
-      if (event.key === 'ArrowRight' || event.key.toLowerCase() === 'd') gameRef.current.keys.right = pressed;
+      const canMove = screenRef.current === 'playing';
+      if (event.key === 'ArrowLeft') gameRef.current.keys.left = pressed && canMove;
+      if (event.key === 'ArrowRight') gameRef.current.keys.right = pressed && canMove;
       if (pressed && (event.key === ' ' || event.key === 'Enter')) fireAction();
       if (pressed && event.key.toLowerCase() === 'p' && screenRef.current === 'playing') changeScreen('paused');
       if (pressed && event.key === 'Escape') onClose();
       if (['ArrowLeft', 'ArrowRight', ' ', 'Enter'].includes(event.key)) event.preventDefault();
     };
+    const releasePaddle = () => {
+      gameRef.current.keys.left = false;
+      gameRef.current.keys.right = false;
+    };
     const down = key(true);
     const up = key(false);
     window.addEventListener('keydown', down);
     window.addEventListener('keyup', up);
-    return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
+    window.addEventListener('blur', releasePaddle);
+    return () => {
+      releasePaddle();
+      window.removeEventListener('keydown', down);
+      window.removeEventListener('keyup', up);
+      window.removeEventListener('blur', releasePaddle);
+    };
   }, [changeScreen, fireAction, onClose]);
 
   useEffect(() => {
@@ -340,23 +376,40 @@ export function CeefaxBreakout({ playerName, onClose }: { playerName: string; on
     return () => { document.body.style.overflow = previousOverflow; };
   }, []);
 
-  const movePaddle = (clientX: number) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (rect) gameRef.current.paddleX = ((clientX - rect.left) / rect.width) * WIDTH;
+  const setPaddleDirection = (direction: 'left' | 'right', pressed: boolean) => {
+    gameRef.current.keys[direction] = pressed;
   };
 
+  const personalBest = leaderboard.find((entry) => entry.participantId === participantId);
+  const visibleLeaders = leaderboard.slice(0, 5);
   const overlay = screen !== 'playing' ? (
     <div className={styles.screen} role={screen === 'splash' ? 'document' : 'status'}>
       <div className={styles.screenPanel}>
         <p className={styles.screenKicker}>PREDICTOTRONIX PAGE 302</p>
         <h2 className={styles.screenTitle}>{screen === 'splash' ? 'FOOTBALL BREAKOUT' : screen === 'paused' ? 'HOLD' : screen === 'won' ? 'CHAMPION!' : 'FULL TIME'}</h2>
-        <div className={styles.leaderboard} aria-label="Top score">
-          <strong>TOP</strong><span>{player}</span><strong>{String(highScore).padStart(6, '0')}</strong>
+        <p className={styles.leagueName}>{leagueName.toUpperCase()}</p>
+        <div className={styles.leaderboard} aria-label={`${leagueName} high scores`}>
+          {visibleLeaders.length ? visibleLeaders.map((entry) => (
+            <div
+              className={`${styles.leaderboardRow} ${entry.participantId === participantId ? styles.leaderboardCurrent : ''}`}
+              key={entry.participantId}
+            >
+              <strong>{entry.position}</strong>
+              <span>{entry.displayName.toUpperCase()}</span>
+              <strong>{String(entry.score).padStart(6, '0')}</strong>
+            </div>
+          )) : (
+            <div className={styles.leaderboardRow}>
+              <strong>1</strong><span>{player}</span><strong>000000</strong>
+            </div>
+          )}
         </div>
+        <p className={styles.personalBest}>YOUR BEST {String(personalBest?.score ?? 0).padStart(6, '0')}</p>
+        <p className={styles.scoreStatus} role="status">{leaderboardPending ? 'Updating league table…' : scoreStatus}</p>
         <button className={styles.start} type="button" onClick={screen === 'paused' ? () => changeScreen('playing') : startGame}>
           {screen === 'splash' ? 'Press to start' : screen === 'paused' ? 'Resume' : 'Play again'}
         </button>
-        <p className={styles.help}>Move with ← → / A D, mouse or touch. SPACE / ACTION launches, catches and fires. P pauses.</p>
+        <p className={styles.help}>Move with the ← → keys or hold the on-screen arrows. SPACE / ACTION launches, catches and fires. P pauses.</p>
       </div>
     </div>
   ) : null;
@@ -380,17 +433,32 @@ export function CeefaxBreakout({ playerName, onClose }: { playerName: string; on
             ref={canvasRef}
             className={styles.canvas}
             aria-label="Breakout play field"
-            onPointerMove={(event) => movePaddle(event.clientX)}
-            onPointerDown={(event) => {
-              movePaddle(event.clientX);
-              fireAction();
-              event.currentTarget.setPointerCapture(event.pointerId);
-            }}
           />
           {overlay}
         </div>
         <footer className={styles.controls}>
-          <span className={styles.controlHint}>Drag anywhere on the pitch to move</span>
+          <div className={styles.directionControls} aria-label="Paddle controls">
+            {(['left', 'right'] as const).map((direction) => (
+              <button
+                className={styles.direction}
+                type="button"
+                key={direction}
+                aria-label={`Move paddle ${direction}`}
+                disabled={screen !== 'playing'}
+                onPointerDown={(event) => {
+                  event.preventDefault();
+                  event.currentTarget.setPointerCapture(event.pointerId);
+                  setPaddleDirection(direction, true);
+                }}
+                onPointerUp={() => setPaddleDirection(direction, false)}
+                onPointerCancel={() => setPaddleDirection(direction, false)}
+                onLostPointerCapture={() => setPaddleDirection(direction, false)}
+              >
+                {direction === 'left' ? '← LEFT' : 'RIGHT →'}
+              </button>
+            ))}
+          </div>
+          <span className={styles.controlHint}>Hold to move</span>
           <button className={styles.action} type="button" onClick={fireAction}>Action</button>
         </footer>
       </section>

@@ -50,9 +50,9 @@ describe('AdminShell league-admin view mode', () => {
       <AdminShell
         email="player@example.com"
         playerName="Test Player"
-        leagues={[]}
+        leagues={[{ id: 'league-1', name: 'North League' }]}
         seasons={[]}
-        selectedLeagueId={null}
+        selectedLeagueId="league-1"
         selectedSeasonId={null}
         superAdmin
         viewingAsLeagueAdmin={false}
