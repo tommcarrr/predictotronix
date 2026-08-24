@@ -10,7 +10,7 @@ import {
   type ReminderChannel,
   type ReminderWindow,
 } from '@/lib/notifications/reminders';
-import { executeCronJob } from '@/lib/cron/run';
+import { CronExecutionError, executeCronJob } from '@/lib/cron/run';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +34,7 @@ async function claimReminderDelivery(
     gameweekId: string;
     channel: ReminderChannel;
     reminderWindow: ReminderWindow;
+    isDryRun: boolean;
   }
 ): Promise<DeliveryClaim> {
   const deliveryKey = buildReminderDeliveryKey({
@@ -59,6 +60,55 @@ async function claimReminderDelivery(
     .single();
 
   if (error?.code === '23505') {
+    const { data: existing, error: existingError } = await supabase
+      .from('notification_log')
+      .select('id, status')
+      .eq('delivery_key', deliveryKey)
+      .maybeSingle();
+
+    if (existingError || !existing) {
+      return {
+        id: null,
+        deliveryKey,
+        duplicate: false,
+        error: existingError?.message ?? 'Existing notification claim could not be loaded',
+      };
+    }
+
+    // Provider failures are safe to retry on a later cron tick. A dry run can
+    // also be promoted if the environment is subsequently corrected to live.
+    // Restrict by the old status so concurrent retries cannot both win.
+    if (existing.status === 'failed' || (existing.status === 'dry_run' && !params.isDryRun)) {
+      const { data: retried, error: retryError } = await supabase
+        .from('notification_log')
+        .update({
+          status: 'processing',
+          sent_at: new Date().toISOString(),
+          error_message: null,
+          metadata: {
+            reminderWindow: params.reminderWindow,
+            retry: true,
+            previousStatus: existing.status,
+          },
+        })
+        .eq('id', existing.id)
+        .eq('status', existing.status)
+        .select('id')
+        .maybeSingle();
+
+      if (retryError) {
+        return {
+          id: null,
+          deliveryKey,
+          duplicate: false,
+          error: retryError.message,
+        };
+      }
+      if (retried) {
+        return { id: retried.id, deliveryKey, duplicate: false, error: null };
+      }
+    }
+
     return { id: null, deliveryKey, duplicate: true, error: null };
   }
 
@@ -82,15 +132,17 @@ export async function POST(request: NextRequest) {
   return executeCronJob('send-reminders', async (supabase) => {
     const processedAt = new Date();
     let sent = 0;
+    let dryRuns = 0;
     let suppressed = 0;
     let duplicates = 0;
+    let dueGameweeks = 0;
     const errors: string[] = [];
 
     // Find gameweeks with first_kickoff coming up — due for reminders
-    // Reminder windows:
-    //   1. 10:00am on day of first fixture (within the last 30 min)
-    //   2. 2 hours before first fixture kickoff (within the last 30 min)
-    const { data: gameweeks } = await supabase
+    // Reminder occurrences become due at 10:00 London time on matchday and
+    // two hours before kickoff. The latest due occurrence remains eligible
+    // until kickoff so a delayed cron tick can catch up safely.
+    const { data: gameweeks, error: gameweeksError } = await supabase
       .from('gameweeks')
       .select(
         `
@@ -99,7 +151,14 @@ export async function POST(request: NextRequest) {
       `
       )
       .eq('status', 'upcoming')
+      .eq('seasons.status', 'active')
       .not('first_kickoff', 'is', null);
+
+    if (gameweeksError) {
+      throw new CronExecutionError('Could not load upcoming gameweeks for reminders.', 500, {
+        error: gameweeksError.message,
+      });
+    }
 
     for (const gw of gameweeks ?? []) {
       const now = await getSeasonNow(supabase, gw.season_id);
@@ -110,56 +169,97 @@ export async function POST(request: NextRequest) {
       // connected to a season marked as production.
       const isDryRun = shouldDryRunNotifications(season?.season_type);
 
-      // Check if a reminder is due (within 30-min window)
+      // Check whether the latest scheduled occurrence is due.
       const reminderWindows = getDueReminderWindows(now, firstKickoff);
       if (reminderWindows.length === 0) continue;
+      dueGameweeks++;
 
       // Get season participants with notification preferences
-      const { data: participants } = await supabase
-        .from('season_participants')
-        .select(
-          `
-          participant_id,
-          participants!inner(
-            id, display_name, email, mobile,
-            notification_preferences(
-              email_enabled, sms_enabled, remind_when_complete, opted_out
+      const [participantsResult, fixturesResult] = await Promise.all([
+        supabase
+          .from('season_participants')
+          .select(
+            `
+            participant_id,
+            participants!inner(
+              id, display_name, email, mobile,
+              notification_preferences(
+                email_enabled, sms_enabled, remind_when_complete, opted_out
+              )
             )
+          `
           )
-        `
-        )
-        .eq('season_id', gw.season_id);
+          .eq('season_id', gw.season_id),
+        supabase.from('fixtures').select('id').eq('gameweek_id', gw.id),
+      ]);
 
-      for (const sp of participants ?? []) {
+      if (participantsResult.error || fixturesResult.error) {
+        throw new CronExecutionError('Could not prepare reminder recipients.', 500, {
+          gameweekId: gw.id,
+          participantsError: participantsResult.error?.message ?? null,
+          fixturesError: fixturesResult.error?.message ?? null,
+        });
+      }
+
+      const participants = participantsResult.data ?? [];
+      const fixtureIds = (fixturesResult.data ?? []).map((fixture) => fixture.id);
+      if (fixtureIds.length === 0) {
+        throw new CronExecutionError('Due gameweek has no fixtures.', 500, {
+          gameweekId: gw.id,
+        });
+      }
+
+      for (const sp of participants) {
         const p = (sp as any).participants;
-        const prefs = p?.notification_preferences?.[0];
+        let prefs = p?.notification_preferences?.[0];
 
-        if (!p || !prefs || prefs.opted_out) {
+        if (!p) {
+          errors.push(`Participant relation missing for season participant ${sp.participant_id}`);
+          suppressed++;
+          continue;
+        }
+
+        // Older participants can predate notification preference creation.
+        // Persist and use the database defaults instead of silently suppressing them.
+        if (!prefs) {
+          const { error: preferencesError } = await supabase
+            .from('notification_preferences')
+            .upsert({ participant_id: p.id }, { onConflict: 'participant_id' });
+          if (preferencesError) {
+            errors.push(`Could not create notification preferences for participant ${p.id}`);
+            suppressed++;
+            continue;
+          }
+          prefs = {
+            email_enabled: true,
+            sms_enabled: false,
+            remind_when_complete: false,
+            opted_out: false,
+          };
+        }
+
+        if (prefs.opted_out) {
           suppressed++;
           continue;
         }
 
         // Check if predictions are complete (if remind_when_complete is false, suppress)
         if (!prefs.remind_when_complete) {
-          const { count } = await supabase
+          const { count, error: predictionCountError } = await supabase
             .from('predictions')
             .select('id', { count: 'exact', head: true })
             .eq('participant_id', p.id)
-            .in(
-              'fixture_id',
-              (await supabase.from('fixtures').select('id').eq('gameweek_id', gw.id)).data?.map(
-                (f: any) => f.id
-              ) ?? []
-            );
+            .in('fixture_id', fixtureIds);
 
-          const { count: fixtureCount } = await supabase
-            .from('fixtures')
-            .select('id', { count: 'exact', head: true })
-            .eq('gameweek_id', gw.id);
-
-          if (count !== null && fixtureCount !== null && count >= fixtureCount) {
+          if (predictionCountError || count === null) {
+            errors.push(`Could not count predictions for participant ${p.id}`);
             suppressed++;
-            await supabase.from('notification_log').insert({
+            continue;
+          }
+
+          if (count >= fixtureIds.length) {
+            suppressed++;
+            const { error: suppressionLogError } = await supabase.from('notification_log').insert({
               participant_id: p.id,
               season_id: gw.season_id,
               gameweek_id: gw.id,
@@ -167,6 +267,9 @@ export async function POST(request: NextRequest) {
               notification_type: 'reminder',
               status: 'suppressed',
             });
+            if (suppressionLogError) {
+              errors.push(`Could not record suppression for participant ${p.id}`);
+            }
             continue;
           }
         }
@@ -184,6 +287,7 @@ export async function POST(request: NextRequest) {
               gameweekId: gw.id,
               channel: 'email',
               reminderWindow,
+              isDryRun,
             });
 
             if (claim.duplicate) {
@@ -217,7 +321,8 @@ export async function POST(request: NextRequest) {
                 .eq('id', claim.id);
 
               if (logError) errors.push(`Could not update email log: ${logError.message}`);
-              if (result.success) sent++;
+              if (result.dryRun) dryRuns++;
+              else if (result.success) sent++;
               else if (result.error) errors.push(`Email to ${p.email}: ${result.error}`);
             }
           }
@@ -229,6 +334,7 @@ export async function POST(request: NextRequest) {
               gameweekId: gw.id,
               channel: 'sms',
               reminderWindow,
+              isDryRun,
             });
 
             if (claim.duplicate) {
@@ -260,7 +366,8 @@ export async function POST(request: NextRequest) {
                 .eq('id', claim.id);
 
               if (logError) errors.push(`Could not update SMS log: ${logError.message}`);
-              if (result.success) sent++;
+              if (result.dryRun) dryRuns++;
+              else if (result.success) sent++;
               else if (result.error) errors.push(`SMS to ${p.mobile}: ${result.error}`);
             }
           }
@@ -273,11 +380,22 @@ export async function POST(request: NextRequest) {
         ok: errors.length === 0,
         timestamp: processedAt.toISOString(),
         sent,
+        dryRuns,
         suppressed,
         duplicates,
+        gameweeksChecked: gameweeks?.length ?? 0,
+        dueGameweeks,
         errors,
       },
-      summary: { sent, suppressed, duplicates, errorCount: errors.length },
+      summary: {
+        sent,
+        dryRuns,
+        suppressed,
+        duplicates,
+        gameweeksChecked: gameweeks?.length ?? 0,
+        dueGameweeks,
+        errorCount: errors.length,
+      },
       errors,
     };
   });

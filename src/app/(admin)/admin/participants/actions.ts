@@ -6,10 +6,7 @@ import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export async function approveJoinRequest(
-  requestId: string,
-  selectedSeasonId: string
-) {
+export async function approveJoinRequest(requestId: string, selectedSeasonId: string) {
   const user = await getUser();
   if (!user) redirect('/login');
 
@@ -26,7 +23,9 @@ export async function approveJoinRequest(
   }
   if (!(await isLeagueAdmin(request.league_id))) redirect('/dashboard');
   if (!selectedSeasonId) {
-    redirect('/admin/participants?tab=requests&error=Select+a+season+before+approving+this+request');
+    redirect(
+      '/admin/participants?tab=requests&error=Select+a+season+before+approving+this+request'
+    );
   }
 
   const { data: targetSeason, error: seasonError } = await supabase
@@ -38,17 +37,15 @@ export async function approveJoinRequest(
 
   if (seasonError) throw new Error(`Failed to verify target season: ${seasonError.message}`);
   if (!targetSeason) {
-    redirect('/admin/participants?tab=requests&error=The+selected+season+does+not+belong+to+this+league');
+    redirect(
+      '/admin/participants?tab=requests&error=The+selected+season+does+not+belong+to+this+league'
+    );
   }
 
   const userId = request.user_id;
 
   const [{ data: profile }, { data: authUserData, error: authUserError }] = await Promise.all([
-    supabase
-      .from('profiles')
-      .select('display_name, email')
-      .eq('id', userId)
-      .maybeSingle(),
+    supabase.from('profiles').select('display_name, email').eq('id', userId).maybeSingle(),
     supabase.auth.admin.getUserById(userId),
   ]);
 
@@ -104,7 +101,8 @@ export async function approveJoinRequest(
       .update({ display_name: participantDisplayName, email: participantEmail })
       .eq('id', existingParticipant.id);
 
-    if (repairError) throw new Error(`Failed to repair participant details: ${repairError.message}`);
+    if (repairError)
+      throw new Error(`Failed to repair participant details: ${repairError.message}`);
   }
 
   if (!participantId) throw new Error('Failed to resolve participant after approval.');
@@ -183,7 +181,10 @@ export async function createOfflineParticipant(formData: FormData) {
   if (participant) {
     await supabase
       .from('notification_preferences')
-      .insert({ participant_id: participant.id, email_enabled: false });
+      .upsert(
+        { participant_id: participant.id, email_enabled: false },
+        { onConflict: 'participant_id' }
+      );
 
     await supabase
       .from('season_participants')
@@ -196,7 +197,7 @@ export async function createOfflineParticipant(formData: FormData) {
 export async function updateParticipantDisplayName(
   leagueId: string,
   participantId: string,
-  formData: FormData,
+  formData: FormData
 ) {
   await requireLeagueAdmin(leagueId);
 
@@ -247,7 +248,9 @@ export async function updateParticipantDisplayName(
     ]);
 
     if (profileError || authError) {
-      throw new Error(`Display name updated partially: ${profileError?.message ?? authError?.message}`);
+      throw new Error(
+        `Display name updated partially: ${profileError?.message ?? authError?.message}`
+      );
     }
   }
 
@@ -256,4 +259,3 @@ export async function updateParticipantDisplayName(
   revalidatePath('/dashboard');
   redirect('/admin/participants?nameUpdated=1');
 }
-

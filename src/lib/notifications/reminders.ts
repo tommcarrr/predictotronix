@@ -6,28 +6,77 @@ export const REMINDER_WINDOWS = {
 export type ReminderWindow = (typeof REMINDER_WINDOWS)[keyof typeof REMINDER_WINDOWS];
 export type ReminderChannel = 'email' | 'sms';
 
+const LONDON_TIME_ZONE = 'Europe/London';
+const HOUR_MS = 60 * 60 * 1000;
+
+const londonDateFormatter = new Intl.DateTimeFormat('en-GB', {
+  timeZone: LONDON_TIME_ZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hourCycle: 'h23',
+});
+
+function londonParts(date: Date) {
+  const values = Object.fromEntries(
+    londonDateFormatter
+      .formatToParts(date)
+      .filter((part) => part.type !== 'literal')
+      .map((part) => [part.type, Number(part.value)])
+  );
+
+  return {
+    year: values.year,
+    month: values.month,
+    day: values.day,
+    hour: values.hour,
+    minute: values.minute,
+    second: values.second,
+  };
+}
+
+/** Convert 10:00 on the kickoff's London calendar date to an absolute instant. */
+function london10amOnKickoffDay(firstKickoff: Date): Date {
+  const { year, month, day } = londonParts(firstKickoff);
+  const utcGuess = new Date(Date.UTC(year, month - 1, day, 10));
+  const guessParts = londonParts(utcGuess);
+  const representedAsUtc = Date.UTC(
+    guessParts.year,
+    guessParts.month - 1,
+    guessParts.day,
+    guessParts.hour,
+    guessParts.minute,
+    guessParts.second
+  );
+  const londonOffset = representedAsUtc - utcGuess.getTime();
+
+  return new Date(utcGuess.getTime() - londonOffset);
+}
+
 export function getDueReminderWindows(now: Date, firstKickoff: Date): ReminderWindow[] {
-  const ukNow = new Date(now.toLocaleString('en-GB', { timeZone: 'Europe/London' }));
-  const todayAt10 = new Date(ukNow);
-  todayAt10.setHours(10, 0, 0, 0);
-
-  const diffToKickoff = firstKickoff.getTime() - now.getTime();
-  const diffTo10am = Math.abs(now.getTime() - todayAt10.getTime());
-  const windows: ReminderWindow[] = [];
-
-  if (diffTo10am <= 30 * 60 * 1000 && now >= todayAt10 && firstKickoff > now) {
-    windows.push(REMINDER_WINDOWS.DAY_10AM);
+  if (Number.isNaN(now.getTime()) || Number.isNaN(firstKickoff.getTime()) || now >= firstKickoff) {
+    return [];
   }
 
-  if (
-    diffToKickoff > 0 &&
-    diffToKickoff <= 2 * 60 * 60 * 1000 &&
-    diffToKickoff >= 1.5 * 60 * 60 * 1000
-  ) {
-    windows.push(REMINDER_WINDOWS.TWO_HOURS_BEFORE);
-  }
+  const schedules = [
+    {
+      window: REMINDER_WINDOWS.DAY_10AM,
+      at: london10amOnKickoffDay(firstKickoff),
+    },
+    {
+      window: REMINDER_WINDOWS.TWO_HOURS_BEFORE,
+      at: new Date(firstKickoff.getTime() - 2 * HOUR_MS),
+    },
+  ]
+    .filter((schedule) => schedule.at < firstKickoff && schedule.at <= now)
+    .sort((left, right) => right.at.getTime() - left.at.getTime());
 
-  return windows;
+  // If a cron tick was missed, send only the most recent useful reminder.
+  // Earlier occurrences remain skipped instead of arriving back-to-back.
+  return schedules.length > 0 ? [schedules[0].window] : [];
 }
 
 export function buildReminderDeliveryKey(params: {

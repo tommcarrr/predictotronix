@@ -409,6 +409,7 @@ export type Database = {
         Update: {
           delivery_key?: string | null;
           status?: 'processing' | 'sent' | 'failed' | 'suppressed' | 'dry_run';
+          sent_at?: string;
           error_message?: string | null;
           metadata?: Json | null;
         };
