@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/actions.ts": {
-    "mtime": 1787556732.4229584,
-    "ast_hash": "1bc462cfa7f98e2448e8f0f5ddc44310",
+    "mtime": 1787563948.4852247,
+    "ast_hash": "d83c6e96123835022e3ced2f57fb9404",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/page.tsx": {
@@ -170,8 +170,8 @@
     "semantic_hash": ""
   },
   "src/app/api/cron/send-reminders/route.ts": {
-    "mtime": 1787556733.1589031,
-    "ast_hash": "0d245b93f7b83141f55d6993d2a5f39f",
+    "mtime": 1787563948.4908724,
+    "ast_hash": "17c712d1cf6b9f29a82eca92bf0f501a",
     "semantic_hash": ""
   },
   "src/app/api/cron/sync-fixtures/route.ts": {
@@ -290,8 +290,8 @@
     "semantic_hash": "50cbc0dc995e4c03a649e59f2cdbbe01"
   },
   "src/types/database.ts": {
-    "mtime": 1787556733.5009084,
-    "ast_hash": "e6ec585e62202772b62ca5ffd401fb7f",
+    "mtime": 1787563950.607798,
+    "ast_hash": "f16801feff568f998d4e9ca78648d5ee",
     "semantic_hash": ""
   },
   "src/types/index.ts": {
@@ -880,8 +880,8 @@
     "semantic_hash": ""
   },
   "src/lib/notifications/reminders.ts": {
-    "mtime": 1787556733.4078588,
-    "ast_hash": "5fd45ad734f20b846e0aafe5433bcca2",
+    "mtime": 1787563948.506528,
+    "ast_hash": "a032e13ccac06d50f42e5c8a82954739",
     "semantic_hash": ""
   },
   "supabase/migrations/012_notification_delivery_idempotency.sql": {
@@ -890,13 +890,13 @@
     "semantic_hash": ""
   },
   "tests/unit/reminder-delivery.test.ts": {
-    "mtime": 1787556733.718475,
-    "ast_hash": "dfc63bc118c0809444e9d18a348aa952",
+    "mtime": 1787563948.5298212,
+    "ast_hash": "803998ef62da2d6abda13d9e5bc78f77",
     "semantic_hash": ""
   },
   "tests/unit/send-reminders-route.test.ts": {
-    "mtime": 1787556733.738083,
-    "ast_hash": "7894cc28387fd2048a24b7051ff9cc99",
+    "mtime": 1787563948.5333893,
+    "ast_hash": "ff643a29f0927a7a01e35581e50165e4",
     "semantic_hash": ""
   },
   "src/components/admin/FixtureClipboardExport.tsx": {
@@ -1010,8 +1010,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/CeefaxBreakout.tsx": {
-    "mtime": 1787557094.8391664,
-    "ast_hash": "90c8ba3173bb4c54934190a2d62c3be3",
+    "mtime": 1787563950.5970793,
+    "ast_hash": "872c2c08a286b0d76a149a400aa4019f",
     "semantic_hash": ""
   },
   "src/components/admin/secret-game-gate.ts": {
@@ -1030,13 +1030,13 @@
     "semantic_hash": ""
   },
   "src/lib/breakout/actions.ts": {
-    "mtime": 1787556733.3540728,
-    "ast_hash": "37f48a0c071cf6c88e6748e716ac0dd7",
+    "mtime": 1787563950.5995936,
+    "ast_hash": "0e0d1f8026cc4dd20c568c37612460db",
     "semantic_hash": ""
   },
   "src/lib/breakout/constants.ts": {
-    "mtime": 1787556733.3570755,
-    "ast_hash": "7ae34d0dff2171030a95a5e880bfefc0",
+    "mtime": 1787563950.602527,
+    "ast_hash": "d428ebd06128c94e9c2031311dd0963e",
     "semantic_hash": ""
   },
   "supabase/migrations/015_league_breakout_scores.sql": {
@@ -1045,18 +1045,53 @@
     "semantic_hash": ""
   },
   "tests/unit/breakout-actions.test.ts": {
-    "mtime": 1787556733.6139,
-    "ast_hash": "9228c71c253cfae37684d4508b842668",
+    "mtime": 1787563950.613458,
+    "ast_hash": "53ab08ae7647e5d96aff23ca61f81d40",
     "semantic_hash": ""
   },
   "tests/unit/breakout-controls.test.ts": {
-    "mtime": 1787558106.6982646,
-    "ast_hash": "b0d148f7a8ad48e989986c2f8cdc40e6",
+    "mtime": 1787563950.6164567,
+    "ast_hash": "3690e62b6b68f5c6b8d1e7b817aa5591",
     "semantic_hash": ""
   },
   "tests/unit/breakout-migration.test.ts": {
-    "mtime": 1787556733.6184192,
-    "ast_hash": "c696bd376ce840b0e648718fece4629d",
+    "mtime": 1787563950.6184585,
+    "ast_hash": "db4477bbf4fc33aa2a88f86fb97f30aa",
+    "semantic_hash": ""
+  },
+  "src/lib/breakout/rules.ts": {
+    "mtime": 1787563950.6045399,
+    "ast_hash": "d923a0b582f367c222b65d37e1052b68",
+    "semantic_hash": ""
+  },
+  "tests/unit/breakout-rules.test.ts": {
+    "mtime": 1787563950.6209667,
+    "ast_hash": "05594be505e7f4d0efe1fcb24dd754b3",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260824_075929_where_is_the_breakout_game_implemented__including.md": {
+    "mtime": 1787558369.7513428,
+    "ast_hash": "0ad5ae1adfcd0c166560d8edb64e9743",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260824_085401_where_do_i_see_the_scoreboard__can_i_see_the_top_1.md": {
+    "mtime": 1787563950.5886662,
+    "ast_hash": "4b60abc823e4fd56c1f84498bf904fc2",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260824_085932_oh__is_there_only_one_top_score_per_user.md": {
+    "mtime": 1787563950.5902429,
+    "ast_hash": "e97f24cec398266da44dc57881b5c264",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/016_notification_preferences_defaults.sql": {
+    "mtime": 1787563948.5140245,
+    "ast_hash": "f32a7c798d3a9355a82efb6ce051fa22",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/017_verified_breakout_runs.sql": {
+    "mtime": 1787563950.6103263,
+    "ast_hash": "bbb5fac92979dcc6b1f3a0378d78220e",
     "semantic_hash": ""
   }
 }

@@ -119,7 +119,14 @@ export type Database = {
           season_type?: 'production' | 'test' | 'demo';
           status?: 'setup' | 'active' | 'completed' | 'archived';
         };
-        Relationships: [{ foreignKeyName: 'seasons_league_id_fkey'; columns: ['league_id']; referencedRelation: 'leagues'; referencedColumns: ['id'] }];
+        Relationships: [
+          {
+            foreignKeyName: 'seasons_league_id_fkey';
+            columns: ['league_id'];
+            referencedRelation: 'leagues';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       season_runtime_settings: {
         Row: {
@@ -139,7 +146,14 @@ export type Database = {
           updated_by?: string | null;
           updated_at?: string;
         };
-        Relationships: [{ foreignKeyName: 'season_runtime_settings_season_id_fkey'; columns: ['season_id']; referencedRelation: 'seasons'; referencedColumns: ['id'] }];
+        Relationships: [
+          {
+            foreignKeyName: 'season_runtime_settings_season_id_fkey';
+            columns: ['season_id'];
+            referencedRelation: 'seasons';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       season_participants: {
         Row: { id: string; season_id: string; participant_id: string; joined_at: string };
@@ -172,6 +186,10 @@ export type Database = {
           league_id: string;
           participant_id: string;
           score: number;
+          duration_ms: number | null;
+          lives_lost: number | null;
+          max_combo: number | null;
+          finished: boolean | null;
           achieved_at: string;
           updated_at: string;
         };
@@ -179,17 +197,74 @@ export type Database = {
           league_id: string;
           participant_id: string;
           score: number;
+          duration_ms?: number | null;
+          lives_lost?: number | null;
+          max_combo?: number | null;
+          finished?: boolean | null;
           achieved_at?: string;
           updated_at?: string;
         };
         Update: {
           score?: number;
+          duration_ms?: number | null;
+          lives_lost?: number | null;
+          max_combo?: number | null;
+          finished?: boolean | null;
           achieved_at?: string;
           updated_at?: string;
         };
         Relationships: [
-          { foreignKeyName: 'league_breakout_scores_league_id_fkey'; columns: ['league_id']; referencedRelation: 'leagues'; referencedColumns: ['id'] },
-          { foreignKeyName: 'league_breakout_scores_participant_id_fkey'; columns: ['participant_id']; referencedRelation: 'participants'; referencedColumns: ['id'] },
+          {
+            foreignKeyName: 'league_breakout_scores_league_id_fkey';
+            columns: ['league_id'];
+            referencedRelation: 'leagues';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'league_breakout_scores_participant_id_fkey';
+            columns: ['participant_id'];
+            referencedRelation: 'participants';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      league_breakout_runs: {
+        Row: {
+          id: string;
+          league_id: string;
+          participant_id: string;
+          started_at: string;
+          expires_at: string;
+          submitted_at: string | null;
+          summary: Json | null;
+        };
+        Insert: {
+          id?: string;
+          league_id: string;
+          participant_id: string;
+          started_at?: string;
+          expires_at?: string;
+          submitted_at?: string | null;
+          summary?: Json | null;
+        };
+        Update: {
+          expires_at?: string;
+          submitted_at?: string | null;
+          summary?: Json | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'league_breakout_runs_league_id_fkey';
+            columns: ['league_id'];
+            referencedRelation: 'leagues';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'league_breakout_runs_participant_id_fkey';
+            columns: ['participant_id'];
+            referencedRelation: 'participants';
+            referencedColumns: ['id'];
+          },
         ];
       };
       join_requests: {
@@ -515,8 +590,21 @@ export type Database = {
           achieved_at: string;
         }[];
       };
-      submit_breakout_score: {
-        Args: { p_league_id: string; p_score: number };
+      start_breakout_run: {
+        Args: { p_league_id: string };
+        Returns: string;
+      };
+      submit_breakout_run: {
+        Args: {
+          p_run_id: string;
+          p_league_id: string;
+          p_hits_by_level: number[];
+          p_combo_awards: number;
+          p_lives_lost: number;
+          p_max_combo: number;
+          p_duration_ms: number;
+          p_finished: boolean;
+        };
         Returns: {
           rank_position: number;
           participant_id: string;
@@ -533,5 +621,4 @@ export type Database = {
 export type Tables<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Row'];
 
-export type Enums<T extends keyof Database['public']['Enums']> =
-  Database['public']['Enums'][T];
+export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T];

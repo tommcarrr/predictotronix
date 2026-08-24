@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T12:14:14.730010+00:00",
+  "generated_at": "2026-08-24T09:01:48.442443+00:00",
   "nodes": {
     "src_app_admin_admin_fixtures_actions_triggerfixturesync": {
       "code_fingerprint": "9b76719374439745ec26f71df0ad2b8c1c93ff9b3f7db6b725aaadd1dc214c93",
@@ -12,13 +12,13 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.757626173,
+      "score": 0.74261138,
       "source_file": "src/app/(admin)/admin/fixtures/actions.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_app_admin_admin_fixtures_page_fixturesadminpage": {
-      "code_fingerprint": "22bc5e07f3f31df91d7183a9f848fce7084e09e33af2af5a7cf43fcf9c19ca21",
+      "code_fingerprint": "7b9149313c573dabd9b4f1e2b09512604cf75cdf4b160b690b2360f9cf312925",
       "label": "FixturesAdminPage()",
       "last": "2026-08-13T09:01:06.574157+00:00",
       "provenance": [
@@ -28,7 +28,7 @@
           "q": "Can you make the suggested changes?"
         }
       ],
-      "score": 0.79124475,
+      "score": 0.775563697,
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -44,7 +44,7 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 0.781072909,
+      "score": 0.765593444,
       "source_file": "src/app/(admin)/admin/leagues/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -65,7 +65,7 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 1.571654564,
+      "score": 1.540507188,
       "source_file": "src/app/(admin)/admin/leagues/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -86,7 +86,7 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 1.575918267,
+      "score": 1.544686392,
       "source_file": "src/app/(admin)/admin/participants/actions.ts",
       "status": "preferred",
       "uses": 2
@@ -122,7 +122,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 4.678386636,
+      "score": 4.585669398,
       "source_file": "src/app/(admin)/admin/participants/page.tsx",
       "status": "preferred",
       "uses": 6
@@ -143,7 +143,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 1.581826405,
+      "score": 1.550477441,
       "source_file": "src/app/(admin)/admin/seasons/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -169,7 +169,7 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 2.315487322,
+      "score": 2.269598513,
       "source_file": "src/app/(auth)/join/[code]/actions.ts",
       "status": "preferred",
       "uses": 3
@@ -190,7 +190,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.575508215,
+      "score": 1.544284466,
       "source_file": "src/app/(auth)/join/[code]/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -211,7 +211,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.575508215,
+      "score": 1.544284466,
       "source_file": "src/app/(auth)/login/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -232,13 +232,13 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.575508215,
+      "score": 1.544284466,
       "source_file": "src/app/(auth)/register/page.tsx",
       "status": "preferred",
       "uses": 2
     },
     "src_app_participant_dashboard_page_dashboardpage": {
-      "code_fingerprint": "6a9e1abba15fe8494351cebdf8fc3b467e75a16c491e1b6b026a9be88596cf84",
+      "code_fingerprint": "c78ccda23e5064a078eb8bbb93b093392e55e38e45b494bb813d2f99d52902bb",
       "label": "DashboardPage()",
       "last": "2026-08-13T13:44:04.641742+00:00",
       "provenance": [
@@ -258,13 +258,13 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 2.331667021,
+      "score": 2.28545756,
       "source_file": "src/app/(participant)/dashboard/page.tsx",
       "status": "preferred",
       "uses": 3
     },
     "src_components_admin_adminshell_adminshell": {
-      "code_fingerprint": "6d04780ae12834f7164d9166bfb8e8bd6cb31476d1cd28ee8cea7fe808630f25",
+      "code_fingerprint": "ad15ed8e27edb50f7a5449381bba45ae3af4ebeda035dbafbe105abeadf822ec",
       "label": "AdminShell()",
       "last": "2026-08-13T09:01:06.574157+00:00",
       "provenance": [
@@ -279,13 +279,98 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 1.581826405,
+      "score": 1.550477441,
       "source_file": "src/components/admin/AdminShell.tsx",
       "status": "preferred",
       "uses": 2
     },
+    "src_components_admin_ceefaxbreakout_ceefaxbreakout": {
+      "code_fingerprint": "4e7493b256fde8be155caa376bbea505235bf40e56f129693954b99b700b125a",
+      "label": "CeefaxBreakout()",
+      "last": "2026-08-24T08:54:01.327329+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T08:54:01.327329+00:00",
+          "outcome": "useful",
+          "q": "Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?"
+        },
+        {
+          "date": "2026-08-24T07:59:29.750832+00:00",
+          "outcome": "useful",
+          "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
+        }
+      ],
+      "score": 1.998875799,
+      "source_file": "src/components/admin/CeefaxBreakout.tsx",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_components_admin_ceefaxbreakout_createbricks": {
+      "code_fingerprint": "4e7493b256fde8be155caa376bbea505235bf40e56f129693954b99b700b125a",
+      "label": "createBricks()",
+      "last": "2026-08-24T07:59:29.750832+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T07:59:29.750832+00:00",
+          "outcome": "useful",
+          "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
+        }
+      ],
+      "score": 0.999000707,
+      "source_file": "src/components/admin/CeefaxBreakout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_components_admin_ceefaxbreakout_drawgame": {
+      "code_fingerprint": "4e7493b256fde8be155caa376bbea505235bf40e56f129693954b99b700b125a",
+      "label": "drawGame()",
+      "last": "2026-08-24T07:59:29.750832+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T07:59:29.750832+00:00",
+          "outcome": "useful",
+          "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
+        }
+      ],
+      "score": 0.999000707,
+      "source_file": "src/components/admin/CeefaxBreakout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_components_admin_ceefaxbreakout_hitsbrick": {
+      "code_fingerprint": "4e7493b256fde8be155caa376bbea505235bf40e56f129693954b99b700b125a",
+      "label": "hitsBrick()",
+      "last": "2026-08-24T07:59:29.750832+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T07:59:29.750832+00:00",
+          "outcome": "useful",
+          "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
+        }
+      ],
+      "score": 0.999000707,
+      "source_file": "src/components/admin/CeefaxBreakout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_components_admin_ceefaxbreakout_level_layouts": {
+      "code_fingerprint": "4e7493b256fde8be155caa376bbea505235bf40e56f129693954b99b700b125a",
+      "label": "LEVEL_LAYOUTS",
+      "last": "2026-08-24T08:54:01.327329+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T08:54:01.327329+00:00",
+          "outcome": "useful",
+          "q": "Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?"
+        }
+      ],
+      "score": 0.999875093,
+      "source_file": "src/components/admin/CeefaxBreakout.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
     "src_components_admin_exportpanel": {
-      "code_fingerprint": "2fc79331512d966ccbe649365fc1abc63f94642e760b3265dc4a6c56c966ab3c",
+      "code_fingerprint": "d8aa4ef11265067c1e3d150ad75879aadd587e7d46c7b62318951d5ea8b8b698",
       "label": "ExportPanel.tsx",
       "last": "2026-08-13T08:08:51.436385+00:00",
       "provenance": [
@@ -295,7 +380,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 0.790581655,
+      "score": 0.774913744,
       "source_file": "src/components/admin/ExportPanel.tsx",
       "status": "tentative",
       "uses": 1
@@ -311,7 +396,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 0.790581655,
+      "score": 0.774913744,
       "source_file": "src/components/admin/FixtureSyncConsole.tsx",
       "status": "tentative",
       "uses": 1
@@ -332,7 +417,7 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 1.688472441,
+      "score": 1.655009944,
       "source_file": "src/components/participant/PredictionsForm.tsx",
       "status": "preferred",
       "uses": 2
@@ -348,7 +433,7 @@
           "q": "Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
         }
       ],
-      "score": 0.930934114,
+      "score": 0.912484669,
       "source_file": "src/components/participant/QuickMatchGame.tsx",
       "status": "tentative",
       "uses": 1
@@ -364,7 +449,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.757626173,
+      "score": 0.74261138,
       "source_file": "src/lib/api-football/client.ts",
       "status": "tentative",
       "uses": 1
@@ -385,7 +470,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.575508215,
+      "score": 1.544284466,
       "source_file": "src/lib/auth/actions.ts",
       "status": "preferred",
       "uses": 2
@@ -406,8 +491,66 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.575508215,
+      "score": 1.544284466,
       "source_file": "src/lib/auth/actions.ts",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_lib_breakout_actions": {
+      "code_fingerprint": "63345035762e6cf6ee420833920cacdf17318a479aa6cfe6775f6f2b3d47c344",
+      "label": "breakout/actions.ts",
+      "last": "2026-08-24T08:59:32.288827+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T08:59:32.288827+00:00",
+          "outcome": "useful",
+          "q": "Oh, is there only one top score per user?"
+        }
+      ],
+      "score": 0.999963591,
+      "source_file": "src/lib/breakout/actions.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_lib_breakout_actions_getbreakoutleaderboard": {
+      "code_fingerprint": "63345035762e6cf6ee420833920cacdf17318a479aa6cfe6775f6f2b3d47c344",
+      "label": "getBreakoutLeaderboard()",
+      "last": "2026-08-24T08:59:32.288827+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T08:59:32.288827+00:00",
+          "outcome": "useful",
+          "q": "Oh, is there only one top score per user?"
+        },
+        {
+          "date": "2026-08-24T08:54:01.327329+00:00",
+          "outcome": "useful",
+          "q": "Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?"
+        }
+      ],
+      "score": 1.999838684,
+      "source_file": "src/lib/breakout/actions.ts",
+      "status": "preferred",
+      "uses": 2
+    },
+    "src_lib_breakout_actions_submitbreakoutscore": {
+      "code_fingerprint": "63345035762e6cf6ee420833920cacdf17318a479aa6cfe6775f6f2b3d47c344",
+      "label": "submitBreakoutScore()",
+      "last": "2026-08-24T08:59:32.288827+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T08:59:32.288827+00:00",
+          "outcome": "useful",
+          "q": "Oh, is there only one top score per user?"
+        },
+        {
+          "date": "2026-08-24T08:54:01.327329+00:00",
+          "outcome": "useful",
+          "q": "Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?"
+        }
+      ],
+      "score": 1.999838684,
+      "source_file": "src/lib/breakout/actions.ts",
       "status": "preferred",
       "uses": 2
     },
@@ -427,7 +570,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.513697134,
+      "score": 1.48369837,
       "source_file": "src/lib/clock.ts",
       "status": "preferred",
       "uses": 2
@@ -443,13 +586,13 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.757626173,
+      "score": 0.74261138,
       "source_file": "src/lib/environment.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_fpl_client_fplfixtureprovider": {
-      "code_fingerprint": "5afc1ea3073c8def386dc15a3cfa5df4881e339026f7a5808008725a1e0a9970",
+      "code_fingerprint": "6204bcaa00b8031ff78ebaa81dcf71b32894974adb8719e46d38e546b2a8e87b",
       "label": "FplFixtureProvider",
       "last": "2026-08-23T11:25:42.010953+00:00",
       "provenance": [
@@ -459,7 +602,7 @@
           "q": "The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results."
         }
       ],
-      "score": 0.99922139,
+      "score": 0.979418613,
       "source_file": "src/lib/fpl/client.ts",
       "status": "tentative",
       "uses": 1
@@ -475,13 +618,13 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 0.757538327,
+      "score": 0.742525275,
       "source_file": "src/lib/predictions/actions.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_scoring_index_iskickofflocked": {
-      "code_fingerprint": "c6be4524d1ecc9d1b140df4257f2d9bf2f223d9768e37ad829cf194797f3dc39",
+      "code_fingerprint": "eaedbc923ea0fcfb9457bc0aa8e6156069eb483b7197ddd8bc494b541f6de706",
       "label": "isKickoffLocked()",
       "last": "2026-08-11T11:47:55.651711+00:00",
       "provenance": [
@@ -496,7 +639,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.513697134,
+      "score": 1.48369837,
       "source_file": "src/lib/scoring/index.ts",
       "status": "preferred",
       "uses": 2
@@ -512,13 +655,13 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 0.739979107,
+      "score": 0.725314048,
       "source_file": "src/lib/supabase/server.ts",
       "status": "tentative",
       "uses": 1
     },
     "src_lib_sync_fixtures_syncfixtures": {
-      "code_fingerprint": "05b8a98e7fdfec32f6751d6326f3ea2b12e3d3d8b1b2aee2fe372b7170fa3474",
+      "code_fingerprint": "da81c35f6da2af8ab7bd364c7582fadc9f806b535d844c1cba310d37f36f5038",
       "label": "syncFixtures()",
       "last": "2026-08-11T11:55:09.264398+00:00",
       "provenance": [
@@ -528,8 +671,24 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.757626173,
+      "score": 0.74261138,
       "source_file": "src/lib/sync/fixtures.ts",
+      "status": "tentative",
+      "uses": 1
+    },
+    "tests_unit_breakout_controls_test": {
+      "code_fingerprint": "c26897100721093cbff20857ad830f26e36220f4d2cead9816f1aeb691f85002",
+      "label": "breakout-controls.test.ts",
+      "last": "2026-08-24T07:59:29.750832+00:00",
+      "provenance": [
+        {
+          "date": "2026-08-24T07:59:29.750832+00:00",
+          "outcome": "useful",
+          "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
+        }
+      ],
+      "score": 0.999000707,
+      "source_file": "tests/unit/breakout-controls.test.ts",
       "status": "tentative",
       "uses": 1
     }

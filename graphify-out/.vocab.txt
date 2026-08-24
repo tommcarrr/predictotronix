@@ -313,6 +313,7 @@ knowledge
 last
 latest
 layout
+layouts
 leaderboard
 leaderboards
 league

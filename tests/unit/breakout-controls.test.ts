@@ -4,12 +4,13 @@ import { describe, expect, it } from 'vitest';
 
 const component = readFileSync(
   path.resolve(process.cwd(), 'src/components/admin/CeefaxBreakout.tsx'),
-  'utf8',
+  'utf8'
 );
 const styles = readFileSync(
   path.resolve(process.cwd(), 'src/components/admin/CeefaxBreakout.module.css'),
-  'utf8',
+  'utf8'
 );
+const rules = readFileSync(path.resolve(process.cwd(), 'src/lib/breakout/rules.ts'), 'utf8');
 
 describe('Ceefax Breakout controls', () => {
   it('moves continuously from keyboard and held direction buttons', () => {
@@ -27,20 +28,29 @@ describe('Ceefax Breakout controls', () => {
   });
 
   it('prevents game button labels from being selected during play', () => {
-    expect(styles).toMatch(/\.close,\s*\.direction,\s*\.action,\s*\.start\s*\{[^}]*user-select: none/);
+    expect(styles).toMatch(
+      /\.close,\s*\.direction,\s*\.action,\s*\.start\s*\{[^}]*user-select: none/
+    );
     expect(styles).toContain('-webkit-user-select: none');
   });
 
   it('uses fewer power-ups and does not include a level skip', () => {
-    expect(component).toContain('const POWER_DROP_CHANCE = 0.095');
+    expect(rules).toContain('powerDropChance: 0.055');
     expect(component).not.toContain("'BREAK'");
     expect(component).not.toContain('LEVEL BREAK');
   });
 
   it('defines distinct layouts with stronger bricks in later rounds', () => {
-    expect(component).toContain('const LEVEL_LAYOUTS = [');
-    expect(component).toContain("const maxHits = brickType === '2' ? 2 : 1");
+    expect(rules).toContain('export const TOTAL_BREAKOUT_LEVELS = 10');
+    expect(rules).toContain("'333333333333'");
+    expect(component).toContain("const maxHits = brickType === '#' ? 1 : Number(brickType)");
     expect(component).toContain('brick.hitsRemaining -= 1');
-    expect(component).toContain("ctx.strokeStyle = brick.hitsRemaining === 2 ? '#fff' : '#00ffff'");
+    expect(component).toContain("ctx.strokeStyle = undamaged ? '#fff' : '#00ffff'");
+  });
+
+  it('rewards combos and penalises lost balls', () => {
+    expect(component).toContain('ball.comboHits % COMBO_SIZE === 0');
+    expect(component).toContain('game.score += COMBO_BONUS');
+    expect(component).toContain('game.score -= LIFE_LOSS_PENALTY');
   });
 });
