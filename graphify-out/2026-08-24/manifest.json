@@ -1030,8 +1030,8 @@
     "semantic_hash": ""
   },
   "src/lib/breakout/actions.ts": {
-    "mtime": 1787563950.5995936,
-    "ast_hash": "0e0d1f8026cc4dd20c568c37612460db",
+    "mtime": 1787565572.8649244,
+    "ast_hash": "6334beec57ba5a16aec7fe095c7fb2a6",
     "semantic_hash": ""
   },
   "src/lib/breakout/constants.ts": {
@@ -1055,18 +1055,18 @@
     "semantic_hash": ""
   },
   "tests/unit/breakout-migration.test.ts": {
-    "mtime": 1787563950.6184585,
-    "ast_hash": "db4477bbf4fc33aa2a88f86fb97f30aa",
+    "mtime": 1787565573.2915926,
+    "ast_hash": "cc6ca7a6ea7d0fe4452d2a00a18b54a8",
     "semantic_hash": ""
   },
   "src/lib/breakout/rules.ts": {
-    "mtime": 1787563950.6045399,
-    "ast_hash": "d923a0b582f367c222b65d37e1052b68",
+    "mtime": 1787565573.0547197,
+    "ast_hash": "b44ea226c579ba218a987becc2e9f416",
     "semantic_hash": ""
   },
   "tests/unit/breakout-rules.test.ts": {
-    "mtime": 1787563950.6209667,
-    "ast_hash": "05594be505e7f4d0efe1fcb24dd754b3",
+    "mtime": 1787565573.2048173,
+    "ast_hash": "f5bd9834b6929a1aec007cfee4f0e4ac",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260824_075929_where_is_the_breakout_game_implemented__including.md": {
@@ -1092,6 +1092,11 @@
   "supabase/migrations/017_verified_breakout_runs.sql": {
     "mtime": 1787563950.6103263,
     "ast_hash": "bbb5fac92979dcc6b1f3a0378d78220e",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/018_relax_breakout_run_limits.sql": {
+    "mtime": 1787565443.1986487,
+    "ast_hash": "f213e83ca72dea2e47772dbb148fb87a",
     "semantic_hash": ""
   }
 }

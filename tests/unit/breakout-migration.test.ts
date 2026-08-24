@@ -14,6 +14,10 @@ const relaxedLimitsMigration = readFileSync(
   path.resolve(process.cwd(), 'supabase/migrations/018_relax_breakout_run_limits.sql'),
   'utf8'
 );
+const ambiguityFixMigration = readFileSync(
+  path.resolve(process.cwd(), 'supabase/migrations/019_fix_breakout_submission_ambiguity.sql'),
+  'utf8'
+);
 
 describe('league Breakout score migration', () => {
   it('stores one constrained personal best per participant and league', () => {
@@ -49,5 +53,13 @@ describe('league Breakout score migration', () => {
     expect(relaxedLimitsMigration).toContain('p_duration_ms < v_total_hits * 25');
     expect(relaxedLimitsMigration).toContain('and submitted_at is null');
     expect(relaxedLimitsMigration).toContain('and expires_at > now()');
+  });
+
+  it('qualifies the run lookup to avoid PL/pgSQL output-column ambiguity', () => {
+    expect(ambiguityFixMigration).toContain('select breakout_run.* into v_run');
+    expect(ambiguityFixMigration).toContain(
+      'breakout_run.participant_id = v_participant_id'
+    );
+    expect(ambiguityFixMigration).not.toMatch(/^\s+and participant_id =/m);
   });
 });
