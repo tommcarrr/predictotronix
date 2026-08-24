@@ -10,6 +10,7 @@ import {
   CalendarDays,
   ChevronDown,
   Gauge,
+  Megaphone,
   Moon,
   Settings2,
   ShieldCheck,
@@ -68,6 +69,7 @@ const runNav: NavItem[] = [
 
 const configureNav: NavItem[] = [
   { href: '/admin/seasons', label: 'Seasons', icon: Sparkles },
+  { href: '/admin/notices', label: 'Login notices', icon: Megaphone },
   { href: '/admin/leagues', label: 'Leagues', icon: Settings2, superOnly: true },
 ];
 

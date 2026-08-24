@@ -261,6 +261,7 @@ git
 give
 global
 going
+got
 graph
 graphify
 guard
@@ -332,6 +333,7 @@ leaderboard
 leaderboards
 league
 leagues
+legitimate
 let
 level
 levels
@@ -381,6 +383,7 @@ migration
 migrations
 mini
 minimum
+minutes
 mjs
 mock
 modals
@@ -457,6 +460,7 @@ phase
 pipeline
 place
 placeholder
+played
 player
 players
 playwright
@@ -617,6 +621,7 @@ some
 someone
 source
 specification
+speed
 spun
 ssr
 staging
@@ -709,6 +714,7 @@ value
 variables
 variance
 variants
+verification
 verified
 verify
 version
@@ -740,6 +746,7 @@ workflow
 workflows
 works
 workspace
+would
 write
 you
 your

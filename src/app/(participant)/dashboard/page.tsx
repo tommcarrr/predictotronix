@@ -10,6 +10,8 @@ import { PredictionsForm } from '@/components/participant/PredictionsForm';
 import { GameweekCarousel } from '@/components/participant/GameweekCarousel';
 import { PlayerAccessibilityToggle } from '@/components/participant/PlayerAccessibilityMode';
 import { selectPredictionGameweek } from '@/lib/predictions/gameweek';
+import { LoginNotices, type VisibleLoginNotice } from '@/components/participant/LoginNotices';
+import { isLoginNoticeDismissed } from '@/lib/login-notices';
 
 export const metadata = { title: 'Dashboard' };
 
@@ -62,6 +64,28 @@ export default async function DashboardPage({ searchParams }: Props) {
     .limit(1);
 
   const activeSeason = activeSeasons?.[0]?.seasons as unknown as ActiveSeason | undefined;
+
+  // RLS returns only global notices and notices for leagues this user has joined.
+  const [{ data: loginNotices }, { data: claimsData }] = await Promise.all([
+    supabase
+      .from('login_notices')
+      .select('id, title, body, tone, display_mode')
+      .gt('expires_at', new Date().toISOString())
+      .order('created_at', { ascending: false }),
+    supabase.auth.getClaims(),
+  ]);
+  const noticeIds = (loginNotices ?? []).map((notice) => notice.id);
+  const { data: noticeDismissals } = noticeIds.length
+    ? await supabase
+        .from('login_notice_dismissals')
+        .select('notice_id, session_id')
+        .eq('user_id', user.id)
+        .in('notice_id', noticeIds)
+    : { data: [] };
+  const currentSessionId = claimsData?.claims.session_id ?? null;
+  const visibleLoginNotices = (loginNotices ?? []).filter(
+    (notice) => !isLoginNoticeDismissed(notice, noticeDismissals ?? [], currentSessionId)
+  ) as VisibleLoginNotice[];
 
   // Load every gameweek so players can browse the season in-place.
   const { data: predictionGameweeks } = activeSeason
@@ -149,6 +173,8 @@ export default async function DashboardPage({ searchParams }: Props) {
       </header>
 
       <main className="participant-dashboard__content space-y-6">
+        <LoginNotices notices={visibleLoginNotices} />
+
         {joined === '1' && (
           <section role="status" className="border border-[--color-success] p-4 space-y-1">
             <p className="font-bold text-[--color-success]">

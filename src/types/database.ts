@@ -91,6 +91,71 @@ export type Database = {
         };
         Relationships: [];
       };
+      login_notices: {
+        Row: {
+          id: string;
+          league_id: string | null;
+          title: string;
+          body: string;
+          tone: 'info' | 'success' | 'warning' | 'error';
+          display_mode: 'once' | 'every_login';
+          expires_at: string;
+          created_by: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          league_id?: string | null;
+          title: string;
+          body: string;
+          tone: 'info' | 'success' | 'warning' | 'error';
+          display_mode?: 'once' | 'every_login';
+          expires_at: string;
+          created_by?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          league_id?: string | null;
+          title?: string;
+          body?: string;
+          tone?: 'info' | 'success' | 'warning' | 'error';
+          display_mode?: 'once' | 'every_login';
+          expires_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'login_notices_league_id_fkey';
+            columns: ['league_id'];
+            referencedRelation: 'leagues';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      login_notice_dismissals: {
+        Row: {
+          id: string;
+          notice_id: string;
+          user_id: string;
+          session_id: string | null;
+          dismissed_at: string;
+        };
+        Insert: {
+          id?: string;
+          notice_id: string;
+          user_id: string;
+          session_id?: string | null;
+          dismissed_at?: string;
+        };
+        Update: Record<string, never>;
+        Relationships: [
+          {
+            foreignKeyName: 'login_notice_dismissals_notice_id_fkey';
+            columns: ['notice_id'];
+            referencedRelation: 'login_notices';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       seasons: {
         Row: {
           id: string;

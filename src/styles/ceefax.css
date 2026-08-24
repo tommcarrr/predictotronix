@@ -162,6 +162,56 @@
   padding-top: 2rem;
 }
 
+.participant-login-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 3px solid #fff;
+  padding: 1rem;
+  color: #000;
+}
+
+.participant-login-notice--info {
+  background: var(--color-info);
+}
+
+.participant-login-notice--success {
+  background: var(--color-success);
+}
+
+.participant-login-notice--warning {
+  background: var(--color-warning);
+}
+
+.participant-login-notice--error {
+  background: var(--color-error);
+}
+
+.participant-login-notice__title {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.participant-login-notice__body {
+  margin-top: 0.35rem;
+  white-space: pre-wrap;
+}
+
+.participant-login-notice__dismiss {
+  min-height: 2.25rem;
+  border: 2px solid #000;
+  padding: 0.35rem 0.6rem;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.participant-login-notice__dismiss:hover,
+.participant-login-notice__dismiss:focus-visible {
+  background: #000;
+  color: #fff;
+}
+
 .participant-gameweeks {
   display: flex;
   gap: 1rem;
@@ -704,6 +754,39 @@
   border-radius: 0.5rem;
   background: #fff;
   padding: 1.25rem;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-login-notice {
+  border: 2px solid currentColor;
+  border-radius: 0.5rem;
+  color: #111827;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-login-notice--info {
+  background: #dbeafe;
+  color: #12315f;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-login-notice--success {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-login-notice--warning {
+  background: #fef3c7;
+  color: #713f12;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-login-notice--error {
+  background: #fee2e2;
+  color: #7f1d1d;
+}
+
+.player-accessibility[data-accessibility-mode='enabled'] .participant-login-notice__dismiss {
+  min-height: 3rem;
+  border-color: currentColor;
+  border-radius: 0.375rem;
+  color: inherit;
 }
 
 .player-accessibility[data-accessibility-mode='enabled'] .participant-fixture {
