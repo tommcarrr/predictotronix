@@ -678,6 +678,15 @@ export function CeefaxBreakout({
     </button>
   );
 
+  const renderActionButton = (landscape = false) => (
+    <button
+      className={landscape ? `${styles.action} ${styles.landscapeAction}` : styles.action}
+      type="button"
+      aria-label="Launch, release or fire"
+      onClick={fireAction}
+    />
+  );
+
   const personalBest = leaderboard.find((entry) => entry.participantId === participantId);
   const visibleLeaders = leaderboard.slice(0, 5);
   const overlay =
@@ -774,13 +783,7 @@ export function CeefaxBreakout({
             aria-label="Left-side game controls"
           >
             {renderDirectionButton('left', true)}
-            <button
-              className={`${styles.action} ${styles.landscapeAction}`}
-              type="button"
-              onClick={fireAction}
-            >
-              Fire
-            </button>
+            {renderActionButton(true)}
           </div>
           <div className={styles.viewport}>
             <canvas ref={canvasRef} className={styles.canvas} aria-label="Breakout play field" />
@@ -790,22 +793,14 @@ export function CeefaxBreakout({
             className={`${styles.landscapeControls} ${styles.landscapeRight}`}
             aria-label="Right-side game controls"
           >
-            <button
-              className={`${styles.action} ${styles.landscapeAction}`}
-              type="button"
-              onClick={fireAction}
-            >
-              Fire
-            </button>
             {renderDirectionButton('right', true)}
+            {renderActionButton(true)}
           </div>
         </div>
         <footer className={styles.controls}>
           <div className={styles.directionControls} aria-label="Game controls">
             {renderDirectionButton('left')}
-            <button className={styles.action} type="button" onClick={fireAction}>
-              Action
-            </button>
+            {renderActionButton()}
             {renderDirectionButton('right')}
           </div>
           <span className={styles.controlHint}>Hold to move</span>

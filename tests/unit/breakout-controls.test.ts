@@ -24,7 +24,7 @@ describe('Ceefax Breakout controls', () => {
   it('keeps the action control between the mobile direction controls', () => {
     const portraitControls = component.indexOf('<footer className={styles.controls}>');
     const leftControl = component.indexOf("renderDirectionButton('left')", portraitControls);
-    const actionControl = component.indexOf('className={styles.action}', portraitControls);
+    const actionControl = component.indexOf('renderActionButton()', portraitControls);
     const rightControl = component.indexOf("renderDirectionButton('right')", portraitControls);
 
     expect(leftControl).toBeGreaterThan(-1);
@@ -38,15 +38,29 @@ describe('Ceefax Breakout controls', () => {
     );
   });
 
-  it('places mirrored fire controls beside the canvas in mobile landscape', () => {
-    expect(component.match(/styles\.landscapeAction/g)).toHaveLength(2);
+  it('uses the same direction-then-action order on both landscape sides', () => {
+    const leftControls = component.indexOf('aria-label="Left-side game controls"');
+    const leftDirection = component.indexOf("renderDirectionButton('left', true)", leftControls);
+    const leftAction = component.indexOf('renderActionButton(true)', leftControls);
+    const rightControls = component.indexOf('aria-label="Right-side game controls"');
+    const rightDirection = component.indexOf("renderDirectionButton('right', true)", rightControls);
+    const rightAction = component.indexOf('renderActionButton(true)', rightControls);
+
+    expect(leftDirection).toBeGreaterThan(leftControls);
+    expect(leftAction).toBeGreaterThan(leftDirection);
+    expect(rightDirection).toBeGreaterThan(rightControls);
+    expect(rightAction).toBeGreaterThan(rightDirection);
+    expect(component.match(/renderActionButton\(true\)/g)).toHaveLength(2);
     expect(component).toContain('aria-label="Left-side game controls"');
     expect(component).toContain('aria-label="Right-side game controls"');
-    expect(component).toContain("renderDirectionButton('left', true)");
-    expect(component).toContain("renderDirectionButton('right', true)");
     expect(styles).toMatch(
       /@media \(orientation: landscape\) and \(max-height: 40rem\)[\s\S]*?\.playArea\s*\{[^}]*grid-template-columns:\s*minmax\(3\.75rem, 1fr\) auto minmax\(3\.75rem, 1fr\)/
     );
+  });
+
+  it('uses label-free action buttons with an accessible name', () => {
+    expect(component).toContain('aria-label="Launch, release or fire"');
+    expect(component).not.toMatch(/>\s*(?:Action|Fire)\s*</);
   });
 
   it('fits the canvas and overlay within a short landscape viewport', () => {
