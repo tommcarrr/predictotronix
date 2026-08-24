@@ -8,12 +8,22 @@ import styles from './CeefaxBreakout.module.css';
 const WIDTH = 960;
 const HEIGHT = 640;
 const PADDLE_Y = 584;
-const POWER_TYPES = ['WIDE', 'CATCH', 'LASER', 'SLOW', 'MULTI', 'BREAK', 'LIFE'] as const;
+const POWER_TYPES = ['WIDE', 'CATCH', 'LASER', 'SLOW', 'MULTI', 'LIFE'] as const;
+const POWER_DROP_CHANCE = 0.095;
 type PowerType = (typeof POWER_TYPES)[number];
 type Screen = 'splash' | 'playing' | 'paused' | 'gameover' | 'won';
 
 interface Ball { x: number; y: number; vx: number; vy: number; stuck: boolean; stuckOffset: number }
-interface Brick { x: number; y: number; width: number; height: number; colour: string; alive: boolean }
+interface Brick {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  colour: string;
+  hitsRemaining: number;
+  maxHits: number;
+  alive: boolean;
+}
 interface Drop { x: number; y: number; type: PowerType }
 interface Shot { x: number; y: number }
 interface Game {
@@ -35,8 +45,53 @@ interface Game {
 
 const POWER_COLOURS: Record<PowerType, string> = {
   WIDE: '#0000ff', CATCH: '#00ff00', LASER: '#ff0000', SLOW: '#ff8800',
-  MULTI: '#00ffff', BREAK: '#ff00ff', LIFE: '#ffff00',
+  MULTI: '#00ffff', LIFE: '#ffff00',
 };
+
+const LEVEL_LAYOUTS = [
+  [
+    '############',
+    '############',
+    '############',
+    '############',
+    '############',
+    '############',
+  ],
+  [
+    '....####....',
+    '..########..',
+    '.##########.',
+    '############',
+    '.##########.',
+    '..########..',
+  ],
+  [
+    '##........##',
+    '.##......##.',
+    '..##....##..',
+    '...22..22...',
+    '....2222....',
+    '...##22##...',
+    '..########..',
+  ],
+  [
+    '222222222222',
+    '2..#....#..2',
+    '2..#.22.#..2',
+    '2..######..2',
+    '2..........2',
+    '222..22..222',
+  ],
+  [
+    '...222222...',
+    '..22####22..',
+    '.22######22.',
+    '222.####.222',
+    '.22######22.',
+    '..22.##.22..',
+    '...22..22...',
+  ],
+] as const;
 
 function displayName(value: string) {
   const trimmed = value.trim();
@@ -45,19 +100,22 @@ function displayName(value: string) {
 
 function createBricks(level: number): Brick[] {
   const colours = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'];
+  const layout = LEVEL_LAYOUTS[Math.min(level, LEVEL_LAYOUTS.length) - 1];
   const columns = 12;
-  const rows = 6;
   const gap = 8;
   const side = 42;
   const width = (WIDTH - side * 2 - gap * (columns - 1)) / columns;
-  return Array.from({ length: rows * columns }, (_, index) => {
-    const row = Math.floor(index / columns);
-    const col = index % columns;
-    return {
+  return layout.flatMap((rowPattern, row) => [...rowPattern].flatMap((brickType, col) => {
+    if (brickType === '.') return [];
+    const maxHits = brickType === '2' ? 2 : 1;
+    return [{
       x: side + col * (width + gap), y: 76 + row * 37, width, height: 25,
-      colour: colours[(row + level - 1) % colours.length], alive: true,
-    };
-  });
+      colour: colours[(row + level - 1) % colours.length],
+      hitsRemaining: maxHits,
+      maxHits,
+      alive: true,
+    }];
+  }));
 }
 
 function freshBall(paddleX: number): Ball {
@@ -108,6 +166,29 @@ function drawGame(ctx: CanvasRenderingContext2D, game: Game, now: number) {
     ctx.fillRect(Math.round(brick.x), Math.round(brick.y), Math.round(brick.width), brick.height);
     ctx.fillStyle = '#000';
     ctx.fillRect(Math.round(brick.x) + 5, Math.round(brick.y) + 5, Math.round(brick.width) - 10, 3);
+    if (brick.maxHits > 1) {
+      ctx.strokeStyle = brick.hitsRemaining === 2 ? '#fff' : '#00ffff';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(
+        Math.round(brick.x) + 2,
+        Math.round(brick.y) + 2,
+        Math.round(brick.width) - 4,
+        brick.height - 4,
+      );
+      ctx.fillStyle = brick.hitsRemaining === 2 ? '#fff' : '#00ffff';
+      const pipY = Math.round(brick.y + brick.height - 7);
+      ctx.fillRect(Math.round(brick.x) + 7, pipY, 5, 3);
+      if (brick.hitsRemaining === 2) {
+        ctx.fillRect(Math.round(brick.x + brick.width) - 12, pipY, 5, 3);
+      } else {
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.round(brick.x + brick.width * 0.35), Math.round(brick.y + 2));
+        ctx.lineTo(Math.round(brick.x + brick.width * 0.55), Math.round(brick.y + brick.height - 2));
+        ctx.stroke();
+      }
+    }
   }
   ctx.fillStyle = now < game.laserUntil ? '#ff0000' : '#fff';
   ctx.fillRect(Math.round(game.paddleX - game.paddleWidth / 2), PADDLE_Y, Math.round(game.paddleWidth), 16);
@@ -171,7 +252,7 @@ export function CeefaxBreakout({
   const announcePower = useCallback((type: PowerType) => {
     const labels: Record<PowerType, string> = {
       WIDE: 'WIDE PADDLE', CATCH: 'CATCH', LASER: 'LASER', SLOW: 'SLOW BALL',
-      MULTI: 'MULTIBALL', BREAK: 'LEVEL BREAK', LIFE: 'EXTRA LIFE',
+      MULTI: 'MULTIBALL', LIFE: 'EXTRA LIFE',
     };
     setPowerMessage(labels[type]);
     window.setTimeout(() => setPowerMessage(''), 1700);
@@ -192,7 +273,6 @@ export function CeefaxBreakout({
         );
       }
     }
-    if (type === 'BREAK') game.bricks.forEach((brick) => { brick.alive = false; });
     if (type === 'LIFE') game.lives += 1;
     announcePower(type);
     publishHud();
@@ -274,12 +354,18 @@ export function CeefaxBreakout({
       game.balls = [freshBall(game.paddleX)];
       publishHud();
     };
-    const destroyBrick = (brick: Brick, x: number, y: number) => {
+    const hitBrick = (brick: Brick, x: number, y: number) => {
       if (!brick.alive) return;
-      brick.alive = false;
+      brick.hitsRemaining -= 1;
       const game = gameRef.current;
-      game.score += 50 * game.level;
-      if (Math.random() < 0.19) {
+      game.score += 25 * game.level;
+      if (brick.hitsRemaining > 0) {
+        publishHud();
+        return;
+      }
+      brick.alive = false;
+      game.score += 25 * game.level;
+      if (Math.random() < POWER_DROP_CHANCE) {
         game.drops.push({ x, y, type: POWER_TYPES[Math.floor(Math.random() * POWER_TYPES.length)] });
       }
       publishHud();
@@ -308,7 +394,7 @@ export function CeefaxBreakout({
         }
         for (const brick of game.bricks) {
           if (!brick.alive || !hitsBrick(ball.x, ball.y, 11, brick)) continue;
-          destroyBrick(brick, ball.x, ball.y);
+          hitBrick(brick, ball.x, ball.y);
           const fromSide = ball.x < brick.x + 5 || ball.x > brick.x + brick.width - 5;
           if (fromSide) ball.vx *= -1; else ball.vy *= -1;
           break;
@@ -328,7 +414,7 @@ export function CeefaxBreakout({
       for (const shot of game.shots) {
         shot.y -= 520 * dt;
         const brick = game.bricks.find((candidate) => candidate.alive && shot.x >= candidate.x && shot.x <= candidate.x + candidate.width && shot.y <= candidate.y + candidate.height && shot.y >= candidate.y);
-        if (brick) { destroyBrick(brick, shot.x, shot.y); shot.y = -100; }
+        if (brick) { hitBrick(brick, shot.x, shot.y); shot.y = -100; }
       }
       game.shots = game.shots.filter((shot) => shot.y > 0);
     };

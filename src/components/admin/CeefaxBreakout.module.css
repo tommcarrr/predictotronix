@@ -60,6 +60,9 @@
   font-weight: 700;
   text-transform: uppercase;
   touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .close {
@@ -212,8 +215,6 @@
   min-width: 5.5rem;
   background: #0000ff;
   color: #fff;
-  user-select: none;
-  -webkit-user-select: none;
   touch-action: none;
 }
 
