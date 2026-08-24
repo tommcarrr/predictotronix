@@ -23,7 +23,9 @@
   width: min(72rem, 100%);
   border: 4px solid #00ffff;
   background: #000;
-  box-shadow: 0 0 0 4px #000, 0 0 0 7px #0000ff;
+  box-shadow:
+    0 0 0 4px #000,
+    0 0 0 7px #0000ff;
 }
 
 .masthead,
@@ -194,6 +196,18 @@
   color: #ff00ff;
 }
 
+.playArea {
+  display: contents;
+}
+
+.landscapeControls {
+  display: none;
+}
+
+.landscapeAction {
+  touch-action: manipulation;
+}
+
 .controls {
   padding: 0.6rem 0.75rem;
   border-top: 2px solid #00ffff;
@@ -274,5 +288,143 @@
   .action {
     min-height: 3.25rem;
     padding-inline: 0.55rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 40rem) {
+  .backdrop {
+    padding: 0;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-rows: 2.5rem auto minmax(0, 1fr);
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    border-width: 0;
+    box-shadow: none;
+  }
+
+  .masthead {
+    min-height: 0;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .title {
+    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+  }
+
+  .close {
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+
+  .hud {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1.5fr) max-content max-content max-content minmax(
+        0,
+        1fr
+      );
+    gap: clamp(0.3rem, 1.2vw, 0.7rem);
+    min-height: 2rem;
+    padding: 0.25rem 0.5rem;
+    font-size: clamp(0.55rem, 1.5vw, 0.75rem);
+  }
+
+  .hud > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .power {
+    min-height: 1.2rem;
+    text-align: right;
+  }
+
+  .playArea {
+    display: grid;
+    grid-template-columns: minmax(3.75rem, 1fr) auto minmax(3.75rem, 1fr);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .viewport {
+    align-self: center;
+    width: auto;
+    max-width: 100%;
+    height: min(100%, calc((100vw - 7.5rem) * 2 / 3));
+    max-height: 100%;
+  }
+
+  .landscapeControls {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+    min-width: 0;
+    padding: 0.5rem;
+  }
+
+  .landscapeControls .direction,
+  .landscapeControls .action {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 0.35rem;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+  }
+
+  .landscapeLeft {
+    border-right: 2px solid #00ffff;
+  }
+
+  .landscapeRight {
+    border-left: 2px solid #00ffff;
+  }
+
+  .screen {
+    overflow: auto;
+    padding: 0.35rem;
+  }
+
+  .screenPanel {
+    width: min(30rem, 96%);
+    padding: 0.5rem;
+    border-block-width: 2px;
+  }
+
+  .screenKicker,
+  .help {
+    display: none;
+  }
+
+  .screenTitle {
+    margin-top: 0;
+    font-size: clamp(1.25rem, 6vh, 2rem);
+  }
+
+  .leagueName,
+  .personalBest,
+  .scoreStatus {
+    margin-top: 0.2rem;
+    font-size: clamp(0.6rem, 2vh, 0.75rem);
+  }
+
+  .leaderboard {
+    gap: 0.1rem 0.5rem;
+    margin-block: 0.3rem;
+    font-size: clamp(0.6rem, 2vh, 0.75rem);
+  }
+
+  .start {
+    min-height: 2rem;
+    padding-block: 0.25rem;
+  }
+
+  .controls {
+    display: none;
   }
 }

@@ -22,9 +22,10 @@ describe('Ceefax Breakout controls', () => {
   });
 
   it('keeps the action control between the mobile direction controls', () => {
-    const leftControl = component.indexOf("renderDirectionButton('left')");
-    const actionControl = component.indexOf('className={styles.action}');
-    const rightControl = component.indexOf("renderDirectionButton('right')");
+    const portraitControls = component.indexOf('<footer className={styles.controls}>');
+    const leftControl = component.indexOf("renderDirectionButton('left')", portraitControls);
+    const actionControl = component.indexOf('className={styles.action}', portraitControls);
+    const rightControl = component.indexOf("renderDirectionButton('right')", portraitControls);
 
     expect(leftControl).toBeGreaterThan(-1);
     expect(actionControl).toBeGreaterThan(leftControl);
@@ -34,6 +35,29 @@ describe('Ceefax Breakout controls', () => {
   it('reserves a fixed mobile HUD row for transient power-up messages', () => {
     expect(styles).toMatch(
       /@media \(max-width: 40rem\)[\s\S]*?\.power\s*\{[^}]*flex:\s*0 0 100%[^}]*white-space:\s*nowrap/
+    );
+  });
+
+  it('places mirrored fire controls beside the canvas in mobile landscape', () => {
+    expect(component.match(/styles\.landscapeAction/g)).toHaveLength(2);
+    expect(component).toContain('aria-label="Left-side game controls"');
+    expect(component).toContain('aria-label="Right-side game controls"');
+    expect(component).toContain("renderDirectionButton('left', true)");
+    expect(component).toContain("renderDirectionButton('right', true)");
+    expect(styles).toMatch(
+      /@media \(orientation: landscape\) and \(max-height: 40rem\)[\s\S]*?\.playArea\s*\{[^}]*grid-template-columns:\s*minmax\(3\.75rem, 1fr\) auto minmax\(3\.75rem, 1fr\)/
+    );
+  });
+
+  it('fits the canvas and overlay within a short landscape viewport', () => {
+    expect(styles).toMatch(
+      /@media \(orientation: landscape\) and \(max-height: 40rem\)[\s\S]*?\.viewport\s*\{[^}]*height:\s*min\(100%, calc\(\(100vw - 7\.5rem\) \* 2 \/ 3\)\)/
+    );
+    expect(styles).toMatch(
+      /@media \(orientation: landscape\) and \(max-height: 40rem\)[\s\S]*?\.controls\s*\{[^}]*display:\s*none/
+    );
+    expect(styles).toMatch(
+      /@media \(orientation: landscape\) and \(max-height: 40rem\)[\s\S]*?\.screen\s*\{[^}]*overflow:\s*auto/
     );
   });
 

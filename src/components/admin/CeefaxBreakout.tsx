@@ -659,7 +659,7 @@ export function CeefaxBreakout({
     gameRef.current.keys[direction] = pressed;
   };
 
-  const renderDirectionButton = (direction: 'left' | 'right') => (
+  const renderDirectionButton = (direction: 'left' | 'right', compact = false) => (
     <button
       className={styles.direction}
       type="button"
@@ -674,7 +674,7 @@ export function CeefaxBreakout({
       onPointerCancel={() => setPaddleDirection(direction, false)}
       onLostPointerCapture={() => setPaddleDirection(direction, false)}
     >
-      {direction === 'left' ? '← LEFT' : 'RIGHT →'}
+      {compact ? (direction === 'left' ? '←' : '→') : direction === 'left' ? '← LEFT' : 'RIGHT →'}
     </button>
   );
 
@@ -768,9 +768,37 @@ export function CeefaxBreakout({
           </span>
           <span className={styles.power}>{powerMessage}</span>
         </div>
-        <div className={styles.viewport}>
-          <canvas ref={canvasRef} className={styles.canvas} aria-label="Breakout play field" />
-          {overlay}
+        <div className={styles.playArea}>
+          <div
+            className={`${styles.landscapeControls} ${styles.landscapeLeft}`}
+            aria-label="Left-side game controls"
+          >
+            {renderDirectionButton('left', true)}
+            <button
+              className={`${styles.action} ${styles.landscapeAction}`}
+              type="button"
+              onClick={fireAction}
+            >
+              Fire
+            </button>
+          </div>
+          <div className={styles.viewport}>
+            <canvas ref={canvasRef} className={styles.canvas} aria-label="Breakout play field" />
+            {overlay}
+          </div>
+          <div
+            className={`${styles.landscapeControls} ${styles.landscapeRight}`}
+            aria-label="Right-side game controls"
+          >
+            <button
+              className={`${styles.action} ${styles.landscapeAction}`}
+              type="button"
+              onClick={fireAction}
+            >
+              Fire
+            </button>
+            {renderDirectionButton('right', true)}
+          </div>
         </div>
         <footer className={styles.controls}>
           <div className={styles.directionControls} aria-label="Game controls">
