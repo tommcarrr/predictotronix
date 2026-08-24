@@ -58,13 +58,13 @@ begin
     raise exception 'Invalid Breakout run summary' using errcode = '22023';
   end if;
 
-  select * into v_run
-  from public.league_breakout_runs
-  where id = p_run_id
-    and league_id = p_league_id
-    and participant_id = v_participant_id
-    and submitted_at is null
-    and expires_at > now()
+  select breakout_run.* into v_run
+  from public.league_breakout_runs breakout_run
+  where breakout_run.id = p_run_id
+    and breakout_run.league_id = p_league_id
+    and breakout_run.participant_id = v_participant_id
+    and breakout_run.submitted_at is null
+    and breakout_run.expires_at > now()
   for update;
 
   if not found then
