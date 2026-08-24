@@ -95,4 +95,19 @@ describe('Breakout rules', () => {
     expect(isValidBreakoutRunSummary(summary)).toBe(true);
     expect(calculateBreakoutScore(summary)).toBe(MAX_BREAKOUT_SCORE);
   });
+
+  it('accepts a legitimate long game while retaining a generous impossible-speed guard', () => {
+    const longCompletedRun = {
+      hitsByLevel: [...BREAKOUT_LEVEL_HIT_CAPS],
+      comboAwards: 0,
+      livesLost: 2,
+      maxCombo: 8,
+      durationMs: 3 * 60 * 60 * 1_000,
+      finished: true,
+    };
+
+    expect(isValidBreakoutRunSummary(longCompletedRun)).toBe(true);
+    expect(isValidBreakoutRunSummary({ ...longCompletedRun, durationMs: 22_000_000 })).toBe(false);
+    expect(isValidBreakoutRunSummary({ ...longCompletedRun, durationMs: 1_000 })).toBe(false);
+  });
 });

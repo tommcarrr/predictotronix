@@ -4,8 +4,8 @@ export const COMBO_SIZE = 5;
 export const COMBO_BONUS = 250;
 export const LIFE_LOSS_PENALTY = 1_000;
 export const PERFECT_GAME_BONUS = 3_000;
-export const MAX_BREAKOUT_RUN_MS = 45 * 60 * 1_000;
-export const MINIMUM_MS_PER_BRICK_HIT = 120;
+export const MAX_BREAKOUT_RUN_MS = 6 * 60 * 60 * 1_000;
+export const MINIMUM_MS_PER_BRICK_HIT = 25;
 
 export interface BreakoutLevelDefinition {
   layout: readonly string[];

@@ -10,6 +10,10 @@ const verifiedMigration = readFileSync(
   path.resolve(process.cwd(), 'supabase/migrations/017_verified_breakout_runs.sql'),
   'utf8'
 );
+const relaxedLimitsMigration = readFileSync(
+  path.resolve(process.cwd(), 'supabase/migrations/018_relax_breakout_run_limits.sql'),
+  'utf8'
+);
 
 describe('league Breakout score migration', () => {
   it('stores one constrained personal best per participant and league', () => {
@@ -37,5 +41,13 @@ describe('league Breakout score migration', () => {
     expect(verifiedMigration).toContain('p_duration_ms < v_total_hits * 120');
     expect(verifiedMigration).toContain('drop function public.submit_breakout_score');
     expect(verifiedMigration).toContain('revoke insert, update, delete');
+  });
+
+  it('allows long legitimate games while preserving one-use and impossible-speed checks', () => {
+    expect(relaxedLimitsMigration).toContain("interval '6 hours'");
+    expect(relaxedLimitsMigration).toContain('p_duration_ms > 21600000');
+    expect(relaxedLimitsMigration).toContain('p_duration_ms < v_total_hits * 25');
+    expect(relaxedLimitsMigration).toContain('and submitted_at is null');
+    expect(relaxedLimitsMigration).toContain('and expires_at > now()');
   });
 });

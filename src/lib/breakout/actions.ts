@@ -48,6 +48,11 @@ export async function getBreakoutLeaderboard(leagueId: string): Promise<Breakout
   });
 
   if (error) {
+    console.error('Breakout run submission rejected', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+    });
     return {
       success: false,
       leaderboard: [],
