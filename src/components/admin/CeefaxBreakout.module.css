@@ -228,7 +228,8 @@
 }
 
 .action {
-  flex: 0 0 auto;
+  flex: 1 1 7rem;
+  min-width: 5.5rem;
   background: #ff0000;
   color: #fff;
 }
@@ -246,6 +247,14 @@
 
   .viewport {
     max-height: none;
+  }
+
+  .power {
+    flex: 0 0 100%;
+    overflow: hidden;
+    line-height: 1.2rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .controlHint {

@@ -659,6 +659,25 @@ export function CeefaxBreakout({
     gameRef.current.keys[direction] = pressed;
   };
 
+  const renderDirectionButton = (direction: 'left' | 'right') => (
+    <button
+      className={styles.direction}
+      type="button"
+      aria-label={`Move paddle ${direction}`}
+      disabled={screen !== 'playing'}
+      onPointerDown={(event) => {
+        event.preventDefault();
+        event.currentTarget.setPointerCapture(event.pointerId);
+        setPaddleDirection(direction, true);
+      }}
+      onPointerUp={() => setPaddleDirection(direction, false)}
+      onPointerCancel={() => setPaddleDirection(direction, false)}
+      onLostPointerCapture={() => setPaddleDirection(direction, false)}
+    >
+      {direction === 'left' ? '← LEFT' : 'RIGHT →'}
+    </button>
+  );
+
   const personalBest = leaderboard.find((entry) => entry.participantId === participantId);
   const visibleLeaders = leaderboard.slice(0, 5);
   const overlay =
@@ -754,31 +773,14 @@ export function CeefaxBreakout({
           {overlay}
         </div>
         <footer className={styles.controls}>
-          <div className={styles.directionControls} aria-label="Paddle controls">
-            {(['left', 'right'] as const).map((direction) => (
-              <button
-                className={styles.direction}
-                type="button"
-                key={direction}
-                aria-label={`Move paddle ${direction}`}
-                disabled={screen !== 'playing'}
-                onPointerDown={(event) => {
-                  event.preventDefault();
-                  event.currentTarget.setPointerCapture(event.pointerId);
-                  setPaddleDirection(direction, true);
-                }}
-                onPointerUp={() => setPaddleDirection(direction, false)}
-                onPointerCancel={() => setPaddleDirection(direction, false)}
-                onLostPointerCapture={() => setPaddleDirection(direction, false)}
-              >
-                {direction === 'left' ? '← LEFT' : 'RIGHT →'}
-              </button>
-            ))}
+          <div className={styles.directionControls} aria-label="Game controls">
+            {renderDirectionButton('left')}
+            <button className={styles.action} type="button" onClick={fireAction}>
+              Action
+            </button>
+            {renderDirectionButton('right')}
           </div>
           <span className={styles.controlHint}>Hold to move</span>
-          <button className={styles.action} type="button" onClick={fireAction}>
-            Action
-          </button>
         </footer>
       </section>
     </div>

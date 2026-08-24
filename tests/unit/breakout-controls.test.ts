@@ -21,6 +21,22 @@ describe('Ceefax Breakout controls', () => {
     expect(component).toContain('setPaddleDirection(direction, false)');
   });
 
+  it('keeps the action control between the mobile direction controls', () => {
+    const leftControl = component.indexOf("renderDirectionButton('left')");
+    const actionControl = component.indexOf('className={styles.action}');
+    const rightControl = component.indexOf("renderDirectionButton('right')");
+
+    expect(leftControl).toBeGreaterThan(-1);
+    expect(actionControl).toBeGreaterThan(leftControl);
+    expect(rightControl).toBeGreaterThan(actionControl);
+  });
+
+  it('reserves a fixed mobile HUD row for transient power-up messages', () => {
+    expect(styles).toMatch(
+      /@media \(max-width: 40rem\)[\s\S]*?\.power\s*\{[^}]*flex:\s*0 0 100%[^}]*white-space:\s*nowrap/
+    );
+  });
+
   it('does not teleport the paddle from canvas pointer coordinates', () => {
     expect(component).not.toContain('onPointerMove');
     expect(component).not.toContain('clientX');
