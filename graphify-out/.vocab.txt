@@ -60,6 +60,7 @@ blocked
 blueprint
 bonus
 bootstrap
+bounds
 box
 branded
 breaking
@@ -75,6 +76,7 @@ calculate
 calling
 can
 candidate
+canvas
 caps
 carousel
 ceefax
@@ -128,6 +130,7 @@ cookie
 cookies
 copy
 correct
+correctly
 could
 count
 create
@@ -143,6 +146,7 @@ date
 day
 days
 deadlines
+default
 defence
 definition
 delete
@@ -163,6 +167,9 @@ dialog
 different
 differentiators
 direction
+dismiss
+dismissal
+dismissed
 display
 doesn
 doing
@@ -206,6 +213,7 @@ execute
 execution
 existing
 exp
+expire
 explain
 export
 exports
@@ -230,6 +238,7 @@ files
 find
 finish
 finished
+fire
 first
 fix
 fixture
@@ -292,6 +301,7 @@ implementing
 import
 importing
 impression
+improve
 improving
 include
 including
@@ -303,6 +313,7 @@ input
 insert
 instructions
 interop
+intuitive
 invalid
 invitation
 invitations
@@ -325,6 +336,7 @@ key
 kickoff
 know
 knowledge
+landscape
 last
 latest
 layout
@@ -333,6 +345,7 @@ leaderboard
 leaderboards
 league
 leagues
+left
 legitimate
 let
 level
@@ -385,10 +398,12 @@ mini
 minimum
 minutes
 mjs
+mobile
 mock
 modals
 mode
 model
+modes
 module
 modules
 mono
@@ -408,6 +423,7 @@ normalize
 not
 note
 notice
+notices
 notification
 notifications
 notify
@@ -469,6 +485,7 @@ plugins
 points
 policy
 position
+possibly
 post
 postcss
 postgres
@@ -528,6 +545,7 @@ reminder
 reminders
 remove
 render
+renders
 replace
 repository
 req
@@ -547,6 +565,7 @@ results
 returning
 revalidate
 review
+right
 role
 root
 round
@@ -571,6 +590,7 @@ saved
 scenario
 scheduled
 schema
+scope
 score
 scoreboard
 scores
@@ -681,6 +701,7 @@ title
 toggle
 toggled
 tone
+tones
 too
 tools
 top
@@ -720,6 +741,7 @@ verify
 version
 view
 viewing
+visible
 vitejs
 vitest
 want

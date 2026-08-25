@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { selectSystemReassurance } from '@/lib/brand/system-copy';
 
 const RESEND_FROM = process.env.RESEND_FROM ?? 'Predictotronix <no-reply@predictotronix.app>';
 
@@ -44,20 +45,25 @@ interface BrandedEmailParams {
     label: string;
   };
   footer: string;
+  reassurance: string;
 }
 
 function escapeHtml(value: string): string {
-  return value.replace(/[&<>'"]/g, (character) => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;',
-  })[character]!);
+  return value.replace(
+    /[&<>'"]/g,
+    (character) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;',
+      })[character]!
+  );
 }
 
 function renderBrandedEmail(params: BrandedEmailParams): string {
-  const { preheader, label, heading, bodyHtml, action, footer } = params;
+  const { preheader, label, heading, bodyHtml, action, footer, reassurance } = params;
   const actionHtml = action
     ? `
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 0;">
@@ -101,6 +107,7 @@ function renderBrandedEmail(params: BrandedEmailParams): string {
             <tr>
               <td style="padding:18px 28px; border-top:1px solid #333333;">
                 <p style="margin:0; color:#777777; font-size:12px; line-height:1.5;">${escapeHtml(footer)}</p>
+                <p style="margin:12px 0 0; color:#00e5ff; font-size:11px; line-height:1.5; letter-spacing:0.7px;">${escapeHtml(reassurance)}</p>
               </td>
             </tr>
           </table>
@@ -112,7 +119,8 @@ function renderBrandedEmail(params: BrandedEmailParams): string {
 }
 
 export async function sendReminderEmail(params: ReminderEmailParams): Promise<EmailResult> {
-  const { to, displayName, gameweekLabel, firstKickoff, predictionsUrl, isDryRun, idempotencyKey } = params;
+  const { to, displayName, gameweekLabel, firstKickoff, predictionsUrl, isDryRun, idempotencyKey } =
+    params;
 
   if (isDryRun) {
     console.log('[DRY RUN] Would send reminder email to:', to, { gameweekLabel });
@@ -127,18 +135,22 @@ export async function sendReminderEmail(params: ReminderEmailParams): Promise<Em
   const safeDisplayName = escapeHtml(displayName);
   const safeGameweekLabel = escapeHtml(gameweekLabel);
   const safeKickoff = escapeHtml(kickoffStr);
+  const reassurance = selectSystemReassurance(
+    `${to}:${gameweekLabel}:${firstKickoff.toISOString()}`
+  );
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { data, error } = await resend.emails.send({
-      from: RESEND_FROM,
-      to,
-      subject: `[PREDICTOTRONIX] ${gameweekLabel} prediction reminder`,
-      html: renderBrandedEmail({
-        preheader: `${gameweekLabel} starts ${kickoffStr}. Submit your predictions before kickoff.`,
-        label: 'PREDICTION DEADLINE',
-        heading: `${gameweekLabel} is approaching`,
-        bodyHtml: `
+    const { data, error } = await resend.emails.send(
+      {
+        from: RESEND_FROM,
+        to,
+        subject: `[PREDICTOTRONIX] ${gameweekLabel} prediction reminder`,
+        html: renderBrandedEmail({
+          preheader: `${gameweekLabel} starts ${kickoffStr}. Submit your predictions before kickoff.`,
+          label: 'PREDICTION DEADLINE',
+          heading: `${gameweekLabel} is approaching`,
+          bodyHtml: `
           <p style="margin:0 0 16px;">Hi ${safeDisplayName},</p>
           <p style="margin:0 0 16px;">Your predictions for <strong style="color:#ffffff;">${safeGameweekLabel}</strong> are due before the first fixture kicks off.</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0 0; border-left:4px solid #00e5ff; background:#111111;">
@@ -149,11 +161,15 @@ export async function sendReminderEmail(params: ReminderEmailParams): Promise<Em
               </td>
             </tr>
           </table>`,
-        action: { href: predictionsUrl, label: 'SUBMIT PREDICTIONS' },
-        footer: 'You are receiving this because prediction reminders are enabled for your account.',
-      }),
-      text: `Hi ${displayName},\n\n${gameweekLabel} starts ${kickoffStr}. Submit your predictions before kickoff:\n${predictionsUrl}\n\n— Predictotronix`,
-    }, idempotencyKey ? { idempotencyKey } : undefined);
+          action: { href: predictionsUrl, label: 'SUBMIT PREDICTIONS' },
+          footer:
+            'You are receiving this because prediction reminders are enabled for your account.',
+          reassurance,
+        }),
+        text: `Hi ${displayName},\n\n${gameweekLabel} starts ${kickoffStr}. Submit your predictions before kickoff:\n${predictionsUrl}\n\n${reassurance}\n\n— Predictotronix`,
+      },
+      idempotencyKey ? { idempotencyKey } : undefined
+    );
 
     if (error) {
       return { success: false, error: error.message };
@@ -176,26 +192,31 @@ export async function sendJoinRequestEmail(params: JoinRequestEmailParams): Prom
     reviewUrl,
     idempotencyKey,
   } = params;
+  const reassurance = selectSystemReassurance(`${to}:${applicantEmail}:${leagueName}`);
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { data, error } = await resend.emails.send({
-      from: RESEND_FROM,
-      to,
-      subject: `[PREDICTOTRONIX] New join request for ${leagueName}`,
-      html: renderBrandedEmail({
-        preheader: `${applicantDisplayName} has asked to join ${leagueName}.`,
-        label: 'JOIN REQUEST',
-        heading: 'A player is waiting for review',
-        bodyHtml: `
+    const { data, error } = await resend.emails.send(
+      {
+        from: RESEND_FROM,
+        to,
+        subject: `[PREDICTOTRONIX] New join request for ${leagueName}`,
+        html: renderBrandedEmail({
+          preheader: `${applicantDisplayName} has asked to join ${leagueName}.`,
+          label: 'JOIN REQUEST',
+          heading: 'A player is waiting for review',
+          bodyHtml: `
           <p style="margin:0 0 16px;">Hi ${escapeHtml(adminDisplayName)},</p>
           <p style="margin:0 0 16px;"><strong style="color:#ffffff;">${escapeHtml(applicantDisplayName)}</strong> has asked to join <strong style="color:#ffffff;">${escapeHtml(leagueName)}</strong>.</p>
           <p style="margin:0; color:#00e5ff;">${escapeHtml(applicantEmail)}</p>`,
-        action: { href: reviewUrl, label: 'REVIEW REQUEST' },
-        footer: 'You are receiving this because you are an administrator for this league.',
-      }),
-      text: `Hi ${adminDisplayName},\n\n${applicantDisplayName} (${applicantEmail}) has asked to join ${leagueName}.\n\nReview the request:\n${reviewUrl}\n\n— Predictotronix`,
-    }, { idempotencyKey });
+          action: { href: reviewUrl, label: 'REVIEW REQUEST' },
+          footer: 'You are receiving this because you are an administrator for this league.',
+          reassurance,
+        }),
+        text: `Hi ${adminDisplayName},\n\n${applicantDisplayName} (${applicantEmail}) has asked to join ${leagueName}.\n\nReview the request:\n${reviewUrl}\n\n${reassurance}\n\n— Predictotronix`,
+      },
+      { idempotencyKey }
+    );
 
     if (error) return { success: false, error: error.message };
     return { success: true, messageId: data?.id };
@@ -207,6 +228,7 @@ export async function sendJoinRequestEmail(params: JoinRequestEmailParams): Prom
 /** Send a live, clearly labelled message from the staging test-tools screen. */
 export async function sendTestEmail(params: TestEmailParams): Promise<EmailResult> {
   const { to, displayName } = params;
+  const reassurance = selectSystemReassurance(`${to}:${displayName}:test`);
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
@@ -223,8 +245,9 @@ export async function sendTestEmail(params: TestEmailParams): Promise<EmailResul
           <p style="margin:0;">This is a live test notification from Predictotronix.</p>
           <p style="margin:16px 0 0; color:#39ff14; font-weight:bold;">EMAIL STATUS: OPERATIONAL</p>`,
         footer: 'Sent from the Predictotronix staging test tools.',
+        reassurance,
       }),
-      text: `Hi ${displayName},\n\nThis is a live test notification from Predictotronix.\n\nEMAIL STATUS: OPERATIONAL`,
+      text: `Hi ${displayName},\n\nThis is a live test notification from Predictotronix.\n\nEMAIL STATUS: OPERATIONAL\n\n${reassurance}`,
     });
 
     if (error) {

@@ -4,7 +4,7 @@ import './globals.css';
 
 const siteName = 'Predictotronix';
 const description =
-  'Predict Premier League scores, compete with friends, and follow live league standings.';
+  'Predict Premier League scores. Your participation helps Predictotronix improve its understanding of human judgement.';
 
 function getMetadataBase() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
