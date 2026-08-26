@@ -14,8 +14,11 @@ import { CRON_JOBS } from '@/lib/cron/jobs';
 import {
   FixtureOutcomeView,
   type FixtureOutcomeGameweek,
-  type FixtureOutcomePrediction,
 } from '@/components/admin/FixtureOutcomeView';
+import {
+  getActiveFixtureOutcomePrediction,
+  type FixtureOutcomePrediction,
+} from '@/lib/admin/fixture-outcomes';
 
 export const metadata = { title: 'Fixtures & Results | Admin' };
 export const dynamic = 'force-dynamic';
@@ -141,15 +144,12 @@ export default async function FixturesAdminPage({
   >();
 
   for (const prediction of predictionResult.data ?? []) {
+    const outcomePrediction = getActiveFixtureOutcomePrediction(prediction, participantNames);
+    if (!outcomePrediction) continue;
+
     const outcomes = predictionsByFixture.get(prediction.fixture_id) ?? {
       exactScores: [],
       correctResults: [],
-    };
-    const outcomePrediction: FixtureOutcomePrediction = {
-      participantId: prediction.participant_id,
-      displayName: participantNames.get(prediction.participant_id) ?? 'Unknown participant',
-      homeScore: prediction.home_score,
-      awayScore: prediction.away_score,
     };
     if (prediction.points_reason === 'exact') outcomes.exactScores.push(outcomePrediction);
     if (prediction.points_reason === 'correct_result')

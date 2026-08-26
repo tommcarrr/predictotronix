@@ -1,11 +1,5 @@
 import { AdminBadge } from '@/components/admin/AdminBadge';
-
-export interface FixtureOutcomePrediction {
-  participantId: string;
-  displayName: string;
-  homeScore: number;
-  awayScore: number;
-}
+import type { FixtureOutcomePrediction } from '@/lib/admin/fixture-outcomes';
 
 export interface FixtureOutcomeGameweek {
   id: string;

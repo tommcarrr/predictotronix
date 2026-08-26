@@ -4,6 +4,7 @@ import {
   FixtureOutcomeView,
   type FixtureOutcomeGameweek,
 } from '@/components/admin/FixtureOutcomeView';
+import { getActiveFixtureOutcomePrediction } from '@/lib/admin/fixture-outcomes';
 
 const gameweeks: FixtureOutcomeGameweek[] = [
   {
@@ -29,6 +30,23 @@ const gameweeks: FixtureOutcomeGameweek[] = [
 ];
 
 describe('FixtureOutcomeView', () => {
+  it('excludes predictions from people who are not active members of the season', () => {
+    const activeParticipantNames = new Map([['alice', 'Alice']]);
+
+    expect(
+      getActiveFixtureOutcomePrediction(
+        { participant_id: 'alice', home_score: 2, away_score: 1 },
+        activeParticipantNames
+      )
+    ).toEqual({ participantId: 'alice', displayName: 'Alice', homeScore: 2, awayScore: 1 });
+    expect(
+      getActiveFixtureOutcomePrediction(
+        { participant_id: 'removed-player', home_score: 2, away_score: 1 },
+        activeParticipantNames
+      )
+    ).toBeNull();
+  });
+
   it('shows counts, names, and predicted scores for each fixture outcome', () => {
     render(<FixtureOutcomeView gameweeks={gameweeks} />);
 
