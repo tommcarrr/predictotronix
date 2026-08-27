@@ -190,8 +190,8 @@
     "semantic_hash": ""
   },
   "src/app/layout.tsx": {
-    "mtime": 1787826123.9087522,
-    "ast_hash": "c639c3481c991baccbcfd070cf6d9fcc",
+    "mtime": 1787855708.5144744,
+    "ast_hash": "a9fab815a33c755efec8062eaf18a3ae",
     "semantic_hash": ""
   },
   "src/app/page.tsx": {
@@ -1227,6 +1227,26 @@
   "graphify-out/memory/query_20260827_105501_on_the_dashboard_screen__reduce_the_theme_button_e.md": {
     "mtime": 1787828101.8977542,
     "ast_hash": "444753b232358d6fa4dd3d2c90a2fff6",
+    "semantic_hash": ""
+  },
+  "src/app/(legal)/cookies/page.tsx": {
+    "mtime": 1787855708.5061784,
+    "ast_hash": "bfb79465f7bdb15a8383a709480189e9",
+    "semantic_hash": ""
+  },
+  "src/app/(legal)/layout.tsx": {
+    "mtime": 1787855708.5061784,
+    "ast_hash": "bd85a82d5a5db62478b4b2bbebd2ee85",
+    "semantic_hash": ""
+  },
+  "src/app/(legal)/privacy/page.tsx": {
+    "mtime": 1787855708.5061784,
+    "ast_hash": "7a783275cce27ab76f3926f5df130db0",
+    "semantic_hash": ""
+  },
+  "src/components/legal/SiteFooter.tsx": {
+    "mtime": 1787855708.5186405,
+    "ast_hash": "50980deed49281a136db30efd789f480",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260827_183309_the_easter_egg_prompt_belongs_on_the_player_dashbo.md": {
