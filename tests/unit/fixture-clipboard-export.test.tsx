@@ -159,6 +159,21 @@ describe('FixtureClipboardExport', () => {
     );
   });
 
+  it('falls back to the synchronous copy command when Safari rejects writeText', async () => {
+    writeText.mockRejectedValue(new Error('Clipboard permission denied'));
+    const execCommand = vi.fn().mockReturnValue(true);
+    Object.defineProperty(document, 'execCommand', {
+      configurable: true,
+      value: execCommand,
+    });
+    render(<FixtureClipboardExport gameweeks={gameweeks} now="2026-08-11T12:00:00.000Z" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Copy fixtures to clipboard' }));
+
+    expect(await screen.findByRole('button', { name: 'Fixtures copied' })).toBeVisible();
+    expect(execCommand).toHaveBeenCalledWith('copy');
+  });
+
   it('shows only fixtures from the selected gameweek in the results table', () => {
     render(<FixtureClipboardExport gameweeks={gameweeks} now="2026-08-11T12:00:00.000Z" />);
 

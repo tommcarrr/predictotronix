@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ExportPanel, type LeaderboardRow } from '@/components/admin/ExportPanel';
 
 function row(
@@ -71,5 +71,30 @@ describe('ExportPanel standings display', () => {
     ]);
     expect(screen.queryByRole('columnheader', { name: 'Movement' })).not.toBeInTheDocument();
     expect(screen.getByRole('row', { name: /1 Alice 1 3 6/ })).toBeVisible();
+  });
+
+  it('falls back to the synchronous copy command when Safari rejects writeText', async () => {
+    const writeText = vi.fn().mockRejectedValue(new Error('Clipboard permission denied'));
+    const execCommand = vi.fn().mockReturnValue(true);
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, text: async () => 'Exported table' });
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText },
+    });
+    Object.defineProperty(document, 'execCommand', {
+      configurable: true,
+      value: execCommand,
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    render(<ExportPanel seasonId="season-1" seasonRows={seasonRows} gameweeks={gameweeks} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Export this view' }));
+    fireEvent.change(screen.getByLabelText('Export format'), { target: { value: 'text' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
+
+    expect(await screen.findByRole('button', { name: 'Copied' })).toBeVisible();
+    expect(writeText).toHaveBeenCalledWith('Exported table');
+    expect(execCommand).toHaveBeenCalledWith('copy');
+    vi.unstubAllGlobals();
   });
 });
