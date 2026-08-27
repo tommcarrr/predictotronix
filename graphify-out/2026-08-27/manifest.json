@@ -725,13 +725,13 @@
     "semantic_hash": ""
   },
   "src/components/participant/PlayerAccessibilityMode.tsx": {
-    "mtime": 1787840289.2414691,
-    "ast_hash": "7f9ad6d6d68e2f938106b3fef1ad74ab",
+    "mtime": 1787858782.7730677,
+    "ast_hash": "1dd66650e60ad72c0b6f8937e140ca16",
     "semantic_hash": ""
   },
   "tests/unit/player-accessibility-mode.test.tsx": {
-    "mtime": 1787840305.9115417,
-    "ast_hash": "b0dfbe50222c4c1fb32b718fccd8b536",
+    "mtime": 1787858790.544626,
+    "ast_hash": "643ebbc5bdf3ae7e4d8aba90ef974809",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260813_090106_can_you_make_the_suggested_changes.md": {
@@ -1252,6 +1252,11 @@
   "graphify-out/memory/query_20260827_183309_the_easter_egg_prompt_belongs_on_the_player_dashbo.md": {
     "mtime": 1787855589.2904935,
     "ast_hash": "57bbabbc5684eb6e7e4e5687c15086b3",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260827_193735_make_the_player_dashboard_easter_egg_animation_mor.md": {
+    "mtime": 1787859455.0453484,
+    "ast_hash": "1bd33ed9bd1afece5aaaed4d3a4a1ce6",
     "semantic_hash": ""
   }
 }

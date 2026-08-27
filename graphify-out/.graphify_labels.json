@@ -71,7 +71,6 @@
   "69": "Q: The easter-egg prompt belongs on the player dashboard, and the cookie must suppress only prompts rather than game entry.",
   "70": "Q: Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?",
   "71": "Q: Oh, is there only one top score per user?",
-  "72": "AdminPredictionsForm.tsx",
   "73": "Predictotronix guide for league admins",
   "74": "Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.",
   "75": "Q: I played for 5-10 minutes. Would the duration or speed changes fix the verification failure?",
@@ -91,7 +90,6 @@
   "89": "Q: How could someone be showing up as Unknown Participant?",
   "90": "Q: Add league/global admin login notices with Ceefax theming, expiry, and dismissal frequency.",
   "91": "gameweek-workbook.ts",
-  "92": "predictions/page.tsx",
   "93": "Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive.",
   "94": "server.ts",
   "95": "Q: Can you exclude any results that are not ascribed to a person who is actively a part of the league/season?",
@@ -100,6 +98,5 @@
   "99": "InviteLinkCopy.tsx",
   "100": "cookies/page.tsx",
   "101": "privacy/page.tsx",
-  "102": "getUser",
-  "103": "(legal)/layout.tsx"
+  "102": "getUser"
 }

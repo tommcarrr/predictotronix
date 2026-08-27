@@ -1,0 +1,120 @@
+.footer {
+  flex-shrink: 0;
+  border-top: 2px solid #00ffff;
+  background: #000;
+  color: #ccc;
+  font-family: 'BBC-Ceefax', var(--font-geist-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.inner {
+  display: flex;
+  width: min(100% - 2rem, 64rem);
+  min-height: 2.7rem;
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00ff00;
+}
+
+.signal {
+  font-size: 0.65em;
+}
+
+.adminLabel {
+  display: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.links a {
+  color: #00ffff;
+  text-decoration: none;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.divider {
+  color: #ffff00;
+}
+
+:global(body:has(.admin-shell)) .footer {
+  border-top: 1px solid oklch(1 0 0 / 10%);
+  background: oklch(0.22 0.055 258);
+  color: oklch(0.78 0.025 250);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+:global(body:has(.admin-shell)) .status {
+  color: oklch(0.82 0.11 248);
+}
+
+:global(body:has(.admin-shell)) .playerLabel {
+  display: none;
+}
+
+:global(body:has(.admin-shell)) .adminLabel {
+  display: inline;
+}
+
+:global(body:has(.admin-shell)) .links a {
+  color: oklch(0.9 0.03 250);
+}
+
+:global(body:has(.admin-shell)) .divider {
+  color: oklch(0.5 0.03 250);
+}
+
+:global(body:has(.player-accessibility[data-accessibility-mode='enabled'])) .footer {
+  border-top: 2px solid #6b7280;
+  background: #fff;
+  color: #374151;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+:global(body:has(.player-accessibility[data-accessibility-mode='enabled'])) .status,
+:global(body:has(.player-accessibility[data-accessibility-mode='enabled'])) .links a {
+  color: #174ea6;
+}
+
+:global(body:has(.player-accessibility[data-accessibility-mode='enabled'])) .divider {
+  color: #6b7280;
+}
+
+@media (max-width: 30rem) {
+  .inner {
+    min-height: 3rem;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .links {
+    margin-left: auto;
+  }
+}

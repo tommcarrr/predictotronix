@@ -1,11 +1,11 @@
 # Graph Report - predictotronix  (2026-08-27)
 
 ## Corpus Check
-- 249 files · ~104,091 words
+- 249 files · ~103,979 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1266 nodes · 2486 edges · 103 communities (82 shown, 21 thin omitted)
+- 1266 nodes · 2488 edges · 100 communities (79 shown, 21 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.77)
 - Token cost: 0 input · 0 output
 
@@ -73,7 +73,6 @@
 - Q: The easter-egg prompt belongs on the player dashboard, and the cookie must suppress only prompts rather than game entry.
 - Q: Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?
 - Q: Oh, is there only one top score per user?
-- AdminPredictionsForm.tsx
 - Predictotronix guide for league admins
 - Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.
 - Q: I played for 5-10 minutes. Would the duration or speed changes fix the verification failure?
@@ -93,7 +92,6 @@
 - Q: How could someone be showing up as Unknown Participant?
 - Q: Add league/global admin login notices with Ceefax theming, expiry, and dismissal frequency.
 - gameweek-workbook.ts
-- predictions/page.tsx
 - Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive.
 - server.ts
 - Q: Can you exclude any results that are not ascribed to a person who is actively a part of the league/season?
@@ -136,7 +134,7 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (103 total, 21 thin omitted)
+## Communities (100 total, 21 thin omitted)
 
 ### Community 0 - "leaderboard.ts"
 Cohesion: 0.07
@@ -255,7 +253,7 @@ Cohesion: 0.40
 Nodes (3): dynamic, metadata, Props
 
 ### Community 46 - "AdminShell.tsx"
-Cohesion: 0.09
+Cohesion: 0.08
 Nodes (28): setAdminLeague(), setAdminSeason(), AdminShell(), configureNav, NavItem, Option, Props, runNav (+20 more)
 
 ### Community 47 - "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
@@ -275,8 +273,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you create an accessible mode for the player facing screens (login/register/dashboard) that can be toggled?, Source Nodes
 
 ### Community 53 - "predictions/actions.ts"
-Cohesion: 0.18
-Nodes (17): getSeasonNow(), adminExtractEmailPredictions(), adminSubmitPredictions(), clearPredictions(), ClearPredictionsResult, ExtractEmailPredictionsResult, hasValidScores(), PredictionInput (+9 more)
+Cohesion: 0.12
+Nodes (22): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, getSeasonNow(), adminExtractEmailPredictions(), adminSubmitPredictions() (+14 more)
 
 ### Community 54 - "fixtures.ts"
 Cohesion: 0.08
@@ -319,8 +317,8 @@ Cohesion: 0.31
 Nodes (12): approveJoinRequest(), createOfflineParticipant(), rejectJoinRequest(), updateParticipantDisplayName(), addSeasonParticipant(), createSeason(), deleteSeason(), removeSeasonParticipant() (+4 more)
 
 ### Community 64 - "dashboard/page.tsx"
-Cohesion: 0.18
-Nodes (9): ActiveSeason, dynamic, metadata, PendingJoinRequest, Props, GameweekCarousel(), Props, clockTimeForGameweek() (+1 more)
+Cohesion: 0.12
+Nodes (18): AdminPredictionsPage(), dynamic, metadata, Props, ActiveSeason, DashboardPage(), dynamic, metadata (+10 more)
 
 ### Community 65 - "context.ts"
 Cohesion: 0.24
@@ -349,10 +347,6 @@ Nodes (4): Answer, Outcome, Q: Where do I see the scoreboard, can I see the top 
 ### Community 71 - "Q: Oh, is there only one top score per user?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Oh, is there only one top score per user?, Source Nodes
-
-### Community 72 - "AdminPredictionsForm.tsx"
-Cohesion: 0.24
-Nodes (6): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, participants
 
 ### Community 73 - "Predictotronix guide for league admins"
 Cohesion: 0.18
@@ -394,17 +388,13 @@ Nodes (4): Answer, Outcome, Q: Add league/global admin login notices with Ceefax
 Cohesion: 0.12
 Nodes (46): dynamic, filenamePart(), GET(), addCompleteness(), addFixtureAnalysis(), addForecastTendencies(), addLeaderboard(), addNotes() (+38 more)
 
-### Community 92 - "predictions/page.tsx"
-Cohesion: 0.27
-Nodes (7): AdminPredictionsPage(), dynamic, metadata, Props, PredictionFixture, PredictionGameweek, selectPredictionGameweek()
-
 ### Community 93 - "Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive."
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive., Source Nodes
 
 ### Community 94 - "server.ts"
 Cohesion: 0.22
-Nodes (19): AdminLayout(), dismissLoginNotice(), DashboardPage(), saveNotificationPreferences(), dynamic, metadata, SettingsPage(), getParticipant() (+11 more)
+Nodes (18): AdminLayout(), dismissLoginNotice(), saveNotificationPreferences(), dynamic, metadata, SettingsPage(), getParticipant(), isAdmin() (+10 more)
 
 ### Community 95 - "Q: Can you exclude any results that are not ascribed to a person who is actively a part of the league/season?"
 Cohesion: 0.40
@@ -438,7 +428,7 @@ Nodes (14): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInvit
 - `CeefaxBreakout()` (4× useful, score=3.697743112)
 - `DashboardPage()` (4× useful, score=3.043737241)
 - `FixturesAdminPage()` (3× useful, score=2.675789341)
-- `AdminShell()` (3× useful, score=2.364793544)
+- `AdminShell()` (3× useful, score=2.364793544) _(code changed — re-verify)_
 - `submitJoinRequest()` (3× useful, score=2.096559575)
 - `breakout-controls.test.ts` (2× useful, score=1.849352171)
 - `getBreakoutLeaderboard()` (2× useful, score=1.847366799)
@@ -448,11 +438,11 @@ Nodes (14): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInvit
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `leaderboard.ts`, `context.ts`, `getAdminContext`, `auth/actions.ts`, `getUser`, `AdminShell.tsx`, `predictions/page.tsx`, `test-tools/page.tsx`, `predictions/actions.ts`, `fixtures.ts`, `fixtures/page.tsx`, `gameweek-workbook.ts`, `participants/page.tsx`, `send-reminders/route.ts`, `server.ts`?**
+- **Why does `createServiceClient()` connect `createServiceClient` to `leaderboard.ts`, `context.ts`, `getAdminContext`, `dashboard/page.tsx`, `auth/actions.ts`, `getUser`, `AdminShell.tsx`, `test-tools/page.tsx`, `predictions/actions.ts`, `fixtures.ts`, `fixtures/page.tsx`, `gameweek-workbook.ts`, `participants/page.tsx`, `send-reminders/route.ts`, `server.ts`?**
   _High betweenness centrality (0.112) - this node is a cross-community bridge._
 - **Why does `ApiFixture` connect `ApiFixture` to `send-reminders/route.ts`, `fixtures.ts`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Why does `FixtureProvider` connect `ApiFixture` to `send-reminders/route.ts`, `fixtures.ts`?**
+- **Why does `getSeasonNow()` connect `predictions/actions.ts` to `dashboard/page.tsx`, `fixtures/page.tsx`, `test-tools/page.tsx`, `send-reminders/route.ts`?**
   _High betweenness centrality (0.010) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
   _487 weakly-connected nodes found - possible documentation gaps or missing edges._

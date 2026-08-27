@@ -2430,8 +2430,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "predictions/page.tsx"
     },
     {
@@ -2441,8 +2441,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_metadata",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "metadata"
     },
     {
@@ -2452,8 +2452,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_dynamic",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "dynamic"
     },
     {
@@ -2463,8 +2463,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_props",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "props"
     },
     {
@@ -2474,8 +2474,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_adminpredictionspage",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "adminpredictionspage()"
     },
     {
@@ -3230,7 +3230,7 @@
       "label": "metadata",
       "file_type": "code",
       "source_file": "src/app/(legal)/cookies/page.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_legal_cookies_page_metadata",
       "community": 100,
@@ -3241,7 +3241,7 @@
       "label": "CookiePage()",
       "file_type": "code",
       "source_file": "src/app/(legal)/cookies/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_legal_cookies_page_cookiepage",
       "community": 100,
@@ -3255,19 +3255,19 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_legal_layout",
-      "community": 103,
-      "community_name": "(legal)/layout.tsx",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
       "norm_label": "(legal)/layout.tsx"
     },
     {
       "label": "LegalLayout()",
       "file_type": "code",
       "source_file": "src/app/(legal)/layout.tsx",
-      "source_location": "L3",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "src_app_legal_layout_legallayout",
-      "community": 103,
-      "community_name": "(legal)/layout.tsx",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
       "norm_label": "legallayout()"
     },
     {
@@ -3285,7 +3285,7 @@
       "label": "metadata",
       "file_type": "code",
       "source_file": "src/app/(legal)/privacy/page.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_legal_privacy_page_metadata",
       "community": 101,
@@ -3296,7 +3296,7 @@
       "label": "PrivacyPage()",
       "file_type": "code",
       "source_file": "src/app/(legal)/privacy/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_legal_privacy_page_privacypage",
       "community": 101,
@@ -3398,8 +3398,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_page_dashboardpage",
-      "community": 94,
-      "community_name": "server.ts",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "dashboardpage()"
     },
     {
@@ -4443,8 +4443,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "adminpredictionsform.tsx"
     },
     {
@@ -4454,8 +4454,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_option",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "option"
     },
     {
@@ -4465,8 +4465,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_participantoption",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "participantoption"
     },
     {
@@ -4476,8 +4476,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_fixture",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "fixture"
     },
     {
@@ -4487,8 +4487,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_props",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "props"
     },
     {
@@ -4498,8 +4498,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "src_components_admin_adminpredictionsform_adminpredictionsform",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "adminpredictionsform()"
     },
     {
@@ -5441,7 +5441,7 @@
       "label": "SiteFooter()",
       "file_type": "code",
       "source_file": "src/components/legal/SiteFooter.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "_origin": "ast",
       "id": "src_components_legal_sitefooter_sitefooter",
       "community": 14,
@@ -9305,8 +9305,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "gameweek.ts"
     },
     {
@@ -9316,8 +9316,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek_predictiongameweek",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "predictiongameweek"
     },
     {
@@ -9327,8 +9327,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek_predictionfixture",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "predictionfixture"
     },
     {
@@ -9338,8 +9338,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "src_lib_predictions_gameweek_selectpredictiongameweek",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "selectpredictiongameweek()"
     },
     {
@@ -9492,8 +9492,8 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "src_lib_scoring_index_iskickofflocked",
-      "community": 53,
-      "community_name": "predictions/actions.ts",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "iskickofflocked()"
     },
     {
@@ -10086,8 +10086,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "admin-predictions-form.test.tsx"
     },
     {
@@ -10097,8 +10097,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test_participants",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "participants"
     },
     {
@@ -10108,8 +10108,8 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test_renderform",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "renderform()"
     },
     {
@@ -10119,8 +10119,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "tests_unit_admin_predictions_form_test_renderselectedform",
-      "community": 72,
-      "community_name": "AdminPredictionsForm.tsx",
+      "community": 53,
+      "community_name": "predictions/actions.ts",
       "norm_label": "renderselectedform()"
     },
     {
@@ -10856,8 +10856,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_prediction_gameweek_test",
-      "community": 92,
-      "community_name": "predictions/page.tsx",
+      "community": 64,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "prediction-gameweek.test.ts"
     },
     {
@@ -23112,7 +23112,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(legal)/cookies/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_legal_cookies_page",
@@ -23123,7 +23123,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(legal)/cookies/page.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_legal_cookies_page",
@@ -23134,7 +23134,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(legal)/layout.tsx",
-      "source_location": "L3",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_legal_layout",
@@ -23142,10 +23142,34 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/(legal)/layout.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_app_legal_layout",
+      "target": "src_components_participant_playeraccessibilitymode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/(legal)/layout.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_app_legal_layout",
+      "target": "src_components_participant_playeraccessibilitymode_playeraccessibilitymode",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(legal)/privacy/page.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_legal_privacy_page",
@@ -23156,7 +23180,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/app/(legal)/privacy/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_app_legal_privacy_page",
@@ -28943,7 +28967,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/legal/SiteFooter.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_legal_sitefooter",

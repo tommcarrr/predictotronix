@@ -1,30 +1,34 @@
 import Link from 'next/link';
+import { PlayerAccessibilityMode } from '@/components/participant/PlayerAccessibilityMode';
+import '@/styles/ceefax.css';
+import styles from './legal.module.css';
 
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-muted/30 px-4 py-8 text-foreground sm:py-12">
-      <div className="mx-auto max-w-3xl">
-        <header className="mb-5 flex flex-wrap items-center justify-between gap-3 px-1">
-          <Link className="font-semibold tracking-tight" href="/">
-            Predictotronix
-          </Link>
-          <nav aria-label="Legal policies" className="flex gap-4 text-sm text-muted-foreground">
-            <Link
-              className="underline-offset-4 hover:text-foreground hover:underline"
-              href="/privacy"
-            >
-              Privacy
-            </Link>
-            <Link
-              className="underline-offset-4 hover:text-foreground hover:underline"
-              href="/cookies"
-            >
-              Cookies
-            </Link>
-          </nav>
-        </header>
-        {children}
+    <PlayerAccessibilityMode>
+      <div className={`ceefax ${styles.shell}`}>
+        <div className={styles.frame}>
+          <header className={styles.masthead}>
+            <div className={styles.serviceBar}>
+              <Link className={styles.brand} href="/">
+                <span className={styles.pageNumber}>P100</span>
+                <span>Predictotronix</span>
+              </Link>
+              <p className={styles.serviceName}>Player information service</p>
+            </div>
+            <nav aria-label="Legal policies" className={styles.policyNav}>
+              <Link className={styles.navLink} href="/privacy">
+                Privacy
+              </Link>
+              <span aria-hidden="true">/</span>
+              <Link className={styles.navLink} href="/cookies">
+                Cookies
+              </Link>
+            </nav>
+          </header>
+          {children}
+        </div>
       </div>
-    </div>
+    </PlayerAccessibilityMode>
   );
 }
