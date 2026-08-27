@@ -7,7 +7,7 @@ import {
 } from '@/components/admin/secret-game-gate';
 
 describe('secret game gate', () => {
-  it('unlocks on exactly six consecutive theme presses and resets immediately', () => {
+  it('unlocks on exactly four consecutive theme presses and resets immediately', () => {
     let state: SecretGameGateState = { count: 0, lastPressedAt: 0 };
     for (let press = 1; press <= SECRET_GAME_PRESS_COUNT; press += 1) {
       const result = registerSecretGamePress(state, press * 100);

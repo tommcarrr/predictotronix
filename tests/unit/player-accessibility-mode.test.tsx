@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { SECRET_GAME_COOKIE } from '@/components/admin/secret-game-cookie';
 import {
   PlayerAccessibilityMode,
   PlayerAccessibilityToggle,
@@ -14,6 +15,7 @@ const STORAGE_KEY = 'predictotronix-player-accessibility';
 describe('PlayerAccessibilityMode', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    document.cookie = `${SECRET_GAME_COOKIE}=; Path=/; Max-Age=0`;
   });
 
   it('exposes a labelled pressed-state toggle', () => {
@@ -71,7 +73,7 @@ describe('PlayerAccessibilityMode', () => {
     expect(document.querySelector('.player-accessibility__toolbar')).not.toBeInTheDocument();
   });
 
-  it('opens the league game after six consecutive mode changes', () => {
+  it('opens the league game after four consecutive mode changes and remembers it', () => {
     render(
       <PlayerAccessibilityMode showToolbarToggle={false}>
         <PlayerAccessibilityToggle breakout={{
@@ -83,8 +85,9 @@ describe('PlayerAccessibilityMode', () => {
     );
 
     const toggle = screen.getByRole('button', { name: 'Accessible mode: Off' });
-    for (let press = 0; press < 6; press += 1) fireEvent.click(toggle);
+    for (let press = 0; press < 4; press += 1) fireEvent.click(toggle);
 
     expect(screen.getByRole('dialog', { name: 'Football Breakout' })).toBeVisible();
+    expect(document.cookie).toContain(`${SECRET_GAME_COOKIE}=1`);
   });
 });

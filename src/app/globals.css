@@ -179,6 +179,58 @@
   padding: clamp(1.25rem, 2.5vw, 2.5rem);
 }
 
+/* The dashboard's hidden-game invitation grows more insistent with each theme press. */
+.admin-secret-game-toggle[data-secret-game-hint] {
+  --secret-game-wiggle: 2deg;
+  --secret-game-glow: 0 0 0 2px color-mix(in oklab, currentColor 35%, transparent);
+  animation: secret-game-invitation 2.4s ease-in-out infinite;
+}
+
+.admin-secret-game-toggle[data-secret-game-hint='2'] {
+  --secret-game-wiggle: 4deg;
+  --secret-game-glow: 0 0 0 3px color-mix(in oklab, currentColor 45%, transparent);
+  animation-duration: 1.5s;
+}
+
+.admin-secret-game-toggle[data-secret-game-hint='3'] {
+  --secret-game-wiggle: 7deg;
+  --secret-game-glow: 0 0 0 4px color-mix(in oklab, currentColor 55%, transparent);
+  animation-duration: 0.9s;
+}
+
+.admin-secret-game-toggle[data-secret-game-hint='4'] {
+  --secret-game-wiggle: 11deg;
+  --secret-game-glow: 0 0 0 5px color-mix(in oklab, currentColor 70%, transparent);
+  animation-duration: 0.55s;
+}
+
+@keyframes secret-game-invitation {
+  0%,
+  76%,
+  100% {
+    transform: rotate(0);
+    box-shadow: none;
+  }
+  82% {
+    transform: rotate(var(--secret-game-wiggle));
+    box-shadow: var(--secret-game-glow);
+  }
+  88% {
+    transform: rotate(calc(var(--secret-game-wiggle) * -1));
+  }
+  94% {
+    transform: rotate(var(--secret-game-wiggle));
+    box-shadow: var(--secret-game-glow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-secret-game-toggle[data-secret-game-hint] {
+    animation: none;
+    box-shadow: var(--secret-game-glow);
+  }
+}
+
 .admin-content > main > :is(section, div).rounded-lg,
 .admin-content > main > :is(section, div).rounded-xl {
   background-color: var(--card);

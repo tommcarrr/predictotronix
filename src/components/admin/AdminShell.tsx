@@ -26,6 +26,12 @@ import {
 } from '@/app/(admin)/admin/context-actions';
 import { CeefaxBreakout } from '@/components/admin/CeefaxBreakout';
 import {
+  hasStartedSecretGame,
+  rememberSecretGameStarted,
+} from '@/components/admin/secret-game-cookie';
+import {
+  SECRET_GAME_INVITE_DELAY_MS,
+  SECRET_GAME_PRESS_COUNT,
   registerSecretGamePress,
   type SecretGameGateState,
 } from '@/components/admin/secret-game-gate';
@@ -81,14 +87,19 @@ function ThemeToggle({
   playerName,
   leagueId,
   leagueName,
+  inviteToGame,
 }: {
   playerName: string;
   leagueId: string | null;
   leagueName: string | null;
+  inviteToGame: boolean;
 }) {
   const [dark, setDark] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
+  const [hintLevel, setHintLevel] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const invitationActive = useRef(false);
+  const gameSuppressed = useRef(false);
   const secretGate = useRef<SecretGameGateState>({ count: 0, lastPressedAt: 0 });
 
   useEffect(() => {
@@ -101,9 +112,27 @@ function ThemeToggle({
   }, []);
 
   useEffect(() => {
+    gameSuppressed.current = hasStartedSecretGame();
+    if (!inviteToGame || gameSuppressed.current) {
+      invitationActive.current = false;
+      secretGate.current = { count: 0, lastPressedAt: 0 };
+      setHintLevel(0);
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      invitationActive.current = true;
+      setHintLevel(1);
+    }, SECRET_GAME_INVITE_DELAY_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [inviteToGame]);
+
+  useEffect(() => {
     function resetSequenceOnOtherPress(event: PointerEvent) {
       if (!buttonRef.current?.contains(event.target as Node)) {
         secretGate.current = { count: 0, lastPressedAt: 0 };
+        setHintLevel(invitationActive.current ? 1 : 0);
       }
     }
     document.addEventListener('pointerdown', resetSequenceOnOtherPress, true);
@@ -115,9 +144,21 @@ function ThemeToggle({
     document.documentElement.classList.toggle('dark', next);
     localStorage.setItem('predictotronix-theme', next ? 'dark' : 'light');
     setDark(next);
+    if (gameSuppressed.current) return;
+
     const result = registerSecretGamePress(secretGate.current, performance.now());
     secretGate.current = result.state;
-    if (result.unlocked && leagueId && leagueName) setGameOpen(true);
+    if (result.unlocked && leagueId && leagueName) {
+      rememberSecretGameStarted();
+      gameSuppressed.current = true;
+      invitationActive.current = false;
+      setHintLevel(0);
+      setGameOpen(true);
+      return;
+    }
+
+    invitationActive.current = true;
+    setHintLevel(Math.min(result.state.count + 1, SECRET_GAME_PRESS_COUNT));
   }
 
   return (
@@ -126,7 +167,8 @@ function ThemeToggle({
         ref={buttonRef}
         type="button"
         onClick={toggleTheme}
-        className="inline-flex size-9 items-center justify-center rounded-xl border border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground transition hover:bg-sidebar-accent"
+        className="admin-secret-game-toggle inline-flex size-9 items-center justify-center rounded-xl border border-sidebar-border bg-sidebar-accent/50 text-sidebar-foreground transition hover:bg-sidebar-accent"
+        data-secret-game-hint={hintLevel || undefined}
         aria-label={dark ? 'Use light theme' : 'Use dark theme'}
         title={dark ? 'Use light theme' : 'Use dark theme'}
       >
@@ -205,6 +247,7 @@ export function AdminShell({
             playerName={playerName}
             leagueId={selectedLeague?.id ?? null}
             leagueName={selectedLeague?.name ?? null}
+            inviteToGame={pathname === '/admin'}
           />
         </div>
 

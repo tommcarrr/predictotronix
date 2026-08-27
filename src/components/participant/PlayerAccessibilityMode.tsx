@@ -4,6 +4,10 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { ALargeSmall } from 'lucide-react';
 import { CeefaxBreakout } from '@/components/admin/CeefaxBreakout';
 import {
+  hasStartedSecretGame,
+  rememberSecretGameStarted,
+} from '@/components/admin/secret-game-cookie';
+import {
   registerSecretGamePress,
   type SecretGameGateState,
 } from '@/components/admin/secret-game-gate';
@@ -53,9 +57,14 @@ export function PlayerAccessibilityToggle({ breakout }: { breakout?: BreakoutCon
 
   function handleToggle() {
     toggle();
+    if (hasStartedSecretGame()) return;
+
     const result = registerSecretGamePress(secretGate.current, performance.now());
     secretGate.current = result.state;
-    if (result.unlocked && breakout) setGameOpen(true);
+    if (result.unlocked && breakout) {
+      rememberSecretGameStarted();
+      setGameOpen(true);
+    }
   }
 
   return (

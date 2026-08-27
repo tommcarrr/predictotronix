@@ -10,6 +10,7 @@ action
 actions
 activate
 active
+actively
 add
 admin
 admins
@@ -23,10 +24,12 @@ also
 alt
 always
 amend
+analysis
 and
 animate
 another
 answer
+any
 anything
 api
 app
@@ -36,6 +39,7 @@ approve
 architecture
 archive
 are
+ascribed
 assert
 assign
 ast
@@ -45,6 +49,7 @@ auth
 authority
 authorization
 auto
+average
 backend
 badge
 ball
@@ -81,6 +86,7 @@ caps
 carousel
 ceefax
 cell
+chain
 chance
 changes
 channel
@@ -103,12 +109,15 @@ codebase
 collect
 collision
 color
+colors
 colours
 combo
 come
+common
 compiler
 complete
 completed
+completeness
 completes
 completion
 component
@@ -139,6 +148,7 @@ cross
 css
 csv
 current
+daily
 dashboard
 data
 database
@@ -171,6 +181,7 @@ dismiss
 dismissal
 dismissed
 display
+distribution
 doesn
 doing
 dom
@@ -214,6 +225,7 @@ execution
 existing
 exp
 expire
+expiry
 explain
 export
 exports
@@ -234,6 +246,7 @@ feels
 fetch
 figure
 file
+filename
 files
 find
 finish
@@ -246,6 +259,7 @@ fixtures
 flow
 football
 for
+forecast
 forgot
 form
 format
@@ -255,6 +269,7 @@ forms
 forward
 found
 fpl
+frequency
 fresh
 friendly
 from
@@ -269,10 +284,13 @@ get
 git
 give
 global
+goal
 going
 got
 graph
 graphify
+grid
+group
 guard
 guidance
 guide
@@ -280,6 +298,7 @@ guided
 handling
 harder
 has
+hash
 have
 having
 header
@@ -336,6 +355,7 @@ key
 kickoff
 know
 knowledge
+label
 landscape
 last
 latest
@@ -346,6 +366,7 @@ leaderboards
 league
 leagues
 left
+legacy
 legitimate
 let
 level
@@ -407,6 +428,7 @@ modes
 module
 modules
 mono
+most
 movement
 moves
 mts
@@ -422,6 +444,7 @@ nodes
 normalize
 not
 note
+notes
 notice
 notices
 notification
@@ -445,8 +468,10 @@ ordered
 original
 out
 outcome
+outcomes
 output
 overall
+overview
 package
 page
 pages
@@ -456,6 +481,8 @@ param
 params
 parse
 parser
+part
+partici
 participant
 participants
 parts
@@ -470,9 +497,11 @@ people
 per
 perfect
 persistent
+person
 persona
 personas
 phase
+pick
 pipeline
 place
 placeholder
@@ -521,12 +550,15 @@ random
 rank
 ranked
 rate
+ratio
 react
 read
 readme
 real
 realistic
 reason
+reassurance
+reassurances
 recover
 recovery
 redact
@@ -573,6 +605,7 @@ rounds
 route
 routine
 row
+rows
 rpc
 rsc
 rtl
@@ -593,6 +626,8 @@ schema
 scope
 score
 scoreboard
+scored
+scorelines
 scores
 scoring
 screen
@@ -601,8 +636,10 @@ scripts
 season
 seasons
 secret
+section
 security
 see
+seed
 seeded
 seem
 segments
@@ -623,6 +660,7 @@ setting
 settings
 setup
 shadcn
+share
 sheet
 shell
 shot
@@ -637,6 +675,7 @@ size
 skip
 smoke
 sms
+social
 some
 someone
 source
@@ -650,6 +689,7 @@ start
 starts
 stat
 state
+stats
 status
 statuses
 steps
@@ -657,6 +697,7 @@ still
 stop
 store
 strict
+striping
 structural
 style
 styles
@@ -682,6 +723,7 @@ talk
 target
 team
 teams
+tendencies
 test
 testing
 tests
@@ -689,6 +731,7 @@ text
 that
 the
 theme
+theming
 there
 they
 think
@@ -720,6 +763,7 @@ type
 types
 typescript
 understand
+unknown
 upcoming
 update
 url
@@ -734,6 +778,7 @@ validate
 value
 variables
 variance
+variant
 variants
 verification
 verified

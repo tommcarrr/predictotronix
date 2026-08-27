@@ -1,5 +1,6 @@
-export const SECRET_GAME_PRESS_COUNT = 6;
+export const SECRET_GAME_PRESS_COUNT = 4;
 export const SECRET_GAME_PRESS_WINDOW_MS = 1800;
+export const SECRET_GAME_INVITE_DELAY_MS = 30_000;
 
 export interface SecretGameGateState {
   count: number;

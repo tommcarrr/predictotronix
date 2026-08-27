@@ -1353,7 +1353,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "reset.mts"
     },
     {
@@ -1364,7 +1364,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_requiredenvironment",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "requiredenvironment()"
     },
     {
@@ -1375,7 +1375,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_insertbatches",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "insertbatches()"
     },
     {
@@ -1386,7 +1386,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_ensurepersonauser",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "ensurepersonauser()"
     },
     {
@@ -1397,7 +1397,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_scorecompletedfixtures",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scorecompletedfixtures()"
     },
     {
@@ -1408,7 +1408,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_assertcount",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "assertcount()"
     },
     {
@@ -1419,7 +1419,7 @@
       "_origin": "ast",
       "id": "scripts_staging_reset_main",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "main()"
     },
     {
@@ -1430,7 +1430,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scenario.mts"
     },
     {
@@ -1441,7 +1441,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_scenario_key",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "staging_scenario_key"
     },
     {
@@ -1452,7 +1452,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_league_id",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "staging_league_id"
     },
     {
@@ -1463,7 +1463,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_season_id",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "staging_season_id"
     },
     {
@@ -1474,7 +1474,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_staging_personas",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "staging_personas"
     },
     {
@@ -1485,7 +1485,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_teams",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "teams"
     },
     {
@@ -1496,7 +1496,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenariopersona",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scenariopersona"
     },
     {
@@ -1507,7 +1507,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenarioparticipant",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scenarioparticipant"
     },
     {
@@ -1518,7 +1518,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenariogameweek",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scenariogameweek"
     },
     {
@@ -1529,7 +1529,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenariofixture",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scenariofixture"
     },
     {
@@ -1540,7 +1540,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_scenarioprediction",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "scenarioprediction"
     },
     {
@@ -1551,7 +1551,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_stagingscenario",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "stagingscenario"
     },
     {
@@ -1562,7 +1562,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_deterministicuuid",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "deterministicuuid()"
     },
     {
@@ -1573,7 +1573,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_seedednumber",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "seedednumber()"
     },
     {
@@ -1584,7 +1584,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_adddays",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "adddays()"
     },
     {
@@ -1595,7 +1595,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_kickofffor",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "kickofffor()"
     },
     {
@@ -1606,7 +1606,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_pairteams",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "pairteams()"
     },
     {
@@ -1617,7 +1617,7 @@
       "_origin": "ast",
       "id": "scripts_staging_scenario_buildstagingscenario",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "buildstagingscenario()"
     },
     {
@@ -1627,8 +1627,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "scripts_staging_smoke",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "smoke.mts"
     },
     {
@@ -1638,8 +1638,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "scripts_staging_smoke_requiredenvironment",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "requiredenvironment()"
     },
     {
@@ -1649,8 +1649,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "scripts_staging_smoke_main",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "main()"
     },
     {
@@ -1704,8 +1704,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "context-actions.ts"
     },
     {
@@ -1715,8 +1715,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_viewascookieoptions",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "viewascookieoptions"
     },
     {
@@ -1726,8 +1726,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_cookieoptions",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "cookieoptions"
     },
     {
@@ -1737,8 +1737,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_setadminleague",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "setadminleague()"
     },
     {
@@ -1759,8 +1759,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_viewasleagueadmin",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "viewasleagueadmin()"
     },
     {
@@ -1770,8 +1770,8 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "src_app_admin_admin_context_actions_stopviewingasleagueadmin",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "stopviewingasleagueadmin()"
     },
     {
@@ -1781,8 +1781,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page",
-      "community": 0,
-      "community_name": "leaderboard.ts",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "exports/page.tsx"
     },
     {
@@ -1792,8 +1792,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page_metadata",
-      "community": 0,
-      "community_name": "leaderboard.ts",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "metadata"
     },
     {
@@ -1803,8 +1803,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page_dynamic",
-      "community": 0,
-      "community_name": "leaderboard.ts",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "dynamic"
     },
     {
@@ -1814,8 +1814,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_exports_page_exportsadminpage",
-      "community": 0,
-      "community_name": "leaderboard.ts",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "exportsadminpage()"
     },
     {
@@ -1825,7 +1825,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "fixtures/actions.ts"
     },
@@ -1836,7 +1836,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_assertexternalfixturesyncenabled",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "assertexternalfixturesyncenabled()"
     },
@@ -1847,7 +1847,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_getproductionseason",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "getproductionseason()"
     },
@@ -1858,7 +1858,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_syncactionstate",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "syncactionstate"
     },
@@ -1869,7 +1869,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_actionlogger",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "actionlogger()"
     },
@@ -1880,7 +1880,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_failureentry",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "failureentry()"
     },
@@ -1891,7 +1891,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_triggerfixturesync",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "triggerfixturesync()"
     },
@@ -1902,7 +1902,7 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_triggerresultsync",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "triggerresultsync()"
     },
@@ -1913,7 +1913,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "src_app_admin_admin_fixtures_actions_correctresult",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "correctresult()"
     },
@@ -1990,8 +1990,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "[leagueid]/page.tsx"
     },
     {
@@ -2001,8 +2001,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2012,8 +2012,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page_leaguetab",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "leaguetab"
     },
     {
@@ -2023,8 +2023,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_leagueid_page_leaguedetailpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "leaguedetailpage()"
     },
     {
@@ -2034,8 +2034,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_actions",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "leagues/actions.ts"
     },
     {
@@ -2045,8 +2045,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_actions_createleague",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "createleague()"
     },
     {
@@ -2056,8 +2056,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_actions_assignleagueadmin",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "assignleagueadmin()"
     },
     {
@@ -2067,8 +2067,8 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_actions_regenerateinvitecode",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "regenerateinvitecode()"
     },
     {
@@ -2078,8 +2078,8 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_actions_toggleinviteactive",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "toggleinviteactive()"
     },
     {
@@ -2089,8 +2089,8 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_actions_deleteleague",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "deleteleague()"
     },
     {
@@ -2100,8 +2100,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "leagues/page.tsx"
     },
     {
@@ -2111,8 +2111,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_page_metadata",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -2122,8 +2122,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2133,8 +2133,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_page_props",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "props"
     },
     {
@@ -2144,8 +2144,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_admin_leagues_page_leaguesadminpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "leaguesadminpage()"
     },
     {
@@ -2155,8 +2155,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_actions",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "notices/actions.ts"
     },
     {
@@ -2166,8 +2166,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_actions_redirectwitherror",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "redirectwitherror()"
     },
     {
@@ -2177,8 +2177,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_actions_canmanagescope",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "canmanagescope()"
     },
     {
@@ -2188,8 +2188,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_actions_createloginnotice",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "createloginnotice()"
     },
     {
@@ -2199,8 +2199,8 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_actions_expireloginnotice",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "expireloginnotice()"
     },
     {
@@ -2210,8 +2210,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "notices/page.tsx"
     },
     {
@@ -2221,8 +2221,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_page_metadata",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -2232,8 +2232,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2243,8 +2243,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_page_toneoptions",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "toneoptions"
     },
     {
@@ -2254,8 +2254,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_page_props",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "props"
     },
     {
@@ -2265,8 +2265,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "src_app_admin_admin_notices_page_loginnoticesadminpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "loginnoticesadminpage()"
     },
     {
@@ -2276,8 +2276,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "admin/page.tsx"
     },
     {
@@ -2287,8 +2287,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_metadata",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "metadata"
     },
     {
@@ -2298,8 +2298,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "dynamic"
     },
     {
@@ -2309,8 +2309,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_page_admindashboardpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "admindashboardpage()"
     },
     {
@@ -2320,7 +2320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_actions",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "participants/actions.ts"
     },
@@ -2331,7 +2331,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_actions_approvejoinrequest",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "approvejoinrequest()"
     },
@@ -2342,7 +2342,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_actions_rejectjoinrequest",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "rejectjoinrequest()"
     },
@@ -2353,7 +2353,7 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_actions_createofflineparticipant",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "createofflineparticipant()"
     },
@@ -2364,7 +2364,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_actions_updateparticipantdisplayname",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "updateparticipantdisplayname()"
     },
@@ -2375,8 +2375,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "participants/page.tsx"
     },
     {
@@ -2386,8 +2386,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_page_metadata",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "metadata"
     },
     {
@@ -2397,8 +2397,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "dynamic"
     },
     {
@@ -2408,8 +2408,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_page_props",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "props"
     },
     {
@@ -2419,8 +2419,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "src_app_admin_admin_participants_page_participantsadminpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "participantsadminpage()"
     },
     {
@@ -2430,8 +2430,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "predictions/page.tsx"
     },
     {
@@ -2441,8 +2441,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_metadata",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "metadata"
     },
     {
@@ -2452,8 +2452,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_dynamic",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "dynamic"
     },
     {
@@ -2463,8 +2463,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_props",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "props"
     },
     {
@@ -2474,8 +2474,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_app_admin_admin_predictions_page_adminpredictionspage",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "adminpredictionspage()"
     },
     {
@@ -2507,8 +2507,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_seasonid_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "[seasonid]/page.tsx"
     },
     {
@@ -2518,8 +2518,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_seasonid_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2529,8 +2529,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_seasonid_page_seasontab",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "seasontab"
     },
     {
@@ -2540,8 +2540,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_seasonid_page_seasondetailpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "seasondetailpage()"
     },
     {
@@ -2551,7 +2551,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_actions",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "seasons/actions.ts"
     },
@@ -2562,7 +2562,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_actions_createseason",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "createseason()"
     },
@@ -2573,7 +2573,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_actions_updateseasonstatus",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "updateseasonstatus()"
     },
@@ -2584,7 +2584,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_actions_addseasonparticipant",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "addseasonparticipant()"
     },
@@ -2595,7 +2595,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_actions_removeseasonparticipant",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "removeseasonparticipant()"
     },
@@ -2606,7 +2606,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_actions_deleteseason",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "deleteseason()"
     },
@@ -2617,8 +2617,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_new_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "new/page.tsx"
     },
     {
@@ -2628,8 +2628,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_new_page_metadata",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -2639,8 +2639,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_new_page_newseasonpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "newseasonpage()"
     },
     {
@@ -2650,8 +2650,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "seasons/page.tsx"
     },
     {
@@ -2661,8 +2661,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_metadata",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "metadata"
     },
     {
@@ -2672,8 +2672,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_dynamic",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "dynamic"
     },
     {
@@ -2683,8 +2683,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_props",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "props"
     },
     {
@@ -2694,8 +2694,8 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_app_admin_admin_seasons_page_seasonsadminpage",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "seasonsadminpage()"
     },
     {
@@ -2706,7 +2706,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "test-tools/actions.ts"
     },
     {
@@ -2717,7 +2717,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_guardtestseason",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "guardtestseason()"
     },
     {
@@ -2728,7 +2728,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_guardactiveseason",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "guardactiveseason()"
     },
     {
@@ -2738,8 +2738,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_requiresuperadmin",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "requiresuperadmin()"
     },
     {
@@ -2750,7 +2750,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_requirestagingsuperadmin",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "requirestagingsuperadmin()"
     },
     {
@@ -2761,7 +2761,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_setseasonclock",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "setseasonclock()"
     },
     {
@@ -2772,7 +2772,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_clearseasonclock",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "clearseasonclock()"
     },
     {
@@ -2783,7 +2783,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_injectresult",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "injectresult()"
     },
     {
@@ -2794,7 +2794,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_markfixturepostponed",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "markfixturepostponed()"
     },
     {
@@ -2805,7 +2805,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_fastforwardgameweek",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "fastforwardgameweek()"
     },
     {
@@ -2816,7 +2816,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_actions_sendtestnotification",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "sendtestnotification()"
     },
     {
@@ -2827,7 +2827,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_page",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "test-tools/page.tsx"
     },
     {
@@ -2838,7 +2838,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_page_metadata",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "metadata"
     },
     {
@@ -2849,7 +2849,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_page_dynamic",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "dynamic"
     },
     {
@@ -2860,7 +2860,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_page_props",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "props"
     },
     {
@@ -2871,7 +2871,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_page_formatlondondate",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "formatlondondate()"
     },
     {
@@ -2882,7 +2882,7 @@
       "_origin": "ast",
       "id": "src_app_admin_admin_test_tools_page_testtoolspage",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "testtoolspage()"
     },
     {
@@ -2892,8 +2892,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_admin_layout",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "(admin)/layout.tsx"
     },
     {
@@ -2903,8 +2903,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_admin_layout_adminlayout",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "adminlayout()"
     },
     {
@@ -2915,7 +2915,7 @@
       "_origin": "ast",
       "id": "src_app_auth_forgot_password_page",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "forgot-password/page.tsx"
     },
     {
@@ -2926,7 +2926,7 @@
       "_origin": "ast",
       "id": "src_app_auth_forgot_password_page_metadata",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "metadata"
     },
     {
@@ -2937,7 +2937,7 @@
       "_origin": "ast",
       "id": "src_app_auth_forgot_password_page_dynamic",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "dynamic"
     },
     {
@@ -2948,7 +2948,7 @@
       "_origin": "ast",
       "id": "src_app_auth_forgot_password_page_forgotpasswordpage",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "forgotpasswordpage()"
     },
     {
@@ -2959,7 +2959,7 @@
       "_origin": "ast",
       "id": "src_app_auth_join_code_actions",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "[code]/actions.ts"
     },
     {
@@ -2970,7 +2970,7 @@
       "_origin": "ast",
       "id": "src_app_auth_join_code_actions_submitjoinrequest",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "submitjoinrequest()"
     },
     {
@@ -2981,7 +2981,7 @@
       "_origin": "ast",
       "id": "src_app_auth_join_code_page",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "[code]/page.tsx"
     },
     {
@@ -2992,7 +2992,7 @@
       "_origin": "ast",
       "id": "src_app_auth_join_code_page_dynamic",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "dynamic"
     },
     {
@@ -3003,7 +3003,7 @@
       "_origin": "ast",
       "id": "src_app_auth_join_code_page_props",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "props"
     },
     {
@@ -3014,7 +3014,7 @@
       "_origin": "ast",
       "id": "src_app_auth_join_code_page_joinpage",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "joinpage()"
     },
     {
@@ -3080,7 +3080,7 @@
       "_origin": "ast",
       "id": "src_app_auth_login_page",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "login/page.tsx"
     },
     {
@@ -3091,7 +3091,7 @@
       "_origin": "ast",
       "id": "src_app_auth_login_page_metadata",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "metadata"
     },
     {
@@ -3102,7 +3102,7 @@
       "_origin": "ast",
       "id": "src_app_auth_login_page_dynamic",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "dynamic"
     },
     {
@@ -3113,7 +3113,7 @@
       "_origin": "ast",
       "id": "src_app_auth_login_page_loginpage",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "loginpage()"
     },
     {
@@ -3124,7 +3124,7 @@
       "_origin": "ast",
       "id": "src_app_auth_register_page",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "register/page.tsx"
     },
     {
@@ -3135,7 +3135,7 @@
       "_origin": "ast",
       "id": "src_app_auth_register_page_metadata",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "metadata"
     },
     {
@@ -3146,7 +3146,7 @@
       "_origin": "ast",
       "id": "src_app_auth_register_page_dynamic",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "dynamic"
     },
     {
@@ -3157,7 +3157,7 @@
       "_origin": "ast",
       "id": "src_app_auth_register_page_props",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "props"
     },
     {
@@ -3168,7 +3168,7 @@
       "_origin": "ast",
       "id": "src_app_auth_register_page_registerpage",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "registerpage()"
     },
     {
@@ -3179,7 +3179,7 @@
       "_origin": "ast",
       "id": "src_app_auth_reset_password_page",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "reset-password/page.tsx"
     },
     {
@@ -3190,7 +3190,7 @@
       "_origin": "ast",
       "id": "src_app_auth_reset_password_page_metadata",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "metadata"
     },
     {
@@ -3201,7 +3201,7 @@
       "_origin": "ast",
       "id": "src_app_auth_reset_password_page_dynamic",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "dynamic"
     },
     {
@@ -3212,7 +3212,7 @@
       "_origin": "ast",
       "id": "src_app_auth_reset_password_page_resetpasswordpage",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "resetpasswordpage()"
     },
     {
@@ -3222,8 +3222,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_actions",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "dashboard/actions.ts"
     },
     {
@@ -3233,8 +3233,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_participant_dashboard_actions_dismissloginnotice",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "dismissloginnotice()"
     },
     {
@@ -3563,8 +3563,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_participant_settings_actions",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "settings/actions.ts"
     },
     {
@@ -3574,8 +3574,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_participant_settings_actions_savenotificationpreferences",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "savenotificationpreferences()"
     },
     {
@@ -3585,8 +3585,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_participant_settings_page",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "settings/page.tsx"
     },
     {
@@ -3596,8 +3596,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_participant_settings_page_metadata",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "metadata"
     },
     {
@@ -3607,8 +3607,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_app_participant_settings_page_dynamic",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "dynamic"
     },
     {
@@ -3618,8 +3618,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_app_participant_settings_page_settingspage",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "settingspage()"
     },
     {
@@ -3674,7 +3674,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_leaderboard_route",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboard/route.ts"
     },
     {
@@ -3685,7 +3685,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_leaderboard_route_validformats",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "validformats"
     },
     {
@@ -3696,7 +3696,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_leaderboard_route_contenttype",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "contenttype()"
     },
     {
@@ -3707,7 +3707,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_leaderboard_route_get",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "get()"
     },
     {
@@ -3718,7 +3718,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "season/route.ts"
     },
     {
@@ -3729,7 +3729,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route_dynamic",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "dynamic"
     },
     {
@@ -3740,7 +3740,7 @@
       "_origin": "ast",
       "id": "src_app_api_admin_exports_season_route_get",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "get()"
     },
     {
@@ -3827,7 +3827,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "sync-fixtures/route.ts"
     },
@@ -3838,7 +3838,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_validatecronsecret",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "validatecronsecret()"
     },
@@ -3849,7 +3849,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_fixtures_route_post",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "post()"
     },
@@ -3860,7 +3860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "sync-results/route.ts"
     },
@@ -3871,7 +3871,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_validatecronsecret",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "validatecronsecret()"
     },
@@ -3882,7 +3882,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_app_api_cron_sync_results_route_post",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "post()"
     },
@@ -3893,8 +3893,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_api_health_route",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "health/route.ts"
     },
     {
@@ -3904,8 +3904,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_app_api_health_route_dynamic",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "dynamic"
     },
     {
@@ -3915,8 +3915,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_app_api_health_route_get",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "get()"
     },
     {
@@ -3927,7 +3927,7 @@
       "_origin": "ast",
       "id": "src_app_auth_confirm_route",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "confirm/route.ts"
     },
     {
@@ -3938,7 +3938,7 @@
       "_origin": "ast",
       "id": "src_app_auth_confirm_route_get",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "get()"
     },
     {
@@ -3949,7 +3949,7 @@
       "_origin": "ast",
       "id": "src_app_auth_recover_route",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "recover/route.ts"
     },
     {
@@ -3960,7 +3960,7 @@
       "_origin": "ast",
       "id": "src_app_auth_recover_route_get",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "get()"
     },
     {
@@ -4179,8 +4179,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_app_page",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "app/page.tsx"
     },
     {
@@ -4190,8 +4190,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_app_page_dynamic",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "dynamic"
     },
     {
@@ -4201,8 +4201,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_app_page_rootpage",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "rootpage()"
     },
     {
@@ -4234,8 +4234,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminbadge",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "adminbadge.tsx"
     },
     {
@@ -4245,8 +4245,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_components_admin_adminbadge_badgetone",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "badgetone"
     },
     {
@@ -4256,8 +4256,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_components_admin_adminbadge_toneclasses",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "toneclasses"
     },
     {
@@ -4267,8 +4267,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_components_admin_adminbadge_adminbadge",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "adminbadge()"
     },
     {
@@ -4278,8 +4278,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_components_admin_adminbadge_statustone",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "statustone()"
     },
     {
@@ -4289,8 +4289,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_admindialog",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "admindialog.tsx"
     },
     {
@@ -4300,8 +4300,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_components_admin_admindialog_admindialog",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "admindialog()"
     },
     {
@@ -4311,8 +4311,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminnotice",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "adminnotice.tsx"
     },
     {
@@ -4322,8 +4322,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_components_admin_adminnotice_adminnotice",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "adminnotice()"
     },
     {
@@ -4333,8 +4333,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_adminpageheader",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "adminpageheader.tsx"
     },
     {
@@ -4344,8 +4344,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "src_components_admin_adminpageheader_adminpageheader",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "adminpageheader()"
     },
     {
@@ -4429,7 +4429,7 @@
       "label": "Option",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L34",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_option",
       "community": 46,
@@ -4440,7 +4440,7 @@
       "label": "SeasonOption",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L39",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_seasonoption",
       "community": 46,
@@ -4451,7 +4451,7 @@
       "label": "Props",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L43",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_props",
       "community": 46,
@@ -4462,7 +4462,7 @@
       "label": "NavItem",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L55",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_navitem",
       "community": 46,
@@ -4473,7 +4473,7 @@
       "label": "runNav",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L62",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_runnav",
       "community": 46,
@@ -4484,7 +4484,7 @@
       "label": "configureNav",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L70",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_configurenav",
       "community": 46,
@@ -4495,7 +4495,7 @@
       "label": "systemNav",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L76",
+      "source_location": "L82",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_systemnav",
       "community": 46,
@@ -4506,7 +4506,7 @@
       "label": "ThemeToggle()",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L80",
+      "source_location": "L86",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_themetoggle",
       "community": 46,
@@ -4517,7 +4517,7 @@
       "label": "Navigation()",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L147",
+      "source_location": "L184",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_navigation",
       "community": 46,
@@ -4528,7 +4528,7 @@
       "label": "AdminShell()",
       "file_type": "code",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L173",
+      "source_location": "L210",
       "_origin": "ast",
       "id": "src_components_admin_adminshell_adminshell",
       "community": 46,
@@ -4542,8 +4542,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_admintabs",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "admintabs.tsx"
     },
     {
@@ -4553,8 +4553,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_components_admin_admintabs_admintabitem",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "admintabitem"
     },
     {
@@ -4564,8 +4564,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_admintabs_admintabs",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "admintabs()"
     },
     {
@@ -4773,8 +4773,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "cronjobstatuspanel.tsx"
     },
     {
@@ -4784,8 +4784,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel_cronjobrunstatus",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "cronjobrunstatus"
     },
     {
@@ -4795,8 +4795,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel_formatutc",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "formatutc()"
     },
     {
@@ -4806,8 +4806,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel_formatduration",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "formatduration()"
     },
     {
@@ -4817,8 +4817,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel_buildcrondiagnosticprompt",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "buildcrondiagnosticprompt()"
     },
     {
@@ -4828,8 +4828,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel_statusstyles",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "statusstyles"
     },
     {
@@ -4839,8 +4839,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_components_admin_cronjobstatuspanel_cronjobstatuspanel",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "cronjobstatuspanel()"
     },
     {
@@ -4851,106 +4851,106 @@
       "_origin": "ast",
       "id": "src_components_admin_exportpanel",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "exportpanel.tsx"
     },
     {
       "label": "LeaderboardRow",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_leaderboardrow",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboardrow"
     },
     {
       "label": "GameweekStandings",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_gameweekstandings",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "gameweekstandings"
     },
     {
       "label": "Props",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L29",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_props",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "props"
     },
     {
       "label": "Format",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_format",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "format"
     },
     {
       "label": "View",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L36",
+      "source_location": "L37",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_view",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "view"
     },
     {
       "label": "formats",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L38",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_formats",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "formats"
     },
     {
       "label": "ExportPanel()",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_exportpanel",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "exportpanel()"
     },
     {
       "label": "MovementValue()",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L340",
+      "source_location": "L336",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_movementvalue",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "movementvalue()"
     },
     {
       "label": "Stat()",
       "file_type": "code",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L361",
+      "source_location": "L357",
       "_origin": "ast",
       "id": "src_components_admin_exportpanel_stat",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "stat()"
     },
     {
@@ -4968,7 +4968,7 @@
       "label": "FixtureStatus",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_fixturestatus",
       "community": 57,
@@ -4979,7 +4979,7 @@
       "label": "FixtureExportGameweek",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_fixtureexportgameweek",
       "community": 57,
@@ -4990,7 +4990,7 @@
       "label": "Props",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L26",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_props",
       "community": 57,
@@ -5001,7 +5001,7 @@
       "label": "CopyStatus",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L31",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_copystatus",
       "community": 57,
@@ -5012,7 +5012,7 @@
       "label": "datePartsFormatter",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L33",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_datepartsformatter",
       "community": 57,
@@ -5023,7 +5023,7 @@
       "label": "exportWeekdays",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L39",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_exportweekdays",
       "community": 57,
@@ -5034,7 +5034,7 @@
       "label": "fixtureDateHeading()",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L49",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_fixturedateheading",
       "community": 57,
@@ -5045,7 +5045,7 @@
       "label": "formatFixtureExport()",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L56",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_formatfixtureexport",
       "community": 57,
@@ -5056,7 +5056,7 @@
       "label": "orderFixtureExportGameweeks()",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L73",
+      "source_location": "L74",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_orderfixtureexportgameweeks",
       "community": 57,
@@ -5067,7 +5067,7 @@
       "label": "selectFixtureExportGameweek()",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L78",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_selectfixtureexportgameweek",
       "community": 57,
@@ -5078,7 +5078,7 @@
       "label": "FixtureClipboardExport()",
       "file_type": "code",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L87",
+      "source_location": "L88",
       "_origin": "ast",
       "id": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
       "community": 57,
@@ -5136,7 +5136,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "fixturesyncconsole.tsx"
     },
@@ -5147,7 +5147,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_initialsyncactionstate",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "initialsyncactionstate"
     },
@@ -5158,7 +5158,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_consoleoutput",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "consoleoutput()"
     },
@@ -5169,7 +5169,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "src_components_admin_fixturesyncconsole_fixturesyncconsole",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "fixturesyncconsole()"
     },
@@ -5180,8 +5180,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 99,
+      "community_name": "InviteLinkCopy.tsx",
       "norm_label": "invitelinkcopy.tsx"
     },
     {
@@ -5191,8 +5191,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy_props",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 99,
+      "community_name": "InviteLinkCopy.tsx",
       "norm_label": "props"
     },
     {
@@ -5202,8 +5202,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy_copystatus",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 99,
+      "community_name": "InviteLinkCopy.tsx",
       "norm_label": "copystatus"
     },
     {
@@ -5213,9 +5213,64 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_admin_invitelinkcopy_invitelinkcopy",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 99,
+      "community_name": "InviteLinkCopy.tsx",
       "norm_label": "invitelinkcopy()"
+    },
+    {
+      "label": "secret-game-cookie.ts",
+      "file_type": "code",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_components_admin_secret_game_cookie",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "secret-game-cookie.ts"
+    },
+    {
+      "label": "SECRET_GAME_COOKIE",
+      "file_type": "code",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_components_admin_secret_game_cookie_secret_game_cookie",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "secret_game_cookie"
+    },
+    {
+      "label": "SECRET_GAME_COOKIE_MAX_AGE_SECONDS",
+      "file_type": "code",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "src_components_admin_secret_game_cookie_secret_game_cookie_max_age_seconds",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "secret_game_cookie_max_age_seconds"
+    },
+    {
+      "label": "hasStartedSecretGame()",
+      "file_type": "code",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "src_components_admin_secret_game_cookie_hasstartedsecretgame",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "hasstartedsecretgame()"
+    },
+    {
+      "label": "rememberSecretGameStarted()",
+      "file_type": "code",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "src_components_admin_secret_game_cookie_remembersecretgamestarted",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "remembersecretgamestarted()"
     },
     {
       "label": "secret-game-gate.ts",
@@ -5251,10 +5306,21 @@
       "norm_label": "secret_game_press_window_ms"
     },
     {
+      "label": "SECRET_GAME_INVITE_DELAY_MS",
+      "file_type": "code",
+      "source_file": "src/components/admin/secret-game-gate.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "src_components_admin_secret_game_gate_secret_game_invite_delay_ms",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "secret_game_invite_delay_ms"
+    },
+    {
       "label": "SecretGameGateState",
       "file_type": "code",
       "source_file": "src/components/admin/secret-game-gate.ts",
-      "source_location": "L4",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "src_components_admin_secret_game_gate_secretgamegatestate",
       "community": 46,
@@ -5265,7 +5331,7 @@
       "label": "registerSecretGamePress()",
       "file_type": "code",
       "source_file": "src/components/admin/secret-game-gate.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "src_components_admin_secret_game_gate_registersecretgamepress",
       "community": 46,
@@ -5353,7 +5419,7 @@
       "label": "AccessibilityContextValue",
       "file_type": "code",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L13",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "src_components_participant_playeraccessibilitymode_accessibilitycontextvalue",
       "community": 46,
@@ -5364,7 +5430,7 @@
       "label": "AccessibilityContext",
       "file_type": "code",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L18",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "src_components_participant_playeraccessibilitymode_accessibilitycontext",
       "community": 46,
@@ -5375,7 +5441,7 @@
       "label": "readSavedPreference()",
       "file_type": "code",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L20",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "src_components_participant_playeraccessibilitymode_readsavedpreference",
       "community": 46,
@@ -5386,7 +5452,7 @@
       "label": "BreakoutContext",
       "file_type": "code",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L28",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "src_components_participant_playeraccessibilitymode_breakoutcontext",
       "community": 46,
@@ -5397,7 +5463,7 @@
       "label": "PlayerAccessibilityToggle()",
       "file_type": "code",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L34",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "src_components_participant_playeraccessibilitymode_playeraccessibilitytoggle",
       "community": 46,
@@ -5408,7 +5474,7 @@
       "label": "PlayerAccessibilityMode()",
       "file_type": "code",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L86",
+      "source_location": "L95",
       "_origin": "ast",
       "id": "src_components_participant_playeraccessibilitymode_playeraccessibilitymode",
       "community": 46,
@@ -5642,8 +5708,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_button",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "button.tsx"
     },
     {
@@ -5653,8 +5719,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_ui_button_buttonvariants",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "buttonvariants"
     },
     {
@@ -5664,8 +5730,8 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "src_components_ui_button_button",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "button()"
     },
     {
@@ -5675,8 +5741,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "form-submit-button.tsx"
     },
     {
@@ -5686,8 +5752,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbuttonprops",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "formsubmitbuttonprops"
     },
     {
@@ -5697,8 +5763,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_components_ui_form_submit_button_formsubmitbutton",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "formsubmitbutton()"
     },
     {
@@ -5719,8 +5785,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_admin_authorization",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "authorization.ts"
     },
     {
@@ -5730,8 +5796,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_admin_authorization_notfound",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "notfound()"
     },
     {
@@ -5741,8 +5807,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_admin_authorization_requireleagueadminforseason",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "requireleagueadminforseason()"
     },
     {
@@ -5752,8 +5818,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_lib_admin_authorization_requireleagueadminforgameweek",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "requireleagueadminforgameweek()"
     },
     {
@@ -5763,8 +5829,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "src_lib_admin_authorization_requireleagueadminforfixture",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "requireleagueadminforfixture()"
     },
     {
@@ -5774,8 +5840,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_lib_admin_authorization_requireleagueadminforfixtures",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "requireleagueadminforfixtures()"
     },
     {
@@ -5785,8 +5851,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_admin_context",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "context.ts"
     },
     {
@@ -5796,8 +5862,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_league_cookie",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "admin_league_cookie"
     },
     {
@@ -5807,8 +5873,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_season_cookie",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "admin_season_cookie"
     },
     {
@@ -5818,8 +5884,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_admin_context_admin_view_as_league_cookie",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "admin_view_as_league_cookie"
     },
     {
@@ -5829,8 +5895,8 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "src_lib_admin_context_getadmincontext",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "getadmincontext"
     },
     {
@@ -5840,8 +5906,8 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "src_lib_admin_context_admincontext",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "admincontext"
     },
     {
@@ -6204,7 +6270,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "auth/actions.ts"
     },
     {
@@ -6215,7 +6281,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_pendinginvitecookieoptions",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "pendinginvitecookieoptions"
     },
     {
@@ -6226,7 +6292,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_friendlyautherror",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "friendlyautherror()"
     },
     {
@@ -6237,7 +6303,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_destinationforinvite",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "destinationforinvite()"
     },
     {
@@ -6248,7 +6314,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_rememberinvite",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "rememberinvite()"
     },
     {
@@ -6259,7 +6325,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_clearrememberedinvite",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "clearrememberedinvite()"
     },
     {
@@ -6270,7 +6336,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_ensureinviteorrecover",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "ensureinviteorrecover()"
     },
     {
@@ -6281,7 +6347,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_confirmationurl",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "confirmationurl()"
     },
     {
@@ -6292,7 +6358,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_recoveryurl",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "recoveryurl()"
     },
     {
@@ -6303,7 +6369,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_signup",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "signup()"
     },
     {
@@ -6314,7 +6380,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_signin",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "signin()"
     },
     {
@@ -6325,7 +6391,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_requestpasswordreset",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "requestpasswordreset()"
     },
     {
@@ -6336,7 +6402,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_updatepassword",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "updatepassword()"
     },
     {
@@ -6347,7 +6413,7 @@
       "_origin": "ast",
       "id": "src_lib_auth_actions_signout",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "signout()"
     },
     {
@@ -6357,8 +6423,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_auth_index",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "auth/index.ts"
     },
     {
@@ -6368,8 +6434,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_auth_index_getuser",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "getuser"
     },
     {
@@ -6379,8 +6445,8 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_lib_auth_index_issuperadmin",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 96,
+      "community_name": "getUser",
       "norm_label": "issuperadmin()"
     },
     {
@@ -6401,7 +6467,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "src_lib_auth_index_isleagueadmin",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "isleagueadmin()"
     },
@@ -6412,8 +6478,8 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "src_lib_auth_index_getparticipant",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "getparticipant()"
     },
     {
@@ -6423,8 +6489,8 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "src_lib_auth_index_isseasonparticipant",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "isseasonparticipant()"
     },
     {
@@ -6445,8 +6511,8 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "src_lib_auth_index_requiresuperadmin",
-      "community": 12,
-      "community_name": "CeefaxBreakout.tsx",
+      "community": 4,
+      "community_name": "createClient",
       "norm_label": "requiresuperadmin()"
     },
     {
@@ -6456,7 +6522,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "src_lib_auth_index_requireleagueadmin",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "requireleagueadmin()"
     },
@@ -6846,14 +6912,58 @@
       "norm_label": "isvalidbreakoutrunsummary()"
     },
     {
+      "label": "clipboard.ts",
+      "file_type": "code",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_lib_client_clipboard",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
+      "norm_label": "clipboard.ts"
+    },
+    {
+      "label": "ClipboardContent",
+      "file_type": "code",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_lib_client_clipboard_clipboardcontent",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
+      "norm_label": "clipboardcontent"
+    },
+    {
+      "label": "legacyCopyToClipboard()",
+      "file_type": "code",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "src_lib_client_clipboard_legacycopytoclipboard",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
+      "norm_label": "legacycopytoclipboard()"
+    },
+    {
+      "label": "copyToClipboard()",
+      "file_type": "code",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "src_lib_client_clipboard_copytoclipboard",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
+      "norm_label": "copytoclipboard()"
+    },
+    {
       "label": "clock.ts",
       "file_type": "code",
       "source_file": "src/lib/clock.ts",
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_clock",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "clock.ts"
     },
     {
@@ -6863,8 +6973,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_clock_seasonclockposition",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "seasonclockposition"
     },
     {
@@ -6874,8 +6984,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_clock_getseasonnow",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "getseasonnow()"
     },
     {
@@ -6885,8 +6995,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_lib_clock_clocktimeforgameweek",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "clocktimeforgameweek()"
     },
     {
@@ -6896,8 +7006,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_cron_jobs",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "jobs.ts"
     },
     {
@@ -6907,8 +7017,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_cron_jobs_cron_jobs",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "cron_jobs"
     },
     {
@@ -6918,8 +7028,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_lib_cron_jobs_cronjobname",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "cronjobname"
     },
     {
@@ -6929,8 +7039,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_lib_cron_jobs_getcronjob",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "getcronjob()"
     },
     {
@@ -6940,7 +7050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_cron_run",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "run.ts"
     },
@@ -6951,7 +7061,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_lib_cron_run_serviceclient",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "serviceclient"
     },
@@ -6962,7 +7072,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_lib_cron_run_cronexecutionresult",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "cronexecutionresult"
     },
@@ -6973,7 +7083,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_lib_cron_run_cronexecutionerror",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "cronexecutionerror"
     },
@@ -6984,7 +7094,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_lib_cron_run_cronexecutionerror_constructor",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": ".constructor()"
     },
@@ -6995,7 +7105,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_lib_cron_run_redactsensitivetext",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "redactsensitivetext()"
     },
@@ -7006,7 +7116,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_cron_run_tojson",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "tojson()"
     },
@@ -7017,7 +7127,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "src_lib_cron_run_buildcronerrordetails",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "buildcronerrordetails()"
     },
@@ -7028,7 +7138,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "src_lib_cron_run_startrun",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "startrun()"
     },
@@ -7039,7 +7149,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "src_lib_cron_run_finishrun",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "finishrun()"
     },
@@ -7050,7 +7160,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "src_lib_cron_run_executecronjob",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "executecronjob()"
     },
@@ -7061,8 +7171,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_environment",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "environment.ts"
     },
     {
@@ -7072,8 +7182,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_environment_appenvironment",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "appenvironment"
     },
     {
@@ -7083,8 +7193,8 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "src_lib_environment_seasontype",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "seasontype"
     },
     {
@@ -7094,8 +7204,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_environment_environmentsource",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "environmentsource"
     },
     {
@@ -7105,8 +7215,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "src_lib_environment_environmentpolicy",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "environmentpolicy"
     },
     {
@@ -7116,8 +7226,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "src_lib_environment_app_environments",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "app_environments"
     },
     {
@@ -7127,8 +7237,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_lib_environment_resolveappenvironment",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "resolveappenvironment()"
     },
     {
@@ -7138,7 +7248,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "src_lib_environment_getenvironmentpolicy",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "getenvironmentpolicy()"
     },
@@ -7149,8 +7259,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "src_lib_environment_shoulddryrunnotifications",
-      "community": 1,
-      "community_name": "send-reminders/route.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "shoulddryrunnotifications()"
     },
     {
@@ -7160,8 +7270,8 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "src_lib_environment_getsupabaseprojectref",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "getsupabaseprojectref()"
     },
     {
@@ -7171,8 +7281,8 @@
       "source_location": "L82",
       "_origin": "ast",
       "id": "src_lib_environment_assertsafestagingtarget",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "assertsafestagingtarget()"
     },
     {
@@ -7612,7 +7722,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboard.ts"
     },
     {
@@ -7623,7 +7733,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_leaderboardexportformat",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboardexportformat"
     },
     {
@@ -7634,7 +7744,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_leaderboardexportview",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboardexportview"
     },
     {
@@ -7645,7 +7755,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_exportleaderboardrow",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "exportleaderboardrow"
     },
     {
@@ -7656,7 +7766,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_correctresultcount",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "correctresultcount()"
     },
     {
@@ -7667,7 +7777,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_leaderboardmovementdirection",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboardmovementdirection"
     },
     {
@@ -7678,7 +7788,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_leaderboardmovement",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboardmovement"
     },
     {
@@ -7689,7 +7799,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_getleaderboardmovement",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "getleaderboardmovement()"
     },
     {
@@ -7700,7 +7810,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_escapecsv",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "escapecsv()"
     },
     {
@@ -7711,7 +7821,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_escapemarkdown",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "escapemarkdown()"
     },
     {
@@ -7722,7 +7832,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_escapehtml",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "escapehtml()"
     },
     {
@@ -7733,7 +7843,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_formathtmlmovement",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "formathtmlmovement()"
     },
     {
@@ -7744,7 +7854,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_rankleaderboard",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "rankleaderboard()"
     },
     {
@@ -7755,7 +7865,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_leaderboardbeforelatestgameweek",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboardbeforelatestgameweek()"
     },
     {
@@ -7766,7 +7876,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_leaderboard_formatleaderboard",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "formatleaderboard()"
     },
     {
@@ -7777,7 +7887,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "season-workbook.ts"
     },
     {
@@ -7799,7 +7909,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookfixture",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "workbookfixture"
     },
     {
@@ -7810,7 +7920,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookprediction",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "workbookprediction"
     },
     {
@@ -7821,7 +7931,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_workbookgameweek",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "workbookgameweek"
     },
     {
@@ -7832,7 +7942,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_seasonworkbookdata",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "seasonworkbookdata"
     },
     {
@@ -7843,7 +7953,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_titlerow",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "titlerow()"
     },
     {
@@ -7854,7 +7964,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_styleheader",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "styleheader()"
     },
     {
@@ -7865,7 +7975,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_safesheetname",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "safesheetname()"
     },
     {
@@ -7876,7 +7986,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_movementcellvalue",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "movementcellvalue()"
     },
     {
@@ -7887,7 +7997,7 @@
       "_origin": "ast",
       "id": "src_lib_exports_season_workbook_createseasonworkbook",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "createseasonworkbook()"
     },
     {
@@ -7897,8 +8007,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider",
-      "community": 42,
-      "community_name": "ApiFixture",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "provider.ts"
     },
     {
@@ -7985,7 +8095,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "src_lib_fixtures_provider_createproductionfixtureprovider",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "createproductionfixtureprovider()"
     },
@@ -8173,7 +8283,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "invitations.ts"
     },
     {
@@ -8184,7 +8294,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_pending_invite_cookie",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "pending_invite_cookie"
     },
     {
@@ -8195,7 +8305,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_inviteleague",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "inviteleague"
     },
     {
@@ -8206,7 +8316,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_joinrequestoutcome",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "joinrequestoutcome"
     },
     {
@@ -8217,7 +8327,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_normalizeinvitecode",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "normalizeinvitecode()"
     },
     {
@@ -8228,7 +8338,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_invitepath",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "invitepath()"
     },
     {
@@ -8239,7 +8349,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_inviteauthroute",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "inviteauthroute"
     },
     {
@@ -8250,7 +8360,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_inviteauthpath",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "inviteauthpath()"
     },
     {
@@ -8261,7 +8371,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_withinviteparam",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "withinviteparam()"
     },
     {
@@ -8272,7 +8382,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_notifyleagueadmins",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "notifyleagueadmins()"
     },
     {
@@ -8283,7 +8393,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_getinviteleague",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "getinviteleague()"
     },
     {
@@ -8294,7 +8404,7 @@
       "_origin": "ast",
       "id": "src_lib_invitations_ensurejoinrequest",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "ensurejoinrequest()"
     },
     {
@@ -8436,8 +8546,8 @@
       "source_location": "L66",
       "_origin": "ast",
       "id": "src_lib_login_notices_getloginnoticeformbounds",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "getloginnoticeformbounds()"
     },
     {
@@ -8756,7 +8866,7 @@
       "_origin": "ast",
       "id": "src_lib_notifications_sms_sendtestsms",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "sendtestsms()"
     },
     {
@@ -8942,7 +9052,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "email-import-parser.ts"
     },
@@ -8953,7 +9063,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_emailimportfixture",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "emailimportfixture"
     },
@@ -8975,7 +9085,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_emailparseresult",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "emailparseresult"
     },
@@ -8986,7 +9096,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_premier_league_team_aliases",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "premier_league_team_aliases"
     },
@@ -8997,7 +9107,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_normalize",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "normalize()"
     },
@@ -9008,7 +9118,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_generatedaliases",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "generatedaliases()"
     },
@@ -9019,7 +9129,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_aliasesfor",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "aliasesfor()"
     },
@@ -9030,7 +9140,7 @@
       "source_location": "L114",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_escaperegexp",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "escaperegexp()"
     },
@@ -9041,7 +9151,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_aliaspattern",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "aliaspattern()"
     },
@@ -9052,7 +9162,7 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_candidatesegments",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "candidatesegments()"
     },
@@ -9063,7 +9173,7 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_collectfixturescores",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "collectfixturescores()"
     },
@@ -9074,7 +9184,7 @@
       "source_location": "L221",
       "_origin": "ast",
       "id": "src_lib_predictions_email_import_parser_parsepredictionemail",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "parsepredictionemail()"
     },
@@ -9294,8 +9404,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_supabase_client",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "supabase/client.ts"
     },
     {
@@ -9305,8 +9415,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_supabase_client_createclient",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "createclient()"
     },
     {
@@ -9316,8 +9426,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_supabase_middleware",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "middleware.ts"
     },
     {
@@ -9327,8 +9437,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_supabase_middleware_updatesession",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "updatesession()"
     },
     {
@@ -9338,8 +9448,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_supabase_server",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 61,
+      "community_name": "createServiceClient",
       "norm_label": "server.ts"
     },
     {
@@ -9350,7 +9460,7 @@
       "_origin": "ast",
       "id": "src_lib_supabase_server_createclient",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "createclient()"
     },
     {
@@ -9360,7 +9470,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_supabase_server_createserviceclient",
-      "community": 48,
+      "community": 61,
       "community_name": "createServiceClient",
       "norm_label": "createserviceclient()"
     },
@@ -9371,7 +9481,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "fixtures.ts"
     },
@@ -9382,7 +9492,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_gameweekfixturestate",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "gameweekfixturestate"
     },
@@ -9393,7 +9503,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_completedfixturestatuses",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "completedfixturestatuses"
     },
@@ -9404,7 +9514,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_derivegameweekstatus",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "derivegameweekstatus()"
     },
@@ -9415,7 +9525,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_mapfixturestatus",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "mapfixturestatus()"
     },
@@ -9426,7 +9536,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresult",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "syncresult"
     },
@@ -9437,7 +9547,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_gameweeknumberfromround",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "gameweeknumberfromround()"
     },
@@ -9448,7 +9558,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncloglevel",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "syncloglevel"
     },
@@ -9459,7 +9569,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogentry",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "synclogentry"
     },
@@ -9470,7 +9580,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_synclogger",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "synclogger"
     },
@@ -9481,7 +9591,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_log",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "log()"
     },
@@ -9492,7 +9602,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncgameweekstatuses",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "syncgameweekstatuses()"
     },
@@ -9503,7 +9613,7 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncfixtures",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "syncfixtures()"
     },
@@ -9514,7 +9624,7 @@
       "source_location": "L292",
       "_origin": "ast",
       "id": "src_lib_sync_fixtures_syncresults",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "syncresults()"
     },
@@ -9525,8 +9635,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_utils",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "utils.ts"
     },
     {
@@ -9536,8 +9646,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_lib_utils_cn",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 60,
+      "community_name": "getAdminContext",
       "norm_label": "cn()"
     },
     {
@@ -9547,8 +9657,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_proxy",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "proxy.ts"
     },
     {
@@ -9558,8 +9668,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_proxy_proxy",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "proxy()"
     },
     {
@@ -9569,8 +9679,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_proxy_config",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "config"
     },
     {
@@ -9580,8 +9690,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_types_database",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "database.ts"
     },
     {
@@ -9591,8 +9701,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_types_database_json",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "json"
     },
     {
@@ -9602,8 +9712,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "src_types_database_database",
-      "community": 4,
-      "community_name": "server.ts",
+      "community": 59,
+      "community_name": "types/index.ts",
       "norm_label": "database"
     },
     {
@@ -9614,7 +9724,7 @@
       "_origin": "ast",
       "id": "src_types_database_tables",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "tables"
     },
     {
@@ -9625,7 +9735,7 @@
       "_origin": "ast",
       "id": "src_types_database_enums",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "enums"
     },
     {
@@ -9636,7 +9746,7 @@
       "_origin": "ast",
       "id": "src_types_index",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "types/index.ts"
     },
     {
@@ -9647,7 +9757,7 @@
       "_origin": "ast",
       "id": "src_types_index_userrole",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "userrole"
     },
     {
@@ -9658,7 +9768,7 @@
       "_origin": "ast",
       "id": "src_types_index_seasontype",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "seasontype"
     },
     {
@@ -9669,7 +9779,7 @@
       "_origin": "ast",
       "id": "src_types_index_seasonstatus",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "seasonstatus"
     },
     {
@@ -9679,7 +9789,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_types_index_fixturestatus",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "fixturestatus"
     },
@@ -9691,7 +9801,7 @@
       "_origin": "ast",
       "id": "src_types_index_gameweekstatus",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "gameweekstatus"
     },
     {
@@ -9702,7 +9812,7 @@
       "_origin": "ast",
       "id": "src_types_index_joinrequeststatus",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "joinrequeststatus"
     },
     {
@@ -9713,7 +9823,7 @@
       "_origin": "ast",
       "id": "src_types_index_predictionauditaction",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "predictionauditaction"
     },
     {
@@ -9735,7 +9845,7 @@
       "_origin": "ast",
       "id": "src_types_index_notificationchannel",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "notificationchannel"
     },
     {
@@ -9746,7 +9856,7 @@
       "_origin": "ast",
       "id": "src_types_index_notificationtype",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "notificationtype"
     },
     {
@@ -9757,7 +9867,7 @@
       "_origin": "ast",
       "id": "src_types_index_notificationstatus",
       "community": 59,
-      "community_name": "fixtures.ts",
+      "community_name": "types/index.ts",
       "norm_label": "notificationstatus"
     },
     {
@@ -9844,8 +9954,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_admin_authorization_test",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "admin-authorization.test.ts"
     },
     {
@@ -9855,8 +9965,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "tests_unit_admin_authorization_test_createserviceclient_requireleagueadmin_maybesingle_inquery",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 0,
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "{ createserviceclient, requireleagueadmin, maybesingle, inquery }"
     },
     {
@@ -9910,8 +10020,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "admin-view-as-actions.test.ts"
     },
     {
@@ -9921,8 +10031,8 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test_cookiestore_cookies_createserviceclient_issuperadmin_redirect",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "{ cookiestore, cookies, createserviceclient, issuperadmin, redirect }"
     },
     {
@@ -9932,8 +10042,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test_leaguequery",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "leaguequery()"
     },
     {
@@ -9943,8 +10053,8 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "tests_unit_admin_view_as_actions_test_seasonsquery",
-      "community": 46,
-      "community_name": "AdminShell.tsx",
+      "community": 72,
+      "community_name": "context.ts",
       "norm_label": "seasonsquery()"
     },
     {
@@ -9957,6 +10067,17 @@
       "community": 46,
       "community_name": "AdminShell.tsx",
       "norm_label": "admin-view-mode-shell.test.tsx"
+    },
+    {
+      "label": "{ usePathname }",
+      "file_type": "code",
+      "source_file": "tests/unit/admin-view-mode-shell.test.tsx",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "tests_unit_admin_view_mode_shell_test_usepathname",
+      "community": 46,
+      "community_name": "AdminShell.tsx",
+      "norm_label": "{ usepathname }"
     },
     {
       "label": "api-football-client.test.ts",
@@ -10141,8 +10262,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_clock_test",
-      "community": 48,
-      "community_name": "createServiceClient",
+      "community": 92,
+      "community_name": "dashboard/page.tsx",
       "norm_label": "clock.test.ts"
     },
     {
@@ -10152,8 +10273,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_cron_job_status_panel_test",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "cron-job-status-panel.test.tsx"
     },
     {
@@ -10163,8 +10284,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "tests_unit_cron_job_status_panel_test_failedrun",
-      "community": 59,
-      "community_name": "fixtures.ts",
+      "community": 57,
+      "community_name": "fixtures/page.tsx",
       "norm_label": "failedrun"
     },
     {
@@ -10174,7 +10295,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_cron_run_test",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "cron-run.test.ts"
     },
@@ -10185,8 +10306,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "deployment-config.test.ts"
     },
     {
@@ -10196,8 +10317,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_normalizelines",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "normalizelines()"
     },
     {
@@ -10207,8 +10328,8 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_renderblueprint",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "renderblueprint"
     },
     {
@@ -10218,8 +10339,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_stagingworkflow",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "stagingworkflow"
     },
     {
@@ -10229,8 +10350,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "tests_unit_deployment_config_test_seasonclockmigration",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "seasonclockmigration"
     },
     {
@@ -10240,8 +10361,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_environment_test",
-      "community": 32,
-      "community_name": "environment.ts",
+      "community": 54,
+      "community_name": "fixtures.ts",
       "norm_label": "environment.test.ts"
     },
     {
@@ -10252,7 +10373,7 @@
       "_origin": "ast",
       "id": "tests_unit_export_panel_test",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "export-panel.test.tsx"
     },
     {
@@ -10263,7 +10384,7 @@
       "_origin": "ast",
       "id": "tests_unit_export_panel_test_row",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "row()"
     },
     {
@@ -10339,7 +10460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_fixture_sync_test",
-      "community": 59,
+      "community": 54,
       "community_name": "fixtures.ts",
       "norm_label": "fixture-sync.test.ts"
     },
@@ -10450,7 +10571,7 @@
       "_origin": "ast",
       "id": "tests_unit_invitations_test",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "invitations.test.ts"
     },
     {
@@ -10461,7 +10582,7 @@
       "_origin": "ast",
       "id": "tests_unit_invitations_test_sendjoinrequestemail",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "{ sendjoinrequestemail }"
     },
     {
@@ -10472,7 +10593,7 @@
       "_origin": "ast",
       "id": "tests_unit_invitations_test_fakeinvitationclient",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "fakeinvitationclient()"
     },
     {
@@ -10482,8 +10603,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_invite_link_copy_test",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 99,
+      "community_name": "InviteLinkCopy.tsx",
       "norm_label": "invite-link-copy.test.tsx"
     },
     {
@@ -10493,8 +10614,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "tests_unit_invite_link_copy_test_writetext",
-      "community": 57,
-      "community_name": "fixtures/page.tsx",
+      "community": 99,
+      "community_name": "InviteLinkCopy.tsx",
       "norm_label": "writetext"
     },
     {
@@ -10505,7 +10626,7 @@
       "_origin": "ast",
       "id": "tests_unit_leaderboard_export_test",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "leaderboard-export.test.ts"
     },
     {
@@ -10516,7 +10637,7 @@
       "_origin": "ast",
       "id": "tests_unit_leaderboard_export_test_row",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "row()"
     },
     {
@@ -10560,7 +10681,7 @@
       "_origin": "ast",
       "id": "tests_unit_password_recovery_test",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "password-recovery.test.ts"
     },
     {
@@ -10571,7 +10692,7 @@
       "_origin": "ast",
       "id": "tests_unit_password_recovery_test_cookiestore_createclient_redirect",
       "community": 4,
-      "community_name": "server.ts",
+      "community_name": "createClient",
       "norm_label": "{ cookiestore, createclient, redirect }"
     },
     {
@@ -10603,7 +10724,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_unit_prediction_email_parser_test",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "prediction-email-parser.test.ts"
     },
@@ -10614,7 +10735,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "tests_unit_prediction_email_parser_test_fixtures",
-      "community": 69,
+      "community": 64,
       "community_name": "email-import-parser.ts",
       "norm_label": "fixtures"
     },
@@ -10725,7 +10846,7 @@
       "_origin": "ast",
       "id": "tests_unit_season_workbook_test",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "season-workbook.test.ts"
     },
     {
@@ -10736,7 +10857,7 @@
       "_origin": "ast",
       "id": "tests_unit_season_workbook_test_row",
       "community": 0,
-      "community_name": "leaderboard.ts",
+      "community_name": "requireLeagueAdminForSeason",
       "norm_label": "row()"
     },
     {
@@ -10813,7 +10934,7 @@
       "_origin": "ast",
       "id": "tests_unit_staging_scenario_test",
       "community": 32,
-      "community_name": "environment.ts",
+      "community_name": "scenario.mts",
       "norm_label": "staging-scenario.test.ts"
     },
     {
@@ -10879,7 +11000,7 @@
       "_origin": "ast",
       "id": "tests_unit_test_notification_action_test",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "test-notification-action.test.ts"
     },
     {
@@ -10890,7 +11011,7 @@
       "_origin": "ast",
       "id": "tests_unit_test_notification_action_test_createserviceclient_getuser_issuperadmin_redirect_revalidatepath_sendtestemail_sendtestsms",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "{\r\n  createserviceclient,\r\n  getuser,\r\n  issuperadmin,\r\n  redirect,\r\n  revalidatepath,\r\n  sendtestemail,\r\n  sendtestsms,\r\n}"
     },
     {
@@ -10901,7 +11022,7 @@
       "_origin": "ast",
       "id": "tests_unit_test_notification_action_test_queryreturning",
       "community": 48,
-      "community_name": "createServiceClient",
+      "community_name": "test-tools/page.tsx",
       "norm_label": "queryreturning()"
     },
     {
@@ -26007,7 +26128,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L219",
+      "source_location": "L220",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
@@ -26285,7 +26406,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L173",
+      "source_location": "L210",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26296,7 +26417,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L70",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26307,7 +26428,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L147",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26318,7 +26439,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L55",
+      "source_location": "L61",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26329,7 +26450,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L34",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26340,7 +26461,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L43",
+      "source_location": "L49",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26351,7 +26472,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L62",
+      "source_location": "L68",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26362,7 +26483,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L39",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26373,7 +26494,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L76",
+      "source_location": "L82",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26384,7 +26505,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L80",
+      "source_location": "L86",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26424,7 +26545,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
-      "target": "src_components_admin_secret_game_gate",
+      "target": "src_components_admin_secret_game_cookie",
       "confidence_score": 1.0
     },
     {
@@ -26436,7 +26557,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
-      "target": "src_components_admin_secret_game_gate_registersecretgamepress",
+      "target": "src_components_admin_secret_game_cookie_hasstartedsecretgame",
       "confidence_score": 1.0
     },
     {
@@ -26448,7 +26569,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
-      "target": "src_components_admin_secret_game_gate_secretgamegatestate",
+      "target": "src_components_admin_secret_game_cookie_remembersecretgamestarted",
       "confidence_score": 1.0
     },
     {
@@ -26460,7 +26581,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
-      "target": "src_components_ui_form_submit_button",
+      "target": "src_components_admin_secret_game_gate",
       "confidence_score": 1.0
     },
     {
@@ -26472,7 +26593,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
-      "target": "src_components_ui_form_submit_button_formpendingstatus",
+      "target": "src_components_admin_secret_game_gate_registersecretgamepress",
       "confidence_score": 1.0
     },
     {
@@ -26481,6 +26602,66 @@
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
       "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell",
+      "target": "src_components_admin_secret_game_gate_secret_game_invite_delay_ms",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell",
+      "target": "src_components_admin_secret_game_gate_secret_game_press_count",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell",
+      "target": "src_components_admin_secret_game_gate_secretgamegatestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell",
+      "target": "src_components_ui_form_submit_button",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell",
+      "target": "src_components_ui_form_submit_button_formpendingstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell",
@@ -26504,7 +26685,7 @@
       "context": "type",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L39",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell_seasonoption",
@@ -26516,7 +26697,31 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/AdminShell.tsx",
-      "source_location": "L118",
+      "source_location": "L115",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell_themetoggle",
+      "target": "src_components_admin_secret_game_cookie_hasstartedsecretgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_adminshell_themetoggle",
+      "target": "src_components_admin_secret_game_cookie_remembersecretgamestarted",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/AdminShell.tsx",
+      "source_location": "L144",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_adminshell_themetoggle",
@@ -27378,7 +27583,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27389,7 +27594,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27400,7 +27605,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27411,7 +27616,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27422,7 +27627,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27433,7 +27638,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L340",
+      "source_location": "L336",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27444,7 +27649,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27455,7 +27660,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L361",
+      "source_location": "L357",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
@@ -27466,11 +27671,35 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel",
       "target": "src_components_admin_exportpanel_view",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/ExportPanel.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_exportpanel",
+      "target": "src_lib_client_clipboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/ExportPanel.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_exportpanel",
+      "target": "src_lib_client_clipboard_copytoclipboard",
       "confidence_score": 1.0
     },
     {
@@ -27551,7 +27780,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L57",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel_exportpanel",
@@ -27563,7 +27792,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L280",
+      "source_location": "L276",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel_exportpanel",
@@ -27575,7 +27804,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/admin/ExportPanel.tsx",
-      "source_location": "L61",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_exportpanel_exportpanel",
@@ -27597,7 +27826,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27608,7 +27837,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27619,7 +27848,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27630,7 +27859,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L87",
+      "source_location": "L88",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27641,7 +27870,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27652,7 +27881,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27663,7 +27892,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27674,7 +27903,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27685,7 +27914,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27696,7 +27925,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
@@ -27707,11 +27936,35 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L78",
+      "source_location": "L79",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport",
       "target": "src_components_admin_fixtureclipboardexport_selectfixtureexportgameweek",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_lib_client_clipboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/FixtureClipboardExport.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_fixtureclipboardexport",
+      "target": "src_lib_client_clipboard_copytoclipboard",
       "confidence_score": 1.0
     },
     {
@@ -27743,7 +27996,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L62",
+      "source_location": "L63",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport_formatfixtureexport",
@@ -27755,7 +28008,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
@@ -27779,7 +28032,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L88",
+      "source_location": "L89",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
@@ -27791,7 +28044,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L79",
+      "source_location": "L80",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport_selectfixtureexportgameweek",
@@ -27815,7 +28068,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/FixtureClipboardExport.tsx",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_fixtureclipboardexport_fixtureclipboardexport",
@@ -28044,12 +28297,151 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_secret_game_cookie",
+      "target": "src_components_admin_secret_game_cookie_hasstartedsecretgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_secret_game_cookie",
+      "target": "src_components_admin_secret_game_cookie_remembersecretgamestarted",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_secret_game_cookie",
+      "target": "src_components_admin_secret_game_cookie_secret_game_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/secret-game-cookie.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_secret_game_cookie",
+      "target": "src_components_admin_secret_game_cookie_secret_game_cookie_max_age_seconds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_participant_playeraccessibilitymode",
+      "target": "src_components_admin_secret_game_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/admin-view-mode-shell.test.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_admin_view_mode_shell_test",
+      "target": "src_components_admin_secret_game_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/player-accessibility-mode.test.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_player_accessibility_mode_test",
+      "target": "src_components_admin_secret_game_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/admin-view-mode-shell.test.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_admin_view_mode_shell_test",
+      "target": "src_components_admin_secret_game_cookie_secret_game_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/player-accessibility-mode.test.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_player_accessibility_mode_test",
+      "target": "src_components_admin_secret_game_cookie_secret_game_cookie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_participant_playeraccessibilitymode",
+      "target": "src_components_admin_secret_game_cookie_hasstartedsecretgame",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_participant_playeraccessibilitymode",
+      "target": "src_components_admin_secret_game_cookie_remembersecretgamestarted",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/components/admin/secret-game-gate.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_secret_game_gate",
       "target": "src_components_admin_secret_game_gate_registersecretgamepress",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/admin/secret-game-gate.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_admin_secret_game_gate",
+      "target": "src_components_admin_secret_game_gate_secret_game_invite_delay_ms",
       "confidence_score": 1.0
     },
     {
@@ -28078,7 +28470,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/admin/secret-game-gate.ts",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_admin_secret_game_gate",
@@ -28090,10 +28482,22 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L6",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
+      "target": "src_components_admin_secret_game_gate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/admin-view-mode-shell.test.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_admin_view_mode_shell_test",
       "target": "src_components_admin_secret_game_gate",
       "confidence_score": 1.0
     },
@@ -28137,8 +28541,20 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "tests/unit/admin-view-mode-shell.test.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_admin_view_mode_shell_test",
+      "target": "src_components_admin_secret_game_gate_secret_game_invite_delay_ms",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L6",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28162,7 +28578,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L6",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28313,7 +28729,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28324,7 +28740,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L13",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28335,7 +28751,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L28",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28346,7 +28762,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L86",
+      "source_location": "L95",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28357,7 +28773,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L34",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28368,7 +28784,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L20",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode",
@@ -28380,7 +28796,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/unit/player-accessibility-mode.test.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "tests_unit_player_accessibility_mode_test",
@@ -28392,7 +28808,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/components/participant/PlayerAccessibilityMode.tsx",
-      "source_location": "L97",
+      "source_location": "L106",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_participant_playeraccessibilitymode_playeraccessibilitymode",
@@ -28404,7 +28820,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/unit/player-accessibility-mode.test.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "tests_unit_player_accessibility_mode_test",
@@ -28416,7 +28832,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/unit/player-accessibility-mode.test.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast",
       "source": "tests_unit_player_accessibility_mode_test",
@@ -32483,6 +32899,51 @@
       "_origin": "ast",
       "source": "tests_unit_breakout_rules_test",
       "target": "src_lib_breakout_rules_isvalidbreakoutrunsummary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_client_clipboard",
+      "target": "src_lib_client_clipboard_clipboardcontent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_client_clipboard",
+      "target": "src_lib_client_clipboard_copytoclipboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_client_clipboard",
+      "target": "src_lib_client_clipboard_legacycopytoclipboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/client/clipboard.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_client_clipboard_copytoclipboard",
+      "target": "src_lib_client_clipboard_legacycopytoclipboard",
       "confidence_score": 1.0
     },
     {
@@ -39209,6 +39670,17 @@
       "_origin": "ast",
       "source": "tests_unit_admin_view_as_actions_test",
       "target": "tests_unit_admin_view_as_actions_test_seasonsquery",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/unit/admin-view-mode-shell.test.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "tests_unit_admin_view_mode_shell_test",
+      "target": "tests_unit_admin_view_mode_shell_test_usepathname",
       "confidence_score": 1.0
     },
     {
