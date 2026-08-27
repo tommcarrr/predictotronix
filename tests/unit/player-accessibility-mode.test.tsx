@@ -1,6 +1,7 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SECRET_GAME_COOKIE } from '@/components/admin/secret-game-cookie';
+import { SECRET_GAME_INVITE_DELAY_MS } from '@/components/admin/secret-game-gate';
 import {
   PlayerAccessibilityMode,
   PlayerAccessibilityToggle,
@@ -14,6 +15,7 @@ const STORAGE_KEY = 'predictotronix-player-accessibility';
 
 describe('PlayerAccessibilityMode', () => {
   beforeEach(() => {
+    vi.useRealTimers();
     window.localStorage.clear();
     document.cookie = `${SECRET_GAME_COOKIE}=; Path=/; Max-Age=0`;
   });
@@ -73,7 +75,8 @@ describe('PlayerAccessibilityMode', () => {
     expect(document.querySelector('.player-accessibility__toolbar')).not.toBeInTheDocument();
   });
 
-  it('opens the league game after four consecutive mode changes and remembers it', () => {
+  it('invites a click after 30 seconds and intensifies after each press', () => {
+    vi.useFakeTimers();
     render(
       <PlayerAccessibilityMode showToolbarToggle={false}>
         <PlayerAccessibilityToggle breakout={{
@@ -85,9 +88,43 @@ describe('PlayerAccessibilityMode', () => {
     );
 
     const toggle = screen.getByRole('button', { name: 'Accessible mode: Off' });
-    for (let press = 0; press < 4; press += 1) fireEvent.click(toggle);
+    expect(toggle).not.toHaveAttribute('data-secret-game-hint');
+
+    act(() => vi.advanceTimersByTime(SECRET_GAME_INVITE_DELAY_MS));
+    expect(toggle).toHaveAttribute('data-secret-game-hint', '1');
+
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('data-secret-game-hint', '2');
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('data-secret-game-hint', '3');
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('data-secret-game-hint', '4');
+    fireEvent.click(toggle);
 
     expect(screen.getByRole('dialog', { name: 'Football Breakout' })).toBeVisible();
     expect(document.cookie).toContain(`${SECRET_GAME_COOKIE}=1`);
+    expect(toggle).not.toHaveAttribute('data-secret-game-hint');
+  });
+
+  it('uses the cookie only to suppress prompts, not four-click game entry', () => {
+    vi.useFakeTimers();
+    document.cookie = `${SECRET_GAME_COOKIE}=1; Path=/; Max-Age=7776000`;
+
+    render(
+      <PlayerAccessibilityMode showToolbarToggle={false}>
+        <PlayerAccessibilityToggle breakout={{
+          leagueId: 'league-1',
+          leagueName: 'North League',
+          playerName: 'Player One',
+        }} />
+      </PlayerAccessibilityMode>
+    );
+
+    const toggle = screen.getByRole('button', { name: 'Accessible mode: Off' });
+    act(() => vi.advanceTimersByTime(SECRET_GAME_INVITE_DELAY_MS));
+    expect(toggle).not.toHaveAttribute('data-secret-game-hint');
+
+    for (let press = 0; press < 4; press += 1) fireEvent.click(toggle);
+    expect(screen.getByRole('dialog', { name: 'Football Breakout' })).toBeVisible();
   });
 });

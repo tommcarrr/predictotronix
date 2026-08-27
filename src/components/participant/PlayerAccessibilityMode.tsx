@@ -8,6 +8,8 @@ import {
   rememberSecretGameStarted,
 } from '@/components/admin/secret-game-cookie';
 import {
+  SECRET_GAME_INVITE_DELAY_MS,
+  SECRET_GAME_PRESS_COUNT,
   registerSecretGamePress,
   type SecretGameGateState,
 } from '@/components/admin/secret-game-gate';
@@ -38,13 +40,32 @@ interface BreakoutContext {
 export function PlayerAccessibilityToggle({ breakout }: { breakout?: BreakoutContext }) {
   const accessibility = useContext(AccessibilityContext);
   const [gameOpen, setGameOpen] = useState(false);
+  const [hintLevel, setHintLevel] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const invitationActive = useRef(false);
   const secretGate = useRef<SecretGameGateState>({ count: 0, lastPressedAt: 0 });
+
+  useEffect(() => {
+    if (!breakout || hasStartedSecretGame()) {
+      invitationActive.current = false;
+      secretGate.current = { count: 0, lastPressedAt: 0 };
+      setHintLevel(0);
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      invitationActive.current = true;
+      setHintLevel(1);
+    }, SECRET_GAME_INVITE_DELAY_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [breakout]);
 
   useEffect(() => {
     function resetSequenceOnOtherPress(event: PointerEvent) {
       if (!buttonRef.current?.contains(event.target as Node)) {
         secretGate.current = { count: 0, lastPressedAt: 0 };
+        setHintLevel(invitationActive.current ? 1 : 0);
       }
     }
     document.addEventListener('pointerdown', resetSequenceOnOtherPress, true);
@@ -57,14 +78,18 @@ export function PlayerAccessibilityToggle({ breakout }: { breakout?: BreakoutCon
 
   function handleToggle() {
     toggle();
-    if (hasStartedSecretGame()) return;
-
     const result = registerSecretGamePress(secretGate.current, performance.now());
     secretGate.current = result.state;
     if (result.unlocked && breakout) {
       rememberSecretGameStarted();
+      invitationActive.current = false;
+      setHintLevel(0);
       setGameOpen(true);
+      return;
     }
+
+    invitationActive.current = true;
+    setHintLevel(Math.min(result.state.count + 1, SECRET_GAME_PRESS_COUNT));
   }
 
   return (
@@ -73,6 +98,7 @@ export function PlayerAccessibilityToggle({ breakout }: { breakout?: BreakoutCon
         ref={buttonRef}
         type="button"
         className="player-accessibility__toggle"
+        data-secret-game-hint={hintLevel || undefined}
         aria-pressed={enabled}
         aria-label={`Accessible mode: ${enabled ? 'On' : 'Off'}`}
         title={`Accessible mode: ${enabled ? 'On' : 'Off'}`}

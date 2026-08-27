@@ -1,8 +1,7 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AdminShell } from '@/components/admin/AdminShell';
 import { SECRET_GAME_COOKIE } from '@/components/admin/secret-game-cookie';
-import { SECRET_GAME_INVITE_DELAY_MS } from '@/components/admin/secret-game-gate';
 
 const { usePathname } = vi.hoisted(() => ({
   usePathname: vi.fn(() => '/admin/participants'),
@@ -59,7 +58,8 @@ describe('AdminShell league-admin view mode', () => {
     expect(screen.queryByRole('link', { name: 'Notifications' })).not.toBeInTheDocument();
   });
 
-  it('opens the hidden game only after four consecutive theme changes', () => {
+  it('opens the hidden game after four theme changes even when the prompt cookie exists', () => {
+    document.cookie = `${SECRET_GAME_COOKIE}=1; Path=/; Max-Age=7776000`;
     render(
       <AdminShell
         email="player@example.com"
@@ -81,70 +81,5 @@ describe('AdminShell league-admin view mode', () => {
     fireEvent.click(themeButton);
     expect(screen.getByRole('dialog', { name: 'Football Breakout' })).toBeVisible();
     expect(document.cookie).toContain(`${SECRET_GAME_COOKIE}=1`);
-  });
-
-  it('invites a click after 30 seconds and intensifies after each press', () => {
-    vi.useFakeTimers();
-    usePathname.mockReturnValue('/admin');
-
-    render(
-      <AdminShell
-        email="player@example.com"
-        playerName="Test Player"
-        leagues={[{ id: 'league-1', name: 'North League' }]}
-        seasons={[]}
-        selectedLeagueId="league-1"
-        selectedSeasonId={null}
-        superAdmin
-        viewingAsLeagueAdmin={false}
-      >
-        <div>Admin content</div>
-      </AdminShell>,
-    );
-
-    const themeButton = screen.getByRole('button', { name: 'Use dark theme' });
-    expect(themeButton).not.toHaveAttribute('data-secret-game-hint');
-
-    act(() => vi.advanceTimersByTime(SECRET_GAME_INVITE_DELAY_MS));
-    expect(themeButton).toHaveAttribute('data-secret-game-hint', '1');
-
-    fireEvent.click(themeButton);
-    expect(themeButton).toHaveAttribute('data-secret-game-hint', '2');
-    fireEvent.click(themeButton);
-    expect(themeButton).toHaveAttribute('data-secret-game-hint', '3');
-    fireEvent.click(themeButton);
-    expect(themeButton).toHaveAttribute('data-secret-game-hint', '4');
-    fireEvent.click(themeButton);
-
-    expect(screen.getByRole('dialog', { name: 'Football Breakout' })).toBeVisible();
-    expect(themeButton).not.toHaveAttribute('data-secret-game-hint');
-  });
-
-  it('does not invite or relaunch the game while the started cookie is present', () => {
-    vi.useFakeTimers();
-    usePathname.mockReturnValue('/admin');
-    document.cookie = `${SECRET_GAME_COOKIE}=1; Path=/; Max-Age=7776000`;
-
-    render(
-      <AdminShell
-        email="player@example.com"
-        playerName="Test Player"
-        leagues={[{ id: 'league-1', name: 'North League' }]}
-        seasons={[]}
-        selectedLeagueId="league-1"
-        selectedSeasonId={null}
-        superAdmin
-        viewingAsLeagueAdmin={false}
-      >
-        <div>Admin content</div>
-      </AdminShell>,
-    );
-
-    const themeButton = screen.getByRole('button', { name: 'Use dark theme' });
-    act(() => vi.advanceTimersByTime(SECRET_GAME_INVITE_DELAY_MS));
-    expect(themeButton).not.toHaveAttribute('data-secret-game-hint');
-
-    for (let press = 0; press < 4; press += 1) fireEvent.click(themeButton);
-    expect(screen.queryByRole('dialog', { name: 'Football Breakout' })).not.toBeInTheDocument();
   });
 });

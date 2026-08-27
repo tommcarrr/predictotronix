@@ -550,8 +550,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/AdminShell.tsx": {
-    "mtime": 1787828141.7391417,
-    "ast_hash": "c9a16ded72fcccf5b2dc158e3efb68dc",
+    "mtime": 1787840285.0916822,
+    "ast_hash": "172504d23acba8c1a4c92fafe17acaee",
     "semantic_hash": ""
   },
   "src/lib/admin/context.ts": {
@@ -725,13 +725,13 @@
     "semantic_hash": ""
   },
   "src/components/participant/PlayerAccessibilityMode.tsx": {
-    "mtime": 1787826491.131574,
-    "ast_hash": "9757b5ee6291cedf67bb62afe14c3407",
+    "mtime": 1787840289.2414691,
+    "ast_hash": "7f9ad6d6d68e2f938106b3fef1ad74ab",
     "semantic_hash": ""
   },
   "tests/unit/player-accessibility-mode.test.tsx": {
-    "mtime": 1787826500.1108427,
-    "ast_hash": "bc615e4396af476ebc159d62a02cfff3",
+    "mtime": 1787840305.9115417,
+    "ast_hash": "b0dfbe50222c4c1fb32b718fccd8b536",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260813_090106_can_you_make_the_suggested_changes.md": {
@@ -875,8 +875,8 @@
     "semantic_hash": ""
   },
   "tests/unit/admin-view-mode-shell.test.tsx": {
-    "mtime": 1787826694.881017,
-    "ast_hash": "7cd12eb7d86dd6f9925aa09ac2ad6659",
+    "mtime": 1787840301.4740312,
+    "ast_hash": "0f17726d3a8ea4c90eae9640326b29da",
     "semantic_hash": ""
   },
   "src/lib/notifications/reminders.ts": {
@@ -1227,6 +1227,11 @@
   "graphify-out/memory/query_20260827_105501_on_the_dashboard_screen__reduce_the_theme_button_e.md": {
     "mtime": 1787828101.8977542,
     "ast_hash": "444753b232358d6fa4dd3d2c90a2fff6",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260827_183309_the_easter_egg_prompt_belongs_on_the_player_dashbo.md": {
+    "mtime": 1787855589.2904935,
+    "ast_hash": "57bbabbc5684eb6e7e4e5687c15086b3",
     "semantic_hash": ""
   }
 }
