@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { SiteFooter } from '@/components/legal/SiteFooter';
 import './globals.css';
 
 const siteName = 'Predictotronix';
-const description =
-  'Predict Premier League scores. Your participation helps Predictotronix improve its understanding of human judgement.';
+const description = 'Predict Premier League scores with your private leagues on Predictotronix.';
 
 function getMetadataBase() {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
@@ -63,6 +63,7 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         {children}
+        <SiteFooter />
         <script
           dangerouslySetInnerHTML={{
             __html: `document.fonts.ready.then(function(){document.documentElement.classList.add('fonts-loaded')}).catch(function(){document.documentElement.classList.add('fonts-loaded')});`,
