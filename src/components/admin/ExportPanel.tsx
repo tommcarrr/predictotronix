@@ -7,6 +7,7 @@ import {
   getLeaderboardMovement,
   leaderboardBeforeLatestGameweek,
 } from '@/lib/exports/leaderboard';
+import { copyToClipboard } from '@/lib/client/clipboard';
 
 export interface LeaderboardRow {
   participant_id: string;
@@ -78,17 +79,12 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
     setBusy('copy');
     try {
       const content = await fetchExport();
-      if (format === 'html' && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+      if (format === 'html') {
         const document = new DOMParser().parseFromString(content, 'text/html');
         const plainText = document.body.innerText;
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            'text/html': new Blob([content], { type: 'text/html' }),
-            'text/plain': new Blob([plainText], { type: 'text/plain' }),
-          }),
-        ]);
+        await copyToClipboard({ text: plainText, html: content });
       } else {
-        await navigator.clipboard.writeText(content);
+        await copyToClipboard({ text: content });
       }
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);

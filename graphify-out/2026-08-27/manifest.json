@@ -200,8 +200,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/ExportPanel.tsx": {
-    "mtime": 1787814105.647374,
-    "ast_hash": "9def7727e057004b7cedede112669cc8",
+    "mtime": 1787812682.463575,
+    "ast_hash": "9353c13ce6824065646f659c04a50c0c",
     "semantic_hash": ""
   },
   "src/components/participant/PredictionsForm.tsx": {
@@ -900,13 +900,13 @@
     "semantic_hash": ""
   },
   "src/components/admin/FixtureClipboardExport.tsx": {
-    "mtime": 1787814105.6692865,
-    "ast_hash": "ea6863708f422a779d476132dd538073",
+    "mtime": 1787811130.2784815,
+    "ast_hash": "9cb482226f0f88f53deabbe7bd158eca",
     "semantic_hash": ""
   },
   "tests/unit/fixture-clipboard-export.test.tsx": {
-    "mtime": 1787814105.7281334,
-    "ast_hash": "cda7eeae209f066cf7289596dacd3f04",
+    "mtime": 1787811130.4265995,
+    "ast_hash": "20bffb10b864d54e8a5a029b5da741eb",
     "semantic_hash": ""
   },
   "src/lib/admin/authorization.ts": {
@@ -1000,8 +1000,8 @@
     "semantic_hash": ""
   },
   "tests/unit/export-panel.test.tsx": {
-    "mtime": 1787814148.7567244,
-    "ast_hash": "7b8e2fa4f757073eeddf1b467a6e6be2",
+    "mtime": 1787812716.5771115,
+    "ast_hash": "70724b9918c843530776ad8097fcebb2",
     "semantic_hash": ""
   },
   "tests/unit/season-workbook.test.ts": {
@@ -1212,11 +1212,6 @@
   "tests/unit/gameweek-workbook.test.ts": {
     "mtime": 1787812160.5580997,
     "ast_hash": "9bad8b98db6792aa4704cb5b41a3826d",
-    "semantic_hash": ""
-  },
-  "src/lib/client/clipboard.ts": {
-    "mtime": 1787814105.689313,
-    "ast_hash": "e7c26b95f683c996f818faf1122fdc62",
     "semantic_hash": ""
   }
 }

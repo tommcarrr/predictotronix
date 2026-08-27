@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Check, ChevronDown, Copy } from 'lucide-react';
 import { AdminBadge, statusTone } from '@/components/admin/AdminBadge';
+import { copyToClipboard } from '@/lib/client/clipboard';
 
 type FixtureStatus = 'scheduled' | 'live' | 'finished' | 'postponed' | 'cancelled' | 'abandoned';
 
@@ -107,7 +108,7 @@ export function FixtureClipboardExport({ gameweeks, now }: Props) {
 
   async function copyFixtures() {
     try {
-      await navigator.clipboard.writeText(exportText);
+      await copyToClipboard({ text: exportText });
       setStatus('copied');
       if (resetTimer.current) clearTimeout(resetTimer.current);
       resetTimer.current = setTimeout(() => setStatus('idle'), 2000);
