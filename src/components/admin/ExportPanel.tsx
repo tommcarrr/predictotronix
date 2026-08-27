@@ -57,9 +57,7 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
   const correctResults = rows.reduce((sum, row) => sum + correctResultCount(row), 0);
   const previousPositions = useMemo(() => {
     if (gameweeks.length <= 1) return undefined;
-    const latestGameweek = [...gameweeks].sort(
-      (a, b) => b.gameweekNumber - a.gameweekNumber
-    )[0];
+    const latestGameweek = [...gameweeks].sort((a, b) => b.gameweekNumber - a.gameweekNumber)[0];
     const previousTable = leaderboardBeforeLatestGameweek(seasonRows, latestGameweek.rows);
     return new Map(previousTable.map((row) => [row.participant_id, row.position]));
   }, [gameweeks, seasonRows]);
@@ -125,15 +123,14 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
     }
   }
 
-  function downloadSeasonWorkbook() {
-    window.location.assign(`/api/admin/exports/season?seasonId=${encodeURIComponent(seasonId)}`);
-  }
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 shadow-sm sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-1.5">
-          <label htmlFor="standings-view" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          <label
+            htmlFor="standings-view"
+            className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+          >
             View standings
           </label>
           <div className="relative">
@@ -155,14 +152,22 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
         </div>
 
         <div className="relative">
-          <button
-            type="button"
-            onClick={downloadSeasonWorkbook}
+          {selectedGameweek?.status === 'completed' ? (
+            <a
+              href={`/api/admin/exports/gameweek?gameweekId=${encodeURIComponent(selectedGameweek.id)}`}
+              className="mr-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-700 px-3.5 py-2.5 text-sm font-medium text-white shadow-xs hover:bg-emerald-800 sm:w-auto"
+            >
+              <Download className="size-4" />
+              Export gameweek analysis (.xlsx)
+            </a>
+          ) : null}
+          <a
+            href={`/api/admin/exports/season?seasonId=${encodeURIComponent(seasonId)}`}
             className="mr-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-3.5 py-2.5 text-sm font-medium text-primary-foreground shadow-xs hover:opacity-90 sm:w-auto"
           >
             <Download className="size-4" />
             Export season (.xlsx)
-          </button>
+          </a>
           <button
             type="button"
             onClick={() => setExportOpen((open) => !open)}
@@ -176,7 +181,10 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
 
           {exportOpen && (
             <div className="absolute right-0 z-10 mt-2 w-72 rounded-xl border border-border bg-popover p-3 shadow-lg">
-              <label htmlFor="export-format" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <label
+                htmlFor="export-format"
+                className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+              >
                 Export format
               </label>
               <select
@@ -185,7 +193,11 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
                 onChange={(event) => setFormat(event.target.value as Format)}
                 className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
               >
-                {formats.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+                {formats.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
               </select>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <button
@@ -194,7 +206,11 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
                   disabled={busy !== null}
                   className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-medium hover:bg-accent disabled:opacity-50"
                 >
-                  {copied ? <Check className="size-4 text-emerald-600" /> : <Copy className="size-4" />}
+                  {copied ? (
+                    <Check className="size-4 text-emerald-600" />
+                  ) : (
+                    <Copy className="size-4" />
+                  )}
                   {copied ? 'Copied' : 'Copy'}
                 </button>
                 <button
@@ -214,8 +230,14 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label={selectedGameweek ? 'Players scored' : 'League players'} value={rows.length} />
-        <Stat label={selectedGameweek ? 'Correct scores' : 'Total correct scores'} value={exactScores} />
-        <Stat label={selectedGameweek ? 'Correct results' : 'Total correct results'} value={correctResults} />
+        <Stat
+          label={selectedGameweek ? 'Correct scores' : 'Total correct scores'}
+          value={exactScores}
+        />
+        <Stat
+          label={selectedGameweek ? 'Correct results' : 'Total correct results'}
+          value={correctResults}
+        />
         <Stat label={selectedGameweek ? 'Points' : 'Total points'} value={totalPoints} />
       </div>
 
@@ -227,7 +249,9 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
             </p>
             <h2 className="mt-0.5 text-lg font-semibold">{title}</h2>
           </div>
-          <span className="hidden text-xs text-muted-foreground sm:block">Updated from confirmed results</span>
+          <span className="hidden text-xs text-muted-foreground sm:block">
+            Updated from confirmed results
+          </span>
         </div>
 
         {rows.length ? (
@@ -259,7 +283,10 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
                     previousPositions
                   );
                   return (
-                    <tr key={row.participant_id} className="border-b border-border/70 last:border-0 hover:bg-muted/35">
+                    <tr
+                      key={row.participant_id}
+                      className="border-b border-border/70 last:border-0 hover:bg-muted/35"
+                    >
                       <td className="px-3 py-3.5 text-right font-semibold tabular-nums">
                         {row.position}
                       </td>
@@ -297,7 +324,9 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
           <div className="px-5 py-14 text-center">
             <Trophy className="mx-auto size-8 text-muted-foreground/50" />
             <p className="mt-3 font-medium">No scores to show yet</p>
-            <p className="mt-1 text-sm text-muted-foreground">Standings will appear after results have been confirmed and scored.</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Standings will appear after results have been confirmed and scored.
+            </p>
           </div>
         )}
         <div className="border-t border-border bg-muted/30 px-4 py-3 text-xs text-muted-foreground sm:px-5">
@@ -308,11 +337,7 @@ export function ExportPanel({ seasonId, seasonRows, gameweeks }: Props) {
   );
 }
 
-function MovementValue({
-  movement,
-}: {
-  movement: ReturnType<typeof getLeaderboardMovement>;
-}) {
+function MovementValue({ movement }: { movement: ReturnType<typeof getLeaderboardMovement> }) {
   if (movement.direction !== 'up' && movement.direction !== 'down') {
     return <span className="text-muted-foreground">{movement.label}</span>;
   }

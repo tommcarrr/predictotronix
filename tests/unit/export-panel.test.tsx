@@ -72,4 +72,25 @@ describe('ExportPanel standings display', () => {
     expect(screen.queryByRole('columnheader', { name: 'Movement' })).not.toBeInTheDocument();
     expect(screen.getByRole('row', { name: /1 Alice 1 3 6/ })).toBeVisible();
   });
+
+  it('offers the analysis workbook only for a selected completed gameweek', () => {
+    render(<ExportPanel seasonId="season-1" seasonRows={seasonRows} gameweeks={gameweeks} />);
+
+    expect(
+      screen.queryByRole('link', { name: 'Export gameweek analysis (.xlsx)' })
+    ).not.toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText('View standings'), {
+      target: { value: 'gameweek-2' },
+    });
+    expect(
+      screen.queryByRole('link', { name: 'Export gameweek analysis (.xlsx)' })
+    ).not.toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText('View standings'), {
+      target: { value: 'gameweek-1' },
+    });
+    const link = screen.getByRole('link', { name: 'Export gameweek analysis (.xlsx)' });
+    expect(link).toBeVisible();
+    expect(link).toHaveAttribute('href', '/api/admin/exports/gameweek?gameweekId=gameweek-1');
+  });
 });
