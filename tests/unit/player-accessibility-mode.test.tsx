@@ -75,7 +75,29 @@ describe('PlayerAccessibilityMode', () => {
     expect(document.querySelector('.player-accessibility__toolbar')).not.toBeInTheDocument();
   });
 
-  it('invites a click after 30 seconds and intensifies after each press', () => {
+  it('makes the invitation more ridiculous every 30 seconds', () => {
+    vi.useFakeTimers();
+    render(
+      <PlayerAccessibilityMode showToolbarToggle={false}>
+        <PlayerAccessibilityToggle breakout={{
+          leagueId: 'league-1',
+          leagueName: 'North League',
+          playerName: 'Player One',
+        }} />
+      </PlayerAccessibilityMode>
+    );
+
+    const toggle = screen.getByRole('button', { name: 'Accessible mode: Off' });
+    for (let level = 1; level <= 4; level += 1) {
+      act(() => vi.advanceTimersByTime(SECRET_GAME_INVITE_DELAY_MS));
+      expect(toggle).toHaveAttribute('data-secret-game-hint', String(level));
+    }
+
+    act(() => vi.advanceTimersByTime(SECRET_GAME_INVITE_DELAY_MS));
+    expect(toggle).toHaveAttribute('data-secret-game-hint', '4');
+  });
+
+  it('also intensifies after each press and launches on the fourth', () => {
     vi.useFakeTimers();
     render(
       <PlayerAccessibilityMode showToolbarToggle={false}>

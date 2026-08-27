@@ -40,32 +40,37 @@ interface BreakoutContext {
 export function PlayerAccessibilityToggle({ breakout }: { breakout?: BreakoutContext }) {
   const accessibility = useContext(AccessibilityContext);
   const [gameOpen, setGameOpen] = useState(false);
-  const [hintLevel, setHintLevel] = useState(0);
+  const [elapsedHintLevel, setElapsedHintLevel] = useState(0);
+  const [pressHintLevel, setPressHintLevel] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const invitationActive = useRef(false);
+  const promptTimer = useRef<number | null>(null);
   const secretGate = useRef<SecretGameGateState>({ count: 0, lastPressedAt: 0 });
+  const hintLevel = Math.max(elapsedHintLevel, pressHintLevel);
 
   useEffect(() => {
     if (!breakout || hasStartedSecretGame()) {
-      invitationActive.current = false;
       secretGate.current = { count: 0, lastPressedAt: 0 };
-      setHintLevel(0);
+      setElapsedHintLevel(0);
+      setPressHintLevel(0);
       return;
     }
 
-    const timer = window.setTimeout(() => {
-      invitationActive.current = true;
-      setHintLevel(1);
+    const timer = window.setInterval(() => {
+      setElapsedHintLevel((level) => Math.min(level + 1, SECRET_GAME_PRESS_COUNT));
     }, SECRET_GAME_INVITE_DELAY_MS);
+    promptTimer.current = timer;
 
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.clearInterval(timer);
+      if (promptTimer.current === timer) promptTimer.current = null;
+    };
   }, [breakout]);
 
   useEffect(() => {
     function resetSequenceOnOtherPress(event: PointerEvent) {
       if (!buttonRef.current?.contains(event.target as Node)) {
         secretGate.current = { count: 0, lastPressedAt: 0 };
-        setHintLevel(invitationActive.current ? 1 : 0);
+        setPressHintLevel(0);
       }
     }
     document.addEventListener('pointerdown', resetSequenceOnOtherPress, true);
@@ -82,14 +87,17 @@ export function PlayerAccessibilityToggle({ breakout }: { breakout?: BreakoutCon
     secretGate.current = result.state;
     if (result.unlocked && breakout) {
       rememberSecretGameStarted();
-      invitationActive.current = false;
-      setHintLevel(0);
+      if (promptTimer.current !== null) {
+        window.clearInterval(promptTimer.current);
+        promptTimer.current = null;
+      }
+      setElapsedHintLevel(0);
+      setPressHintLevel(0);
       setGameOpen(true);
       return;
     }
 
-    invitationActive.current = true;
-    setHintLevel(Math.min(result.state.count + 1, SECRET_GAME_PRESS_COUNT));
+    setPressHintLevel(Math.min(result.state.count + 1, SECRET_GAME_PRESS_COUNT));
   }
 
   return (
