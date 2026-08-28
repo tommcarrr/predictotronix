@@ -75,7 +75,12 @@ const configureNav: NavItem[] = [
 ];
 
 const systemNav: NavItem[] = [
-  { href: '/admin/test-tools?tab=notifications', label: 'Notifications', icon: Bell, superOnly: true },
+  {
+    href: '/admin/test-tools?tab=notifications',
+    label: 'Notifications',
+    icon: Bell,
+    superOnly: true,
+  },
 ];
 
 function ThemeToggle({
@@ -251,7 +256,7 @@ export function AdminShell({
         )}
 
         {visibleSystem.length > 0 && (
-          <div className="hidden lg:mt-auto lg:block lg:px-4 lg:pb-3">
+          <div className="hidden lg:block lg:px-4 lg:pb-3">
             <p className="mb-2 px-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-sidebar-foreground/40">
               System
             </p>
@@ -261,15 +266,28 @@ export function AdminShell({
           </div>
         )}
 
-        <div className="hidden border-t border-sidebar-border p-4 lg:block">
+        <div className="border-t border-sidebar-border px-4 py-3 lg:mt-auto lg:p-4">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-sidebar-foreground/65 transition hover:bg-sidebar-accent hover:text-sidebar-foreground"
+            className="hidden items-center gap-2 rounded-xl px-3 py-2 text-sm text-sidebar-foreground/65 transition hover:bg-sidebar-accent hover:text-sidebar-foreground lg:flex"
           >
             <ArrowLeft className="size-4" />
             Player dashboard
           </Link>
-          <p className="mt-2 truncate px-3 text-xs text-sidebar-foreground/40">{email}</p>
+          <p className="mt-2 hidden truncate px-3 text-xs text-sidebar-foreground/40 lg:block">
+            {email}
+          </p>
+          <nav
+            aria-label="Legal information"
+            className="flex justify-end gap-3 px-3 text-xs text-sidebar-foreground/45 lg:mt-3 lg:justify-start"
+          >
+            <Link className="transition hover:text-sidebar-foreground" href="/privacy">
+              Privacy
+            </Link>
+            <Link className="transition hover:text-sidebar-foreground" href="/cookies">
+              Cookies
+            </Link>
+          </nav>
         </div>
       </aside>
 

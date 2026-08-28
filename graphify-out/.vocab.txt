@@ -29,6 +29,7 @@ amend
 analysis
 and
 animate
+animation
 another
 answer
 any
@@ -205,6 +206,7 @@ ease
 easter
 edit
 egg
+elaborate
 elapsed
 email
 emit
@@ -227,6 +229,7 @@ esnext
 etc
 even
 event
+every
 everyone
 exceljs
 exclude
@@ -267,6 +270,7 @@ first
 fix
 fixture
 fixtures
+flashing
 flow
 football
 footer
@@ -444,6 +448,8 @@ module
 modules
 mono
 months
+mor
+more
 most
 movement
 moves
@@ -564,6 +570,7 @@ provenance
 provider
 proxy
 publish
+pulsing
 query
 quick
 random
@@ -582,6 +589,7 @@ reassurance
 reassurances
 recover
 recovery
+red
 redact
 redirect
 reduce
@@ -706,6 +714,7 @@ someone
 source
 specification
 speed
+spinning
 spun
 ssr
 staging

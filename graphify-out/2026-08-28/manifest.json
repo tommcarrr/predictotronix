@@ -550,8 +550,8 @@
     "semantic_hash": ""
   },
   "src/components/admin/AdminShell.tsx": {
-    "mtime": 1787898239.3568244,
-    "ast_hash": "6e46c414eaaa34e7ed5fc2e4598d7ef2",
+    "mtime": 1787858933.8184938,
+    "ast_hash": "8d0a24dd876d61767167f9a26fceeb1f",
     "semantic_hash": ""
   },
   "src/lib/admin/context.ts": {
@@ -875,8 +875,8 @@
     "semantic_hash": ""
   },
   "tests/unit/admin-view-mode-shell.test.tsx": {
-    "mtime": 1787898240.1958907,
-    "ast_hash": "ed4f25e0c209c901d943d51238154479",
+    "mtime": 1787858933.823043,
+    "ast_hash": "cf2df3b9cea89cedc05c3be941157e72",
     "semantic_hash": ""
   },
   "src/lib/notifications/reminders.ts": {
@@ -1245,8 +1245,8 @@
     "semantic_hash": ""
   },
   "src/components/legal/SiteFooter.tsx": {
-    "mtime": 1787898239.412846,
-    "ast_hash": "92ac829dc9e8f47979f650564f4a3479",
+    "mtime": 1787860795.7293928,
+    "ast_hash": "2821eb019cdcf3ceb4a9a3ac3edca741",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260827_183309_the_easter_egg_prompt_belongs_on_the_player_dashbo.md": {
@@ -1257,11 +1257,6 @@
   "graphify-out/memory/query_20260827_193735_make_the_player_dashboard_easter_egg_animation_mor.md": {
     "mtime": 1787860795.412253,
     "ast_hash": "1bd33ed9bd1afece5aaaed4d3a4a1ce6",
-    "semantic_hash": ""
-  },
-  "graphify-out/memory/query_20260828_062441_once_you_ve_done_this__can_you_also_fix_the_stylin.md": {
-    "mtime": 1787898281.097944,
-    "ast_hash": "eb2fb211536eef53fe0cbc992a01a01e",
     "semantic_hash": ""
   }
 }

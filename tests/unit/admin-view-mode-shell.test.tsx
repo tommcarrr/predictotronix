@@ -46,16 +46,25 @@ describe('AdminShell league-admin view mode', () => {
         viewingAsLeagueAdmin
       >
         <div>League content</div>
-      </AdminShell>,
+      </AdminShell>
     );
 
     expect(screen.getByText('Viewing as league admin for North League')).toBeVisible();
     expect(screen.getByRole('button', { name: 'Back to superadmin' })).toBeVisible();
-    for (const link of ['Overview', 'People', 'Predictions', 'Fixtures & results', 'Standings', 'Seasons']) {
+    for (const link of [
+      'Overview',
+      'People',
+      'Predictions',
+      'Fixtures & results',
+      'Standings',
+      'Seasons',
+    ]) {
       expect(screen.getAllByRole('link', { name: link }).length).toBeGreaterThan(0);
     }
     expect(screen.queryByRole('link', { name: 'Leagues' })).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Notifications' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '/privacy');
+    expect(screen.getByRole('link', { name: 'Cookies' })).toHaveAttribute('href', '/cookies');
   });
 
   it('opens the hidden game after four theme changes even when the prompt cookie exists', () => {
@@ -72,7 +81,7 @@ describe('AdminShell league-admin view mode', () => {
         viewingAsLeagueAdmin={false}
       >
         <div>Admin content</div>
-      </AdminShell>,
+      </AdminShell>
     );
 
     const themeButton = screen.getByRole('button', { name: 'Use dark theme' });

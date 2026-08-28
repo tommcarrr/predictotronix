@@ -10,7 +10,6 @@ export function SiteFooter() {
             ●
           </span>
           <span className={styles.playerLabel}>P100 info</span>
-          <span className={styles.adminLabel}>Service information</span>
         </span>
         <nav aria-label="Legal information" className={styles.links}>
           <Link href="/privacy">Privacy</Link>

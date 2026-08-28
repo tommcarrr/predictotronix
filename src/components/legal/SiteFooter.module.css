@@ -30,10 +30,6 @@
   font-size: 0.65em;
 }
 
-.adminLabel {
-  display: none;
-}
-
 .links {
   display: flex;
   align-items: center;
@@ -57,33 +53,7 @@
 }
 
 :global(body:has(.admin-shell)) .footer {
-  border-top: 1px solid oklch(1 0 0 / 10%);
-  background: oklch(0.22 0.055 258);
-  color: oklch(0.78 0.025 250);
-  font-family: var(--font-geist-sans), Arial, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-:global(body:has(.admin-shell)) .status {
-  color: oklch(0.82 0.11 248);
-}
-
-:global(body:has(.admin-shell)) .playerLabel {
   display: none;
-}
-
-:global(body:has(.admin-shell)) .adminLabel {
-  display: inline;
-}
-
-:global(body:has(.admin-shell)) .links a {
-  color: oklch(0.9 0.03 250);
-}
-
-:global(body:has(.admin-shell)) .divider {
-  color: oklch(0.5 0.03 250);
 }
 
 :global(body:has(.player-accessibility[data-accessibility-mode='enabled'])) .footer {
