@@ -8,6 +8,7 @@ interface Props {
   params: Promise<{ gameweekId: string }>;
 }
 
-export default async function PredictionsPage(_props: Props) {
-  redirect('/dashboard');
+export default async function PredictionsPage({ params }: Props) {
+  const { gameweekId } = await params;
+  redirect(`/dashboard?gameweek=${encodeURIComponent(gameweekId)}`);
 }

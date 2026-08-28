@@ -364,6 +364,7 @@ export async function POST(request: NextRequest) {
                 displayName: p.display_name,
                 gameweekLabel: gw.label ?? `Gameweek`,
                 firstKickoff,
+                predictionsUrl,
                 isDryRun,
               });
 

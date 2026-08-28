@@ -30,11 +30,11 @@ interface PendingJoinRequest {
 }
 
 type Props = {
-  searchParams: Promise<{ joined?: string }>;
+  searchParams: Promise<{ joined?: string; gameweek?: string }>;
 };
 
 export default async function DashboardPage({ searchParams }: Props) {
-  const { joined } = await searchParams;
+  const { joined, gameweek } = await searchParams;
   const user = await requireUser().catch(() => null);
   if (!user) redirect('/login');
 
@@ -134,7 +134,8 @@ export default async function DashboardPage({ searchParams }: Props) {
   const selectedGameweek = selectPredictionGameweek(
     predictionGameweeks ?? [],
     candidateFixtures ?? [],
-    seasonNow
+    seasonNow,
+    gameweek
   );
   const initialGameweekIndex = Math.max(
     0,

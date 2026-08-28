@@ -5,6 +5,7 @@ export interface ReminderSmsParams {
   displayName: string;
   gameweekLabel: string;
   firstKickoff: Date;
+  predictionsUrl: string;
   isDryRun?: boolean;
 }
 
@@ -20,7 +21,7 @@ export interface TestSmsParams {
 }
 
 export async function sendReminderSms(params: ReminderSmsParams): Promise<SmsResult> {
-  const { to, displayName, gameweekLabel, firstKickoff, isDryRun } = params;
+  const { to, gameweekLabel, firstKickoff, predictionsUrl, isDryRun } = params;
 
   if (isDryRun) {
     console.log('[DRY RUN] Would send reminder SMS to:', to, { gameweekLabel });
@@ -33,7 +34,7 @@ export async function sendReminderSms(params: ReminderSmsParams): Promise<SmsRes
     minute: '2-digit',
   });
 
-  const body = `⚽ ${gameweekLabel} starts at ${kickoffStr}. Don't forget your predictions! — Predictotronix`;
+  const body = `Predictotronix: ${gameweekLabel} starts at ${kickoffStr}. Add your predictions: ${predictionsUrl}`;
 
   try {
     const client = twilio(

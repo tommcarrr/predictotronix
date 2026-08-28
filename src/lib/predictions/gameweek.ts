@@ -14,7 +14,11 @@ export function selectPredictionGameweek<T extends PredictionGameweek>(
   gameweeks: T[],
   fixtures: PredictionFixture[],
   now: Date,
+  requestedGameweekId?: string,
 ): T | undefined {
+  const requestedGameweek = gameweeks.find((gameweek) => gameweek.id === requestedGameweekId);
+  if (requestedGameweek) return requestedGameweek;
+
   const openGameweekId = gameweeks.find((gameweek) =>
     fixtures.some(
       (fixture) =>

@@ -43,4 +43,21 @@ describe('selectPredictionGameweek', () => {
 
     expect(selected?.id).toBe('in-progress');
   });
+
+  it('selects a requested gameweek from a notification deep link', () => {
+    const selected = selectPredictionGameweek(gameweeks, [], now, 'upcoming');
+
+    expect(selected?.id).toBe('upcoming');
+  });
+
+  it('ignores a requested gameweek that is not in the active season', () => {
+    const selected = selectPredictionGameweek(
+      gameweeks,
+      [{ gameweek_id: 'upcoming', kickoff: '2026-08-12T11:00:00Z' }],
+      now,
+      'another-season'
+    );
+
+    expect(selected?.id).toBe('upcoming');
+  });
 });

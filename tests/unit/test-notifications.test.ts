@@ -18,7 +18,7 @@ vi.mock('twilio', () => ({
 
 import { sendJoinRequestEmail, sendReminderEmail, sendTestEmail } from '@/lib/notifications/email';
 import { SYSTEM_REASSURANCES } from '@/lib/brand/system-copy';
-import { sendTestSms } from '@/lib/notifications/sms';
+import { sendReminderSms, sendTestSms } from '@/lib/notifications/sms';
 
 describe('test notification providers', () => {
   beforeEach(() => {
@@ -121,6 +121,29 @@ describe('test notification providers', () => {
       expect.objectContaining({
         to: '+447700900000',
         body: expect.stringContaining('test notification'),
+      })
+    );
+  });
+
+  it('includes the predictions link in reminder SMS messages', async () => {
+    smsCreate.mockResolvedValue({ sid: 'sms-reminder-123' });
+
+    await expect(
+      sendReminderSms({
+        to: '+447700900000',
+        displayName: 'Player',
+        gameweekLabel: 'Gameweek 1',
+        firstKickoff: new Date('2026-08-29T19:00:00.000Z'),
+        predictionsUrl: 'https://example.com/predictions/0f98d674-f3e0-4cbb-97af-fc9e431fe7c5',
+      })
+    ).resolves.toEqual({ success: true, messageSid: 'sms-reminder-123' });
+
+    expect(smsCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: '+447700900000',
+        body: expect.stringContaining(
+          'https://example.com/predictions/0f98d674-f3e0-4cbb-97af-fc9e431fe7c5'
+        ),
       })
     );
   });
