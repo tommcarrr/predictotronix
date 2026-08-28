@@ -28,18 +28,24 @@ describe('reminder delivery occurrences', () => {
     expect(getDueReminderWindows(now, firstKickoff)).toEqual([REMINDER_WINDOWS.DAY_10AM]);
   });
 
-  it('detects a two-hour reminder for a 19:45 London kickoff', () => {
+  it('includes the two-hour reminder for a 19:45 London kickoff', () => {
     const now = new Date('2026-08-13T16:45:00.000Z');
     const firstKickoff = new Date('2026-08-13T18:45:00.000Z');
 
-    expect(getDueReminderWindows(now, firstKickoff)).toEqual([REMINDER_WINDOWS.TWO_HOURS_BEFORE]);
+    expect(getDueReminderWindows(now, firstKickoff)).toEqual([
+      REMINDER_WINDOWS.DAY_10AM,
+      REMINDER_WINDOWS.TWO_HOURS_BEFORE,
+    ]);
   });
 
-  it('catches up the latest due reminder without returning older occurrences', () => {
+  it('returns every due reminder so each unsent occurrence can be checked independently', () => {
     const now = new Date('2026-08-22T12:15:00.000Z');
     const firstKickoff = new Date('2026-08-22T14:00:00.000Z');
 
-    expect(getDueReminderWindows(now, firstKickoff)).toEqual([REMINDER_WINDOWS.TWO_HOURS_BEFORE]);
+    expect(getDueReminderWindows(now, firstKickoff)).toEqual([
+      REMINDER_WINDOWS.DAY_10AM,
+      REMINDER_WINDOWS.TWO_HOURS_BEFORE,
+    ]);
   });
 
   it('does not return reminders at or after kickoff', () => {

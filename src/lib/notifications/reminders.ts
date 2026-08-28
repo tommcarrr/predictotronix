@@ -61,7 +61,7 @@ export function getDueReminderWindows(now: Date, firstKickoff: Date): ReminderWi
     return [];
   }
 
-  const schedules = [
+  return [
     {
       window: REMINDER_WINDOWS.DAY_10AM,
       at: london10amOnKickoffDay(firstKickoff),
@@ -72,11 +72,7 @@ export function getDueReminderWindows(now: Date, firstKickoff: Date): ReminderWi
     },
   ]
     .filter((schedule) => schedule.at < firstKickoff && schedule.at <= now)
-    .sort((left, right) => right.at.getTime() - left.at.getTime());
-
-  // If a cron tick was missed, send only the most recent useful reminder.
-  // Earlier occurrences remain skipped instead of arriving back-to-back.
-  return schedules.length > 0 ? [schedules[0].window] : [];
+    .map((schedule) => schedule.window);
 }
 
 export function buildReminderDeliveryKey(params: {

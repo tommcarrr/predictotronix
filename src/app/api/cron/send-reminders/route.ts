@@ -14,6 +14,8 @@ import { CronExecutionError, executeCronJob } from '@/lib/cron/run';
 
 export const dynamic = 'force-dynamic';
 
+const PROCESSING_CLAIM_TIMEOUT_MS = 5 * 60 * 1000;
+
 function validateCronSecret(request: NextRequest): boolean {
   const secret = request.headers.get('x-cron-secret');
   return !!process.env.CRON_SECRET && secret === process.env.CRON_SECRET;
@@ -62,7 +64,7 @@ async function claimReminderDelivery(
   if (error?.code === '23505') {
     const { data: existing, error: existingError } = await supabase
       .from('notification_log')
-      .select('id, status')
+      .select('id, status, sent_at')
       .eq('delivery_key', deliveryKey)
       .maybeSingle();
 
@@ -75,10 +77,21 @@ async function claimReminderDelivery(
       };
     }
 
-    // Provider failures are safe to retry on a later cron tick. A dry run can
-    // also be promoted if the environment is subsequently corrected to live.
-    // Restrict by the old status so concurrent retries cannot both win.
-    if (existing.status === 'failed' || (existing.status === 'dry_run' && !params.isDryRun)) {
+    const claimedAt = new Date(existing.sent_at).getTime();
+    const staleProcessingClaim =
+      existing.status === 'processing' &&
+      Number.isFinite(claimedAt) &&
+      claimedAt <= Date.now() - PROCESSING_CLAIM_TIMEOUT_MS;
+    const retryable =
+      existing.status === 'failed' ||
+      (existing.status === 'dry_run' && !params.isDryRun) ||
+      staleProcessingClaim;
+
+    // Failed sends and abandoned claims are safe to retry. A dry run can also
+    // be promoted if the environment is subsequently corrected to live.
+    // Restrict by the previous status and timestamp so concurrent retries
+    // cannot both win the same delivery occurrence.
+    if (retryable) {
       const { data: retried, error: retryError } = await supabase
         .from('notification_log')
         .update({
@@ -93,6 +106,7 @@ async function claimReminderDelivery(
         })
         .eq('id', existing.id)
         .eq('status', existing.status)
+        .eq('sent_at', existing.sent_at)
         .select('id')
         .maybeSingle();
 
@@ -140,8 +154,8 @@ export async function POST(request: NextRequest) {
 
     // Find gameweeks with first_kickoff coming up — due for reminders
     // Reminder occurrences become due at 10:00 London time on matchday and
-    // two hours before kickoff. The latest due occurrence remains eligible
-    // until kickoff so a delayed cron tick can catch up safely.
+    // two hours before kickoff. Each due occurrence remains eligible until
+    // kickoff and its delivery key records whether it has already been sent.
     const { data: gameweeks, error: gameweeksError } = await supabase
       .from('gameweeks')
       .select(
@@ -169,7 +183,7 @@ export async function POST(request: NextRequest) {
       // connected to a season marked as production.
       const isDryRun = shouldDryRunNotifications(season?.season_type);
 
-      // Check whether the latest scheduled occurrence is due.
+      // Check which scheduled occurrences are due.
       const reminderWindows = getDueReminderWindows(now, firstKickoff);
       if (reminderWindows.length === 0) continue;
       dueGameweeks++;
@@ -211,7 +225,7 @@ export async function POST(request: NextRequest) {
 
       for (const sp of participants) {
         const p = (sp as any).participants;
-        let prefs = p?.notification_preferences?.[0];
+        let prefs = p?.notification_preferences;
 
         if (!p) {
           errors.push(`Participant relation missing for season participant ${sp.participant_id}`);

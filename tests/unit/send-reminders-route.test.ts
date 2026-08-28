@@ -46,7 +46,14 @@ function gameweeksQuery() {
   return query;
 }
 
-function participantsQuery() {
+function participantsQuery(
+  preferences = {
+    email_enabled: true,
+    sms_enabled: false,
+    remind_when_complete: true,
+    opted_out: false,
+  }
+) {
   const query = {
     select: vi.fn(),
     eq: vi.fn(),
@@ -61,14 +68,7 @@ function participantsQuery() {
           display_name: 'Player One',
           email: 'player@example.com',
           mobile: null,
-          notification_preferences: [
-            {
-              email_enabled: true,
-              sms_enabled: false,
-              remind_when_complete: true,
-              opted_out: false,
-            },
-          ],
+          notification_preferences: preferences,
         },
       },
     ],
@@ -91,7 +91,7 @@ describe('send reminders cron', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.stubEnv('CRON_SECRET', 'cron-secret');
-    getSeasonNow.mockResolvedValue(new Date('2026-08-13T16:45:00.000Z'));
+    getSeasonNow.mockResolvedValue(new Date('2026-08-13T09:00:00.000Z'));
     shouldDryRunNotifications.mockReturnValue(false);
     sendReminderEmail.mockResolvedValue({ success: true, messageId: 'email-1' });
     sendReminderSms.mockResolvedValue({ success: true, messageSid: 'sms-1' });
@@ -161,12 +161,53 @@ describe('send reminders cron', () => {
     expect(sendReminderEmail).toHaveBeenCalledTimes(1);
     expect(sendReminderEmail).toHaveBeenCalledWith(
       expect.objectContaining({
-        idempotencyKey: 'reminder:participant-1:gameweek-1:email:two_hours_before',
+        idempotencyKey: 'reminder:participant-1:gameweek-1:email:day_10am',
       })
     );
     expect(update).toHaveBeenCalledTimes(1);
     expect(cronFinishEq).toHaveBeenCalledTimes(2);
     expect(cronFinishEq.mock.calls.every(([, runId]) => runId === 'cron-run-1')).toBe(true);
+  });
+
+  it('honors saved settings returned as a one-to-one preference object', async () => {
+    const cronStartQuery = {
+      select: vi.fn(),
+      single: vi.fn().mockResolvedValue({ data: { id: 'cron-run-1' }, error: null }),
+    };
+    cronStartQuery.select.mockReturnValue(cronStartQuery);
+
+    createServiceClient.mockReturnValue({
+      from: vi.fn((table: string) => {
+        if (table === 'gameweeks') return gameweeksQuery();
+        if (table === 'season_participants') {
+          return participantsQuery({
+            email_enabled: true,
+            sms_enabled: false,
+            remind_when_complete: true,
+            opted_out: true,
+          });
+        }
+        if (table === 'fixtures') return fixturesQuery();
+        if (table === 'cron_job_runs') {
+          return {
+            insert: vi.fn(() => cronStartQuery),
+            update: vi.fn(() => ({ eq: vi.fn().mockResolvedValue({ error: null }) })),
+          };
+        }
+        throw new Error(`Unexpected table: ${table}`);
+      }),
+    });
+
+    const response = await POST(
+      new NextRequest('http://localhost/api/cron/send-reminders', {
+        method: 'POST',
+        headers: { 'x-cron-secret': 'cron-secret' },
+      })
+    );
+
+    await expect(response.json()).resolves.toMatchObject({ sent: 0, suppressed: 1 });
+    expect(sendReminderEmail).not.toHaveBeenCalled();
+    expect(sendReminderSms).not.toHaveBeenCalled();
   });
 
   it('reports a gameweek query failure instead of recording a successful empty run', async () => {
@@ -333,6 +374,84 @@ describe('send reminders cron', () => {
     await expect(secondResponse.json()).resolves.toMatchObject({ sent: 1, duplicates: 0 });
     expect(sendReminderEmail).toHaveBeenCalledTimes(2);
     expect(update).toHaveBeenCalledWith(expect.objectContaining({ status: 'processing' }));
+  });
+
+  it('reclaims an abandoned processing delivery after the timeout', async () => {
+    const insertQuery = {
+      select: vi.fn(),
+      single: vi.fn().mockResolvedValue({
+        data: null,
+        error: { code: '23505', message: 'duplicate key' },
+      }),
+    };
+    insertQuery.select.mockReturnValue(insertQuery);
+
+    const existingClaimQuery = {
+      select: vi.fn(),
+      eq: vi.fn(),
+      maybeSingle: vi.fn().mockResolvedValue({
+        data: {
+          id: 'log-1',
+          status: 'processing',
+          sent_at: '2026-08-13T08:45:00.000Z',
+        },
+        error: null,
+      }),
+    };
+    existingClaimQuery.select.mockReturnValue(existingClaimQuery);
+    existingClaimQuery.eq.mockReturnValue(existingClaimQuery);
+
+    const retryQuery = {
+      eq: vi.fn(),
+      select: vi.fn(),
+      maybeSingle: vi.fn().mockResolvedValue({ data: { id: 'log-1' }, error: null }),
+    };
+    retryQuery.eq.mockReturnValue(retryQuery);
+    retryQuery.select.mockReturnValue(retryQuery);
+    const update = vi.fn((values: { status: string }) =>
+      values.status === 'processing'
+        ? retryQuery
+        : { eq: vi.fn().mockResolvedValue({ error: null }) }
+    );
+
+    const cronStartQuery = {
+      select: vi.fn(),
+      single: vi.fn().mockResolvedValue({ data: { id: 'cron-run-1' }, error: null }),
+    };
+    cronStartQuery.select.mockReturnValue(cronStartQuery);
+
+    createServiceClient.mockReturnValue({
+      from: vi.fn((table: string) => {
+        if (table === 'gameweeks') return gameweeksQuery();
+        if (table === 'season_participants') return participantsQuery();
+        if (table === 'fixtures') return fixturesQuery();
+        if (table === 'notification_log') {
+          return {
+            insert: vi.fn(() => insertQuery),
+            update,
+            select: existingClaimQuery.select,
+          };
+        }
+        if (table === 'cron_job_runs') {
+          return {
+            insert: vi.fn(() => cronStartQuery),
+            update: vi.fn(() => ({ eq: vi.fn().mockResolvedValue({ error: null }) })),
+          };
+        }
+        throw new Error(`Unexpected table: ${table}`);
+      }),
+    });
+
+    const response = await POST(
+      new NextRequest('http://localhost/api/cron/send-reminders', {
+        method: 'POST',
+        headers: { 'x-cron-secret': 'cron-secret' },
+      })
+    );
+
+    await expect(response.json()).resolves.toMatchObject({ sent: 1, duplicates: 0 });
+    expect(retryQuery.eq).toHaveBeenCalledWith('sent_at', '2026-08-13T08:45:00.000Z');
+    expect(sendReminderEmail).toHaveBeenCalledTimes(1);
   });
 
   it('promotes an existing dry-run claim when the season becomes live', async () => {
