@@ -36,6 +36,7 @@ any
 anything
 api
 app
+appear
 apply
 approach
 approve
@@ -63,12 +64,14 @@ because
 before
 being
 belongs
+below
 bit
 blocke
 blocked
 blueprint
 bonus
 bootstrap
+bottom
 bounds
 box
 branded
@@ -88,6 +91,7 @@ candidate
 canvas
 caps
 carousel
+cause
 ceefax
 cell
 chain
@@ -194,6 +198,7 @@ doesn
 doing
 dom
 domain
+done
 draw
 drop
 dry
@@ -399,6 +404,7 @@ limit
 limits
 lines
 link
+links
 lint
 little
 llm
@@ -477,6 +483,7 @@ now
 npm
 number
 offline
+once
 one
 only
 open
@@ -664,6 +671,7 @@ scoring
 screen
 screens
 scripts
+scrollbar
 season
 seasons
 seconds
@@ -736,6 +744,8 @@ striping
 structural
 style
 styles
+stylin
+styling
 submit
 suggested
 summary
@@ -743,6 +753,7 @@ supabase
 super
 superadmins
 suppress
+surely
 sync
 synchronise
 synchronization
@@ -821,6 +832,7 @@ verification
 verified
 verify
 version
+vertical
 view
 viewing
 visible

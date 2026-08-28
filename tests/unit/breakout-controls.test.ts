@@ -13,6 +13,12 @@ const styles = readFileSync(
 const rules = readFileSync(path.resolve(process.cwd(), 'src/lib/breakout/rules.ts'), 'utf8');
 
 describe('Ceefax Breakout controls', () => {
+  it('portals the overlay outside parent stacking contexts', () => {
+    expect(component).toContain("import { createPortal } from 'react-dom'");
+    expect(component).toContain('return createPortal(');
+    expect(component).toContain('document.body');
+  });
+
   it('moves continuously from keyboard and held direction buttons', () => {
     expect(component).toContain("event.key === 'ArrowLeft'");
     expect(component).toContain("event.key === 'ArrowRight'");

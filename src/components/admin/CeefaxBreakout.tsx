@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
+import { createPortal } from 'react-dom';
 import {
   getBreakoutLeaderboard,
   startBreakoutRun,
@@ -747,7 +748,7 @@ export function CeefaxBreakout({
       </div>
     ) : null;
 
-  return (
+  return createPortal(
     <div className={styles.backdrop} role="dialog" aria-modal="true" aria-label="Football Breakout">
       <section className={styles.shell}>
         <header className={styles.masthead}>
@@ -806,6 +807,7 @@ export function CeefaxBreakout({
           <span className={styles.controlHint}>Hold to move</span>
         </footer>
       </section>
-    </div>
+    </div>,
+    document.body,
   );
 }
