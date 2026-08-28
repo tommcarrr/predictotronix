@@ -64,6 +64,32 @@ export type Database = {
         };
         Relationships: [];
       };
+      participant_merges: {
+        Row: {
+          id: string;
+          source_participant_id: string;
+          target_participant_id: string;
+          target_user_id: string;
+          merged_by: string;
+          source_snapshot: Json;
+          conflict_snapshot: Json;
+          merge_summary: Json;
+          merged_at: string;
+        };
+        Insert: {
+          id?: string;
+          source_participant_id: string;
+          target_participant_id: string;
+          target_user_id: string;
+          merged_by: string;
+          source_snapshot: Json;
+          conflict_snapshot: Json;
+          merge_summary: Json;
+          merged_at?: string;
+        };
+        Update: Record<string, never>;
+        Relationships: [];
+      };
       leagues: {
         Row: {
           id: string;
@@ -645,6 +671,14 @@ export type Database = {
       is_league_breakout_member: { Args: { p_league_id: string }; Returns: boolean };
       get_participant_id: { Args: Record<string, never>; Returns: string };
       is_season_participant: { Args: { p_season_id: string }; Returns: boolean };
+      merge_offline_participant: {
+        Args: {
+          p_source_participant_id: string;
+          p_target_participant_id: string;
+          p_actor_user_id: string;
+        };
+        Returns: Json;
+      };
       get_breakout_leaderboard: {
         Args: { p_league_id: string };
         Returns: {

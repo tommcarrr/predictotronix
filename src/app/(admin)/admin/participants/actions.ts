@@ -6,6 +6,9 @@ import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+const PARTICIPANT_MERGE_CONFIRMATION = 'MERGE PARTICIPANTS';
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export async function approveJoinRequest(requestId: string, selectedSeasonId: string) {
   const user = await getUser();
   if (!user) redirect('/login');
@@ -258,4 +261,66 @@ export async function updateParticipantDisplayName(
   revalidatePath('/admin/seasons');
   revalidatePath('/dashboard');
   redirect('/admin/participants?nameUpdated=1');
+}
+
+export async function mergeOfflineParticipant(leagueId: string, formData: FormData) {
+  const actor = await requireLeagueAdmin(leagueId);
+  const sourceParticipantId = formData.get('source_participant_id');
+  const targetParticipantId = formData.get('target_participant_id');
+  const confirmation = formData.get('confirmation');
+
+  if (
+    typeof sourceParticipantId !== 'string' ||
+    typeof targetParticipantId !== 'string' ||
+    !UUID_PATTERN.test(sourceParticipantId) ||
+    !UUID_PATTERN.test(targetParticipantId)
+  ) {
+    redirect('/admin/participants?error=Select+a+valid+registered+user+and+offline+participant');
+  }
+  if (sourceParticipantId === targetParticipantId) {
+    redirect('/admin/participants?error=A+participant+cannot+be+merged+into+itself');
+  }
+  if (confirmation !== PARTICIPANT_MERGE_CONFIRMATION) {
+    redirect('/admin/participants?error=The+required+confirmation+phrase+was+not+entered');
+  }
+
+  const supabase = await createServiceClient();
+  const { data: leagueSeasons, error: seasonsError } = await supabase
+    .from('seasons')
+    .select('id')
+    .eq('league_id', leagueId);
+  if (seasonsError) throw new Error(`Failed to verify merge scope: ${seasonsError.message}`);
+
+  const seasonIds = (leagueSeasons ?? []).map((season) => season.id);
+  const { data: selectedEnrolments, error: enrolmentsError } = seasonIds.length
+    ? await supabase
+        .from('season_participants')
+        .select('participant_id')
+        .in('season_id', seasonIds)
+        .in('participant_id', [sourceParticipantId, targetParticipantId])
+    : { data: [], error: null };
+  if (enrolmentsError)
+    throw new Error(`Failed to verify selected participants: ${enrolmentsError.message}`);
+
+  const selectedIds = new Set((selectedEnrolments ?? []).map((row) => row.participant_id));
+  if (!selectedIds.has(sourceParticipantId) || !selectedIds.has(targetParticipantId)) {
+    redirect('/admin/participants?error=Both+participants+must+belong+to+the+selected+league');
+  }
+
+  const { error } = await supabase.rpc('merge_offline_participant', {
+    p_source_participant_id: sourceParticipantId,
+    p_target_participant_id: targetParticipantId,
+    p_actor_user_id: actor.id,
+  });
+
+  if (error) {
+    redirect(`/admin/participants?error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath('/admin/participants');
+  revalidatePath('/admin/seasons');
+  revalidatePath('/admin/predictions');
+  revalidatePath('/dashboard');
+  revalidatePath('/leaderboard');
+  redirect('/admin/participants?merged=1');
 }
