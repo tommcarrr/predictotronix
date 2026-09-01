@@ -58,11 +58,12 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
         : 'members';
   const supabase = await createServiceClient();
 
-  const { data: unattachedUsers, error: unattachedUsersError } = superAdmin
-    ? await supabase.rpc('list_unattached_auth_users', { p_actor_user_id: user.id })
-    : { data: [], error: null };
+  const { data: unattachedUsers, error: unattachedUsersError } =
+    superAdmin && tab === 'unattached'
+      ? await supabase.rpc('list_unattached_auth_users', { p_actor_user_id: user.id })
+      : { data: [], error: null };
   if (unattachedUsersError) {
-    throw new Error(`Failed to load unattached users: ${unattachedUsersError.message}`);
+    console.error('Failed to load unattached users', unattachedUsersError);
   }
 
   const { data: pendingRequests } = selectedLeague
@@ -355,7 +356,12 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
             <AdminBadge tone="neutral">{unattachedUsers?.length ?? 0} accounts</AdminBadge>
           </div>
 
-          {!unattachedUsers?.length ? (
+          {unattachedUsersError ? (
+            <AdminNotice tone="danger" role="alert">
+              Unattached users are temporarily unavailable. Check that database migration 021 has
+              been applied, then try again.
+            </AdminNotice>
+          ) : !unattachedUsers?.length ? (
             <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
               No unattached users.
             </div>

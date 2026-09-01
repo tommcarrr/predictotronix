@@ -6,6 +6,7 @@ acceptance
 accessibility
 accessible
 account
+accounts
 action
 actions
 activate
@@ -16,6 +17,7 @@ admin
 admins
 after
 again
+against
 age
 agent
 alias
@@ -72,6 +74,7 @@ blocked
 blueprint
 bonus
 bootstrap
+bot
 bottom
 bounds
 box
@@ -310,6 +313,7 @@ gate
 geist
 generated
 get
+getting
 git
 give
 global
@@ -381,6 +385,7 @@ jsdom
 json
 jsx
 just
+keep
 key
 kickoff
 know
@@ -581,6 +586,7 @@ prompts
 proposed
 props
 protected
+protection
 provenance
 provider
 proxy
@@ -719,6 +725,7 @@ side
 sign
 signin
 signing
+signup
 single
 site
 size
@@ -820,6 +827,7 @@ two
 type
 types
 typescript
+unattached
 understand
 unknown
 upcoming
