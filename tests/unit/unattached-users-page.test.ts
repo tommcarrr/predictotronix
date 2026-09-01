@@ -15,6 +15,7 @@ describe('unattached users admin page', () => {
   it('renders an actionable error instead of crashing the server component', () => {
     expect(page).not.toContain('throw new Error(`Failed to load unattached users');
     expect(page).toContain('Unattached users are temporarily unavailable.');
-    expect(page).toContain('database migration 021');
+    expect(page).toContain('latest database');
+    expect(page).toContain('migrations have been applied');
   });
 });

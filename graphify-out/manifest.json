@@ -75,8 +75,8 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/page.tsx": {
-    "mtime": 1788295518.0239196,
-    "ast_hash": "87866f09a56547cb8b22febeee44ac3c",
+    "mtime": 1788299016.929357,
+    "ast_hash": "3825d5abbed8e9f93e1670bec0113e54",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/seasons/actions.ts": {
@@ -1325,8 +1325,23 @@
     "semantic_hash": ""
   },
   "tests/unit/unattached-users-page.test.ts": {
-    "mtime": 1788295244.5927951,
-    "ast_hash": "f7b4e1012fa332f42e1ad47525a29c6a",
+    "mtime": 1788298864.3868022,
+    "ast_hash": "4133af689e6cdc18687492ced61ab6cf",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/022_fix_unattached_auth_users.sql": {
+    "mtime": 1788298858.795663,
+    "ast_hash": "eef49b47ff802a7a579822e9ce0cd683",
+    "semantic_hash": ""
+  },
+  "tests/unit/unattached-users-fix-migration.test.ts": {
+    "mtime": 1788298866.874777,
+    "ast_hash": "e4541330e0df9ad7eff593eb34e69501",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260901_205111_the_participants_page_is_now_giving_react_error_44.md": {
+    "mtime": 1788295871.5622933,
+    "ast_hash": "8995851b323250b7e7ca395c75374052",
     "semantic_hash": ""
   }
 }

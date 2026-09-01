@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T20:38:20.122776+00:00",
+  "generated_at": "2026-09-01T21:39:41.106386+00:00",
   "nodes": {
     "src_app_admin_admin_fixtures_actions_triggerfixturesync": {
       "code_fingerprint": "9b76719374439745ec26f71df0ad2b8c1c93ff9b3f7db6b725aaadd1dc214c93",
@@ -12,7 +12,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.610426428,
+      "score": 0.609825844,
       "source_file": "src/app/(admin)/admin/fixtures/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -38,7 +38,7 @@
           "q": "Can you make the suggested changes?"
         }
       ],
-      "score": 2.381033345,
+      "score": 2.378690702,
       "source_file": "src/app/(admin)/admin/fixtures/page.tsx",
       "status": "preferred",
       "uses": 3
@@ -54,7 +54,7 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 0.629317681,
+      "score": 0.62869851,
       "source_file": "src/app/(admin)/admin/leagues/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -75,7 +75,7 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 1.266296646,
+      "score": 1.265050766,
       "source_file": "src/app/(admin)/admin/leagues/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -96,16 +96,37 @@
           "q": "How do I assign a user to a league from the admin panel?"
         }
       ],
-      "score": 1.269731951,
+      "score": 1.268482691,
       "source_file": "src/app/(admin)/admin/participants/actions.ts",
       "status": "preferred",
       "uses": 2
     },
-    "src_app_admin_admin_participants_page_participantsadminpage": {
-      "code_fingerprint": "caf99d48d3d50a7647ec45e00ff91c9afc583e0748f43c132104dcf9e38b2685",
-      "label": "ParticipantsAdminPage()",
-      "last": "2026-08-13T13:44:04.641742+00:00",
+    "src_app_admin_admin_participants_page": {
+      "code_fingerprint": "3bd6bcf26b76c3edd45599fef70e5187eba24cb762a0bdb8c1ac52aca420dbf4",
+      "label": "participants/page.tsx",
+      "last": "2026-09-01T20:51:11.562293+00:00",
       "provenance": [
+        {
+          "date": "2026-09-01T20:51:11.562293+00:00",
+          "outcome": "useful",
+          "q": "The participants page is now giving React error 441 when I navigate to it"
+        }
+      ],
+      "score": 0.999222238,
+      "source_file": "src/app/(admin)/admin/participants/page.tsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "src_app_admin_admin_participants_page_participantsadminpage": {
+      "code_fingerprint": "3bd6bcf26b76c3edd45599fef70e5187eba24cb762a0bdb8c1ac52aca420dbf4",
+      "label": "ParticipantsAdminPage()",
+      "last": "2026-09-01T20:51:11.562293+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-01T20:51:11.562293+00:00",
+          "outcome": "useful",
+          "q": "The participants page is now giving React error 441 when I navigate to it"
+        },
         {
           "date": "2026-08-13T13:44:04.641742+00:00",
           "outcome": "useful",
@@ -125,17 +146,12 @@
           "date": "2026-08-12T19:34:42.230144+00:00",
           "outcome": "useful",
           "q": "How do I assign a user to a league from the admin panel?"
-        },
-        {
-          "date": "2026-08-12T19:01:58.545304+00:00",
-          "outcome": "useful",
-          "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 3.769419464,
+      "score": 4.764933059,
       "source_file": "src/app/(admin)/admin/participants/page.tsx",
       "status": "preferred",
-      "uses": 6
+      "uses": 7
     },
     "src_app_admin_admin_seasons_actions_removeseasonparticipant": {
       "code_fingerprint": "620244d581e55b971a49d0880d52a4d3e5510f844176b1923f60f499ac07936c",
@@ -148,7 +164,7 @@
           "q": "How could someone be showing up as Unknown Participant?"
         }
       ],
-      "score": 0.871649412,
+      "score": 0.870791817,
       "source_file": "src/app/(admin)/admin/seasons/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -169,7 +185,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 1.274492192,
+      "score": 1.273238249,
       "source_file": "src/app/(admin)/admin/seasons/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -185,7 +201,7 @@
           "q": "The 10am notifications didn't send again today. Can you have a look for any bugs?"
         }
       ],
-      "score": 0.904371158,
+      "score": 0.903481368,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
       "status": "tentative",
       "uses": 1
@@ -201,7 +217,7 @@
           "q": "The 10am notifications didn't send again today. Can you have a look for any bugs?"
         }
       ],
-      "score": 0.904371158,
+      "score": 0.903481368,
       "source_file": "src/app/api/cron/send-reminders/route.ts",
       "status": "tentative",
       "uses": 1
@@ -227,7 +243,7 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 1.865609591,
+      "score": 1.863774062,
       "source_file": "src/app/(auth)/join/[code]/actions.ts",
       "status": "preferred",
       "uses": 3
@@ -248,7 +264,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.269401568,
+      "score": 1.268152633,
       "source_file": "src/app/(auth)/join/[code]/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -269,7 +285,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.269401568,
+      "score": 1.268152633,
       "source_file": "src/app/(auth)/login/page.tsx",
       "status": "preferred",
       "uses": 2
@@ -285,7 +301,7 @@
           "q": "I keep getting random people who I think are from bot accounts signing up to the site. How would I add some protection against this?"
         }
       ],
-      "score": 0.994118421,
+      "score": 0.993140332,
       "source_file": "src/app/(auth)/register/page.tsx",
       "status": "tentative",
       "uses": 1
@@ -311,7 +327,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 2.263519989,
+      "score": 2.261292965,
       "source_file": "src/app/(auth)/register/page.tsx",
       "status": "preferred",
       "uses": 3
@@ -327,7 +343,7 @@
           "q": "Once you've done this, can you also fix the styling on the admin dashboard, the policy links appear right at the bottom below the menu and cause a vertical scrollbar. Surely they could just be links at the bottom of the menu."
         }
       ],
-      "score": 0.899319864,
+      "score": 0.898435044,
       "source_file": "src/app/layout.tsx",
       "status": "tentative",
       "uses": 1
@@ -358,10 +374,26 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 2.708449336,
+      "score": 2.705784557,
       "source_file": "src/app/(participant)/dashboard/page.tsx",
       "status": "preferred",
       "uses": 4
+    },
+    "src_components_admin_adminnotice_adminnotice": {
+      "code_fingerprint": "ca5c910a2ce98a4fafce4a69ec355f710d92bf916b218908ca1233e6e0370a3a",
+      "label": "AdminNotice()",
+      "last": "2026-09-01T20:51:11.562293+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-01T20:51:11.562293+00:00",
+          "outcome": "useful",
+          "q": "The participants page is now giving React error 441 when I navigate to it"
+        }
+      ],
+      "score": 0.999222238,
+      "source_file": "src/components/admin/AdminNotice.tsx",
+      "status": "tentative",
+      "uses": 1
     },
     "src_components_admin_adminshell_adminshell": {
       "code_fingerprint": "ab006e121fc0c27e1adef2021070a3a5647c9fea4d0a3eba5379000166c64d0c",
@@ -394,7 +426,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 3.905339833,
+      "score": 3.901497461,
       "source_file": "src/components/admin/AdminShell.tsx",
       "status": "preferred",
       "uses": 5
@@ -430,7 +462,7 @@
           "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
         }
       ],
-      "score": 4.192136275,
+      "score": 4.18801173,
       "source_file": "src/components/admin/CeefaxBreakout.tsx",
       "status": "preferred",
       "uses": 5
@@ -446,7 +478,7 @@
           "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
         }
       ],
-      "score": 0.821178411,
+      "score": 0.820370472,
       "source_file": "src/components/admin/CeefaxBreakout.tsx",
       "status": "tentative",
       "uses": 1
@@ -462,7 +494,7 @@
           "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
         }
       ],
-      "score": 0.821178411,
+      "score": 0.820370472,
       "source_file": "src/components/admin/CeefaxBreakout.tsx",
       "status": "tentative",
       "uses": 1
@@ -478,7 +510,7 @@
           "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
         }
       ],
-      "score": 0.821178411,
+      "score": 0.820370472,
       "source_file": "src/components/admin/CeefaxBreakout.tsx",
       "status": "tentative",
       "uses": 1
@@ -494,7 +526,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 0.636978965,
+      "score": 0.636352256,
       "source_file": "src/components/admin/ExportPanel.tsx",
       "status": "tentative",
       "uses": 1
@@ -510,7 +542,7 @@
           "q": "I have some issues with the admin UX, it feels like the screens are doing too much in one place, like the league settings screen having Create new league forms, deleting the leagues, setting admins etc... all in one place, it is just confusing. Could you look through all admin pages and think about a clearer approach? E.g having some tags or separate pages or modals where this makes sense."
         }
       ],
-      "score": 0.636978965,
+      "score": 0.636352256,
       "source_file": "src/components/admin/FixtureSyncConsole.tsx",
       "status": "tentative",
       "uses": 1
@@ -526,7 +558,7 @@
           "q": "Make the player dashboard easter-egg animation more elaborate every 30 seconds, including red flashing, spinning, and pulsing."
         }
       ],
-      "score": 0.890030729,
+      "score": 0.889155049,
       "source_file": "src/components/admin/secret-game-gate.ts",
       "status": "tentative",
       "uses": 1
@@ -542,7 +574,7 @@
           "q": "Once you've done this, can you also fix the styling on the admin dashboard, the policy links appear right at the bottom below the menu and cause a vertical scrollbar. Surely they could just be links at the bottom of the menu."
         }
       ],
-      "score": 0.899319864,
+      "score": 0.898435044,
       "source_file": "src/components/legal/SiteFooter.tsx",
       "status": "tentative",
       "uses": 1
@@ -563,7 +595,7 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 1.360417892,
+      "score": 1.359079408,
       "source_file": "src/components/participant/PredictionsForm.tsx",
       "status": "preferred",
       "uses": 2
@@ -579,7 +611,7 @@
           "q": "Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
         }
       ],
-      "score": 0.750062242,
+      "score": 0.749324273,
       "source_file": "src/components/participant/QuickMatchGame.tsx",
       "status": "tentative",
       "uses": 1
@@ -595,7 +627,7 @@
           "q": "Can you exclude any results that are not ascribed to a person who is actively a part of the league/season?"
         }
       ],
-      "score": 0.871870705,
+      "score": 0.871012892,
       "source_file": "src/lib/admin/fixture-outcomes.ts",
       "status": "tentative",
       "uses": 1
@@ -611,7 +643,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.610426428,
+      "score": 0.609825844,
       "source_file": "src/lib/api-football/client.ts",
       "status": "tentative",
       "uses": 1
@@ -627,7 +659,7 @@
           "q": "I keep getting random people who I think are from bot accounts signing up to the site. How would I add some protection against this?"
         }
       ],
-      "score": 0.994118421,
+      "score": 0.993140332,
       "source_file": "src/lib/auth/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -648,7 +680,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 1.269401568,
+      "score": 1.268152633,
       "source_file": "src/lib/auth/actions.ts",
       "status": "preferred",
       "uses": 2
@@ -674,7 +706,7 @@
           "q": "Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
         }
       ],
-      "score": 2.263519989,
+      "score": 2.261292965,
       "source_file": "src/lib/auth/actions.ts",
       "status": "preferred",
       "uses": 3
@@ -690,7 +722,7 @@
           "q": "Add league/global admin login notices with Ceefax theming, expiry, and dismissal frequency."
         }
       ],
-      "score": 0.829803611,
+      "score": 0.828987187,
       "source_file": "src/lib/auth/index.ts",
       "status": "tentative",
       "uses": 1
@@ -706,7 +738,7 @@
           "q": "Oh, is there only one top score per user?"
         }
       ],
-      "score": 0.821969901,
+      "score": 0.821161184,
       "source_file": "src/lib/breakout/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -727,7 +759,7 @@
           "q": "Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?"
         }
       ],
-      "score": 1.643867057,
+      "score": 1.642249695,
       "source_file": "src/lib/breakout/actions.ts",
       "status": "preferred",
       "uses": 2
@@ -749,7 +781,7 @@
           "q": "I just played a legitimate game and got the error: Your score could not be verified or saved."
         }
       ],
-      "score": -0.000199459,
+      "score": -0.000199263,
       "source_file": "src/lib/breakout/actions.ts",
       "status": "contested",
       "uses": 1,
@@ -766,7 +798,7 @@
           "q": "I just played a legitimate game and got the error: Your score could not be verified or saved."
         }
       ],
-      "score": 0.822881227,
+      "score": 0.822071613,
       "source_file": "src/lib/breakout/rules.ts",
       "status": "tentative",
       "uses": 1
@@ -787,7 +819,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.219599807,
+      "score": 1.218399871,
       "source_file": "src/lib/clock.ts",
       "status": "preferred",
       "uses": 2
@@ -803,7 +835,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.610426428,
+      "score": 0.609825844,
       "source_file": "src/lib/environment.ts",
       "status": "tentative",
       "uses": 1
@@ -819,7 +851,7 @@
           "q": "The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results."
         }
       ],
-      "score": 0.805081933,
+      "score": 0.804289832,
       "source_file": "src/lib/fpl/client.ts",
       "status": "tentative",
       "uses": 1
@@ -835,7 +867,7 @@
           "q": "I keep getting random people who I think are from bot accounts signing up to the site. How would I add some protection against this?"
         }
       ],
-      "score": 0.994118421,
+      "score": 0.993140332,
       "source_file": "src/lib/invitations.ts",
       "status": "tentative",
       "uses": 1
@@ -851,7 +883,7 @@
           "q": "The 10am notifications didn't send again today. Can you have a look for any bugs?"
         }
       ],
-      "score": 0.904371158,
+      "score": 0.903481368,
       "source_file": "src/lib/notifications/reminders.ts",
       "status": "tentative",
       "uses": 1
@@ -867,7 +899,7 @@
           "q": "Why are they locked at all?"
         }
       ],
-      "score": 0.61035565,
+      "score": 0.609755135,
       "source_file": "src/lib/predictions/actions.ts",
       "status": "tentative",
       "uses": 1
@@ -888,7 +920,7 @@
           "q": "Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?"
         }
       ],
-      "score": 1.219599807,
+      "score": 1.218399871,
       "source_file": "src/lib/scoring/index.ts",
       "status": "preferred",
       "uses": 2
@@ -904,7 +936,7 @@
           "q": "I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI."
         }
       ],
-      "score": 0.596208024,
+      "score": 0.595621429,
       "source_file": "src/lib/supabase/server.ts",
       "status": "tentative",
       "uses": 1
@@ -920,7 +952,7 @@
           "q": "Should I now be able to use the API sync to get the real fixtures for the upcoming season?"
         }
       ],
-      "score": 0.610426428,
+      "score": 0.609825844,
       "source_file": "src/lib/sync/fixtures.ts",
       "status": "tentative",
       "uses": 1
@@ -941,7 +973,7 @@
           "q": "Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
         }
       ],
-      "score": 1.645633727,
+      "score": 1.644014626,
       "source_file": "tests/unit/breakout-controls.test.ts",
       "status": "preferred",
       "uses": 2

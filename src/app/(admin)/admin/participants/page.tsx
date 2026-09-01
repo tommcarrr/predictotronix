@@ -358,8 +358,8 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
 
           {unattachedUsersError ? (
             <AdminNotice tone="danger" role="alert">
-              Unattached users are temporarily unavailable. Check that database migration 021 has
-              been applied, then try again.
+              Unattached users are temporarily unavailable. Check that the latest database
+              migrations have been applied, then try again.
             </AdminNotice>
           ) : !unattachedUsers?.length ? (
             <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
