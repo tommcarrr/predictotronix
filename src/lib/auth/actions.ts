@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import {
   ensureJoinRequest,
+  getInviteLeague,
   invitePath,
   normalizeInviteCode,
   PENDING_INVITE_COOKIE,
@@ -86,11 +87,21 @@ function recoveryUrl(inviteCode: string | null) {
 }
 
 export async function signUp(formData: FormData) {
-  const supabase = await createClient();
   const email = String(formData.get('email') ?? '').trim();
   const password = String(formData.get('password') ?? '');
   const displayName = String(formData.get('display_name') ?? '').trim();
   const inviteCode = normalizeInviteCode(formData.get('invite_code'));
+
+  if (!inviteCode || !(await getInviteLeague(inviteCode))) {
+    redirect(
+      withInviteParam(
+        '/register',
+        null,
+        'error',
+        'Registration requires a valid league invitation.'
+      )
+    );
+  }
 
   if (displayName.length < 2 || displayName.length > 80) {
     redirect(withInviteParam('/register', inviteCode, 'error', 'Display name must be between 2 and 80 characters.'));
@@ -102,6 +113,7 @@ export async function signUp(formData: FormData) {
     redirect(withInviteParam('/register', inviteCode, 'error', 'Use a password with at least 8 characters.'));
   }
 
+  const supabase = await createClient();
   await rememberInvite(inviteCode);
 
   const { data, error } = await supabase.auth.signUp({

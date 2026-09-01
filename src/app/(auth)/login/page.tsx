@@ -106,10 +106,16 @@ export default async function LoginPage({
       </form>
 
       <p className="text-center text-sm">
-        Don&apos;t have an account?{' '}
-        <Link href={inviteCode ? inviteAuthPath('/register', inviteCode) : '/register'} className="underline">
-          {league ? 'Create an account to join' : 'Register'}
-        </Link>
+        {league && inviteCode ? (
+          <>
+            Don&apos;t have an account?{' '}
+            <Link href={inviteAuthPath('/register', inviteCode)} className="underline">
+              Create an account to join
+            </Link>
+          </>
+        ) : (
+          'Need an account? Ask your league admin for an invitation link.'
+        )}
       </p>
     </div>
   );
