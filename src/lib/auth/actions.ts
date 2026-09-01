@@ -92,7 +92,8 @@ export async function signUp(formData: FormData) {
   const displayName = String(formData.get('display_name') ?? '').trim();
   const inviteCode = normalizeInviteCode(formData.get('invite_code'));
 
-  if (!inviteCode || !(await getInviteLeague(inviteCode))) {
+  const inviteLeague = inviteCode ? await getInviteLeague(inviteCode) : null;
+  if (!inviteCode || !inviteLeague) {
     redirect(
       withInviteParam(
         '/register',
@@ -120,7 +121,11 @@ export async function signUp(formData: FormData) {
     email,
     password,
     options: {
-      data: { display_name: displayName },
+      data: {
+        display_name: displayName,
+        invite_code: inviteCode,
+        invite_league_id: inviteLeague.id,
+      },
       emailRedirectTo: confirmationUrl(inviteCode),
     },
   });

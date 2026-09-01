@@ -70,13 +70,13 @@
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/actions.ts": {
-    "mtime": 1788272668.600144,
-    "ast_hash": "e2962c75eb5f216b71bd81c243d1a7f0",
+    "mtime": 1788286683.6242552,
+    "ast_hash": "cd7f85b73ccd43adc47f6dca47c19c30",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/participants/page.tsx": {
-    "mtime": 1788272668.600144,
-    "ast_hash": "fb4efeed09afc8a7764c092c6d1d4218",
+    "mtime": 1788287315.2135334,
+    "ast_hash": "f107140925a10221dc5abf9574ca325d",
     "semantic_hash": ""
   },
   "src/app/(admin)/admin/seasons/actions.ts": {
@@ -230,8 +230,8 @@
     "semantic_hash": ""
   },
   "src/lib/auth/actions.ts": {
-    "mtime": 1788274904.06163,
-    "ast_hash": "742defd7e8c98fc5b040892fc86e8952",
+    "mtime": 1788286903.0275383,
+    "ast_hash": "9c3c781d6787062bcd7b10130d46f21e",
     "semantic_hash": ""
   },
   "src/lib/auth/index.ts": {
@@ -290,8 +290,8 @@
     "semantic_hash": "50cbc0dc995e4c03a649e59f2cdbbe01"
   },
   "src/types/database.ts": {
-    "mtime": 1788272668.7630277,
-    "ast_hash": "2306b753cf05e94277a8856f603ae956",
+    "mtime": 1788286683.4941611,
+    "ast_hash": "6373d937bb218c544064ef0b6964742c",
     "semantic_hash": ""
   },
   "src/types/index.ts": {
@@ -1295,18 +1295,33 @@
     "semantic_hash": ""
   },
   "tests/unit/participant-merge-migration.test.ts": {
-    "mtime": 1788272668.836306,
-    "ast_hash": "0154f3590bdc411b155a5ca3c31eb5ab",
+    "mtime": 1788287603.1077547,
+    "ast_hash": "e7d4bdb572f8197e29f85625aa754ef4",
     "semantic_hash": ""
   },
   "tests/unit/invite-only-signup.test.ts": {
-    "mtime": 1788274829.3591363,
-    "ast_hash": "8c79ce57ba37c2da4d94ebbd646643fe",
+    "mtime": 1788286663.104922,
+    "ast_hash": "a7efc20185a8859bfd56f4a800d01cb9",
     "semantic_hash": ""
   },
   "graphify-out/memory/query_20260901_143041_i_keep_getting_random_people_who_i_think_are_from.md": {
     "mtime": 1788273041.227676,
     "ast_hash": "35ee962e7757bb14e40d0953c99bef2b",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/021_unattached_auth_users.sql": {
+    "mtime": 1788287312.4767432,
+    "ast_hash": "f9463a5910a9732a7cdc4e5397564a3c",
+    "semantic_hash": ""
+  },
+  "tests/unit/unattached-users-migration.test.ts": {
+    "mtime": 1788287294.0860257,
+    "ast_hash": "aa34bf6d399ec00e5b4ebd35595fe23f",
+    "semantic_hash": ""
+  },
+  "tests/unit/unattached-users.test.ts": {
+    "mtime": 1788287317.4138386,
+    "ast_hash": "52c813a6c79d1e3f0aca1539e67187c6",
     "semantic_hash": ""
   }
 }

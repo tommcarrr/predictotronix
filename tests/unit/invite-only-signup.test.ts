@@ -79,7 +79,11 @@ describe('invitation-only signup', () => {
       email: 'player@example.com',
       password: 'password123',
       options: {
-        data: { display_name: 'New Player' },
+        data: {
+          display_name: 'New Player',
+          invite_code: 'league_123',
+          invite_league_id: 'league-1',
+        },
         emailRedirectTo: 'http://localhost:3000/auth/confirm?invite=league_123',
       },
     });

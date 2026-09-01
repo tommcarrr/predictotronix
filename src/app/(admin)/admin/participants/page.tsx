@@ -1,8 +1,9 @@
-import { Plus, UserPen, UserPlus, UserRoundMinus } from 'lucide-react';
+import { Plus, Trash2, UserPen, UserPlus, UserRoundMinus } from 'lucide-react';
 import { createServiceClient } from '@/lib/supabase/server';
 import {
   approveJoinRequest,
   createOfflineParticipant,
+  deleteUnattachedUser,
   mergeOfflineParticipant,
   rejectJoinRequest,
   updateParticipantDisplayName,
@@ -16,9 +17,15 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { AdminTabs } from '@/components/admin/AdminTabs';
 import { FormSubmitButton } from '@/components/ui/form-submit-button';
 import { ParticipantMergeDialog } from '@/components/admin/ParticipantMergeDialog';
+import type { Tables } from '@/types/database';
 
 export const metadata = { title: 'People | Admin' };
 export const dynamic = 'force-dynamic';
+
+type ParticipantSummary = Pick<
+  Tables<'participants'>,
+  'id' | 'user_id' | 'display_name' | 'email' | 'is_offline'
+>;
 
 type Props = {
   searchParams: Promise<{
@@ -28,14 +35,35 @@ type Props = {
     approved?: string;
     rejected?: string;
     merged?: string;
+    deleted?: string;
   }>;
 };
 
 export default async function ParticipantsAdminPage({ searchParams }: Props) {
-  const { tab: requestedTab, error, nameUpdated, approved, rejected, merged } = await searchParams;
-  const tab = requestedTab === 'requests' ? 'requests' : 'members';
-  const { selectedLeague, selectedSeason } = await getAdminContext();
+  const {
+    tab: requestedTab,
+    error,
+    nameUpdated,
+    approved,
+    rejected,
+    merged,
+    deleted,
+  } = await searchParams;
+  const { user, superAdmin, selectedLeague, selectedSeason } = await getAdminContext();
+  const tab =
+    requestedTab === 'requests'
+      ? 'requests'
+      : requestedTab === 'unattached' && superAdmin
+        ? 'unattached'
+        : 'members';
   const supabase = await createServiceClient();
+
+  const { data: unattachedUsers, error: unattachedUsersError } = superAdmin
+    ? await supabase.rpc('list_unattached_auth_users', { p_actor_user_id: user.id })
+    : { data: [], error: null };
+  if (unattachedUsersError) {
+    throw new Error(`Failed to load unattached users: ${unattachedUsersError.message}`);
+  }
 
   const { data: pendingRequests } = selectedLeague
     ? await supabase
@@ -54,10 +82,10 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
     : { data: [] };
 
   const enrolledParticipants = (seasonParticipantRows ?? [])
-    .map((row: any) => row.participants)
+    .map((row) => row.participants as unknown as ParticipantSummary)
     .filter(Boolean)
-    .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
-  const enrolledIds = new Set(enrolledParticipants.map((participant: any) => participant.id));
+    .sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const enrolledIds = new Set(enrolledParticipants.map((participant) => participant.id));
 
   const { data: leagueSeasons } = selectedLeague
     ? await supabase.from('seasons').select('id').eq('league_id', selectedLeague.id)
@@ -98,13 +126,13 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
     }));
 
   const requestUserIds = [
-    ...new Set((pendingRequests ?? []).map((request: any) => request.user_id as string)),
+    ...new Set((pendingRequests ?? []).map((request) => request.user_id)),
   ];
   const { data: requestProfiles } = requestUserIds.length
     ? await supabase.from('profiles').select('id, display_name, email').in('id', requestUserIds)
     : { data: [] };
   const profileMap = Object.fromEntries(
-    (requestProfiles ?? []).map((profile: any) => [profile.id, profile])
+    (requestProfiles ?? []).map((profile) => [profile.id, profile])
   );
   const missingProfileUserIds = requestUserIds.filter((userId) => !profileMap[userId]);
   const authUsers = await Promise.all(
@@ -131,7 +159,11 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
   );
 
   const activeHref =
-    tab === 'requests' ? '/admin/participants?tab=requests' : '/admin/participants';
+    tab === 'requests'
+      ? '/admin/participants?tab=requests'
+      : tab === 'unattached'
+        ? '/admin/participants?tab=unattached'
+        : '/admin/participants';
 
   return (
     <main className="mx-auto max-w-6xl space-y-6 p-6 lg:p-8">
@@ -139,10 +171,14 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
         eyebrow="Run"
         title="People"
         description={
-          <>
-            Join requests are scoped to <strong>{selectedLeague?.name ?? 'no league'}</strong>.
-            Members are scoped to <strong>{selectedSeason?.name ?? 'no season'}</strong>.
-          </>
+          tab === 'unattached' ? (
+            'Accounts with no participant, league, join request, admin role, or valid invitation.'
+          ) : (
+            <>
+              Join requests are scoped to <strong>{selectedLeague?.name ?? 'no league'}</strong>.
+              Members are scoped to <strong>{selectedSeason?.name ?? 'no season'}</strong>.
+            </>
+          )
         }
         actions={
           tab === 'members' &&
@@ -276,6 +312,11 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
           Offline participant merged into the registered user. The original record was deleted.
         </AdminNotice>
       )}
+      {deleted === '1' && (
+        <AdminNotice tone="success" role="status">
+          Unattached user deleted.
+        </AdminNotice>
+      )}
 
       <AdminTabs
         label="People"
@@ -287,8 +328,126 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
             label: 'Join requests',
             count: pendingRequests?.length ?? 0,
           },
+          ...(superAdmin
+            ? [
+                {
+                  href: '/admin/participants?tab=unattached',
+                  label: 'Unattached users',
+                  count: unattachedUsers?.length ?? 0,
+                },
+              ]
+            : []),
         ]}
       />
+
+      {tab === 'unattached' && (
+        <section aria-labelledby="unattached-users-heading">
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 id="unattached-users-heading" className="text-lg font-semibold">
+                Unattached users
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                These accounts have no participant history, league ownership, join request, admin
+                role, or valid league invitation.
+              </p>
+            </div>
+            <AdminBadge tone="neutral">{unattachedUsers?.length ?? 0} accounts</AdminBadge>
+          </div>
+
+          {!unattachedUsers?.length ? (
+            <div className="rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+              No unattached users.
+            </div>
+          ) : (
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+              <table className="w-full min-w-[860px] text-sm">
+                <thead>
+                  <tr className="border-b border-border bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
+                    <th className="px-4 py-3 font-semibold">Name</th>
+                    <th className="px-4 py-3 font-semibold">Email</th>
+                    <th className="px-4 py-3 font-semibold">Created</th>
+                    <th className="px-4 py-3 font-semibold">Last sign in</th>
+                    <th className="px-4 py-3 font-semibold">Status</th>
+                    <th className="px-4 py-3 text-right font-semibold">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {unattachedUsers.map((unattachedUser) => {
+                    const confirmation = unattachedUser.email ?? unattachedUser.user_id;
+                    return (
+                      <tr key={unattachedUser.user_id}>
+                        <td className="px-4 py-3 font-medium">{unattachedUser.display_name}</td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {unattachedUser.email ?? '—'}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {new Date(unattachedUser.created_at).toLocaleDateString('en-GB')}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground">
+                          {unattachedUser.last_sign_in_at
+                            ? new Date(unattachedUser.last_sign_in_at).toLocaleDateString('en-GB')
+                            : 'Never'}
+                        </td>
+                        <td className="px-4 py-3">
+                          <AdminBadge
+                            tone={unattachedUser.email_confirmed_at ? 'green' : 'neutral'}
+                          >
+                            {unattachedUser.email_confirmed_at ? 'Confirmed' : 'Unconfirmed'}
+                          </AdminBadge>
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <AdminDialog
+                            trigger={
+                              <>
+                                <Trash2 className="size-3.5" />
+                                Delete
+                              </>
+                            }
+                            title={`Delete ${unattachedUser.display_name}`}
+                            description="Permanently removes this auth account and profile. This cannot be undone."
+                            tone="danger"
+                            triggerClassName="px-2.5 py-1.5 text-xs"
+                          >
+                            <form
+                              action={deleteUnattachedUser.bind(null, unattachedUser.user_id)}
+                              className="space-y-4"
+                            >
+                              <div className="space-y-1.5">
+                                <label
+                                  htmlFor={`delete-user-${unattachedUser.user_id}`}
+                                  className="text-sm font-medium"
+                                >
+                                  Type <strong>{confirmation}</strong> to confirm
+                                </label>
+                                <input
+                                  id={`delete-user-${unattachedUser.user_id}`}
+                                  name="confirmation"
+                                  required
+                                  autoComplete="off"
+                                  className="w-full rounded-lg border border-destructive/50 bg-background px-3 py-2.5 text-sm"
+                                />
+                              </div>
+                              <div className="flex justify-end">
+                                <FormSubmitButton
+                                  pendingLabel="Deleting user…"
+                                  className="rounded-lg bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground"
+                                >
+                                  Delete user
+                                </FormSubmitButton>
+                              </div>
+                            </form>
+                          </AdminDialog>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
 
       {tab === 'requests' && (
         <section aria-labelledby="join-requests-heading">
@@ -311,7 +470,7 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
             </div>
           ) : (
             <div className="space-y-3">
-              {pendingRequests.map((request: any) => (
+              {pendingRequests.map((request) => (
                 <article
                   key={request.id}
                   className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between"
@@ -392,7 +551,7 @@ export default async function ParticipantsAdminPage({ searchParams }: Props) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {enrolledParticipants.map((participant: any) => (
+                  {enrolledParticipants.map((participant) => (
                     <tr key={participant.id}>
                       <td className="px-4 py-3 font-medium">{participant.display_name}</td>
                       <td className="px-4 py-3 text-muted-foreground">

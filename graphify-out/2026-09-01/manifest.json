@@ -120,13 +120,13 @@
     "semantic_hash": ""
   },
   "src/app/(auth)/login/page.tsx": {
-    "mtime": 1788274829.3472097,
-    "ast_hash": "87956b045c72b0762498d7ef443c950a",
+    "mtime": 1788274898.8184743,
+    "ast_hash": "f710200da56c9efaa2aa7b08bddb4405",
     "semantic_hash": ""
   },
   "src/app/(auth)/register/page.tsx": {
-    "mtime": 1788274829.3292763,
-    "ast_hash": "fff42eee619c4112de8c2f9398e3acde",
+    "mtime": 1788274901.9081414,
+    "ast_hash": "07b513f6fce2d2e3f468b5987777e124",
     "semantic_hash": ""
   },
   "src/app/(participant)/dashboard/page.tsx": {
@@ -230,8 +230,8 @@
     "semantic_hash": ""
   },
   "src/lib/auth/actions.ts": {
-    "mtime": 1788274829.2906053,
-    "ast_hash": "aa8cdcc66c80215c0a87d9cfbb862a07",
+    "mtime": 1788274904.06163,
+    "ast_hash": "742defd7e8c98fc5b040892fc86e8952",
     "semantic_hash": ""
   },
   "src/lib/auth/index.ts": {

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 const migration = readFileSync(
   path.resolve(process.cwd(), 'supabase/migrations/020_merge_offline_participants.sql'),
   'utf8'
-);
+).replace(/\r\n/g, '\n');
 
 describe('offline participant merge migration', () => {
   it('is atomic, concurrency-safe, and restricted to the service role', () => {

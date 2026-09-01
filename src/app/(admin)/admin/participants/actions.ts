@@ -1,13 +1,51 @@
 'use server';
 
 import { createServiceClient } from '@/lib/supabase/server';
-import { getUser, isLeagueAdmin, requireLeagueAdmin } from '@/lib/auth';
+import { getUser, isLeagueAdmin, requireLeagueAdmin, requireSuperAdmin } from '@/lib/auth';
 import { requireLeagueAdminForSeason } from '@/lib/admin/authorization';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const PARTICIPANT_MERGE_CONFIRMATION = 'MERGE PARTICIPANTS';
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export async function deleteUnattachedUser(userId: string, formData: FormData) {
+  const actor = await requireSuperAdmin();
+  const unattachedPath = '/admin/participants?tab=unattached';
+
+  if (!UUID_PATTERN.test(userId)) {
+    redirect(`${unattachedPath}&error=Select+a+valid+user+to+delete`);
+  }
+  if (userId === actor.id) {
+    redirect(`${unattachedPath}&error=You+cannot+delete+your+own+account`);
+  }
+
+  const supabase = await createServiceClient();
+  const { data, error: userError } = await supabase.auth.admin.getUserById(userId);
+  if (userError || !data.user) {
+    redirect(`${unattachedPath}&error=User+not+found`);
+  }
+
+  const expectedConfirmation = data.user.email ?? data.user.id;
+  if (formData.get('confirmation') !== expectedConfirmation) {
+    redirect(`${unattachedPath}&error=Enter+the+exact+email+address+to+confirm+deletion`);
+  }
+
+  const { data: deleted, error } = await supabase.rpc('delete_unattached_auth_user', {
+    p_user_id: userId,
+    p_actor_user_id: actor.id,
+  });
+
+  if (error) {
+    redirect(`${unattachedPath}&error=${encodeURIComponent(error.message)}`);
+  }
+  if (!deleted) {
+    redirect(`${unattachedPath}&error=User+not+found`);
+  }
+
+  revalidatePath('/admin/participants');
+  redirect(`${unattachedPath}&deleted=1`);
+}
 
 export async function approveJoinRequest(requestId: string, selectedSeasonId: string) {
   const user = await getUser();

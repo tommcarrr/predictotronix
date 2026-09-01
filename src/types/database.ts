@@ -671,6 +671,21 @@ export type Database = {
       is_league_breakout_member: { Args: { p_league_id: string }; Returns: boolean };
       get_participant_id: { Args: Record<string, never>; Returns: string };
       is_season_participant: { Args: { p_season_id: string }; Returns: boolean };
+      list_unattached_auth_users: {
+        Args: { p_actor_user_id: string };
+        Returns: {
+          user_id: string;
+          email: string | null;
+          display_name: string;
+          created_at: string;
+          email_confirmed_at: string | null;
+          last_sign_in_at: string | null;
+        }[];
+      };
+      delete_unattached_auth_user: {
+        Args: { p_user_id: string; p_actor_user_id: string };
+        Returns: boolean;
+      };
       merge_offline_participant: {
         Args: {
           p_source_participant_id: string;
