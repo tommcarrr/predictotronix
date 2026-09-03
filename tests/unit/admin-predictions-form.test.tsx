@@ -249,6 +249,14 @@ describe('AdminPredictionsForm messages tab', () => {
     expect(screen.getByText('First note')).toBeInTheDocument();
     expect(screen.getByText('Bob Brown')).toBeInTheDocument();
     expect(screen.getByText('Second note')).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /Predictions/ })).toHaveAttribute(
+      'href',
+      '/admin/predictions?gameweekId=gameweek'
+    );
+    expect(screen.getByRole('tab', { name: /Messages/ })).toHaveAttribute(
+      'href',
+      '/admin/predictions?gameweekId=gameweek&tab=messages'
+    );
     await waitFor(() => expect(markMessagesReadMock).toHaveBeenCalledWith('gameweek'));
   });
 });

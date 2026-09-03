@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useTransition } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { MessageSquareText } from 'lucide-react';
 import { adminExtractEmailPredictions, adminSubmitPredictions } from '@/lib/predictions/actions';
@@ -110,12 +111,21 @@ export function AdminPredictionsForm({
       (!offlineOnly || participant.isOffline)
   );
 
-  function navigate(nextParticipantId: string, nextGameweekId: string) {
+  function navigationHref(
+    nextParticipantId: string,
+    nextGameweekId: string,
+    nextTab: 'predictions' | 'messages' = tab
+  ) {
     const params = new URLSearchParams();
     if (nextParticipantId) params.set('participantId', nextParticipantId);
     if (nextGameweekId) params.set('gameweekId', nextGameweekId);
-    if (tab === 'messages') params.set('tab', 'messages');
-    router.push(`/admin/predictions?${params.toString()}`);
+    if (nextTab === 'messages') params.set('tab', 'messages');
+    const query = params.toString();
+    return `/admin/predictions${query ? `?${query}` : ''}`;
+  }
+
+  function navigate(nextParticipantId: string, nextGameweekId: string) {
+    router.push(navigationHref(nextParticipantId, nextGameweekId));
   }
 
   function changeScore(fixtureId: string, side: 'home' | 'away', value: string) {
@@ -229,8 +239,8 @@ export function AdminPredictionsForm({
         role="tablist"
         aria-label="Gameweek details"
       >
-        <button
-          type="button"
+        <Link
+          href={navigationHref(selectedParticipantId, gameweekId, 'predictions')}
           role="tab"
           aria-selected={tab === 'predictions'}
           onClick={() => setTab('predictions')}
@@ -241,9 +251,9 @@ export function AdminPredictionsForm({
           }`}
         >
           Predictions
-        </button>
-        <button
-          type="button"
+        </Link>
+        <Link
+          href={navigationHref(selectedParticipantId, gameweekId, 'messages')}
           role="tab"
           aria-selected={tab === 'messages'}
           onClick={() => setTab('messages')}
@@ -262,7 +272,7 @@ export function AdminPredictionsForm({
               {unreadMessageCount} new
             </span>
           )}
-        </button>
+        </Link>
       </div>
 
       <div hidden={tab !== 'predictions'}>

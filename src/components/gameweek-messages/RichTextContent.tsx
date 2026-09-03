@@ -1,4 +1,8 @@
-import { parseRichTextDocument, type SerializedNode } from '@/lib/gameweek-messages/document';
+import {
+  getGameweekMessageFontSize,
+  parseRichTextDocument,
+  type SerializedNode,
+} from '@/lib/gameweek-messages/document';
 
 function renderNode(node: SerializedNode, key: string): React.ReactNode {
   if (node.type === 'text') {
@@ -6,7 +10,11 @@ function renderNode(node: SerializedNode, key: string): React.ReactNode {
     const format = typeof node.format === 'number' ? node.format : 0;
     if (format & 2) content = <em>{content}</em>;
     if (format & 1) content = <strong>{content}</strong>;
-    return <span key={key}>{content}</span>;
+    return (
+      <span key={key} style={{ fontSize: getGameweekMessageFontSize(node.style) }}>
+        {content}
+      </span>
+    );
   }
   if (node.type === 'linebreak') return <br key={key} />;
 

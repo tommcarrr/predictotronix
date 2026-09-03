@@ -1,4 +1,14 @@
 export const GAMEWEEK_MESSAGE_CHARACTER_LIMIT = 1000;
+export const GAMEWEEK_MESSAGE_FONT_SIZES = {
+  small: '14px',
+  normal: '16px',
+  large: '20px',
+} as const;
+
+const ALLOWED_TEXT_STYLES = new Set([
+  '',
+  ...Object.values(GAMEWEEK_MESSAGE_FONT_SIZES).map((size) => `font-size: ${size};`),
+]);
 
 type SerializedNode = {
   type: string;
@@ -6,6 +16,7 @@ type SerializedNode = {
   children?: SerializedNode[];
   text?: string;
   format?: number | string;
+  style?: string;
   listType?: string;
   tag?: string;
   [key: string]: unknown;
@@ -35,6 +46,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
+export function getGameweekMessageFontSize(style: unknown): string | undefined {
+  if (typeof style !== 'string' || !ALLOWED_TEXT_STYLES.has(style) || style === '') {
+    return undefined;
+  }
+
+  return style.slice('font-size: '.length, -1);
+}
+
 function validateNode(value: unknown, parentType: string): value is SerializedNode {
   if (!isRecord(value) || typeof value.type !== 'string' || value.version !== 1) return false;
 
@@ -44,7 +63,9 @@ function validateNode(value: unknown, parentType: string): value is SerializedNo
       typeof value.text === 'string' &&
       typeof value.format === 'number' &&
       value.format >= 0 &&
-      (value.format & ~3) === 0
+      (value.format & ~3) === 0 &&
+      (value.style === undefined ||
+        (typeof value.style === 'string' && ALLOWED_TEXT_STYLES.has(value.style)))
     );
   }
   if (value.type === 'linebreak') return parentType === 'paragraph' || parentType === 'listitem';

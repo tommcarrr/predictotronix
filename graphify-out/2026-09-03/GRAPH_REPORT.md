@@ -1,18 +1,13 @@
-# Graph Report - predictotronix  (2026-09-01)
+# Graph Report - predictotronix  (2026-09-03)
 
 ## Corpus Check
-- 266 files · ~110,362 words
+- 274 files · ~113,257 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1316 nodes · 2550 edges · 115 communities (90 shown, 25 thin omitted)
+- 1361 nodes · 2637 edges · 125 communities (88 shown, 37 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.77)
 - Token cost: 0 input · 0 output
-
-## Graph Freshness
-- Built from commit: `8ed96e08`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - leaderboard.ts
@@ -41,11 +36,11 @@
 - postcss.config.mjs
 - leaderboard/layout.tsx
 - predictions/layout.tsx
-- predictions/actions.ts
+- fpl/client.ts
 - Q: Can you make the suggested changes?
 - loginAs
 - global.setup.ts
-- scenario.mts
+- environment.ts
 - local-dev.mjs
 - Q: Why is my ability to make predictions being blocked? Also can you stop offline users being highlighted as (offline) in leaderboards/exports etc...?
 - supabase-server.test.ts
@@ -66,20 +61,20 @@
 - Predictotronix guide for players
 - fixtures/page.tsx
 - Q: Give me a nice way to copy the invite link to the clipboard.
-- login-notices.ts
-- getAdminContext
-- test-tools/page.tsx
+- requireLeagueAdminForSeason
+- [leagueId]/page.tsx
+- createServiceClient
 - Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?
-- email-import-parser.ts
-- dashboard/page.tsx
-- environment.ts
+- predictions/actions.ts
+- scripts
+- api-football/client.ts
 - Q: Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?
 - Q: I just played a legitimate game and got the error: Your score could not be verified or saved.
-- getUser
+- notices/page.tsx
 - Q: The easter-egg prompt belongs on the player dashboard, and the cookie must suppress only prompts rather than game entry.
 - Q: Where do I see the scoreboard, can I see the top 10 overall scores, and will everyone who completes the game have the same score? What scoring differentiators should we add?
 - Q: Oh, is there only one top score per user?
-- PredictionsForm.tsx
+- Q: I've run migration 021, but the Unattached users tab is still unavailable
 - Predictotronix guide for league admins
 - Q: The syncing of results doesn't seem to be doing anything, the syncing of fixtures is showing the results but the games are still showing as being active even though they are finished. Can you work out what is going on? Try calling the API to check that you have the correct response mapped for the results.
 - Q: I played for 5-10 minutes. Would the duration or speed changes fix the verification failure?
@@ -99,17 +94,17 @@
 - Q: How could someone be showing up as Unknown Participant?
 - Q: Add league/global admin login notices with Ceefax theming, expiry, and dismissal frequency.
 - gameweek-workbook.ts
-- scoring/index.ts
+- package.json
 - Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive.
 - fixtures.ts
 - Q: Can you exclude any results that are not ascribed to a person who is actively a part of the league/season?
 - Q: Make the player dashboard easter-egg animation more elaborate every 30 seconds, including red flashing, spinning, and pulsing.
 - participant-merge-migration.test.ts
-- context.ts
+- getAdminContext
 - cookies/page.tsx
 - privacy/page.tsx
 - Q: I keep getting random people who I think are from bot accounts signing up to the site. How would I add some protection against this?
-- createServiceClient
+- participants/page.tsx
 - fixtures/actions.ts
 - Q: Once you've done this, can you also fix the styling on the admin dashboard, the policy links appear right at the bottom below the menu and cause a vertical scrollbar. Surely they could just be links at the bottom of the menu.
 - Q: In the admin screen, why does the header float in front of the breakout game?
@@ -117,21 +112,31 @@
 - InviteLinkCopy.tsx
 - unattached-users-migration.test.ts
 - Q: The participants page is now giving React error 441 when I navigate to it
-- ParticipantMergeDialog.tsx
-- deployment-config.test.ts
+- eslint-config-next
+- jsdom
 - unattached-users-fix-migration.test.ts
+- @playwright/test
+- prettier
+- supabase
+- @tailwindcss/postcss
+- @testing-library/jest-dom
+- @types/node
+- @types/react
+- @vitejs/plugin-react
+- vitest
+- gameweek-messages-migration.test.ts
 
 ## God Nodes (most connected - your core abstractions)
-1. `createServiceClient()` - 82 edges
-2. `createClient()` - 34 edges
+1. `createServiceClient()` - 84 edges
+2. `createClient()` - 36 edges
 3. `getAdminContext` - 30 edges
 4. `getUser` - 30 edges
 5. `normalizeInviteCode()` - 25 edges
-6. `requireLeagueAdminForSeason()` - 22 edges
-7. `requireUser()` - 22 edges
+6. `requireUser()` - 24 edges
+7. `requireLeagueAdminForSeason()` - 22 edges
 8. `isSuperAdmin()` - 21 edges
 9. `FormSubmitButton()` - 19 edges
-10. `ApiFixture` - 18 edges
+10. `getParticipant()` - 19 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Graphify-First Codebase Navigation` --semantically_similar_to--> `Existing Graph Fast Path`  [INFERRED] [semantically similar]
@@ -153,11 +158,11 @@
 - **Predictotronix Operational Platform** — readme_supabase_backend, readme_render_deployment, readme_scheduled_sync_jobs, setup_render_cron_containers [INFERRED 0.85]
 - **Predictotronix Quality Gate** — agents_verify_before_completion, github_workflows_ci_ci_pipeline, github_workflows_ci_verify_job [EXTRACTED 1.00]
 
-## Communities (115 total, 25 thin omitted)
+## Communities (125 total, 37 thin omitted)
 
 ### Community 0 - "leaderboard.ts"
 Cohesion: 0.07
-Nodes (38): dynamic, ExportsAdminPage(), metadata, contentType(), GET(), validFormats, dynamic, GET() (+30 more)
+Nodes (39): dynamic, ExportsAdminPage(), metadata, contentType(), GET(), validFormats, dynamic, GET() (+31 more)
 
 ### Community 1 - "send-reminders/route.ts"
 Cohesion: 0.06
@@ -168,16 +173,16 @@ Cohesion: 0.50
 Nodes (3): component, rules, styles
 
 ### Community 3 - "devDependencies"
-Cohesion: 0.06
-Nodes (35): eslint, eslint-config-next, jsdom, devDependencies, eslint, eslint-config-next, jsdom, @playwright/test (+27 more)
+Cohesion: 0.15
+Nodes (13): eslint, devDependencies, eslint, tailwindcss, @testing-library/react, @types/react-dom, @types/testing-library__jest-dom, typescript (+5 more)
 
 ### Community 4 - "auth/actions.ts"
-Cohesion: 0.07
-Nodes (52): GET(), dynamic, ForgotPasswordPage(), metadata, submitJoinRequest(), dynamic, JoinPage(), Props (+44 more)
+Cohesion: 0.08
+Nodes (49): GET(), dynamic, ForgotPasswordPage(), metadata, submitJoinRequest(), dynamic, JoinPage(), Props (+41 more)
 
 ### Community 5 - "dependencies"
-Cohesion: 0.04
-Nodes (48): @base-ui/react, class-variance-authority, clsx, exceljs, lucide-react, next, dependencies, @base-ui/react (+40 more)
+Cohesion: 0.05
+Nodes (43): @base-ui/react, class-variance-authority, clsx, exceljs, lexical, @lexical/history, @lexical/list, @lexical/overflow (+35 more)
 
 ### Community 6 - "compilerOptions"
 Cohesion: 0.07
@@ -200,12 +205,12 @@ Cohesion: 0.05
 Nodes (38): 10. Complete, archive and delete safely, 11. Use test-season tools, 12. Routine operating checklists, 1. Always check the current workspace, 2. Create a league, 3. Manage invitations, 4. Assign a league admin, 5. Create and activate a season (+30 more)
 
 ### Community 11 - "QuickMatchGame.tsx"
-Cohesion: 0.17
-Nodes (14): CHANCE_SEQUENCE, ChanceProfile, chanceProfileForRound(), ChanceResult, ChanceType, createTargetPosition(), GamePhase, markerPositionAtElapsed() (+6 more)
+Cohesion: 0.09
+Nodes (24): Fixture, PredictionsForm(), Props, CHANCE_SEQUENCE, ChanceProfile, chanceProfileForRound(), ChanceResult, ChanceType (+16 more)
 
 ### Community 12 - "run.ts"
-Cohesion: 0.21
-Nodes (14): POST(), validateCronSecret(), POST(), validateCronSecret(), buildCronErrorDetails(), CronExecutionError, CronExecutionResult, executeCronJob() (+6 more)
+Cohesion: 0.23
+Nodes (12): POST(), validateCronSecret(), buildCronErrorDetails(), CronExecutionError, CronExecutionResult, executeCronJob(), finishRun(), redactSensitiveText() (+4 more)
 
 ### Community 13 - "Verify Before Completion"
 Cohesion: 0.50
@@ -227,17 +232,17 @@ Nodes (3): env, PLACEHOLDER_ENV, steps
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I have just spun up my staging environment and requested to join a league with a user, I can see the join request in my DB table, but it is not showing in the UI., Source Nodes
 
-### Community 27 - "predictions/actions.ts"
+### Community 27 - "fpl/client.ts"
 Cohesion: 0.17
-Nodes (12): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, adminSubmitPredictions(), ClearPredictionsResult, hasValidScores() (+4 more)
+Nodes (10): FplBootstrap, FplEvent, fplFetch(), FplFixture, FplFixtureProvider, fplSeason(), fplStatus(), FplTeam (+2 more)
 
 ### Community 29 - "Q: Can you make the suggested changes?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you make the suggested changes?, Source Nodes
 
-### Community 32 - "scenario.mts"
-Cohesion: 0.14
-Nodes (23): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+15 more)
+### Community 32 - "environment.ts"
+Cohesion: 0.07
+Nodes (39): assertCount(), ensurePersonaUser(), insertBatches(), main(), requiredEnvironment(), scoreCompletedFixtures(), addDays(), buildStagingScenario() (+31 more)
 
 ### Community 37 - "local-dev.mjs"
 Cohesion: 0.50
@@ -260,8 +265,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Should I now be able to use the API sync to get the real fixtures for the upcoming season?, Source Nodes
 
 ### Community 42 - "ApiFixture"
-Cohesion: 0.07
-Nodes (23): apiFetch(), ApiFootballConfig, ApiFootballEnvelope, ApiFootballProvider, formatApiErrors(), getApiFootballConfig(), getSafeRequestDiagnostics(), RateLimitState (+15 more)
+Cohesion: 0.19
+Nodes (5): TestFixtureProvider, ApiFixture, ApiRound, FixtureProvider, FallbackFixtureProvider
 
 ### Community 43 - "leaderboard/[gameweekId]/page.tsx"
 Cohesion: 0.40
@@ -272,16 +277,16 @@ Cohesion: 0.33
 Nodes (5): dynamic, metadata, PredictionsPage(), Props, { redirect }
 
 ### Community 46 - "AdminShell.tsx"
-Cohesion: 0.08
-Nodes (28): setAdminLeague(), setAdminSeason(), AdminShell(), configureNav, NavItem, Option, Props, runNav (+20 more)
+Cohesion: 0.09
+Nodes (26): AdminShell(), configureNav, NavItem, Option, Props, runNav, SeasonOption, systemNav (+18 more)
 
 ### Community 47 - "Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing."
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you think about the flow for a new user signing up from an invite link and figure out if it works. I want the flow to be optimized for ease of use and first impression. Let me know what you come up with before implementing., Source Nodes
 
 ### Community 48 - "server.ts"
-Cohesion: 0.23
-Nodes (17): AdminLayout(), dismissLoginNotice(), saveNotificationPreferences(), dynamic, metadata, SettingsPage(), getParticipant(), isAdmin() (+9 more)
+Cohesion: 0.06
+Nodes (56): AdminPredictionsPage(), dynamic, metadata, ParticipantSummary, Props, AdminLayout(), dismissLoginNotice(), ActiveSeason (+48 more)
 
 ### Community 50 - "Q: How do I assign a user to a league from the admin panel?"
 Cohesion: 0.40
@@ -315,33 +320,33 @@ Nodes (37): dynamic, FixturesAdminPage(), metadata, buildCronDiagnosticPrompt(),
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Give me a nice way to copy the invite link to the clipboard., Source Nodes
 
-### Community 59 - "login-notices.ts"
-Cohesion: 0.15
-Nodes (17): LoginNoticesAdminPage(), LoginNotices(), VisibleLoginNotice, DEFAULT_LOGIN_NOTICE_DURATION_MS, formatLondonDateTimeLocal(), getLoginNoticeFormBounds(), LOGIN_NOTICE_DISPLAY_MODES, LOGIN_NOTICE_TONES (+9 more)
+### Community 59 - "requireLeagueAdminForSeason"
+Cohesion: 0.29
+Nodes (12): correctResult(), addSeasonParticipant(), createSeason(), deleteSeason(), removeSeasonParticipant(), updateSeasonStatus(), notFound(), requireLeagueAdminForFixture() (+4 more)
 
-### Community 60 - "getAdminContext"
-Cohesion: 0.10
-Nodes (36): dynamic, LeagueDetailPage(), LeagueTab, dynamic, LeaguesAdminPage(), metadata, Props, dynamic (+28 more)
+### Community 60 - "[leagueId]/page.tsx"
+Cohesion: 0.16
+Nodes (21): dynamic, LeagueTab, dynamic, metadata, Props, metadata, dynamic, SeasonTab (+13 more)
 
-### Community 61 - "test-tools/page.tsx"
+### Community 61 - "createServiceClient"
 Cohesion: 0.17
-Nodes (18): clearSeasonClock(), fastForwardGameweek(), guardActiveSeason(), guardTestSeason(), injectResult(), markFixturePostponed(), requireStagingSuperAdmin(), requireSuperAdmin() (+10 more)
+Nodes (26): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), clearSeasonClock(), fastForwardGameweek(), guardActiveSeason() (+18 more)
 
 ### Community 62 - "Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you make the mini game a little bit harder, just so the bar moves about 1.5 times faster? Also can you fix a bug where the last score box of a game week auto moves to the first one of the next gameweek?, Source Nodes
 
-### Community 63 - "email-import-parser.ts"
-Cohesion: 0.16
-Nodes (20): adminExtractEmailPredictions(), ExtractEmailPredictionsResult, ChatCompletionResponse, extractPredictionsWithLlm(), getPredictionImportLlmConfig(), LlmConfig, LlmExtractionResult, aliasesFor() (+12 more)
+### Community 63 - "predictions/actions.ts"
+Cohesion: 0.06
+Nodes (48): AdminPredictionsForm(), Fixture, Option, ParticipantOption, Props, GameweekMessageEditor(), renderNode(), RichTextContent() (+40 more)
 
-### Community 64 - "dashboard/page.tsx"
+### Community 64 - "scripts"
 Cohesion: 0.14
-Nodes (18): AdminPredictionsPage(), dynamic, metadata, Props, ActiveSeason, DashboardPage(), dynamic, metadata (+10 more)
+Nodes (14): scripts, build, dev, lint, local:dev, local:stop, staging:reset, staging:smoke (+6 more)
 
-### Community 65 - "environment.ts"
-Cohesion: 0.20
-Nodes (14): main(), requiredEnvironment(), dynamic, GET(), APP_ENVIRONMENTS, AppEnvironment, assertSafeStagingTarget(), EnvironmentPolicy (+6 more)
+### Community 65 - "api-football/client.ts"
+Cohesion: 0.22
+Nodes (8): apiFetch(), ApiFootballConfig, ApiFootballEnvelope, ApiFootballProvider, formatApiErrors(), getApiFootballConfig(), getSafeRequestDiagnostics(), RateLimitState
 
 ### Community 66 - "Q: Where is the breakout game implemented, including its buttons, powerups, level layouts, bricks, collision handling, and tests?"
 Cohesion: 0.40
@@ -351,9 +356,9 @@ Nodes (4): Answer, Outcome, Q: Where is the breakout game implemented, including
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I just played a legitimate game and got the error: Your score could not be verified or saved., Source Nodes
 
-### Community 68 - "getUser"
-Cohesion: 0.29
-Nodes (13): assignLeagueAdmin(), createLeague(), deleteLeague(), regenerateInviteCode(), toggleInviteActive(), canManageScope(), createLoginNotice(), expireLoginNotice() (+5 more)
+### Community 68 - "notices/page.tsx"
+Cohesion: 0.27
+Nodes (10): canManageScope(), createLoginNotice(), expireLoginNotice(), redirectWithError(), dynamic, LoginNoticesAdminPage(), metadata, Props (+2 more)
 
 ### Community 69 - "Q: The easter-egg prompt belongs on the player dashboard, and the cookie must suppress only prompts rather than game entry."
 Cohesion: 0.40
@@ -367,9 +372,9 @@ Nodes (4): Answer, Outcome, Q: Where do I see the scoreboard, can I see the top 
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Oh, is there only one top score per user?, Source Nodes
 
-### Community 72 - "PredictionsForm.tsx"
-Cohesion: 0.16
-Nodes (11): Fixture, PredictionsForm(), Props, QuickMatchFixture, clearPredictions(), SCORE_WEIGHTS, TOTAL_WEIGHT, weightedRandomScore() (+3 more)
+### Community 72 - "Q: I've run migration 021, but the Unattached users tab is still unavailable"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: I've run migration 021, but the Unattached users tab is still unavailable, Source Nodes
 
 ### Community 73 - "Predictotronix guide for league admins"
 Cohesion: 0.18
@@ -408,20 +413,20 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Add league/global admin login notices with Ceefax theming, expiry, and dismissal frequency., Source Nodes
 
 ### Community 91 - "gameweek-workbook.ts"
-Cohesion: 0.12
-Nodes (46): dynamic, filenamePart(), GET(), addCompleteness(), addFixtureAnalysis(), addForecastTendencies(), addLeaderboard(), addNotes() (+38 more)
+Cohesion: 0.14
+Nodes (42): dynamic, filenamePart(), GET(), addCompleteness(), addFixtureAnalysis(), addForecastTendencies(), addLeaderboard(), addNotes() (+34 more)
 
-### Community 92 - "scoring/index.ts"
-Cohesion: 0.33
-Nodes (8): calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score, scorePrediction()
+### Community 92 - "package.json"
+Cohesion: 0.50
+Nodes (3): name, private, version
 
 ### Community 93 - "Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive."
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Can you also improve it so it renders correctly in landscape on a mobile? Maybe with the left/right/fire buttons to the side of the game canvas? Possibly with a fire button on each side to make it intuitive., Source Nodes
 
 ### Community 94 - "fixtures.ts"
-Cohesion: 0.25
-Nodes (13): completedFixtureStatuses, deriveGameweekStatus(), GameweekFixtureState, gameweekNumberFromRound(), log(), mapFixtureStatus(), syncFixtures(), syncGameweekStatuses() (+5 more)
+Cohesion: 0.18
+Nodes (15): POST(), validateCronSecret(), completedFixtureStatuses, deriveGameweekStatus(), GameweekFixtureState, gameweekNumberFromRound(), log(), mapFixtureStatus() (+7 more)
 
 ### Community 95 - "Q: Can you exclude any results that are not ascribed to a person who is actively a part of the league/season?"
 Cohesion: 0.40
@@ -431,21 +436,21 @@ Nodes (4): Answer, Outcome, Q: Can you exclude any results that are not ascribed
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Make the player dashboard easter-egg animation more elaborate every 30 seconds, including red flashing, spinning, and pulsing., Source Nodes
 
-### Community 99 - "context.ts"
-Cohesion: 0.24
-Nodes (9): cookieOptions, stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), ADMIN_LEAGUE_COOKIE, ADMIN_SEASON_COOKIE, ADMIN_VIEW_AS_LEAGUE_COOKIE, AdminContext (+1 more)
+### Community 99 - "getAdminContext"
+Cohesion: 0.11
+Nodes (24): cookieOptions, setAdminLeague(), setAdminSeason(), stopViewingAsLeagueAdmin(), viewAsCookieOptions, viewAsLeagueAdmin(), LeagueDetailPage(), LeaguesAdminPage() (+16 more)
 
 ### Community 102 - "Q: I keep getting random people who I think are from bot accounts signing up to the site. How would I add some protection against this?"
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: I keep getting random people who I think are from bot accounts signing up to the site. How would I add some protection against this?, Source Nodes
 
-### Community 104 - "createServiceClient"
-Cohesion: 0.17
-Nodes (27): approveJoinRequest(), createOfflineParticipant(), deleteUnattachedUser(), mergeOfflineParticipant(), rejectJoinRequest(), updateParticipantDisplayName(), dynamic, metadata (+19 more)
+### Community 104 - "participants/page.tsx"
+Cohesion: 0.15
+Nodes (18): approveJoinRequest(), createOfflineParticipant(), deleteUnattachedUser(), mergeOfflineParticipant(), rejectJoinRequest(), updateParticipantDisplayName(), dynamic, metadata (+10 more)
 
 ### Community 105 - "fixtures/actions.ts"
-Cohesion: 0.27
-Nodes (11): actionLogger(), assertExternalFixtureSyncEnabled(), correctResult(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync() (+3 more)
+Cohesion: 0.30
+Nodes (11): actionLogger(), assertExternalFixtureSyncEnabled(), failureEntry(), getProductionSeason(), SyncActionState, triggerFixtureSync(), triggerResultSync(), FixtureSyncConsole() (+3 more)
 
 ### Community 106 - "Q: Once you've done this, can you also fix the styling on the admin dashboard, the policy links appear right at the bottom below the menu and cause a vertical scrollbar. Surely they could just be links at the bottom of the menu."
 Cohesion: 0.40
@@ -456,8 +461,8 @@ Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: In the admin screen, why does the header float in front of the breakout game?, Source Nodes
 
 ### Community 108 - "types/index.ts"
-Cohesion: 0.17
-Nodes (11): Enums, Tables, GameweekStatus, JoinRequestStatus, NotificationChannel, NotificationStatus, NotificationType, PredictionAuditAction (+3 more)
+Cohesion: 0.11
+Nodes (22): GameweekWorkbookPrediction, calculateCompletion(), getResult(), LeaderboardEntry, RankedEntry, rankLeaderboard(), Result, Score (+14 more)
 
 ### Community 109 - "InviteLinkCopy.tsx"
 Cohesion: 0.40
@@ -467,18 +472,10 @@ Nodes (4): CopyStatus, InviteLinkCopy(), Props, writeText
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: The participants page is now giving React error 441 when I navigate to it, Source Nodes
 
-### Community 112 - "ParticipantMergeDialog.tsx"
-Cohesion: 0.60
-Nodes (3): PARTICIPANT_MERGE_CONFIRMATION, ParticipantMergeDialog(), ParticipantOption
-
-### Community 113 - "deployment-config.test.ts"
-Cohesion: 0.40
-Nodes (3): renderBlueprint, seasonClockMigration, stagingWorkflow
-
 ## Knowledge Gaps
-- **510 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+505 more)
+- **526 isolated node(s):** `$schema`, `style`, `rsc`, `tsx`, `config` (+521 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **37 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
@@ -486,10 +483,10 @@ Nodes (3): renderBlueprint, seasonClockMigration, stagingWorkflow
 - `ParticipantsAdminPage()` (7× useful, score=4.764933059) _(code changed — re-verify)_
 - `CeefaxBreakout()` (5× useful, score=4.18801173)
 - `AdminShell()` (5× useful, score=3.901497461)
-- `DashboardPage()` (4× useful, score=2.705784557)
+- `DashboardPage()` (4× useful, score=2.705784557) _(code changed — re-verify)_
 - `FixturesAdminPage()` (3× useful, score=2.378690702)
-- `RegisterPage()` (3× useful, score=2.261292965)
-- `signUp()` (3× useful, score=2.261292965)
+- `RegisterPage()` (3× useful, score=2.261292965) _(code changed — re-verify)_
+- `signUp()` (3× useful, score=2.261292965) _(code changed — re-verify)_
 - `submitJoinRequest()` (3× useful, score=1.863774062)
 - `breakout-controls.test.ts` (2× useful, score=1.644014626)
 - `getBreakoutLeaderboard()` (2× useful, score=1.642249695)
@@ -497,17 +494,17 @@ Nodes (3): renderBlueprint, seasonClockMigration, stagingWorkflow
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `createServiceClient()` connect `createServiceClient` to `leaderboard.ts`, `dashboard/page.tsx`, `send-reminders/route.ts`, `context.ts`, `getUser`, `auth/actions.ts`, `predictions/actions.ts`, `fixtures/actions.ts`, `gameweek-workbook.ts`, `run.ts`, `AdminShell.tsx`, `server.ts`, `fixtures/page.tsx`, `login-notices.ts`, `getAdminContext`, `test-tools/page.tsx`, `email-import-parser.ts`?**
-  _High betweenness centrality (0.101) - this node is a cross-community bridge._
-- **Why does `ApiFixture` connect `ApiFixture` to `run.ts`, `fixtures.ts`?**
-  _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `createClient()` connect `server.ts` to `dashboard/page.tsx`, `auth/actions.ts`, `getUser`, `createServiceClient`, `PredictionsForm.tsx`, `predictions/actions.ts`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `createServiceClient()` connect `createServiceClient` to `leaderboard.ts`, `send-reminders/route.ts`, `getAdminContext`, `notices/page.tsx`, `auth/actions.ts`, `participants/page.tsx`, `fixtures/actions.ts`, `gameweek-workbook.ts`, `run.ts`, `server.ts`, `fixtures/page.tsx`, `requireLeagueAdminForSeason`, `[leagueId]/page.tsx`, `predictions/actions.ts`?**
+  _High betweenness centrality (0.089) - this node is a cross-community bridge._
+- **Why does `FplFixtureProvider` connect `fpl/client.ts` to `ApiFixture`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `FixtureProvider` connect `ApiFixture` to `api-football/client.ts`, `fpl/client.ts`, `fixtures.ts`?**
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **What connects `$schema`, `style`, `rsc` to the rest of the system?**
-  _510 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _526 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `leaderboard.ts` be split into smaller, more focused modules?**
-  _Cohesion score 0.07164404223227752 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07111756168359942 - nodes in this community are weakly interconnected._
 - **Should `send-reminders/route.ts` be split into smaller, more focused modules?**
   _Cohesion score 0.06253652834599649 - nodes in this community are weakly interconnected._
-- **Should `devDependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.05714285714285714 - nodes in this community are weakly interconnected._
+- **Should `auth/actions.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.07502131287297528 - nodes in this community are weakly interconnected._

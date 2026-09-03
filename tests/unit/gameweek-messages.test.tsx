@@ -13,14 +13,12 @@ vi.mock('@/lib/gameweek-messages/actions', () => ({
   saveGameweekMessage: saveMessageMock,
 }));
 
-function richText(text: string, format = 0) {
+function richText(text: string, format = 0, style = '') {
   return {
     root: {
       children: [
         {
-          children: [
-            { detail: 0, format, mode: 'normal', style: '', text, type: 'text', version: 1 },
-          ],
+          children: [{ detail: 0, format, mode: 'normal', style, text, type: 'text', version: 1 }],
           direction: null,
           format: '',
           indent: 0,
@@ -52,9 +50,19 @@ describe('gameweek rich-text messages', () => {
 
   it('rejects unsupported formatting and content over the visible limit', () => {
     expect(parseRichTextDocument(richText('underlined', 8))).toBeNull();
+    expect(parseRichTextDocument(richText('unsafe size', 0, 'font-size: 100px;'))).toBeNull();
+    expect(parseRichTextDocument(richText('unsafe colour', 0, 'color: red;'))).toBeNull();
     expect(
       parseRichTextDocument(richText('x'.repeat(GAMEWEEK_MESSAGE_CHARACTER_LIMIT + 1)))
     ).toBeNull();
+  });
+
+  it('renders the supported font sizes from validated Lexical state', () => {
+    const content = richText('Large message', 0, 'font-size: 20px;');
+    expect(parseRichTextDocument(content)).not.toBeNull();
+
+    render(<RichTextContent document={content} />);
+    expect(screen.getByText('Large message')).toHaveStyle({ fontSize: '20px' });
   });
 
   it('uses Lexical and shows the player the 1,000 character allowance', () => {
@@ -67,5 +75,8 @@ describe('gameweek rich-text messages', () => {
     expect(screen.getByText('5 / 1,000 characters')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Bold' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Bulleted list' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Small text' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Normal text' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Large text' })).toBeInTheDocument();
   });
 });

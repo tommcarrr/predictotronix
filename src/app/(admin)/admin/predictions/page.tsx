@@ -134,6 +134,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
     updatedAt: message.updated_at,
     unread: new Date(message.updated_at).getTime() > lastReadAt,
   }));
+  const initialTab = tab === 'messages' ? 'messages' : 'predictions';
 
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-6">
@@ -151,7 +152,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
         </p>
       ) : (
         <AdminPredictionsForm
-          key={`${selectedParticipant?.id ?? ''}:${effectiveGameweekId}`}
+          key={`${selectedParticipant?.id ?? ''}:${effectiveGameweekId}:${initialTab}`}
           participants={participantStatuses}
           gameweeks={(gameweeks ?? []).map((gameweek) => ({
             id: gameweek.id,
@@ -159,7 +160,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
           }))}
           selectedParticipantId={selectedParticipant?.id ?? ''}
           selectedGameweekId={effectiveGameweekId}
-          initialTab={tab === 'messages' ? 'messages' : 'predictions'}
+          initialTab={initialTab}
           messages={messages}
           unreadMessageCount={messages.filter((message) => message.unread).length}
           llmFallbackConfigured={Boolean(process.env.OPENAI_API_KEY?.trim())}

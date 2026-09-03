@@ -2,9 +2,16 @@
 
 import { useRef, useState, useTransition } from 'react';
 import { Bold, Italic, List, MessageSquareText, Trash2 } from 'lucide-react';
-import { $getRoot, FORMAT_TEXT_COMMAND, type LexicalEditor } from 'lexical';
+import {
+  $getRoot,
+  $getSelection,
+  $isRangeSelection,
+  FORMAT_TEXT_COMMAND,
+  type LexicalEditor,
+} from 'lexical';
 import { ListItemNode, ListNode, INSERT_UNORDERED_LIST_COMMAND } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
+import { $patchStyleText } from '@lexical/selection';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -19,8 +26,18 @@ import { saveGameweekMessage } from '@/lib/gameweek-messages/actions';
 import {
   EMPTY_RICH_TEXT_DOCUMENT,
   GAMEWEEK_MESSAGE_CHARACTER_LIMIT,
+  GAMEWEEK_MESSAGE_FONT_SIZES,
   parseRichTextDocument,
 } from '@/lib/gameweek-messages/document';
+
+function setFontSize(editor: LexicalEditor, fontSize: string) {
+  editor.update(() => {
+    const selection = $getSelection();
+    if ($isRangeSelection(selection)) {
+      $patchStyleText(selection, { 'font-size': fontSize });
+    }
+  });
+}
 
 function Toolbar() {
   const [editor] = useLexicalComposerContext();
@@ -47,6 +64,19 @@ function Toolbar() {
       >
         <List aria-hidden="true" />
       </button>
+      <span className="gameweek-message-toolbar__separator" aria-hidden="true" />
+      {Object.entries(GAMEWEEK_MESSAGE_FONT_SIZES).map(([name, size]) => (
+        <button
+          key={name}
+          type="button"
+          onMouseDown={(event) => event.preventDefault()}
+          onClick={() => setFontSize(editor, size)}
+          aria-label={`${name[0].toUpperCase()}${name.slice(1)} text`}
+          className={`gameweek-message-toolbar__font-size gameweek-message-toolbar__font-size--${name}`}
+        >
+          <span aria-hidden="true">A</span>
+        </button>
+      ))}
     </div>
   );
 }
