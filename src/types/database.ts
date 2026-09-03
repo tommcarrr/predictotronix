@@ -252,6 +252,58 @@ export type Database = {
         Update: { joined_at?: string };
         Relationships: [];
       };
+      gameweek_messages: {
+        Row: {
+          id: string;
+          gameweek_id: string;
+          participant_id: string;
+          content: Json;
+          plain_text: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          gameweek_id: string;
+          participant_id: string;
+          content: Json;
+          plain_text: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          content?: Json;
+          plain_text?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'gameweek_messages_gameweek_id_fkey';
+            columns: ['gameweek_id'];
+            referencedRelation: 'gameweeks';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'gameweek_messages_participant_id_fkey';
+            columns: ['participant_id'];
+            referencedRelation: 'participants';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      admin_gameweek_message_reads: {
+        Row: { gameweek_id: string; user_id: string; last_read_at: string };
+        Insert: { gameweek_id: string; user_id: string; last_read_at?: string };
+        Update: { last_read_at?: string };
+        Relationships: [
+          {
+            foreignKeyName: 'admin_gameweek_message_reads_gameweek_id_fkey';
+            columns: ['gameweek_id'];
+            referencedRelation: 'gameweeks';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       league_roles: {
         Row: {
           id: string;

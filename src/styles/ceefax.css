@@ -300,6 +300,186 @@
   border-bottom: 1px solid #333;
 }
 
+.participant-gameweek-message {
+  border: 1px solid #555;
+  background: #090909;
+}
+
+.participant-gameweek-message > summary {
+  display: flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 0.75rem;
+  color: var(--color-info);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.participant-gameweek-message > summary::-webkit-details-marker {
+  display: none;
+}
+
+.participant-gameweek-message > summary svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.participant-gameweek-message__saved {
+  margin-left: auto;
+  color: var(--color-success);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.participant-gameweek-message__body {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.participant-gameweek-message__help {
+  margin-bottom: 0.65rem;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.gameweek-message-toolbar {
+  display: flex;
+  gap: 0.25rem;
+  border: 1px solid #aeb4bd;
+  border-bottom: 0;
+  background: #eef0f3;
+  padding: 0.3rem;
+  color-scheme: light;
+}
+
+.gameweek-message-toolbar button {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c2c7ce;
+  border-radius: 0.2rem;
+  background: #fff;
+  color: #111827;
+}
+
+.gameweek-message-toolbar button:hover,
+.gameweek-message-toolbar button:focus-visible {
+  border-color: #344054;
+  background: #dfe3e8;
+  outline: 2px solid #005ea8;
+  outline-offset: 1px;
+}
+
+.gameweek-message-toolbar svg,
+.participant-gameweek-message__clear svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.gameweek-message-editor-shell {
+  position: relative;
+}
+
+.gameweek-message-editor {
+  position: relative;
+  z-index: 1;
+  min-height: 8rem;
+  max-height: 20rem;
+  overflow-y: auto;
+  border: 1px solid #aeb4bd;
+  background: #fff;
+  padding: 0.75rem;
+  color: #111827;
+  color-scheme: light;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gameweek-message-editor__placeholder {
+  position: absolute;
+  z-index: 0;
+  top: 0.75rem;
+  left: 0.75rem;
+  color: #667085;
+  pointer-events: none;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.gameweek-message-editor :is(p, ul) + :is(p, ul) {
+  margin-top: 0.5rem;
+}
+
+.gameweek-message-editor ul,
+.gameweek-message-content ul {
+  list-style: disc;
+  padding-left: 1.35rem;
+}
+
+.participant-gameweek-message__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin-top: 0.55rem;
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+}
+
+.participant-gameweek-message__footer > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.participant-gameweek-message__clear,
+.participant-gameweek-message__save {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.65rem;
+  font-weight: 700;
+}
+
+.participant-gameweek-message__clear {
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+}
+
+.participant-gameweek-message__save {
+  background: var(--color-info);
+  color: #000;
+}
+
+.participant-gameweek-message__footer button:disabled {
+  opacity: 0.5;
+}
+
+.participant-gameweek-message__status {
+  margin-top: 0.5rem;
+  color: var(--color-success);
+  font-size: 0.75rem;
+}
+
+.gameweek-message-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+
+.gameweek-message-content > * + * {
+  margin-top: 0.5rem;
+}
+
 .participant-fixture--locked {
   color: #aaa;
 }
@@ -563,7 +743,7 @@
 }
 
 .participant-button:focus-visible,
-.participant-dashboard :is(a, button, input):focus-visible {
+.participant-dashboard :is(a, button, input, summary, [contenteditable]):focus-visible {
   outline: 2px solid var(--color-success);
   outline-offset: 3px;
 }
@@ -611,10 +791,24 @@
   box-shadow: 0 0 0 4px #0000ff;
 }
 
-.login-ceefax__eyebrow { color: #00ff00; text-transform: uppercase; }
-.login-ceefax :is(input) { border-radius: 0; background: #111; color: #fff; }
-.login-ceefax :is(input):focus-visible { outline: 2px solid #00ff00; outline-offset: 2px; }
-.login-ceefax__submit { border-radius: 0; background: #0000ff; color: #fff; }
+.login-ceefax__eyebrow {
+  color: #00ff00;
+  text-transform: uppercase;
+}
+.login-ceefax :is(input) {
+  border-radius: 0;
+  background: #111;
+  color: #fff;
+}
+.login-ceefax :is(input):focus-visible {
+  outline: 2px solid #00ff00;
+  outline-offset: 2px;
+}
+.login-ceefax__submit {
+  border-radius: 0;
+  background: #0000ff;
+  color: #fff;
+}
 
 /* Persisted readability controls shared by authentication and participant screens. */
 .player-accessibility {
@@ -686,7 +880,8 @@
   background: #e8f0fe;
 }
 
-.player-accessibility[data-accessibility-mode='enabled'] .player-accessibility__toggle:focus-visible {
+.player-accessibility[data-accessibility-mode='enabled']
+  .player-accessibility__toggle:focus-visible {
   outline-color: #174ea6;
 }
 
@@ -797,6 +992,11 @@
   color: #4b5563;
 }
 
+.player-accessibility[data-accessibility-mode='enabled'] .participant-gameweek-message {
+  border-color: #9ca3af;
+  background: #fff;
+}
+
 .player-accessibility[data-accessibility-mode='enabled'] .quick-match-dialog {
   border-color: #174ea6;
   background: #fff;
@@ -851,13 +1051,19 @@
   color: #fff;
 }
 
-.player-accessibility[data-accessibility-mode='enabled'] .participant-dashboard :is(a, button, input):focus-visible,
-.player-accessibility[data-accessibility-mode='enabled'] .login-ceefax :is(a, button, input):focus-visible {
+.player-accessibility[data-accessibility-mode='enabled']
+  .participant-dashboard
+  :is(a, button, input):focus-visible,
+.player-accessibility[data-accessibility-mode='enabled']
+  .login-ceefax
+  :is(a, button, input):focus-visible {
   outline: 3px solid #174ea6;
   outline-offset: 3px;
 }
 
-.player-accessibility[data-accessibility-mode='enabled'] .participant-dashboard :is(a, button, input),
+.player-accessibility[data-accessibility-mode='enabled']
+  .participant-dashboard
+  :is(a, button, input),
 .player-accessibility[data-accessibility-mode='enabled'] .login-ceefax :is(a, button, input) {
   transition: none;
 }

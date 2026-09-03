@@ -9,13 +9,19 @@ export const metadata = { title: 'Predictions | Admin' };
 export const dynamic = 'force-dynamic';
 
 interface Props {
-  searchParams: Promise<{ participantId?: string; gameweekId?: string }>;
+  searchParams: Promise<{ participantId?: string; gameweekId?: string; tab?: string }>;
+}
+
+interface ParticipantSummary {
+  id: string;
+  display_name: string;
+  is_offline: boolean;
 }
 
 export default async function AdminPredictionsPage({ searchParams }: Props) {
-  const { selectedSeason } = await getAdminContext();
+  const { selectedSeason, user } = await getAdminContext();
 
-  const { participantId = '', gameweekId = '' } = await searchParams;
+  const { participantId = '', gameweekId = '', tab = 'predictions' } = await searchParams;
   const supabase = await createServiceClient();
 
   const [{ data: participantRows }, { data: gameweeks }, { data: seasonFixtures }] = selectedSeason
@@ -38,9 +44,9 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
     : [{ data: [] }, { data: [] }, { data: [] }];
 
   const participants = (participantRows ?? [])
-    .map((row: any) => row.participants)
-    .filter(Boolean)
-    .sort((a: any, b: any) => a.display_name.localeCompare(b.display_name));
+    .map((row) => row.participants as unknown as ParticipantSummary | null)
+    .filter((participant): participant is ParticipantSummary => Boolean(participant))
+    .sort((a, b) => a.display_name.localeCompare(b.display_name));
   const seasonNow = selectedSeason ? await getSeasonNow(supabase, selectedSeason.id) : new Date();
   const defaultGameweek = selectPredictionGameweek(
     gameweeks ?? [],
@@ -49,9 +55,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
   );
   const selectedGameweek =
     (gameweeks ?? []).find((gameweek) => gameweek.id === gameweekId) ?? defaultGameweek;
-  const selectedParticipant = participants.find(
-    (participant: any) => participant.id === participantId
-  );
+  const selectedParticipant = participants.find((participant) => participant.id === participantId);
 
   const { data: fixtures } = selectedGameweek
     ? await supabase
@@ -62,7 +66,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
     : { data: [] };
 
   const fixtureIds = (fixtures ?? []).map((fixture) => fixture.id);
-  const participantIds = participants.map((participant: any) => participant.id);
+  const participantIds = participants.map((participant) => participant.id);
   const { data: gameweekPredictions } =
     fixtureIds.length && participantIds.length
       ? await supabase
@@ -85,7 +89,7 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
     );
   }
 
-  const participantStatuses = participants.map((participant: any) => {
+  const participantStatuses = participants.map((participant) => {
     const completed = predictionCounts.get(participant.id) ?? 0;
     const total = fixtureIds.length;
     const status =
@@ -102,6 +106,34 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
   });
 
   const effectiveGameweekId = selectedGameweek?.id ?? '';
+  const [{ data: messageRows }, { data: messageRead }] = selectedGameweek
+    ? await Promise.all([
+        supabase
+          .from('gameweek_messages')
+          .select(
+            'id, participant_id, content, plain_text, created_at, updated_at, participants!inner(display_name)'
+          )
+          .eq('gameweek_id', selectedGameweek.id)
+          .order('updated_at', { ascending: false }),
+        supabase
+          .from('admin_gameweek_message_reads')
+          .select('last_read_at')
+          .eq('gameweek_id', selectedGameweek.id)
+          .eq('user_id', user.id)
+          .maybeSingle(),
+      ])
+    : [{ data: [] }, { data: null }];
+  const lastReadAt = messageRead?.last_read_at ? new Date(messageRead.last_read_at).getTime() : 0;
+  const messages = (messageRows ?? []).map((message) => ({
+    id: message.id,
+    participantId: message.participant_id,
+    participantName: message.participants.display_name,
+    content: message.content,
+    plainText: message.plain_text,
+    createdAt: message.created_at,
+    updatedAt: message.updated_at,
+    unread: new Date(message.updated_at).getTime() > lastReadAt,
+  }));
 
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-6">
@@ -127,6 +159,9 @@ export default async function AdminPredictionsPage({ searchParams }: Props) {
           }))}
           selectedParticipantId={selectedParticipant?.id ?? ''}
           selectedGameweekId={effectiveGameweekId}
+          initialTab={tab === 'messages' ? 'messages' : 'predictions'}
+          messages={messages}
+          unreadMessageCount={messages.filter((message) => message.unread).length}
           llmFallbackConfigured={Boolean(process.env.OPENAI_API_KEY?.trim())}
           fixtures={(fixtures ?? []).map((fixture) => ({
             ...fixture,

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { AdminPredictionsForm } from '@/components/admin/AdminPredictionsForm';
 import { adminExtractEmailPredictions, adminSubmitPredictions } from '@/lib/predictions/actions';
@@ -11,6 +11,38 @@ vi.mock('@/lib/predictions/actions', () => ({
   adminExtractEmailPredictions: vi.fn(),
   adminSubmitPredictions: vi.fn(),
 }));
+
+const { markMessagesReadMock } = vi.hoisted(() => ({
+  markMessagesReadMock: vi.fn().mockResolvedValue({ success: true }),
+}));
+
+vi.mock('@/lib/gameweek-messages/actions', () => ({
+  markGameweekMessagesRead: markMessagesReadMock,
+}));
+
+const messageContent = (text: string) => ({
+  root: {
+    children: [
+      {
+        children: [
+          { detail: 0, format: 0, mode: 'normal', style: '', text, type: 'text', version: 1 },
+        ],
+        direction: null,
+        format: '',
+        indent: 0,
+        textFormat: 0,
+        textStyle: '',
+        type: 'paragraph',
+        version: 1,
+      },
+    ],
+    direction: null,
+    format: '',
+    indent: 0,
+    type: 'root',
+    version: 1,
+  },
+});
 
 const participants = [
   {
@@ -173,5 +205,50 @@ describe('AdminPredictionsForm email import review', () => {
 
     expect(await screen.findByText('LLM suggestion')).toBeInTheDocument();
     expect(screen.getByText('Will replace existing prediction 1–1')).toBeInTheDocument();
+  });
+});
+
+describe('AdminPredictionsForm messages tab', () => {
+  it('shows every gameweek message in one list and acknowledges unread messages', async () => {
+    render(
+      <AdminPredictionsForm
+        participants={participants}
+        gameweeks={[{ id: 'gameweek', label: 'Gameweek 1' }]}
+        selectedParticipantId=""
+        selectedGameweekId="gameweek"
+        initialTab="messages"
+        unreadMessageCount={2}
+        messages={[
+          {
+            id: 'one',
+            participantId: 'alice',
+            participantName: 'Alice Adams',
+            content: messageContent('First note'),
+            plainText: 'First note',
+            createdAt: '2026-08-10T12:00:00.000Z',
+            updatedAt: '2026-08-10T12:00:00.000Z',
+            unread: true,
+          },
+          {
+            id: 'two',
+            participantId: 'bob',
+            participantName: 'Bob Brown',
+            content: messageContent('Second note'),
+            plainText: 'Second note',
+            createdAt: '2026-08-10T11:00:00.000Z',
+            updatedAt: '2026-08-10T11:00:00.000Z',
+            unread: true,
+          },
+        ]}
+        llmFallbackConfigured={false}
+        fixtures={[]}
+      />
+    );
+
+    expect(screen.getByText('Alice Adams')).toBeInTheDocument();
+    expect(screen.getByText('First note')).toBeInTheDocument();
+    expect(screen.getByText('Bob Brown')).toBeInTheDocument();
+    expect(screen.getByText('Second note')).toBeInTheDocument();
+    await waitFor(() => expect(markMessagesReadMock).toHaveBeenCalledWith('gameweek'));
   });
 });

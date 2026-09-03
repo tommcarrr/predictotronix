@@ -12,6 +12,7 @@ import { PlayerAccessibilityToggle } from '@/components/participant/PlayerAccess
 import { selectPredictionGameweek } from '@/lib/predictions/gameweek';
 import { LoginNotices, type VisibleLoginNotice } from '@/components/participant/LoginNotices';
 import { isLoginNoticeDismissed } from '@/lib/login-notices';
+import { GameweekMessageEditor } from '@/components/gameweek-messages/GameweekMessageEditor';
 
 export const metadata = { title: 'Dashboard' };
 
@@ -123,8 +124,20 @@ export default async function DashboardPage({ searchParams }: Props) {
           )
       : { data: [] };
 
+  const { data: gameweekMessages } =
+    participant && candidateIds.length
+      ? await supabase
+          .from('gameweek_messages')
+          .select('gameweek_id, content')
+          .eq('participant_id', participant.id)
+          .in('gameweek_id', candidateIds)
+      : { data: [] };
+
   const predictionMap = new Map(
     (existingPredictions ?? []).map((prediction) => [prediction.fixture_id, prediction])
+  );
+  const gameweekMessageMap = new Map(
+    (gameweekMessages ?? []).map((message) => [message.gameweek_id, message.content])
   );
   const enrichedFixtures = (candidateFixtures ?? []).map((fixture) => ({
     ...fixture,
@@ -148,21 +161,37 @@ export default async function DashboardPage({ searchParams }: Props) {
       <header className="participant-appbar">
         <div className="participant-appbar__inner">
           <div className="participant-appbar__logo" aria-label="Predictotronix">
-            <span className="ceefax-logo participant-appbar__wordmark participant-appbar__wordmark--full" aria-hidden="true">
-              {'PREDICTOTRONIX'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+            <span
+              className="ceefax-logo participant-appbar__wordmark participant-appbar__wordmark--full"
+              aria-hidden="true"
+            >
+              {'PREDICTOTRONIX'.split('').map((ch, i) => (
+                <span key={i}>{ch}</span>
+              ))}
             </span>
-            <span className="ceefax-logo participant-appbar__wordmark participant-appbar__wordmark--compact" aria-hidden="true">
-              {'PDRCT'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+            <span
+              className="ceefax-logo participant-appbar__wordmark participant-appbar__wordmark--compact"
+              aria-hidden="true"
+            >
+              {'PDRCT'.split('').map((ch, i) => (
+                <span key={i}>{ch}</span>
+              ))}
             </span>
           </div>
           <div className="participant-appbar__menu">
-            <p className="participant-appbar__welcome">Welcome, {participant?.display_name ?? user.email}</p>
+            <p className="participant-appbar__welcome">
+              Welcome, {participant?.display_name ?? user.email}
+            </p>
             <PlayerAccessibilityToggle
-              breakout={activeSeason ? {
-                leagueId: activeSeason.league_id,
-                leagueName: activeSeason.leagues?.name ?? 'League',
-                playerName: participant?.display_name ?? user.email ?? 'Player 1',
-              } : undefined}
+              breakout={
+                activeSeason
+                  ? {
+                      leagueId: activeSeason.league_id,
+                      leagueName: activeSeason.leagues?.name ?? 'League',
+                      playerName: participant?.display_name ?? user.email ?? 'Player 1',
+                    }
+                  : undefined
+              }
             />
             <form action={signOut}>
               <FormSubmitButton pendingLabel="Signing out…" className="participant-appbar__signout">
@@ -182,7 +211,8 @@ export default async function DashboardPage({ searchParams }: Props) {
               You&apos;re in{activeSeason?.leagues?.name ? ` ${activeSeason.leagues.name}` : ''}.
             </p>
             <p className="text-sm text-[--color-text-secondary]">
-              Welcome to the league. Your prediction fixtures are ready below when its season is active.
+              Welcome to the league. Your prediction fixtures are ready below when its season is
+              active.
             </p>
           </section>
         )}
@@ -197,41 +227,53 @@ export default async function DashboardPage({ searchParams }: Props) {
             {predictionGameweeks?.length ? (
               <GameweekCarousel initialIndex={initialGameweekIndex}>
                 {predictionGameweeks.map((gameweek) => {
-                  const fixtures = enrichedFixtures.filter((fixture) => fixture.gameweek_id === gameweek.id);
+                  const fixtures = enrichedFixtures.filter(
+                    (fixture) => fixture.gameweek_id === gameweek.id
+                  );
                   const fixtureCount = fixtures.length;
                   const predCount = fixtures.filter((fixture) => fixture.prediction).length;
-                  return <article key={gameweek.id} className="participant-panel participant-gameweek-card space-y-4">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="participant-gameweek-title">{gameweek.label}</p>
-                  <p
-                    className={`text-xs font-bold uppercase ${predCount === fixtureCount && fixtureCount > 0 ? 'text-[--color-success]' : 'text-[--color-warning]'}`}
-                  >
-                    {predCount}/{fixtureCount} predicted
-                    {predCount === fixtureCount && fixtureCount > 0 ? ' ✓' : ''}
-                  </p>
-                </div>
-                {gameweek.first_kickoff && (
-                  <p className="text-[--color-text-secondary] text-xs">
-                    First kickoff:{' '}
-                    {new Date(gameweek.first_kickoff).toLocaleString('en-GB', {
-                      timeZone: 'Europe/London',
-                      dateStyle: 'full',
-                      timeStyle: 'short',
-                    })}
-                  </p>
-                )}
-                {fixturesError ? (
-                  <p className="border border-[--color-error] p-3 text-sm text-[--color-error]">
-                    Fixtures could not be loaded. Refresh the page or contact your league admin.
-                  </p>
-                ) : enrichedFixtures.length === 0 ? (
-                  <p className="border border-[--color-warning] p-3 text-sm text-[--color-text-secondary]">
-                    No fixtures have been added to this gameweek yet.
-                  </p>
-                ) : (
-                  <PredictionsForm fixtures={fixtures} />
-                )}
-                  </article>;
+                  return (
+                    <article
+                      key={gameweek.id}
+                      className="participant-panel participant-gameweek-card space-y-4"
+                    >
+                      <div className="flex flex-wrap items-baseline justify-between gap-2">
+                        <p className="participant-gameweek-title">{gameweek.label}</p>
+                        <p
+                          className={`text-xs font-bold uppercase ${predCount === fixtureCount && fixtureCount > 0 ? 'text-[--color-success]' : 'text-[--color-warning]'}`}
+                        >
+                          {predCount}/{fixtureCount} predicted
+                          {predCount === fixtureCount && fixtureCount > 0 ? ' ✓' : ''}
+                        </p>
+                      </div>
+                      {gameweek.first_kickoff && (
+                        <p className="text-[--color-text-secondary] text-xs">
+                          First kickoff:{' '}
+                          {new Date(gameweek.first_kickoff).toLocaleString('en-GB', {
+                            timeZone: 'Europe/London',
+                            dateStyle: 'full',
+                            timeStyle: 'short',
+                          })}
+                        </p>
+                      )}
+                      {fixturesError ? (
+                        <p className="border border-[--color-error] p-3 text-sm text-[--color-error]">
+                          Fixtures could not be loaded. Refresh the page or contact your league
+                          admin.
+                        </p>
+                      ) : enrichedFixtures.length === 0 ? (
+                        <p className="border border-[--color-warning] p-3 text-sm text-[--color-text-secondary]">
+                          No fixtures have been added to this gameweek yet.
+                        </p>
+                      ) : (
+                        <PredictionsForm fixtures={fixtures} />
+                      )}
+                      <GameweekMessageEditor
+                        gameweekId={gameweek.id}
+                        initialContent={gameweekMessageMap.get(gameweek.id)}
+                      />
+                    </article>
+                  );
                 })}
               </GameweekCarousel>
             ) : (
@@ -273,15 +315,11 @@ export default async function DashboardPage({ searchParams }: Props) {
             Notification settings
           </Link>
           {hasAdminRole && (
-            <Link
-              href="/admin"
-              className="participant-button participant-button--admin"
-            >
+            <Link href="/admin" className="participant-button participant-button--admin">
               Admin panel
             </Link>
           )}
         </nav>
-
       </main>
     </div>
   );
