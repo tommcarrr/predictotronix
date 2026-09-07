@@ -27,6 +27,22 @@ describe('Ceefax Breakout controls', () => {
     expect(component).toContain('setPaddleDirection(direction, false)');
   });
 
+  it('pauses and resumes from both the keyboard and the on-screen control', () => {
+    expect(component).toContain("event.key.toLowerCase() === 'p'");
+    expect(component).toContain("if (screenRef.current === 'playing') pauseGame()");
+    expect(component).toContain("else if (screenRef.current === 'paused') resumeGame()");
+    expect(component).toContain("aria-label={screen === 'paused' ? 'Resume game' : 'Pause game'}");
+    expect(component).toContain('gameRef.current.pausedAt ?? now');
+    expect(component).toContain('if (game.catchUntil > pausedAt) game.catchUntil += pausedFor');
+  });
+
+  it('can end a paused game and submit its current score', () => {
+    expect(component).toContain("changeScreen('ended')");
+    expect(component).toContain("screen !== 'ended'");
+    expect(component).toContain("finished: screen === 'won'");
+    expect(component).toContain('End game &amp; save score');
+  });
+
   it('keeps the action control between the mobile direction controls', () => {
     const portraitControls = component.indexOf('<footer className={styles.controls}>');
     const leftControl = component.indexOf("renderDirectionButton('left')", portraitControls);
@@ -89,7 +105,7 @@ describe('Ceefax Breakout controls', () => {
 
   it('prevents game button labels from being selected during play', () => {
     expect(styles).toMatch(
-      /\.close,\s*\.direction,\s*\.action,\s*\.start\s*\{[^}]*user-select: none/
+      /\.close,\s*\.pause,\s*\.direction,\s*\.action,\s*\.start,\s*\.end\s*\{[^}]*user-select: none/
     );
     expect(styles).toContain('-webkit-user-select: none');
   });

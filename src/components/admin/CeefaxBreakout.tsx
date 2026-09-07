@@ -25,7 +25,7 @@ const HEIGHT = 640;
 const PADDLE_Y = 584;
 const POWER_TYPES = ['WIDE', 'CATCH', 'LASER', 'SLOW', 'MULTI', 'LIFE'] as const;
 type PowerType = (typeof POWER_TYPES)[number];
-type Screen = 'splash' | 'playing' | 'paused' | 'gameover' | 'won';
+type Screen = 'splash' | 'playing' | 'paused' | 'ended' | 'gameover' | 'won';
 
 interface Ball {
   x: number;
@@ -77,6 +77,7 @@ interface Game {
   livesLost: number;
   maxCombo: number;
   activeDurationMs: number;
+  pausedAt: number | null;
 }
 
 const POWER_COLOURS: Record<PowerType, string> = {
@@ -157,6 +158,7 @@ function createGame(runId: string | null = null): Game {
     livesLost: 0,
     maxCombo: 0,
     activeDurationMs: 0,
+    pausedAt: null,
   };
 }
 
@@ -357,6 +359,39 @@ export function CeefaxBreakout({
     [announcePower, publishHud]
   );
 
+  const pauseGame = useCallback(() => {
+    if (screenRef.current !== 'playing') return;
+    const game = gameRef.current;
+    game.keys.left = false;
+    game.keys.right = false;
+    game.pausedAt = performance.now();
+    changeScreen('paused');
+  }, [changeScreen]);
+
+  const resumeGame = useCallback(() => {
+    if (screenRef.current !== 'paused') return;
+    const game = gameRef.current;
+    const pausedAt = game.pausedAt ?? performance.now();
+    const pausedFor = performance.now() - pausedAt;
+    if (game.catchUntil > pausedAt) game.catchUntil += pausedFor;
+    if (game.laserUntil > pausedAt) game.laserUntil += pausedFor;
+    if (game.wideUntil > pausedAt) game.wideUntil += pausedFor;
+    if (game.lastShotAt > 0) game.lastShotAt += pausedFor;
+    game.pausedAt = null;
+    changeScreen('playing');
+  }, [changeScreen]);
+
+  const endGame = useCallback(() => {
+    if (screenRef.current !== 'paused') return;
+    const game = gameRef.current;
+    game.keys.left = false;
+    game.keys.right = false;
+    game.pausedAt = null;
+    game.score = Math.max(0, game.score);
+    publishHud();
+    changeScreen('ended');
+  }, [changeScreen, publishHud]);
+
   const fireAction = useCallback(() => {
     const game = gameRef.current;
     if (
@@ -366,7 +401,7 @@ export function CeefaxBreakout({
     )
       return;
     if (screenRef.current === 'paused') {
-      changeScreen('playing');
+      resumeGame();
       return;
     }
     const stuck = game.balls.filter((ball) => ball.stuck);
@@ -386,7 +421,7 @@ export function CeefaxBreakout({
       );
       game.lastShotAt = now;
     }
-  }, [changeScreen]);
+  }, [resumeGame]);
 
   const startGame = useCallback(() => {
     startLeaderboardTransition(async () => {
@@ -415,7 +450,7 @@ export function CeefaxBreakout({
   }, [leagueId]);
 
   useEffect(() => {
-    if (screen !== 'gameover' && screen !== 'won') return;
+    if (screen !== 'ended' && screen !== 'gameover' && screen !== 'won') return;
     const game = gameRef.current;
     const submissionKey = `${game.runId}:${screen}:${hud.score}`;
     if (submittedScoreRef.current === submissionKey) return;
@@ -611,7 +646,7 @@ export function CeefaxBreakout({
       const dt = Math.min((now - lastFrameRef.current) / 1000 || 0, 1 / 30);
       lastFrameRef.current = now;
       if (screenRef.current === 'playing') update(dt, now);
-      drawGame(context, gameRef.current, now);
+      drawGame(context, gameRef.current, gameRef.current.pausedAt ?? now);
       frameRef.current = requestAnimationFrame(frame);
     };
     frameRef.current = requestAnimationFrame(frame);
@@ -626,10 +661,13 @@ export function CeefaxBreakout({
       if (event.key === 'ArrowLeft') gameRef.current.keys.left = pressed && canMove;
       if (event.key === 'ArrowRight') gameRef.current.keys.right = pressed && canMove;
       if (pressed && (event.key === ' ' || event.key === 'Enter')) fireAction();
-      if (pressed && event.key.toLowerCase() === 'p' && screenRef.current === 'playing')
-        changeScreen('paused');
+      if (pressed && !event.repeat && event.key.toLowerCase() === 'p') {
+        if (screenRef.current === 'playing') pauseGame();
+        else if (screenRef.current === 'paused') resumeGame();
+      }
       if (pressed && event.key === 'Escape') onClose();
-      if (['ArrowLeft', 'ArrowRight', ' ', 'Enter'].includes(event.key)) event.preventDefault();
+      if (['ArrowLeft', 'ArrowRight', ' ', 'Enter', 'p', 'P'].includes(event.key))
+        event.preventDefault();
     };
     const releasePaddle = () => {
       gameRef.current.keys.left = false;
@@ -646,7 +684,7 @@ export function CeefaxBreakout({
       window.removeEventListener('keyup', up);
       window.removeEventListener('blur', releasePaddle);
     };
-  }, [changeScreen, fireAction, onClose]);
+  }, [fireAction, onClose, pauseGame, resumeGame]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -735,10 +773,15 @@ export function CeefaxBreakout({
             className={styles.start}
             type="button"
             disabled={leaderboardPending}
-            onClick={screen === 'paused' ? () => changeScreen('playing') : startGame}
+            onClick={screen === 'paused' ? resumeGame : startGame}
           >
             {screen === 'splash' ? 'Press to start' : screen === 'paused' ? 'Resume' : 'Play again'}
           </button>
+          {screen === 'paused' ? (
+            <button className={styles.end} type="button" onClick={endGame}>
+              End game &amp; save score
+            </button>
+          ) : null}
           <p className={styles.help}>
             Move with the ← → keys or hold the on-screen arrows. SPACE / ACTION launches, catches
             and fires. Every {COMBO_SIZE} hits before the ball returns earns +{COMBO_BONUS}; losing
@@ -753,9 +796,26 @@ export function CeefaxBreakout({
       <section className={styles.shell}>
         <header className={styles.masthead}>
           <strong className={styles.title}>CEEFAX SPORT · 302</strong>
-          <button className={styles.close} type="button" onClick={onClose} aria-label="Close game">
-            ×
-          </button>
+          <div className={styles.headerActions}>
+            {screen === 'playing' || screen === 'paused' ? (
+              <button
+                className={styles.pause}
+                type="button"
+                onClick={screen === 'paused' ? resumeGame : pauseGame}
+                aria-label={screen === 'paused' ? 'Resume game' : 'Pause game'}
+              >
+                {screen === 'paused' ? 'Resume' : 'Pause'}
+              </button>
+            ) : null}
+            <button
+              className={styles.close}
+              type="button"
+              onClick={onClose}
+              aria-label="Close game"
+            >
+              ×
+            </button>
+          </div>
         </header>
         <div className={styles.hud} aria-live="polite">
           <span>
@@ -808,6 +868,6 @@ export function CeefaxBreakout({
         </footer>
       </section>
     </div>,
-    document.body,
+    document.body
   );
 }
