@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/server';
 import { getAdminContext } from '@/lib/admin/context';
 import { getSeasonNow } from '@/lib/clock';
+import { loadAllRows } from '@/lib/admin/load-all-rows';
 import { FixtureSyncConsole } from '@/components/admin/FixtureSyncConsole';
 import { AdminNotice } from '@/components/admin/AdminNotice';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
@@ -17,6 +18,7 @@ import {
 } from '@/components/admin/FixtureOutcomeView';
 import {
   getActiveFixtureOutcomePrediction,
+  getFixtureOutcomeReason,
   type FixtureOutcomePrediction,
 } from '@/lib/admin/fixture-outcomes';
 
@@ -34,32 +36,43 @@ export default async function FixturesAdminPage({
   const supabase = await createServiceClient();
   const seasonNow = selectedSeason ? await getSeasonNow(supabase, selectedSeason.id) : new Date();
 
-  const { data: fixtures } = selectedSeason
-    ? await supabase
-        .from('fixtures')
-        .select(
-          `
+  const { data: fixtures, error: fixtureError } = selectedSeason
+    ? await loadAllRows((from, to) =>
+        supabase
+          .from('fixtures')
+          .select(
+            `
           id, home_team_name, away_team_name, kickoff, status,
           home_score, away_score, result_confirmed, last_synced_at,
           gameweeks(id, label, gameweek_number)
         `
-        )
-        .eq('season_id', selectedSeason.id)
-        .order('kickoff', { ascending: false })
-    : { data: [] };
+          )
+          .eq('season_id', selectedSeason.id)
+          .order('kickoff', { ascending: false })
+          .order('id')
+          .range(from, to)
+      )
+    : { data: [], error: null };
 
   const [predictionResult, participantResult] =
     selectedSeason && tab === 'outcomes'
       ? await Promise.all([
-          supabase
-            .from('predictions')
-            .select('fixture_id, participant_id, home_score, away_score, points_reason')
-            .eq('season_id', selectedSeason.id)
-            .in('points_reason', ['exact', 'correct_result']),
-          supabase
-            .from('season_participants')
-            .select('participant_id, participants!inner(display_name)')
-            .eq('season_id', selectedSeason.id),
+          loadAllRows((from, to) =>
+            supabase
+              .from('predictions')
+              .select('fixture_id, participant_id, home_score, away_score')
+              .eq('season_id', selectedSeason.id)
+              .order('id')
+              .range(from, to)
+          ),
+          loadAllRows((from, to) =>
+            supabase
+              .from('season_participants')
+              .select('participant_id, participants!inner(display_name)')
+              .eq('season_id', selectedSeason.id)
+              .order('participant_id')
+              .range(from, to)
+          ),
         ])
       : [
           { data: [], error: null },
@@ -143,7 +156,12 @@ export default async function FixturesAdminPage({
     { exactScores: FixtureOutcomePrediction[]; correctResults: FixtureOutcomePrediction[] }
   >();
 
+  const fixturesById = new Map((fixtures ?? []).map((fixture) => [fixture.id, fixture]));
   for (const prediction of predictionResult.data ?? []) {
+    const fixture = fixturesById.get(prediction.fixture_id);
+    if (!fixture) continue;
+    const reason = getFixtureOutcomeReason(prediction, fixture);
+    if (reason !== 'exact' && reason !== 'correct_result') continue;
     const outcomePrediction = getActiveFixtureOutcomePrediction(prediction, participantNames);
     if (!outcomePrediction) continue;
 
@@ -151,9 +169,8 @@ export default async function FixturesAdminPage({
       exactScores: [],
       correctResults: [],
     };
-    if (prediction.points_reason === 'exact') outcomes.exactScores.push(outcomePrediction);
-    if (prediction.points_reason === 'correct_result')
-      outcomes.correctResults.push(outcomePrediction);
+    if (reason === 'exact') outcomes.exactScores.push(outcomePrediction);
+    if (reason === 'correct_result') outcomes.correctResults.push(outcomePrediction);
     predictionsByFixture.set(prediction.fixture_id, outcomes);
   }
 
@@ -216,13 +233,14 @@ export default async function FixturesAdminPage({
       )}
       {selectedSeason &&
         tab === 'outcomes' &&
-        (predictionResult.error || participantResult.error) && (
+        (fixtureError || predictionResult.error || participantResult.error) && (
           <AdminNotice tone="danger" role="alert">
             Prediction outcomes could not be loaded. Please refresh and try again.
           </AdminNotice>
         )}
       {selectedSeason &&
         tab === 'outcomes' &&
+        !fixtureError &&
         !predictionResult.error &&
         !participantResult.error && <FixtureOutcomeView gameweeks={outcomeGameweeks} />}
       {selectedSeason && tab === 'fixtures' && !(fixtures ?? []).length && (
