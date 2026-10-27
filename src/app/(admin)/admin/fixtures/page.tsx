@@ -28,40 +28,73 @@ export const dynamic = 'force-dynamic';
 export default async function FixturesAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ tab?: string }>;
+  searchParams: Promise<{ tab?: string; gameweek?: string }>;
 }) {
-  const { tab: requestedTab } = await searchParams;
+  const { tab: requestedTab, gameweek: requestedGameweek } = await searchParams;
   const tab = requestedTab === 'sync' || requestedTab === 'outcomes' ? requestedTab : 'fixtures';
   const { selectedLeague, selectedSeason } = await getAdminContext();
   const supabase = await createServiceClient();
-  const seasonNow = selectedSeason ? await getSeasonNow(supabase, selectedSeason.id) : new Date();
+  const seasonNow =
+    selectedSeason && tab === 'fixtures'
+      ? await getSeasonNow(supabase, selectedSeason.id)
+      : new Date();
 
-  const { data: fixtures, error: fixtureError } = selectedSeason
-    ? await loadAllRows((from, to) =>
-        supabase
-          .from('fixtures')
-          .select(
-            `
+  // Only lightweight navigation data spans the season. Result details and
+  // predictions below are restricted to the selected gameweek.
+  const gameweekResult =
+    selectedSeason && tab === 'outcomes'
+      ? await loadAllRows((from, to) =>
+          supabase
+            .from('gameweeks')
+            .select('id, label, gameweek_number, fixtures!inner(id)')
+            .eq('season_id', selectedSeason.id)
+            .eq('fixtures.result_confirmed', true)
+            .not('fixtures.home_score', 'is', null)
+            .not('fixtures.away_score', 'is', null)
+            .order('gameweek_number', { ascending: false })
+            .order('id')
+            .range(from, to)
+        )
+      : { data: [], error: null };
+  const selectedGameweek =
+    gameweekResult.data.find((week) => week.id === requestedGameweek) ?? gameweekResult.data[0];
+
+  const { data: fixtures, error: fixtureError } =
+    selectedSeason && (tab === 'fixtures' || (tab === 'outcomes' && selectedGameweek))
+      ? await loadAllRows((from, to) => {
+          let query = supabase
+            .from('fixtures')
+            .select(
+              `
           id, home_team_name, away_team_name, kickoff, status,
           home_score, away_score, result_confirmed, last_synced_at,
           gameweeks(id, label, gameweek_number)
         `
-          )
-          .eq('season_id', selectedSeason.id)
-          .order('kickoff', { ascending: false })
-          .order('id')
-          .range(from, to)
-      )
-    : { data: [], error: null };
+            )
+            .eq('season_id', selectedSeason.id);
+          if (tab === 'outcomes') {
+            query = query
+              .eq('gameweek_id', selectedGameweek!.id)
+              .eq('result_confirmed', true)
+              .not('home_score', 'is', null)
+              .not('away_score', 'is', null);
+          }
+          return query.order('kickoff', { ascending: false }).order('id').range(from, to);
+        })
+      : { data: [], error: null };
 
   const [predictionResult, participantResult] =
-    selectedSeason && tab === 'outcomes'
+    selectedSeason && tab === 'outcomes' && fixtures.length > 0 && !fixtureError
       ? await Promise.all([
           loadAllRows((from, to) =>
             supabase
               .from('predictions')
               .select('fixture_id, participant_id, home_score, away_score')
               .eq('season_id', selectedSeason.id)
+              .in(
+                'fixture_id',
+                fixtures.map((fixture) => fixture.id)
+              )
               .order('id')
               .range(from, to)
           ),
@@ -233,13 +266,46 @@ export default async function FixturesAdminPage({
       )}
       {selectedSeason &&
         tab === 'outcomes' &&
-        (fixtureError || predictionResult.error || participantResult.error) && (
+        (gameweekResult.error ||
+          fixtureError ||
+          predictionResult.error ||
+          participantResult.error) && (
           <AdminNotice tone="danger" role="alert">
             Prediction outcomes could not be loaded. Please refresh and try again.
           </AdminNotice>
         )}
       {selectedSeason &&
         tab === 'outcomes' &&
+        !gameweekResult.error &&
+        gameweekResult.data.length > 0 && (
+          <form action="/admin/fixtures" method="get" className="flex flex-wrap items-end gap-3">
+            <input type="hidden" name="tab" value="outcomes" />
+            <label className="grid gap-1 text-sm font-medium">
+              Gameweek
+              <select
+                name="gameweek"
+                key={selectedGameweek?.id}
+                defaultValue={selectedGameweek?.id}
+                className="rounded-lg border border-border bg-background px-3 py-2"
+              >
+                {gameweekResult.data.map((week) => (
+                  <option key={week.id} value={week.id}>
+                    {week.label ?? `Gameweek ${week.gameweek_number}`}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="submit"
+              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+            >
+              Show outcomes
+            </button>
+          </form>
+        )}
+      {selectedSeason &&
+        tab === 'outcomes' &&
+        !gameweekResult.error &&
         !fixtureError &&
         !predictionResult.error &&
         !participantResult.error && <FixtureOutcomeView gameweeks={outcomeGameweeks} />}

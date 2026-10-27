@@ -16,7 +16,7 @@ A Premier League score predictor league app. Players predict fixture scores, the
 
 ### 1. Prerequisites
 
-- Node.js 20+
+- Node.js 24.22.1 (the pinned Node 24 LTS release in `.node-version` and `.nvmrc`)
 - A [Supabase](https://supabase.com) project (free tier works)
 
 ### 2. Clone and install
@@ -24,6 +24,8 @@ A Premier League score predictor league app. Players predict fixture scores, the
 ```bash
 git clone <repo-url>
 cd predictotronix
+nvm install 24.22.1
+nvm use 24.22.1
 npm install
 ```
 

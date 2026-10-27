@@ -5,6 +5,9 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
+    // Avoid stalled fork workers on Windows; keep local verification repeatable.
+    pool: 'threads',
+    maxWorkers: 2,
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
     globals: true,

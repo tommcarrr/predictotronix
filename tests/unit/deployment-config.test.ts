@@ -15,6 +15,17 @@ const seasonClockMigration = normalizeLines(readFileSync(
 ));
 
 describe('staging deployment configuration', () => {
+  it('uses one supported Node version for local development, CI and Render', () => {
+    const nodeVersion = readFileSync('.node-version', 'utf8').trim();
+    expect(readFileSync('.nvmrc', 'utf8').trim()).toBe(nodeVersion);
+    expect(JSON.parse(readFileSync('package.json', 'utf8')).engines.node).toBe(`>=${nodeVersion} <25`);
+    expect(JSON.parse(readFileSync('package-lock.json', 'utf8')).packages[''].engines.node).toBe(`>=${nodeVersion} <25`);
+    expect(readFileSync('.github/workflows/ci.yml', 'utf8')).toContain("node-version-file: '.node-version'");
+    expect(stagingWorkflow).toContain("node-version-file: '.node-version'");
+    // Render reads .node-version unless NODE_VERSION explicitly overrides it.
+    expect(renderBlueprint).not.toContain('key: NODE_VERSION');
+  });
+
   it('defines a protected Render staging service with safe defaults', () => {
     expect(renderBlueprint).toContain('name: predictotronix-staging');
     expect(renderBlueprint).toContain('protection: enabled');
