@@ -5,8 +5,9 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
-    // Avoid stalled fork workers on Windows; keep local verification repeatable.
-    pool: 'threads',
+    // Reuse workers with separate VM contexts on Windows to avoid repeated
+    // worker-start timeouts; retain process isolation on Linux CI.
+    pool: process.platform === 'win32' ? 'vmForks' : 'forks',
     maxWorkers: 2,
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],

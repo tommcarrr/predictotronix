@@ -20,8 +20,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1793045587.1015832,
-    "ast_hash": "5b48a6b05a6e06cc74cd7be7c9425d09",
+    "mtime": 1793190293.1945014,
+    "ast_hash": "a25ce05c2da52ab462f6287022425e40",
     "semantic_hash": ""
   },
   "playwright.config.ts": {
@@ -370,8 +370,8 @@
     "semantic_hash": ""
   },
   "vitest.config.ts": {
-    "mtime": 1793045593.6208143,
-    "ast_hash": "32e2b147b38934bb9c0c314c0d36212f",
+    "mtime": 1793111141.1199052,
+    "ast_hash": "a1a9f011dcfcb28f7a3009c94bd0f0af",
     "semantic_hash": ""
   },
   ".codex/skills/graphify/SKILL.md": {
@@ -1397,6 +1397,21 @@
   "tests/unit/fixture-outcomes-page.test.tsx": {
     "mtime": 1793045672.935831,
     "ast_hash": "8df9f8d27f9c86ccb3c76f86d3c3c656",
+    "semantic_hash": ""
+  },
+  "tests/unit/exceljs-security-compatibility.test.ts": {
+    "mtime": 1793189879.5840611,
+    "ast_hash": "e875ffa6ee3db142dbbb57d0997bbd51",
+    "semantic_hash": ""
+  },
+  "src/styles/vendor/README.md": {
+    "mtime": 1793190266.6941483,
+    "ast_hash": "7ac0989cb7f9d8c23d1fcd6a3f33cb82",
+    "semantic_hash": ""
+  },
+  "src/styles/vendor/shadcn-LICENSE.md": {
+    "mtime": 1793091910.1561015,
+    "ast_hash": "9f105662f30667e1325f917cff4cfeb6",
     "semantic_hash": ""
   }
 }
